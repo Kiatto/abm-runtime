@@ -301,8 +301,13 @@ def two_hop_joint_fast(n_facts: int, dim: int, codebook: int, width: float = 8.0
 
 
 def chain_accuracy_mc(n_facts: int, dim: int, codebook: int, hops: int,
-                      trials: int = 20000, seed: int = 0) -> float:
-    """P(tutti gli h hop di una catena riescono), dal modello per bit."""
+                      trials: int = 20000, seed: int = 0, wins=None) -> float:
+    """P(tutti gli h hop di una catena riescono), dal modello per bit.
+
+    `wins`, se dato, è una lista di h vettori P(vince | distanza d), uno per hop:
+    serve per la regola esatta dei pareggi (win_ordered), in cui la posizione del
+    bersaglio nel codebook conta. Senza, i pareggi si dividono a metà.
+    """
     if n_facts < hops:
         raise ValueError("la catena deve stare nella traccia")
     rng = np.random.RandomState(seed)
@@ -313,6 +318,7 @@ def chain_accuracy_mc(n_facts: int, dim: int, codebook: int, hops: int,
     if n_null > 0:
         win = win + 0.5 * n_null * null * null_sf ** (n_null - 1)
     win = np.clip(win, 0.0, 1.0)
+    win_mat = np.stack(wins) if wins is not None else np.tile(win, (hops, 1))
     others = n_facts - hops
     total = 0.0
     batch = max(1, min(trials, 2_000_000 // max(dim * hops, 1)))
@@ -326,6 +332,34 @@ def chain_accuracy_mc(n_facts: int, dim: int, codebook: int, hops: int,
         t = np.where(s > 0, 1, -1)
         t[ties] = rng.choice([-1, 1], size=int(ties.sum()))
         d = (f != t[:, :, None]).sum(axis=1)            # (b, hops): distanze
-        total += float(np.prod(win[d], axis=1).sum())
+        total += float(np.prod(win_mat[np.arange(hops)[None, :], d], axis=1).sum())
         done += b
     return total / trials
+
+
+# ---------------------------------------------------------------------------
+# La regola dei pareggi della reference, esatta
+# ---------------------------------------------------------------------------
+#
+# ItemMemory.cleanup restituisce il PRIMO codeword a distanza minima, in ordine
+# di inserimento. Per un bersaglio con n_before codeword nulli inseriti prima e
+# n_after inseriti dopo, vince se e solo se i primi sono tutti a distanza
+# strettamente maggiore e i secondi almeno uguale:
+#     P(vince | d) = P(nullo > d)^n_before · P(nullo >= d)^n_after,
+# senza approssimazioni, date le distanze nulle indipendenti. La divisione a metà
+# usata altrove in questo modulo è la sua media su posizioni casuali; con molti
+# codeword inseriti dopo il bersaglio, come i distrattori, lo scarto arriva a
+# quasi 2 punti (docs/preregistration/deepchain2.md).
+
+
+def win_ordered(dim: int, n_before: int, n_after: int) -> np.ndarray:
+    null = binom_pmf(dim, 0.5)
+    gt = np.clip(1.0 - np.cumsum(null), 0.0, 1.0)      # P(nullo > d)
+    ge = np.clip(gt + null, 0.0, 1.0)                    # P(nullo >= d)
+    return gt ** n_before * ge ** n_after
+
+
+def cleanup_accuracy_ordered(n_facts: int, dim: int, n_before: int, n_after: int) -> float:
+    """Accuratezza di cleanup con la regola dei pareggi della reference."""
+    sig = binom_pmf(dim, 1.0 - p_agree(n_facts))
+    return float(np.sum(sig * win_ordered(dim, n_before, n_after)))
