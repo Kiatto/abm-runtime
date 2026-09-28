@@ -29,7 +29,7 @@ The runtime is two files, numpy-only, ~400 lines total.
 
 ### Supported configurations
 
-Every row below was executed, not inferred — full suite, 166 tests.
+Every row below was executed, not inferred — full suite, 167 tests.
 
 | Configuration | Supported | Performance |
 |---|---|---|

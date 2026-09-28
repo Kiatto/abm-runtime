@@ -28,7 +28,7 @@ uv run --python 3.12 --with "numpy==2.0.2" --with pytest --with fastapi --with h
 La distinzione conta più della matrice stessa: **funzionante** e **performante
 come documentato** non coincidono.
 
-- **Supportato (funzionale):** Python ≥ 3.10, NumPy ≥ 1.24. Tutti i 166 test
+- **Supportato (funzionale):** Python ≥ 3.10, NumPy ≥ 1.24. Tutti i test
   passano, i risultati sono identici bit per bit.
 - **Raccomandato (prestazioni nominali):** Python ≥ 3.10, **NumPy ≥ 2.0**. È la
   configurazione a cui si riferiscono tutti i numeri di
@@ -91,7 +91,7 @@ Aggiungere una riga solo dopo averla eseguita.
 
 `.github/workflows/compatibility.yml` riesegue a ogni commit le sette righe della
 matrice qui sopra e aggiunge l'unica dimensione che il portatile di sviluppo non
-può coprire: **macOS x86-64, macOS arm64 (Apple Silicon) e Windows**, ciascuno sul
+può coprire: **macOS arm64 (Apple Silicon) e Windows**, ciascuno sul
 path LUT (NumPy 1.26) e sul path `bitwise_count` (NumPy 2.5).
 
 Un job dedicato confronta il **digest dei codeword** (`.github/codeword_digest.py`)
@@ -101,7 +101,31 @@ macchina non sarebbe leggibile su un'altra. Il digest è già verificato identic
 locale su Python 3.10–3.13 e NumPy 1.24–2.5
 (`682d558d068a17519a54da9fc692cefc9a269ab981f70513061bac9e6a915ada`).
 
-**Stato: in attesa della prima esecuzione.** Finché la CI non è passata, le righe
-macOS e Windows non esistono: la regola sopra vale anche per chi l'ha scritta. Il
-caveat big-endian resta comunque intatto — nessun runner GitHub è big-endian, e
+### Prima esecuzione — 2026-09-18, commit `be89931`, run `35364491882`
+
+| piattaforma | NumPy 1.26 (LUT) | NumPy 2.5 (`bitwise_count`) |
+|---|---|---|
+| Linux x86-64, le 7 righe della matrice | passed | passed |
+| **macOS arm64 (Apple Silicon)** | **passed** | **passed** |
+| Windows x86-64 | **failed** | **failed** |
+| macOS 13 x86-64 | cancellato | cancellato |
+
+- **macOS arm64 è supportato**: era una domanda aperta, ora ha una risposta
+  misurata.
+- **Windows falliva su entrambi i path**, quindi non per NumPy.
+  `BitpackedMemory.load(..., mmap_mode="r")` apre fino a tre mapping (codebook,
+  fatti, trace) e non offriva alcun modo di rilasciarli; Windows rifiuta di
+  cancellare un file mappato, e la pulizia della directory temporanea del test
+  falliva. **Diagnosi inferita, non letta**: i log dei job richiedono diritti di
+  admin sul repo. Corretto aggiungendo `close()` e il context manager; il test
+  di regressione verifica direttamente che nessuna vista sopravviva, perché su
+  Linux la cancellazione di un file mappato riesce comunque e non rileverebbe
+  nulla. Windows resta **non supportato** finché la CI non passa.
+- **macOS 13 non è una riga valida**: GitHub ha ritirato quei runner. Tolto
+  dalla matrice. Il path macOS x86-64 resta quindi **non verificato**.
+- **Il confronto dei digest dei codeword non è ancora avvenuto**: dipende dal
+  successo di tutte le piattaforme ed è stato saltato. L'identità dei codeword
+  fra piattaforme resta **non verificata**.
+
+Il caveat big-endian resta intatto: nessun runner GitHub è big-endian, e
 nessuna quantità di CI gratuita lo risolve.

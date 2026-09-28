@@ -24,14 +24,43 @@ def test_mmap_and_save_load_persistence():
         mem.store("verona", "country", "italy")
         mem.save(dir_path)
 
-        # 2. Load with zero-copy mmap
-        loaded_mem = BitpackedMemory.load(dir_path, mmap_mode="r")
+        # 2. Load with zero-copy mmap. The context manager releases the mapping
+        # before the temporary directory is deleted: Windows refuses to delete a
+        # file while any mapping of it is alive.
+        with BitpackedMemory.load(dir_path, mmap_mode="r") as loaded_mem:
+            # 3. Verify query and member check on loaded instance
+            ans, conf = loaded_mem.query("user_alpha", "lives_in")
+            assert ans == "verona"
+            assert conf > 0.85
+            assert loaded_mem.member("user_alpha", "lives_in", "verona") is True
 
-        # 3. Verify query and member check on loaded instance
-        ans, conf = loaded_mem.query("user_alpha", "lives_in")
-        assert ans == "verona"
-        assert conf > 0.85
-        assert loaded_mem.member("user_alpha", "lives_in", "verona") is True
+
+def test_close_releases_every_memory_map():
+    """close() must drop every view on the mapped files.
+
+    Linux lets a mapped file be deleted anyway, so the temporary directory's
+    cleanup cannot detect a leaked mapping there. This checks the references
+    directly: the three root maps (codebook, facts, trace) stay alive as long
+    as any view on them does, so a surviving view keeps its root reachable.
+    """
+    import gc
+    import weakref
+
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        dir_path = Path(tmp_dir) / "mapped"
+        mem = BitpackedMemory(dim=2048)
+        mem.store("user_alpha", "lives_in", "verona")
+        mem.save(dir_path)
+
+        loaded = BitpackedMemory.load(dir_path, mmap_mode="r")
+        roots = [loaded.items._matrix, loaded._facts[0].base, loaded._trace]
+        assert all(isinstance(r, np.memmap) for r in roots)
+        refs = [weakref.ref(r) for r in roots]
+        del roots
+
+        loaded.close()
+        gc.collect()
+        assert all(r() is None for r in refs), "a view on a mapped file survived close()"
 
 
 def test_cleanup_is_exact_under_noise():

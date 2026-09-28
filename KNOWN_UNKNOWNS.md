@@ -8,7 +8,8 @@ della documentazione.
 - ✓ La teoria **predice** l'accuratezza del cleanup. Misurato: a D=2048 con 500
   fatti Law IV prevede 0.065, l'osservato è 0.066.
 - ✓ Il runtime è **algebricamente equivalente** al riferimento denso, verificato
-  bit per bit (166 test, Python 3.10–3.13, NumPy 1.24–2.5).
+  bit per bit (167 test, Python 3.10–3.13, NumPy 1.24–2.5), su Linux
+  x86-64 e macOS arm64.
 - ✓ Il contratto è **riproducibile**: stessi input, stessi codeword, stessi numeri.
 
 ## Sappiamo anche cosa è stato smentito

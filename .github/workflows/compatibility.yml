@@ -3,7 +3,8 @@
 # Estende COMPATIBILITY.md lungo l'unica dimensione che il portatile di sviluppo
 # non può coprire: il sistema operativo e l'architettura. La sezione "Cosa questa
 # matrice non copre" dichiara «un solo OS e una sola CPU (Linux x86-64)»; questo
-# workflow toglie quel caveat per macOS (x86-64 e arm64) e Windows.
+# workflow toglie quel caveat per macOS arm64 e Windows (macOS x86-64 non
+# è più disponibile come runner gratuito).
 #
 # Resta scoperto, e va lasciato dichiarato: nessun runner GitHub è big-endian.
 
@@ -56,7 +57,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, macos-13, windows-latest]
+        # macos-13 (x86-64) rimosso: runner ritirato da GitHub, i job venivano
+        # cancellati. Il path macOS x86-64 resta quindi non verificato.
+        os: [ubuntu-latest, macos-latest, windows-latest]
         numpy: ["1.26.4", "2.5.1"]   # path LUT e path bitwise_count
     steps:
       - uses: actions/checkout@v4

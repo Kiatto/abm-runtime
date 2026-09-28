@@ -359,6 +359,17 @@ class BitpackedItemMemory:
             item_mem._index = {name: i for i, name in enumerate(names)}
         return item_mem
 
+    def close(self):
+        """Release the arrays backing this codebook, including memory maps.
+
+        After ``load(..., mmap_mode=...)`` every codeword is a view on a file
+        mapping, and the mapping lives as long as any view does. Windows refuses
+        to delete or overwrite a mapped file, so a caller must be able to release
+        it deterministically. The codebook is unusable afterwards.
+        """
+        self._matrix = None
+        self._states = []
+
     def __len__(self):
         return len(self._names)
 
@@ -641,6 +652,25 @@ class BitpackedMemory:
             mem._dirty = False
 
         return mem
+
+    def close(self):
+        """Release every memory map opened by ``load(..., mmap_mode=...)``.
+
+        A memory loaded with mmap holds up to three file mappings: the codebook,
+        the facts and the trace. Windows refuses to delete or overwrite a mapped
+        file while any view of it is alive, so without this a memory loaded from
+        a temporary directory cannot be cleaned up. Safe to call on a memory that
+        was never mapped. The memory is unusable afterwards.
+        """
+        self.items.close()
+        self._facts = []
+        self._trace = None
+
+    def __enter__(self) -> "BitpackedMemory":
+        return self
+
+    def __exit__(self, *exc) -> None:
+        self.close()
 
     def __repr__(self):
         return (f"BitpackedMemory(D={self.dim}, facts={len(self._facts)}, "
