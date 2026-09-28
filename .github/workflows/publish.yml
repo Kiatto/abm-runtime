@@ -34,6 +34,7 @@ jobs:
           uv pip install --python /tmp/smoke/bin/python dist/*.whl
           /tmp/smoke/bin/abm demo
           /tmp/smoke/bin/python -c "from abm import Memory; from inspector import stats, contract, report"
+          /tmp/smoke/bin/python -c "from abm import exact; t = [(f'e{i}', 'r', f'f{i}') for i in range(100)]; c = exact.contract_for(t, 2048); assert 0 < c['expected_accuracy'] <= c['ceiling'] <= 1; assert exact.min_dimension(t, 0.9)"
       - uses: actions/upload-artifact@v4
         with:
           name: dist

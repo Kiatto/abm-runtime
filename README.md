@@ -48,6 +48,27 @@ macOS x86-64, untested on big-endian): [COMPATIBILITY.md](COMPATIBILITY.md).
 CI runs the full suite on Linux x86-64, macOS arm64 and Windows x86-64, and
 checks that codewords are bit-identical across all three.
 
+### Sizing a memory before storing anything
+
+`abm.exact` computes the accuracy of a memory from its dimension and from the
+facts it will hold — with no fitted parameter, counting symmetric relations
+(which the encoding fuses into one fact) and the aliases they create. It is the
+model tested by the paper's preregistrations (`docs/preregistration/`).
+
+```python
+from abm import exact
+
+triples = [("payment_service", "requires", "auth_service"), ...]
+exact.contract_for(triples, dim=4096)   # expected accuracy, alias ceiling, twins
+exact.min_dimension(triples, 0.8)       # smallest D predicted to reach 80%
+```
+
+With symmetric relations, aliases cap the accuracy of some queries whatever the
+dimension: `contract_for` reports that ceiling, and `min_dimension` returns
+`None` for targets above it. The older contract in `inspector` uses the
+asymptotic Law IV, which on graphs with symmetric relations promises more than
+it delivers (preregistration 10).
+
 ```python
 from abm import Memory
 from inspector import stats, contract, report
