@@ -106,3 +106,70 @@ def capacity(dim: int, codebook_of_n=lambda n: 2 * n + 11,
         if hi - lo < 0.5:
             break
     return (lo + hi) / 2
+
+
+# ---------------------------------------------------------------------------
+# Due hop sulla stessa traccia: la dipendenza esatta, al posto dell'indipendenza
+# ---------------------------------------------------------------------------
+#
+# La Law V (Acc(h) = p^h) assume che i successi di hop diversi sulla stessa
+# traccia siano indipendenti. Non lo sono. Per ogni bit, con T la traccia e f1, f2
+# i fatti interrogati dai due hop,
+#
+#     (T·f1)·(T·f2) = f1·f2      perché T² = 1,
+#
+# e f1·f2 è un bit uniforme indipendente dalla maggioranza. Quindi l'accordo della
+# query con i due bersagli è correlato: Cov = -rho², con rho = 2·p_agree(N) - 1.
+# La distribuzione congiunta per bit è esatta, e dà quella esatta delle due
+# distanze; le distanze nulle dei due hop si trattano come indipendenti (la loro
+# correlazione è una somma di segni casuali, di ordine 1/sqrt(D)).
+
+
+def _agree_given(n_facts: int, same: bool) -> float:
+    """P(la maggioranza concorda con f1), dato che f2 = f1 (same) o f2 = -f1."""
+    m = n_facts - 2                      # gli altri fatti
+    k = np.arange(m + 1)
+    pk = binom_pmf(m, 0.5) if m > 0 else np.array([1.0])
+    rest = 2 * k - m
+    total = rest + (2 if same else 0)    # f1 (+1) e f2 (+1 o -1)
+    return float(np.sum(pk * np.where(total > 0, 1.0, np.where(total == 0, 0.5, 0.0))))
+
+
+def bit_correlation(n_facts: int) -> float:
+    """Correlazione esatta, per bit, fra l'accordo della query con due fatti."""
+    rho = 2 * p_agree(n_facts) - 1
+    return -rho * rho / (1 - rho * rho)
+
+
+def two_hop_joint(n_facts: int, dim: int, codebook: int):
+    """(p, P(entrambi i hop corretti)) per due fatti della stessa traccia.
+
+    Restituisce anche p², cioè la previsione della Law V, per il confronto.
+    """
+    if n_facts < 2:
+        raise ValueError("servono almeno due fatti")
+    u = _agree_given(n_facts, same=True)     # f1 = f2: la traccia concorda con entrambi o con nessuno
+    v = _agree_given(n_facts, same=False)    # f1 = -f2: concorda con esattamente uno
+    # per bit, P(accordo1, accordo2): (+,+), (+,-), (-,+), (-,-)
+    p_pp, p_mm = 0.5 * u, 0.5 * (1 - u)
+    p_pm, p_mp = 0.5 * v, 0.5 * (1 - v)
+    # distanza = numero di bit in disaccordo; distribuzione congiunta (d1, d2)
+    # per convoluzione sui D bit, nella base (x, y) = (disaccordo1, disaccordo2)
+    joint = np.zeros((dim + 1, dim + 1))
+    joint[0, 0] = 1.0
+    step = {(0, 0): p_pp, (0, 1): p_pm, (1, 0): p_mp, (1, 1): p_mm}
+    for _ in range(dim):
+        new = np.zeros_like(joint)
+        for (dx, dy), pr in step.items():
+            new[dx:, dy:] += pr * joint[:dim + 1 - dx, :dim + 1 - dy]
+        joint = new
+    null = binom_pmf(dim, 0.5)
+    null_sf = np.clip(1.0 - np.cumsum(null), 0.0, 1.0)
+    n_null = codebook - 1
+    win = null_sf ** n_null
+    if n_null > 0:
+        win = win + 0.5 * n_null * null * null_sf ** (n_null - 1)
+    win = np.clip(win, 0.0, 1.0)
+    both = float(win @ joint @ win)
+    p = float(np.sum(joint.sum(axis=1) * win))
+    return p, both, p * p
