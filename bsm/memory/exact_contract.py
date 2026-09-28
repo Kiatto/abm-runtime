@@ -173,3 +173,74 @@ def two_hop_joint(n_facts: int, dim: int, codebook: int):
     both = float(win @ joint @ win)
     p = float(np.sum(joint.sum(axis=1) * win))
     return p, both, p * p
+
+
+# ---------------------------------------------------------------------------
+# Fatti con peso: la Law VII in forma esatta, e i gemelli simmetrici
+# ---------------------------------------------------------------------------
+#
+# Un fatto scritto w volte pesa w nel voto di maggioranza (Law VII). Succede anche
+# senza volerlo: per l'encoding s ⊕ ρ(r) ⊕ o, i fatti (s, r, o) e (o, r, s) sono lo
+# STESSO vettore, quindi una relazione simmetrica memorizzata nelle due direzioni
+# produce un fatto di peso 2. La Law VII approssima con N_eff = Σw²; qui la
+# distribuzione della somma pesata degli altri fatti è calcolata esattamente.
+
+
+def _weighted_sum_pmf(weights) -> tuple:
+    """pmf di Σ w_j x_j con x_j Rademacher indipendenti; restituisce (offset, pmf)."""
+    from collections import Counter
+    pmf = np.array([1.0])
+    offset = 0                      # pmf[i] = P(somma = i + offset)
+    for w, count in Counter(int(w) for w in weights).items():
+        # c fatti di peso w: somma = w·(2B - c), B ~ Binomial(c, 1/2)
+        b = binom_pmf(count, 0.5)
+        part = np.zeros(2 * w * count + 1)
+        part[::2 * w] = b          # valori -w·c, -w·c + 2w, ..., +w·c
+        pmf = np.convolve(pmf, part)
+        offset -= w * count
+    return offset, pmf
+
+
+def p_agree_weighted(query_weight: int, other_weights) -> float:
+    """P(la maggioranza concorda con un fatto di peso `query_weight`), esatta."""
+    offset, pmf = _weighted_sum_pmf(other_weights)
+    totals = np.arange(len(pmf)) + offset + query_weight
+    return float(np.sum(pmf * np.where(totals > 0, 1.0, np.where(totals == 0, 0.5, 0.0))))
+
+
+def cleanup_accuracy_mixed(dim: int, codebook: int, correct_p, alias_p=()) -> float:
+    """Come cleanup_accuracy, ma ogni candidato a segnale ha la sua p di accordo.
+
+    `correct_p` e `alias_p` sono le probabilità di accordo per bit dei codeword
+    degli oggetti veri e degli alias. I pareggi fra un oggetto vero e un alias
+    si dividono a metà.
+    """
+    correct_p, alias_p = list(correct_p), list(alias_p)
+    if not correct_p:
+        raise ValueError("serve almeno un oggetto vero")
+    n_null = codebook - len(correct_p) - len(alias_p)
+    if n_null < 0:
+        raise ValueError("codebook troppo piccolo")
+
+    def all_above(ps):             # P(tutte le distanze > d), per d = 0..dim
+        out = np.ones(dim + 1)
+        for p in ps:
+            out *= np.clip(1.0 - np.cumsum(binom_pmf(dim, 1.0 - p)), 0.0, 1.0)
+        return out
+    fc, fa = all_above(correct_p), all_above(alias_p)
+    fc_prev = np.concatenate(([1.0], fc[:-1]))
+    fa_prev = np.concatenate(([1.0], fa[:-1]))
+    p_min_correct = fc_prev - fc                      # min degli oggetti veri == d
+    beats_alias = fa + 0.5 * (fa_prev - fa)           # alias tutti > d, o pari a metà
+    null = binom_pmf(dim, 0.5)
+    null_sf = np.clip(1.0 - np.cumsum(null), 0.0, 1.0)
+    win = null_sf ** n_null
+    if n_null > 0:
+        win = win + 0.5 * n_null * null * null_sf ** (n_null - 1)
+    return float(np.sum(p_min_correct * beats_alias * np.clip(win, 0.0, 1.0)))
+
+
+def fact_weights(triples):
+    """Peso di ogni vettore distinto: (s, r, o) e (o, r, s) sono lo stesso vettore."""
+    from collections import Counter
+    return Counter((frozenset((s, o)), r) for s, r, o in triples)
