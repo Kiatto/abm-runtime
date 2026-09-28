@@ -1,4 +1,4 @@
-# An Exact, Parameter-Free Resource Theory for Binary Holographic Memory, with Preregistered Tests
+# A Parameter-Free, Finite-Dimension Resource Theory for Binary Holographic Memory, with Preregistered Tests
 
 *(Algebraic Binary Memory — ABM)*
 
@@ -132,8 +132,15 @@ codeword of a stored object with probability exactly
 the x_j independent Rademacher variables of the other facts. The distance to the
 true codeword is therefore Binomial(D, 1 − p_agree(N)), each of the M − 1 null
 distances is Binomial(D, ½), and the probability that cleanup returns the true
-object is a finite sum over these distributions, with ties divided evenly. There
-is no parameter.
+object is a finite sum over these distributions. There is no parameter.
+
+What "exact" means here, precisely: for independent random codewords and facts,
+the probability is computed from the exact discrete distributions, with no
+Gaussian or extreme-value approximation. One approximation remains, in the rule
+for ties: the reference breaks a tie in favour of the first codeword inserted,
+while the model splits a tie evenly and counts ties with at most one null
+codeword. The extensions of §3.3 add one assumption each, stated there: that
+candidates at equal signal have independent distances.
 
 Against the capacity data behind k, the exact N\* is 50.5 / 87.5 / 155.5 / 277.5
 at D = 512 / 1024 / 2048 / 4096, measured 50.2 ± 4.5 / 87.1 ± 3.1 / 158.8 ± 5.3 /
