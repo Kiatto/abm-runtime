@@ -13,7 +13,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import numpy as np
 from bsm.memory.vsa import WorkingMemory
 
-D, SEEDS = 8192, 3
+import os
+# ABM_SEEDS / ABM_QUERIES: override per la riesecuzione a 10 seed (v1.4).
+# Senza variabili resta l'esperimento pubblicato: 3 seed, 80 query.
+D = 8192
+SEEDS = int(os.environ.get("ABM_SEEDS", 3))
+QUERIES = int(os.environ.get("ABM_QUERIES", 80))
+K_MEASURED = 0.92  # da examples/k_from_results.py, cioè da ALTRI esperimenti
 
 
 def z_gumbel(M):
@@ -21,8 +27,8 @@ def z_gumbel(M):
     return zm - (log(log(M)) + log(4 * pi)) / (2 * zm)
 
 
-def predicted_acc(N, M):
-    margin = sqrt(2 * D / (pi * N)) - z_gumbel(M)
+def predicted_acc(N, M, k=1.0):
+    margin = sqrt(2 * k * D / (pi * N)) - z_gumbel(M)
     return 0.5 * (1 + erf(margin / sqrt(2)))
 
 
@@ -38,11 +44,13 @@ if __name__ == "__main__":
                      for i in range(N)]
             for f in facts:
                 wm.store(*f)
-            k = min(N, 80)
+            k = min(N, QUERIES)
             accs.append(sum(wm.query(s, r)[0] == o
                             for s, r, o in facts[:k]) / k)
         rows[N] = {"pred": predicted_acc(N, 2 * N + 13),
-                   "meas": float(np.mean(accs))}
+                   "pred_k092": predicted_acc(N, 2 * N + 13, K_MEASURED),
+                   "meas": float(np.mean(accs)),
+                   "seeds": SEEDS, "queries_per_seed": min(N, QUERIES)}
         print(f"{N:>6} {rows[N]['pred']:>8.0%} {rows[N]['meas']:>8.0%}")
     err = np.mean([abs(v['pred'] - v['meas']) for v in rows.values()])
     print(f"|errore| medio: {err:.3f}")

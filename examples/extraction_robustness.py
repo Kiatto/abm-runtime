@@ -26,7 +26,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "reference"))
 import numpy as np
 from abm import Memory, predicted_accuracy
 
-D, SEEDS, N_CHAINS = 2048, 3, 60
+import os
+D, N_CHAINS = 2048, 60
+SEEDS = int(os.environ.get("ABM_SEEDS", 3))  # override per la riesecuzione (v1.4)
 EPS = [0.0, 0.02, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.40, 0.50]
 
 

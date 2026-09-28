@@ -25,7 +25,8 @@ import numpy as np
 from bsm.memory.vsa import WorkingMemory, random_hv
 
 D = 2048
-SEEDS = 3
+import os
+SEEDS = int(os.environ.get("ABM_SEEDS", 3))  # override per la riesecuzione (v1.4)
 RESULTS = {}
 
 

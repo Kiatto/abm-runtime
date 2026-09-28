@@ -28,7 +28,11 @@ from bsm.memory.vsa import WorkingMemory
 
 N_LOAD = 120          # fatti per memoria, SEMPRE
 MIN_TRIALS = 60       # catene di prova minime per punto
-SEEDS = 3
+import os
+# ABM_SEEDS / ABM_DGRID: override per la riesecuzione (v1.4). Senza variabili
+# resta l'esperimento pubblicato: 3 seed, griglia geometrica x1.25.
+SEEDS = int(os.environ.get("ABM_SEEDS", 3))
+DGRID = float(os.environ.get("ABM_DGRID", 1.25))
 TARGET = 0.95
 
 
@@ -69,7 +73,7 @@ def find_dmin(h, seed):
         acc, _ = chain_accuracy(int(d), h, seed)
         if acc >= TARGET:
             return int(d)
-        d *= 1.25
+        d *= DGRID
     return None
 
 

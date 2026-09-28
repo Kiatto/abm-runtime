@@ -25,7 +25,9 @@ import numpy as np
 from bsm.memory.vsa import (WorkingMemory, ItemMemory, bind_xor, permute,
                             bundle, hamming, random_hv)
 
-D, N, SEEDS = 1024, 50, 3
+import os
+D, N = 1024, 50
+SEEDS = int(os.environ.get("ABM_SEEDS", 3))  # override per la riesecuzione (v1.4)
 
 
 def facts_for(seed, n=N):
