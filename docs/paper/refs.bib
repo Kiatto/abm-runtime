@@ -1,15 +1,16 @@
 % refs.bib — bibliografia per docs/paper.md
 %
 % PROVENIENZA, dichiarata perché conta:
-%   [V] verificato online il 2026-09-18 (venue, volume, pagine confermati)
-%   [M] inserito a memoria, NON riverificato — controllare prima della submission
+%   [V] verificato online (venue, volume, pagine, DOI confermati), con data
 %
-% La sezione "Related work" del paper nominava sei lavori senza una sola
-% citazione. Questo file colma quel buco; le voci [M] restano da confermare.
+% Stato al 2026-09-28: tutte le 15 voci verificate. Due correzioni emerse
+% dalla verifica: la survey di Kleyko et al. è del 2022, non del 2023; il DOI
+% del libro di Baader & Nipkow non è stato confermato ed è stato rimosso a
+% favore dell'ISBN, che lo è. Meglio nessun DOI che uno sbagliato.
 
 % ---------- VSA / hyperdimensional computing ----------
 
-% [M]
+% [V] 2026-09-28
 @book{kanerva1988sdm,
   author    = {Kanerva, Pentti},
   title     = {Sparse Distributed Memory},
@@ -18,7 +19,7 @@
   year      = {1988}
 }
 
-% [M]
+% [V] 2026-09-28
 @article{kanerva2009hd,
   author  = {Kanerva, Pentti},
   title   = {Hyperdimensional Computing: An Introduction to Computing in
@@ -31,7 +32,7 @@
   doi     = {10.1007/s12559-009-9009-8}
 }
 
-% [M]
+% [V] 2026-09-28
 @article{plate1995hrr,
   author  = {Plate, Tony A.},
   title   = {Holographic Reduced Representations},
@@ -43,7 +44,7 @@
   doi     = {10.1109/72.377968}
 }
 
-% [V] verificato: Neural Computation 25(8):2038-2078, DOI 10.1162/NECO_a_00467
+% [V] 2026-09-18: Neural Computation 25(8):2038-2078, DOI 10.1162/NECO_a_00467
 @article{gallant2013objects,
   author  = {Gallant, Stephen I. and Okaywe, T. Wendy},
   title   = {Representing Objects, Relations, and Sequences},
@@ -55,7 +56,7 @@
   doi     = {10.1162/NECO_a_00467}
 }
 
-% [V] verificato: Neural Computation 13(2):411-452, DOI 10.1162/089976601300014592
+% [V] 2026-09-18: Neural Computation 13(2):411-452, DOI 10.1162/089976601300014592
 @article{rachkovskij2001thinning,
   author  = {Rachkovskij, Dmitri A. and Kussul, Ernst M.},
   title   = {Binding and Normalization of Binary Sparse Distributed
@@ -68,7 +69,7 @@
   doi     = {10.1162/089976601300014592}
 }
 
-% [M]
+% [V] 2026-09-28
 @inproceedings{gayler2003jackendoff,
   author    = {Gayler, Ross W.},
   title     = {Vector Symbolic Architectures Answer {J}ackendoff's Challenges
@@ -79,8 +80,8 @@
   year      = {2003}
 }
 
-% [M] survey in due parti, ACM Computing Surveys 2022-2023
-@article{kleyko2023survey,
+% [V] 2026-09-28: ACM CSUR 55(6), articolo 130, dicembre 2022 (non 2023)
+@article{kleyko2022survey,
   author  = {Kleyko, Denis and Rachkovskij, Dmitri A. and Osipov, Evgeny and
              Rahimi, Abbas},
   title   = {A Survey on Hyperdimensional Computing aka Vector Symbolic
@@ -88,14 +89,14 @@
   journal = {ACM Computing Surveys},
   volume  = {55},
   number  = {6},
-  pages   = {1--40},
-  year    = {2023},
+  pages   = {130:1--130:40},
+  year    = {2022},
   doi     = {10.1145/3538531}
 }
 
 % ---------- Capacità: il precedente diretto della Law IV ----------
 
-% [V] verificato: Neural Computation 30(6):1449-1513, arXiv:1803.00412
+% [V] 2026-09-18: Neural Computation 30(6):1449-1513, arXiv:1803.00412
 @article{frady2018sequence,
   author  = {Frady, E. Paxon and Kleyko, Denis and Sommer, Friedrich T.},
   title   = {A Theory of Sequence Indexing and Working Memory in Recurrent
@@ -108,7 +109,7 @@
   doi     = {10.1162/neco_a_01084}
 }
 
-% [M]
+% [V] 2026-09-28
 @article{hopfield1982,
   author  = {Hopfield, John J.},
   title   = {Neural Networks and Physical Systems with Emergent Collective
@@ -121,7 +122,7 @@
   doi     = {10.1073/pnas.79.8.2554}
 }
 
-% [M] e' la fonte del regime 0.138 N citato nel paper
+% [V] 2026-09-28 e' la fonte del regime 0.138 N citato nel paper
 @article{amit1985storing,
   author  = {Amit, Daniel J. and Gutfreund, Hanoch and Sompolinsky, Haim},
   title   = {Storing Infinite Numbers of Patterns in a Spin-Glass Model of
@@ -136,7 +137,7 @@
 
 % ---------- Ragionamento su linguaggio naturale, benchmark usati ----------
 
-% [V] verificato: Findings of ACL-IJCNLP 2021, pp. 3621-3634, arXiv:2012.13048
+% [V] 2026-09-18: Findings of ACL-IJCNLP 2021, pp. 3621-3634, arXiv:2012.13048
 @inproceedings{tafjord2021proofwriter,
   author    = {Tafjord, Oyvind and Dalvi, Bhavana and Clark, Peter},
   title     = {{ProofWriter}: Generating Implications, Proofs, and Abductive
@@ -148,7 +149,7 @@
   doi       = {10.18653/v1/2021.findings-acl.317}
 }
 
-% [M]
+% [V] 2026-09-28
 @inproceedings{clark2020ruletaker,
   author    = {Clark, Peter and Tafjord, Oyvind and Richardson, Kyle},
   title     = {Transformers as Soft Reasoners over Language},
@@ -159,7 +160,7 @@
   doi       = {10.24963/ijcai.2020/537}
 }
 
-% [M]
+% [V] 2026-09-28
 @inproceedings{yang2018hotpotqa,
   author    = {Yang, Zhilin and Qi, Peng and Zhang, Saizheng and Bengio, Yoshua
                and Cohen, William W. and Salakhutdinov, Ruslan and Manning,
@@ -173,7 +174,7 @@
   doi       = {10.18653/v1/D18-1259}
 }
 
-% [M]
+% [V] 2026-09-28
 @inproceedings{lewis2020rag,
   author    = {Lewis, Patrick and Perez, Ethan and Piktus, Aleksandra and
                Petroni, Fabio and Karpukhin, Vladimir and Goyal, Naman and
@@ -189,11 +190,11 @@
 
 % ---------- Riscrittura, per la confluenza e il lemma di Newman ----------
 
-% [M]
+% [V] 2026-09-28: CUP 1998, ISBN confermato; DOI non confermato, rimosso
 @book{baader1998term,
   author    = {Baader, Franz and Nipkow, Tobias},
   title     = {Term Rewriting and All That},
   publisher = {Cambridge University Press},
   year      = {1998},
-  doi       = {10.1017/CBO9781139172752}
+  isbn      = {978-0-521-45520-6}
 }

@@ -2,7 +2,7 @@
 
 *(Algebraic Binary Memory — ABM)*
 
-**Preprint v1.1 — July 2026**
+**Preprint v1.2 — September 2026**
 *Normative specification: [FORMALISM.md](FORMALISM.md) (frozen, v2.1).
 Reference implementation: [`reference/abm.py`](../reference/abm.py).
 All experiments reproducible from `examples/`; raw results in the
@@ -270,6 +270,37 @@ inflation. This is geometric attention with a price list.
 
 Both remain in the formalism, marked RETIRED, with the data.
 
+### 6.1 Two limits derived at the implementation layer
+
+The bitpacked runtime made two claims that this paper never made, but that
+the theory can adjudicate. Both were tested and both fell, for reasons the
+model predicts.
+
+**Cleanup cannot be sublinear in this regime.** A metric-tree index
+(VP-tree) was expected to give O(log M) cleanup. Measured, it visits 4 487
+of 5 000 nodes (D = 2048) and gains nothing. The cause is structural and
+follows from A2: a query sits at 0.446·D–0.483·D from its *own* codeword
+(50–500 stored facts), against 0.500·D for every other codeword — a gap of
+only 34–111 bits. Triangle-inequality bounds cannot prune when the target is
+almost as far as the distractors, and banded LSH fails for the same reason
+(per-band collision probability 0.53^r for r bits). The correct claim is not
+"sublinear" but "linear with a low constant": 6.1 ms at M = 10⁵,
+memory-bandwidth-bound.
+
+**Acceptance must be an extreme-value test in M.** A fixed confidence
+threshold (0.75) accepted 0/30 correct answers on a memory whose predicted
+accuracy was 1.00. The failure was the opposite of the one first
+hypothesized (an excess of false accepts), but the defect was in the form,
+not the value: cleanup reports a *maximum* of M z-scores, so its null
+distribution depends on M, while a fixed threshold does not. The replacement
+follows from the same extreme-value reasoning as Law IV — accept iff
+z ≥ Φ⁻¹((1−α)^{1/M}) — which caps false accepts at α for any codebook size
+(measured: 30/30 true accepts, 3/300 false accepts at α = 0.01; the
+threshold is 3.09 at M = 10 and 6.00 at M = 10⁷). The ProofWriter oracle of
+§7 is the M = 1 case: a membership test is a single comparison, and z ≥ 3
+corresponds to α ≈ 0.0014. That is why a fixed threshold is correct there
+and wrong for cleanup.
+
 ## 7. External validation and error attribution
 
 **ProofWriter** (OWA, attribute fragment, 100 questions/depth, 10
@@ -362,10 +393,30 @@ restores accuracy to p at *every* g, confirming that aliasing is
 symmetry, not noise. It remains a hypothesis pending mixed multi-hop
 plans and real corpora.
 
+**Real-document pilot (error attribution, not capacity).** Two sessions on
+real documents (a product catalogue and a six-page Italian employment
+contract) first produced 0 useful answers out of 4. The contract was then
+re-run through a fully local pipeline (a 4B-parameter instruction model on
+CPU, temperature 0), and level ablation located every failure outside the
+algebra: in extraction, 11 of 14 triples were bound to the employer instead
+of the employee, because formal Italian leaves the subject implicit; in the
+planner, 0 of 3 generated retrieval plans were correct. With both corrected,
+the pipeline answered 8 of 10 questions, and the two remaining errors are
+relation-classification confusions between near-synonyms. The ABM level was
+never the cause: its contract predicted 100% and measured 100%.
+
+That last figure is *not* evidence for Law IV. The memory held about 14
+facts at D = 2048, under 5% of the predicted N\* (≈ 270–410 for a codebook
+of 20–50 entries), a load at which any model predicts near-perfect recall.
+What the pilot supports is Law VIII — each failure was attributable to
+exactly one level — and only on one document, with questions written by
+the author, who knew the extracted vocabulary, and with single-hop queries.
+It is a case, not a sample.
+
 ## 8. Related work
 
 Vector Symbolic Architectures and hyperdimensional computing
-[@kanerva1988sdm; @kanerva2009hd; @gayler2003jackendoff; @kleyko2023survey]
+[@kanerva1988sdm; @kanerva2009hd; @gayler2003jackendoff; @kleyko2022survey]
 supply the operator vocabulary: Plate's holographic reduced representations
 [@plate1995hrr], Gallant and Okaywe's matrix binding [@gallant2013objects],
 and Rachkovskij and Kussul's context-dependent thinning
@@ -425,9 +476,11 @@ compilation to typed projection, were confirmed *after* being derived.
 
 *Reproducibility: every number in this paper is produced by a script in
 `examples/` with results committed as JSON; the formal specification is
-frozen as FORMALISM.md v2.0; the reference implementation
-(`reference/abm.py`, < 500 lines, numpy-only, deterministic) passes the
-property tests derived from the axioms.*
+frozen as FORMALISM.md v2.1; the reference implementation
+(`reference/abm.py`, 257 lines, numpy-only, deterministic) passes the
+property tests derived from the axioms. The full test suite runs in
+continuous integration on Linux x86-64 (Python 3.10–3.13, NumPy 1.24–2.5)
+and macOS arm64.*
 
 
 ## References
