@@ -64,6 +64,19 @@ jobs:
           fi
           echo "OK: nessun glifo scartato."
 
+      # Un'immagine non trovata è solo un avviso: il PDF esce senza figura e il
+      # job passerebbe. Le figure portano i risultati, quindi qui si fallisce.
+      - name: Nessuna figura mancante
+        run: |
+          set -eu
+          if grep -qi "could not fetch resource\|not found in resource path" build.log; then
+            echo "FALLITO: figure non trovate ->"
+            grep -i "could not fetch resource\|resource path" build.log | sort -u
+            exit 1
+          fi
+          n=$(grep -o '!\[' docs/paper.md | wc -l)
+          echo "OK: tutte le $n figure trovate."
+
       # Una chiave di citazione sbagliata produce "[?]" nel PDF, senza errori.
       - name: Nessuna citazione irrisolta
         run: |
