@@ -26,7 +26,7 @@ Paper `docs/paper.md` **v1.6** (nove preregistrazioni), review ostile 8.5/10. Da
 | `deepchain.md` — dipendenza fra hop nelle catene profonde (h fino a 6) | `2157233` | **FALSIFICATA**: codebook minuscolo, domina il recupero fuori percorso |
 | `deepchain2.md` — lo stesso con 1000 distrattori | `b4eec35` | **FALSIFICATA** già al singolo hop: regola dei pareggi (la reference sceglie il primo inserito) |
 | `deepchain3.md` — lo stesso con la regola esatta dei pareggi, D = 256 e 320 | `794def8` | **fatta**: H1, H2 sostenute; Law V respinta fino a 8.5 SE a h = 6 |
-| `sizing.md` — il contratto usato per scegliere D prima; il tetto degli alias | `c14c4b4` | in esecuzione / da valutare |
+| `sizing.md` — il contratto usato per scegliere D prima; il tetto degli alias | `c14c4b4` | **fatta**: H1–H3 sostenute; la Law IV manca la promessa su WN18RR (12/20) |
 
 Risultati: `results/exact_prereg_results.json`, `results/dependence_prereg_results.json`.
 Valutare **solo** con i criteri scritti nei file di preregistrazione, e
@@ -70,3 +70,11 @@ richiedono persone. Il lavoro sul paper non sostituisce nessuna delle due cose.
   pubblicati).
 - `examples/prereg_summary.py`: intervalli bootstrap e pavimento di rumore per
   ogni errore riassuntivo.
+
+## Da fare, emerso dalla preregistrazione 10
+
+Il pacchetto pubblicato (`abm`, cioè `reference/`) espone come contratto la Law IV,
+che su grafi con relazioni simmetriche promette più di quanto mantiene. Il modello
+esatto sta in `bsm/memory/exact_contract.py`, che il wheel non contiene. Va
+portato nel pacchetto (senza modificare `reference/abm.py`, congelato), e il
+contratto deve dichiarare il tetto degli alias.

@@ -1,0 +1,2565 @@
+{
+ "preregistration": "docs/preregistration/sizing.md",
+ "rows": [
+  {
+   "kg": "fb15k237",
+   "n": 150,
+   "sample": 0,
+   "codebook": 149,
+   "ceiling": 0.9945054945054945,
+   "exact_0.7": {
+    "dim": 2432,
+    "predicted": 0.7109019578695934,
+    "measured": 0.8021978021978022
+   },
+   "law_iv_0.7": {
+    "dim": 2368,
+    "predicted": 0.7025487082207591,
+    "measured": 0.7582417582417582
+   },
+   "exact_0.8": {
+    "dim": 3008,
+    "predicted": 0.8092163076782556,
+    "measured": 0.8461538461538461
+   },
+   "law_iv_0.8": {
+    "dim": 2880,
+    "predicted": 0.8007769694059281,
+    "measured": 0.8461538461538461
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.994505233386462,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 150,
+   "sample": 1,
+   "codebook": 159,
+   "ceiling": 0.9735023041474655,
+   "exact_0.7": {
+    "dim": 2304,
+    "predicted": 0.7005163617050085,
+    "measured": 0.6559139784946236
+   },
+   "law_iv_0.7": {
+    "dim": 2432,
+    "predicted": 0.7088104701442365,
+    "measured": 0.6344086021505376
+   },
+   "exact_0.8": {
+    "dim": 3008,
+    "predicted": 0.801883286354358,
+    "measured": 0.7204301075268817
+   },
+   "law_iv_0.8": {
+    "dim": 2944,
+    "predicted": 0.804776156322019,
+    "measured": 0.7311827956989247
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9887333469981915,
+    "measured": 0.989247311827957
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 150,
+   "sample": 2,
+   "codebook": 155,
+   "ceiling": 0.9912280701754386,
+   "exact_0.7": {
+    "dim": 2432,
+    "predicted": 0.7085585450722149,
+    "measured": 0.6842105263157895
+   },
+   "law_iv_0.7": {
+    "dim": 2432,
+    "predicted": 0.7118432824321169,
+    "measured": 0.6842105263157895
+   },
+   "exact_0.8": {
+    "dim": 3008,
+    "predicted": 0.8069840132541543,
+    "measured": 0.8333333333333334
+   },
+   "law_iv_0.8": {
+    "dim": 2944,
+    "predicted": 0.8072126283900056,
+    "measured": 0.7982456140350878
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9912278081091456,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 150,
+   "sample": 3,
+   "codebook": 155,
+   "ceiling": 1.0,
+   "exact_0.7": {
+    "dim": 2496,
+    "predicted": 0.7123501479171119,
+    "measured": 0.7162162162162162
+   },
+   "law_iv_0.7": {
+    "dim": 2432,
+    "predicted": 0.7118432824321169,
+    "measured": 0.7027027027027027
+   },
+   "exact_0.8": {
+    "dim": 3008,
+    "predicted": 0.8029298511812902,
+    "measured": 0.7567567567567568
+   },
+   "law_iv_0.8": {
+    "dim": 2944,
+    "predicted": 0.8072126283900056,
+    "measured": 0.7635135135135135
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9999997166220025,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 150,
+   "sample": 4,
+   "codebook": 107,
+   "ceiling": 0.9873310679762293,
+   "exact_0.7": {
+    "dim": 1920,
+    "predicted": 0.7064600053248228,
+    "measured": 0.7012987012987013
+   },
+   "law_iv_0.7": {
+    "dim": 2240,
+    "predicted": 0.7144647499614234,
+    "measured": 0.7532467532467533
+   },
+   "exact_0.8": {
+    "dim": 2752,
+    "predicted": 0.8029336228321773,
+    "measured": 0.7792207792207793
+   },
+   "law_iv_0.8": {
+    "dim": 2688,
+    "predicted": 0.8019888148322627,
+    "measured": 0.7792207792207793
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9999768685193247,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 150,
+   "sample": 5,
+   "codebook": 170,
+   "ceiling": 1.0,
+   "exact_0.7": {
+    "dim": 2432,
+    "predicted": 0.7076139184495159,
+    "measured": 0.6916666666666667
+   },
+   "law_iv_0.7": {
+    "dim": 2432,
+    "predicted": 0.7008182391264005,
+    "measured": 0.6916666666666667
+   },
+   "exact_0.8": {
+    "dim": 3008,
+    "predicted": 0.8068479257273052,
+    "measured": 0.85
+   },
+   "law_iv_0.8": {
+    "dim": 3008,
+    "predicted": 0.8084783568144277,
+    "measured": 0.85
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9999996445623639,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 150,
+   "sample": 6,
+   "codebook": 147,
+   "ceiling": 0.996638655462185,
+   "exact_0.7": {
+    "dim": 2240,
+    "predicted": 0.7018409380838816,
+    "measured": 0.6588235294117647
+   },
+   "law_iv_0.7": {
+    "dim": 2368,
+    "predicted": 0.7041856359895956,
+    "measured": 0.7176470588235294
+   },
+   "exact_0.8": {
+    "dim": 2880,
+    "predicted": 0.8058320326315829,
+    "measured": 0.8117647058823529
+   },
+   "law_iv_0.8": {
+    "dim": 2880,
+    "predicted": 0.80209607341998,
+    "measured": 0.8117647058823529
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9999992238676735,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 150,
+   "sample": 7,
+   "codebook": 150,
+   "ceiling": 0.9125,
+   "exact_0.7": {
+    "dim": 2240,
+    "predicted": 0.706173840435848,
+    "measured": 0.8
+   },
+   "law_iv_0.7": {
+    "dim": 2368,
+    "predicted": 0.7017378423689404,
+    "measured": 0.8
+   },
+   "exact_0.8": {
+    "dim": 3072,
+    "predicted": 0.8003068104228266,
+    "measured": 0.8
+   },
+   "law_iv_0.8": {
+    "dim": 2880,
+    "predicted": 0.8001228176128857,
+    "measured": 0.7
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9124999352853489,
+    "measured": 0.9
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 150,
+   "sample": 8,
+   "codebook": 165,
+   "ceiling": 1.0,
+   "exact_0.7": {
+    "dim": 2304,
+    "predicted": 0.7061368229961275,
+    "measured": 0.7142857142857143
+   },
+   "law_iv_0.7": {
+    "dim": 2432,
+    "predicted": 0.7043901030813813,
+    "measured": 0.7619047619047619
+   },
+   "exact_0.8": {
+    "dim": 2880,
+    "predicted": 0.8045174158418648,
+    "measured": 0.7777777777777778
+   },
+   "law_iv_0.8": {
+    "dim": 2944,
+    "predicted": 0.8012130317545746,
+    "measured": 0.8095238095238095
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9999996131821155,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 150,
+   "sample": 9,
+   "codebook": 157,
+   "ceiling": 1.0,
+   "exact_0.7": {
+    "dim": 2432,
+    "predicted": 0.7039591716460875,
+    "measured": 0.7092198581560284
+   },
+   "law_iv_0.7": {
+    "dim": 2432,
+    "predicted": 0.7103180267623501,
+    "measured": 0.7092198581560284
+   },
+   "exact_0.8": {
+    "dim": 3008,
+    "predicted": 0.806455899951781,
+    "measured": 0.8226950354609929
+   },
+   "law_iv_0.8": {
+    "dim": 2944,
+    "predicted": 0.8059881168339427,
+    "measured": 0.8226950354609929
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9999997214665743,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 150,
+   "sample": 10,
+   "codebook": 131,
+   "ceiling": 0.9966666666666666,
+   "exact_0.7": {
+    "dim": 2176,
+    "predicted": 0.703666306049695,
+    "measured": 0.66
+   },
+   "law_iv_0.7": {
+    "dim": 2304,
+    "predicted": 0.7039337210918042,
+    "measured": 0.71
+   },
+   "exact_0.8": {
+    "dim": 2752,
+    "predicted": 0.800321136763602,
+    "measured": 0.79
+   },
+   "law_iv_0.8": {
+    "dim": 2816,
+    "predicted": 0.8029779185901151,
+    "measured": 0.81
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9999993368634493,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 150,
+   "sample": 11,
+   "codebook": 147,
+   "ceiling": 0.9826644370122631,
+   "exact_0.7": {
+    "dim": 2432,
+    "predicted": 0.709472884876982,
+    "measured": 0.7478260869565218
+   },
+   "law_iv_0.7": {
+    "dim": 2368,
+    "predicted": 0.7041856359895956,
+    "measured": 0.7217391304347827
+   },
+   "exact_0.8": {
+    "dim": 3008,
+    "predicted": 0.8001920959567629,
+    "measured": 0.782608695652174
+   },
+   "law_iv_0.8": {
+    "dim": 2880,
+    "predicted": 0.80209607341998,
+    "measured": 0.7913043478260869
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9928085045229572,
+    "measured": 0.991304347826087
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 150,
+   "sample": 12,
+   "codebook": 152,
+   "ceiling": 1.0,
+   "exact_0.7": {
+    "dim": 2496,
+    "predicted": 0.7118828906169167,
+    "measured": 0.7466666666666667
+   },
+   "law_iv_0.7": {
+    "dim": 2368,
+    "predicted": 0.7001310058016412,
+    "measured": 0.7133333333333334
+   },
+   "exact_0.8": {
+    "dim": 3008,
+    "predicted": 0.8026105362042468,
+    "measured": 0.8066666666666666
+   },
+   "law_iv_0.8": {
+    "dim": 2944,
+    "predicted": 0.8090735162248694,
+    "measured": 0.7866666666666666
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9999997182193241,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 150,
+   "sample": 13,
+   "codebook": 164,
+   "ceiling": 1.0,
+   "exact_0.7": {
+    "dim": 2368,
+    "predicted": 0.7063762078386578,
+    "measured": 0.7558139534883721
+   },
+   "law_iv_0.7": {
+    "dim": 2432,
+    "predicted": 0.7051164475871811,
+    "measured": 0.7790697674418605
+   },
+   "exact_0.8": {
+    "dim": 2944,
+    "predicted": 0.807494379847145,
+    "measured": 0.8604651162790697
+   },
+   "law_iv_0.8": {
+    "dim": 2944,
+    "predicted": 0.8017994863904088,
+    "measured": 0.8604651162790697
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.999999731636493,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 150,
+   "sample": 14,
+   "codebook": 152,
+   "ceiling": 1.0,
+   "exact_0.7": {
+    "dim": 2496,
+    "predicted": 0.7118828906169167,
+    "measured": 0.72
+   },
+   "law_iv_0.7": {
+    "dim": 2368,
+    "predicted": 0.7001310058016412,
+    "measured": 0.7133333333333334
+   },
+   "exact_0.8": {
+    "dim": 3008,
+    "predicted": 0.8026105362042468,
+    "measured": 0.8266666666666667
+   },
+   "law_iv_0.8": {
+    "dim": 2944,
+    "predicted": 0.8090735162248694,
+    "measured": 0.8
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9999997182193241,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 150,
+   "sample": 15,
+   "codebook": 152,
+   "ceiling": 1.0,
+   "exact_0.7": {
+    "dim": 1728,
+    "predicted": 0.7064674533185311,
+    "measured": 0.6666666666666666
+   },
+   "law_iv_0.7": {
+    "dim": 2368,
+    "predicted": 0.7001310058016412,
+    "measured": 0.8095238095238095
+   },
+   "exact_0.8": {
+    "dim": 2368,
+    "predicted": 0.8029909834188234,
+    "measured": 0.8095238095238095
+   },
+   "law_iv_0.8": {
+    "dim": 2944,
+    "predicted": 0.8090735162248694,
+    "measured": 0.9523809523809523
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9999996000160482,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 150,
+   "sample": 16,
+   "codebook": 158,
+   "ceiling": 0.9892290249433108,
+   "exact_0.7": {
+    "dim": 2112,
+    "predicted": 0.7039389250586295,
+    "measured": 0.6190476190476191
+   },
+   "law_iv_0.7": {
+    "dim": 2432,
+    "predicted": 0.709562061116608,
+    "measured": 0.5952380952380952
+   },
+   "exact_0.8": {
+    "dim": 2752,
+    "predicted": 0.8002924087677414,
+    "measured": 0.6904761904761905
+   },
+   "law_iv_0.8": {
+    "dim": 2944,
+    "predicted": 0.8053805840746804,
+    "measured": 0.7619047619047619
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9999989018048222,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 150,
+   "sample": 17,
+   "codebook": 161,
+   "ceiling": 1.0,
+   "exact_0.7": {
+    "dim": 2240,
+    "predicted": 0.7009603417133232,
+    "measured": 0.7407407407407407
+   },
+   "law_iv_0.7": {
+    "dim": 2432,
+    "predicted": 0.7073202169066343,
+    "measured": 0.8148148148148148
+   },
+   "exact_0.8": {
+    "dim": 2816,
+    "predicted": 0.8035157041049783,
+    "measured": 0.8518518518518519
+   },
+   "law_iv_0.8": {
+    "dim": 2944,
+    "predicted": 0.8035764879158862,
+    "measured": 0.8518518518518519
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9999997570103238,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 150,
+   "sample": 18,
+   "codebook": 168,
+   "ceiling": 0.993898343036274,
+   "exact_0.7": {
+    "dim": 2432,
+    "predicted": 0.7002716998444786,
+    "measured": 0.6724137931034483
+   },
+   "law_iv_0.7": {
+    "dim": 2432,
+    "predicted": 0.7022351841062624,
+    "measured": 0.6724137931034483
+   },
+   "exact_0.8": {
+    "dim": 3072,
+    "predicted": 0.8090204555316212,
+    "measured": 0.7931034482758621
+   },
+   "law_iv_0.8": {
+    "dim": 3008,
+    "predicted": 0.8095902646893102,
+    "measured": 0.7844827586206896
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.999383731719628,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 150,
+   "sample": 19,
+   "codebook": 106,
+   "ceiling": 0.9870596205962061,
+   "exact_0.7": {
+    "dim": 1920,
+    "predicted": 0.7095266971266043,
+    "measured": 0.6829268292682927
+   },
+   "law_iv_0.7": {
+    "dim": 2176,
+    "predicted": 0.7010193943052028,
+    "measured": 0.7439024390243902
+   },
+   "exact_0.8": {
+    "dim": 2688,
+    "predicted": 0.8067928867599377,
+    "measured": 0.7926829268292683
+   },
+   "law_iv_0.8": {
+    "dim": 2688,
+    "predicted": 0.8029374878733853,
+    "measured": 0.7926829268292683
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.999988066977661,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 300,
+   "sample": 0,
+   "codebook": 293,
+   "ceiling": 0.9912229437229436,
+   "exact_0.7": {
+    "dim": 5568,
+    "predicted": 0.7052344667209803,
+    "measured": 0.71
+   },
+   "law_iv_0.7": {
+    "dim": 5504,
+    "predicted": 0.7056274377331184,
+    "measured": 0.71
+   },
+   "exact_0.8": {
+    "dim": 6784,
+    "predicted": 0.8034770002344621,
+    "measured": 0.78
+   },
+   "law_iv_0.8": {
+    "dim": 6592,
+    "predicted": 0.8023502018203268,
+    "measured": 0.765
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9883534552052063,
+    "measured": 0.985
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 300,
+   "sample": 1,
+   "codebook": 296,
+   "ceiling": 1.0,
+   "exact_0.7": {
+    "dim": 5568,
+    "predicted": 0.7050919592919233,
+    "measured": 0.735
+   },
+   "law_iv_0.7": {
+    "dim": 5504,
+    "predicted": 0.7044811935648094,
+    "measured": 0.715
+   },
+   "exact_0.8": {
+    "dim": 6720,
+    "predicted": 0.8029700302151477,
+    "measured": 0.795
+   },
+   "law_iv_0.8": {
+    "dim": 6592,
+    "predicted": 0.8014253576568915,
+    "measured": 0.78
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9972486055537728,
+    "measured": 0.995
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 300,
+   "sample": 2,
+   "codebook": 311,
+   "ceiling": 0.9910327635327636,
+   "exact_0.7": {
+    "dim": 5568,
+    "predicted": 0.7007253790589868,
+    "measured": 0.69
+   },
+   "law_iv_0.7": {
+    "dim": 5568,
+    "predicted": 0.7054911378782991,
+    "measured": 0.69
+   },
+   "exact_0.8": {
+    "dim": 6784,
+    "predicted": 0.801049247571435,
+    "measured": 0.825
+   },
+   "law_iv_0.8": {
+    "dim": 6656,
+    "predicted": 0.8017865388635774,
+    "measured": 0.81
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9921654763052014,
+    "measured": 0.995
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 300,
+   "sample": 3,
+   "codebook": 274,
+   "ceiling": 1.0,
+   "exact_0.7": {
+    "dim": 5120,
+    "predicted": 0.706022617600195,
+    "measured": 0.735632183908046
+   },
+   "law_iv_0.7": {
+    "dim": 5440,
+    "predicted": 0.7066037665459659,
+    "measured": 0.7586206896551724
+   },
+   "exact_0.8": {
+    "dim": 6272,
+    "predicted": 0.8041541894712116,
+    "measured": 0.7988505747126436
+   },
+   "law_iv_0.8": {
+    "dim": 6528,
+    "predicted": 0.8035963405732777,
+    "measured": 0.8505747126436781
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9977418358802076,
+    "measured": 0.9885057471264368
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 300,
+   "sample": 4,
+   "codebook": 320,
+   "ceiling": 0.9994444444444445,
+   "exact_0.7": {
+    "dim": 5632,
+    "predicted": 0.7050470761652347,
+    "measured": 0.715
+   },
+   "law_iv_0.7": {
+    "dim": 5568,
+    "predicted": 0.702296541356733,
+    "measured": 0.705
+   },
+   "exact_0.8": {
+    "dim": 6784,
+    "predicted": 0.8023466782261317,
+    "measured": 0.81
+   },
+   "law_iv_0.8": {
+    "dim": 6720,
+    "predicted": 0.8040194171238242,
+    "measured": 0.81
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9965542848032356,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 300,
+   "sample": 5,
+   "codebook": 94,
+   "ceiling": 0.9179166666666666,
+   "exact_0.7": {
+    "dim": 3648,
+    "predicted": 0.7014779770010703,
+    "measured": 0.8333333333333334
+   },
+   "law_iv_0.7": {
+    "dim": 4224,
+    "predicted": 0.7013097457516457,
+    "measured": 0.8888888888888888
+   },
+   "exact_0.8": {
+    "dim": 5376,
+    "predicted": 0.8006684930592189,
+    "measured": 0.9
+   },
+   "law_iv_0.8": {
+    "dim": 5248,
+    "predicted": 0.8043832387798636,
+    "measured": 0.9
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.984807332699732,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 300,
+   "sample": 6,
+   "codebook": 287,
+   "ceiling": 0.9944875776397516,
+   "exact_0.7": {
+    "dim": 5376,
+    "predicted": 0.7054803034323309,
+    "measured": 0.6645962732919255
+   },
+   "law_iv_0.7": {
+    "dim": 5440,
+    "predicted": 0.7013542884740215,
+    "measured": 0.6583850931677019
+   },
+   "exact_0.8": {
+    "dim": 6592,
+    "predicted": 0.8001449003947894,
+    "measured": 0.8136645962732919
+   },
+   "law_iv_0.8": {
+    "dim": 6592,
+    "predicted": 0.8042234071287981,
+    "measured": 0.8136645962732919
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.99322529541234,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 300,
+   "sample": 7,
+   "codebook": 267,
+   "ceiling": 1.0,
+   "exact_0.7": {
+    "dim": 5504,
+    "predicted": 0.7053385956348263,
+    "measured": 0.7
+   },
+   "law_iv_0.7": {
+    "dim": 5376,
+    "predicted": 0.7029050129389226,
+    "measured": 0.685
+   },
+   "exact_0.8": {
+    "dim": 6656,
+    "predicted": 0.8024124235298247,
+    "measured": 0.795
+   },
+   "law_iv_0.8": {
+    "dim": 6464,
+    "predicted": 0.8010856179508317,
+    "measured": 0.795
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9971980599412805,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 300,
+   "sample": 8,
+   "codebook": 309,
+   "ceiling": 0.9945,
+   "exact_0.7": {
+    "dim": 5568,
+    "predicted": 0.7026903543605855,
+    "measured": 0.74
+   },
+   "law_iv_0.7": {
+    "dim": 5568,
+    "predicted": 0.706212604645582,
+    "measured": 0.74
+   },
+   "exact_0.8": {
+    "dim": 6784,
+    "predicted": 0.8014859917397058,
+    "measured": 0.8
+   },
+   "law_iv_0.8": {
+    "dim": 6656,
+    "predicted": 0.8023690427309513,
+    "measured": 0.815
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9941249906178404,
+    "measured": 0.995
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 300,
+   "sample": 9,
+   "codebook": 279,
+   "ceiling": 0.9975,
+   "exact_0.7": {
+    "dim": 5184,
+    "predicted": 0.7010721384573969,
+    "measured": 0.71
+   },
+   "law_iv_0.7": {
+    "dim": 5440,
+    "predicted": 0.7045580986507112,
+    "measured": 0.72
+   },
+   "exact_0.8": {
+    "dim": 6400,
+    "predicted": 0.8032731882491149,
+    "measured": 0.83
+   },
+   "law_iv_0.8": {
+    "dim": 6528,
+    "predicted": 0.8019489022678457,
+    "measured": 0.815
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9950878995121519,
+    "measured": 0.995
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 300,
+   "sample": 10,
+   "codebook": 256,
+   "ceiling": 1.0,
+   "exact_0.7": {
+    "dim": 5376,
+    "predicted": 0.7017212469975229,
+    "measured": 0.6802030456852792
+   },
+   "law_iv_0.7": {
+    "dim": 5312,
+    "predicted": 0.7010124905044287,
+    "measured": 0.6802030456852792
+   },
+   "exact_0.8": {
+    "dim": 6528,
+    "predicted": 0.8012123155063868,
+    "measured": 0.7309644670050761
+   },
+   "law_iv_0.8": {
+    "dim": 6400,
+    "predicted": 0.8000381791978921,
+    "measured": 0.751269035532995
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9975398894391022,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 300,
+   "sample": 11,
+   "codebook": 251,
+   "ceiling": 0.993128272251309,
+   "exact_0.7": {
+    "dim": 5696,
+    "predicted": 0.7044760645489334,
+    "measured": 0.7068062827225131
+   },
+   "law_iv_0.7": {
+    "dim": 5312,
+    "predicted": 0.7032750091149569,
+    "measured": 0.7172774869109948
+   },
+   "exact_0.8": {
+    "dim": 7104,
+    "predicted": 0.8018240639966034,
+    "measured": 0.8219895287958116
+   },
+   "law_iv_0.8": {
+    "dim": 6400,
+    "predicted": 0.8018606724183008,
+    "measured": 0.7801047120418848
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9882501067034705,
+    "measured": 0.9790575916230366
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 300,
+   "sample": 12,
+   "codebook": 302,
+   "ceiling": 0.9996153846153846,
+   "exact_0.7": {
+    "dim": 5760,
+    "predicted": 0.7025863309026918,
+    "measured": 0.745
+   },
+   "law_iv_0.7": {
+    "dim": 5504,
+    "predicted": 0.7022204841806121,
+    "measured": 0.71
+   },
+   "exact_0.8": {
+    "dim": 7040,
+    "predicted": 0.8013153186631585,
+    "measured": 0.83
+   },
+   "law_iv_0.8": {
+    "dim": 6656,
+    "predicted": 0.8044324441071247,
+    "measured": 0.815
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9951501296558982,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 300,
+   "sample": 13,
+   "codebook": 240,
+   "ceiling": 0.9916124722726355,
+   "exact_0.7": {
+    "dim": 5120,
+    "predicted": 0.7007636367800094,
+    "measured": 0.6907894736842105
+   },
+   "law_iv_0.7": {
+    "dim": 5248,
+    "predicted": 0.701689321968068,
+    "measured": 0.6907894736842105
+   },
+   "exact_0.8": {
+    "dim": 6528,
+    "predicted": 0.8021126190735557,
+    "measured": 0.8157894736842105
+   },
+   "law_iv_0.8": {
+    "dim": 6336,
+    "predicted": 0.8010697207746027,
+    "measured": 0.7631578947368421
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9949989199049976,
+    "measured": 0.993421052631579
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 300,
+   "sample": 14,
+   "codebook": 303,
+   "ceiling": 1.0,
+   "exact_0.7": {
+    "dim": 5568,
+    "predicted": 0.7019030503330353,
+    "measured": 0.68
+   },
+   "law_iv_0.7": {
+    "dim": 5504,
+    "predicted": 0.7018477363547824,
+    "measured": 0.675
+   },
+   "exact_0.8": {
+    "dim": 6784,
+    "predicted": 0.8043880400742051,
+    "measured": 0.755
+   },
+   "law_iv_0.8": {
+    "dim": 6656,
+    "predicted": 0.8041352915220623,
+    "measured": 0.765
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9970743310042701,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 300,
+   "sample": 15,
+   "codebook": 307,
+   "ceiling": 1.0,
+   "exact_0.7": {
+    "dim": 5568,
+    "predicted": 0.7021658539314948,
+    "measured": 0.695
+   },
+   "law_iv_0.7": {
+    "dim": 5504,
+    "predicted": 0.7003680286069796,
+    "measured": 0.69
+   },
+   "exact_0.8": {
+    "dim": 6720,
+    "predicted": 0.8004709161756322,
+    "measured": 0.83
+   },
+   "law_iv_0.8": {
+    "dim": 6656,
+    "predicted": 0.8029546467051865,
+    "measured": 0.815
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9971716547842903,
+    "measured": 0.995
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 300,
+   "sample": 16,
+   "codebook": 228,
+   "ceiling": 0.9880755064456722,
+   "exact_0.7": {
+    "dim": 4928,
+    "predicted": 0.7032755799102905,
+    "measured": 0.7403314917127072
+   },
+   "law_iv_0.7": {
+    "dim": 5184,
+    "predicted": 0.700834627688384,
+    "measured": 0.7569060773480663
+   },
+   "exact_0.8": {
+    "dim": 6400,
+    "predicted": 0.8031485183339744,
+    "measured": 0.8287292817679558
+   },
+   "law_iv_0.8": {
+    "dim": 6272,
+    "predicted": 0.8008761406095772,
+    "measured": 0.8121546961325967
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9908285370111108,
+    "measured": 0.988950276243094
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 300,
+   "sample": 17,
+   "codebook": 303,
+   "ceiling": 0.9912067510548525,
+   "exact_0.7": {
+    "dim": 5632,
+    "predicted": 0.7042449818739236,
+    "measured": 0.705
+   },
+   "law_iv_0.7": {
+    "dim": 5504,
+    "predicted": 0.7018477363547824,
+    "measured": 0.68
+   },
+   "exact_0.8": {
+    "dim": 6848,
+    "predicted": 0.8038242286934687,
+    "measured": 0.815
+   },
+   "law_iv_0.8": {
+    "dim": 6656,
+    "predicted": 0.8041352915220623,
+    "measured": 0.8
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9884349582079693,
+    "measured": 0.98
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 300,
+   "sample": 18,
+   "codebook": 295,
+   "ceiling": 1.0,
+   "exact_0.7": {
+    "dim": 5504,
+    "predicted": 0.7003629332956417,
+    "measured": 0.72
+   },
+   "law_iv_0.7": {
+    "dim": 5504,
+    "predicted": 0.7048620811680187,
+    "measured": 0.72
+   },
+   "exact_0.8": {
+    "dim": 6720,
+    "predicted": 0.8041475326900247,
+    "measured": 0.815
+   },
+   "law_iv_0.8": {
+    "dim": 6592,
+    "predicted": 0.8017327813006403,
+    "measured": 0.805
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9972696034520814,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "fb15k237",
+   "n": 300,
+   "sample": 19,
+   "codebook": 309,
+   "ceiling": 0.9943947963800904,
+   "exact_0.7": {
+    "dim": 5696,
+    "predicted": 0.7039280071099548,
+    "measured": 0.74
+   },
+   "law_iv_0.7": {
+    "dim": 5568,
+    "predicted": 0.706212604645582,
+    "measured": 0.73
+   },
+   "exact_0.8": {
+    "dim": 6912,
+    "predicted": 0.8013276032737312,
+    "measured": 0.83
+   },
+   "law_iv_0.8": {
+    "dim": 6656,
+    "predicted": 0.8023690427309513,
+    "measured": 0.79
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.992220706961151,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 150,
+   "sample": 0,
+   "codebook": 101,
+   "ceiling": 0.9813364055299539,
+   "exact_0.7": {
+    "dim": 2176,
+    "predicted": 0.7012831065140606,
+    "measured": 0.7096774193548387
+   },
+   "law_iv_0.7": {
+    "dim": 2176,
+    "predicted": 0.7071105042650496,
+    "measured": 0.7096774193548387
+   },
+   "exact_0.8": {
+    "dim": 2816,
+    "predicted": 0.805973390082884,
+    "measured": 0.8602150537634409
+   },
+   "law_iv_0.8": {
+    "dim": 2688,
+    "predicted": 0.8077920810766102,
+    "measured": 0.8279569892473119
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9813359718868411,
+    "measured": 0.978494623655914
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 150,
+   "sample": 1,
+   "codebook": 108,
+   "ceiling": 0.9171028757094329,
+   "exact_0.7": {
+    "dim": 2432,
+    "predicted": 0.7018423870002827,
+    "measured": 0.7459016393442623
+   },
+   "law_iv_0.7": {
+    "dim": 2240,
+    "predicted": 0.7133156222975455,
+    "measured": 0.7377049180327869
+   },
+   "exact_0.8": {
+    "dim": 3584,
+    "predicted": 0.8011647758478082,
+    "measured": 0.7950819672131147
+   },
+   "law_iv_0.8": {
+    "dim": 2688,
+    "predicted": 0.8010472931202783,
+    "measured": 0.7622950819672131
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9337365659593867,
+    "measured": 0.9344262295081968
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 150,
+   "sample": 2,
+   "codebook": 138,
+   "ceiling": 0.944969900764705,
+   "exact_0.7": {
+    "dim": 2560,
+    "predicted": 0.7056199095754757,
+    "measured": 0.7368421052631579
+   },
+   "law_iv_0.7": {
+    "dim": 2368,
+    "predicted": 0.7118152587860105,
+    "measured": 0.7443609022556391
+   },
+   "exact_0.8": {
+    "dim": 3264,
+    "predicted": 0.8061687924165994,
+    "measured": 0.8646616541353384
+   },
+   "law_iv_0.8": {
+    "dim": 2880,
+    "predicted": 0.8082185427826625,
+    "measured": 0.8345864661654135
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9449697304820645,
+    "measured": 0.9473684210526315
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 150,
+   "sample": 3,
+   "codebook": 143,
+   "ceiling": 0.9770448523108097,
+   "exact_0.7": {
+    "dim": 2496,
+    "predicted": 0.7079134527911187,
+    "measured": 0.6857142857142857
+   },
+   "law_iv_0.7": {
+    "dim": 2368,
+    "predicted": 0.7075220315409263,
+    "measured": 0.6428571428571429
+   },
+   "exact_0.8": {
+    "dim": 3072,
+    "predicted": 0.8025255173552073,
+    "measured": 0.7857142857142857
+   },
+   "law_iv_0.8": {
+    "dim": 2880,
+    "predicted": 0.8047786304341843,
+    "measured": 0.75
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9770446055749837,
+    "measured": 0.9785714285714285
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 150,
+   "sample": 4,
+   "codebook": 102,
+   "ceiling": 0.9327072005272697,
+   "exact_0.7": {
+    "dim": 2624,
+    "predicted": 0.7042009326930975,
+    "measured": 0.7058823529411765
+   },
+   "law_iv_0.7": {
+    "dim": 2176,
+    "predicted": 0.7058703556155985,
+    "measured": 0.6470588235294118
+   },
+   "exact_0.8": {
+    "dim": 3712,
+    "predicted": 0.8032921578316583,
+    "measured": 0.773109243697479
+   },
+   "law_iv_0.8": {
+    "dim": 2688,
+    "predicted": 0.8068059414574328,
+    "measured": 0.7142857142857143
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9389825229181034,
+    "measured": 0.9411764705882353
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 150,
+   "sample": 5,
+   "codebook": 150,
+   "ceiling": 0.9887655998389694,
+   "exact_0.7": {
+    "dim": 2496,
+    "predicted": 0.7076512702302676,
+    "measured": 0.7708333333333334
+   },
+   "law_iv_0.7": {
+    "dim": 2368,
+    "predicted": 0.7017378423689404,
+    "measured": 0.7013888888888888
+   },
+   "exact_0.8": {
+    "dim": 3072,
+    "predicted": 0.8056491310065184,
+    "measured": 0.8541666666666666
+   },
+   "law_iv_0.8": {
+    "dim": 2880,
+    "predicted": 0.8001228176128857,
+    "measured": 0.8333333333333334
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9887652902792219,
+    "measured": 0.9930555555555556
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 150,
+   "sample": 6,
+   "codebook": 104,
+   "ceiling": 0.9202674897119342,
+   "exact_0.7": {
+    "dim": 2368,
+    "predicted": 0.7031655170907436,
+    "measured": 0.7222222222222222
+   },
+   "law_iv_0.7": {
+    "dim": 2176,
+    "predicted": 0.7034233249896855,
+    "measured": 0.7037037037037037
+   },
+   "exact_0.8": {
+    "dim": 3520,
+    "predicted": 0.8000928370963686,
+    "measured": 0.8240740740740741
+   },
+   "law_iv_0.8": {
+    "dim": 2688,
+    "predicted": 0.8048567322253748,
+    "measured": 0.7685185185185185
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9380195373864522,
+    "measured": 0.9629629629629629
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 150,
+   "sample": 7,
+   "codebook": 120,
+   "ceiling": 0.9596754781861164,
+   "exact_0.7": {
+    "dim": 2624,
+    "predicted": 0.7051310597776332,
+    "measured": 0.7375886524822695
+   },
+   "law_iv_0.7": {
+    "dim": 2240,
+    "predicted": 0.700238712452561,
+    "measured": 0.6595744680851063
+   },
+   "exact_0.8": {
+    "dim": 3392,
+    "predicted": 0.8060959359071953,
+    "measured": 0.8297872340425532
+   },
+   "law_iv_0.8": {
+    "dim": 2752,
+    "predicted": 0.8011396276908245,
+    "measured": 0.7659574468085106
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9596737763142364,
+    "measured": 0.950354609929078
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 150,
+   "sample": 8,
+   "codebook": 141,
+   "ceiling": 0.9065722999854878,
+   "exact_0.7": {
+    "dim": 2816,
+    "predicted": 0.702937336921823,
+    "measured": 0.65
+   },
+   "law_iv_0.7": {
+    "dim": 2368,
+    "predicted": 0.7092225451655148,
+    "measured": 0.6
+   },
+   "exact_0.8": {
+    "dim": 3712,
+    "predicted": 0.8051019816765673,
+    "measured": 0.7642857142857142
+   },
+   "law_iv_0.8": {
+    "dim": 2880,
+    "predicted": 0.8061427650223676,
+    "measured": 0.6857142857142857
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.917286257632935,
+    "measured": 0.9071428571428571
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 150,
+   "sample": 9,
+   "codebook": 155,
+   "ceiling": 0.999290780141844,
+   "exact_0.7": {
+    "dim": 2496,
+    "predicted": 0.7124851161425474,
+    "measured": 0.7588652482269503
+   },
+   "law_iv_0.7": {
+    "dim": 2432,
+    "predicted": 0.7118432824321169,
+    "measured": 0.7375886524822695
+   },
+   "exact_0.8": {
+    "dim": 3008,
+    "predicted": 0.802693304017361,
+    "measured": 0.8085106382978723
+   },
+   "law_iv_0.8": {
+    "dim": 2944,
+    "predicted": 0.8072126283900056,
+    "measured": 0.7943262411347518
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9992904473102047,
+    "measured": 1.0
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 150,
+   "sample": 10,
+   "codebook": 119,
+   "ceiling": 0.9086539682539683,
+   "exact_0.7": {
+    "dim": 2880,
+    "predicted": 0.7018546149315623,
+    "measured": 0.736
+   },
+   "law_iv_0.7": {
+    "dim": 2240,
+    "predicted": 0.7012812717228132,
+    "measured": 0.6
+   },
+   "exact_0.8": {
+    "dim": 4096,
+    "predicted": 0.800853259696479,
+    "measured": 0.856
+   },
+   "law_iv_0.8": {
+    "dim": 2752,
+    "predicted": 0.801976111964105,
+    "measured": 0.72
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9112986602633836,
+    "measured": 0.912
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 150,
+   "sample": 11,
+   "codebook": 153,
+   "ceiling": 0.9966666666666667,
+   "exact_0.7": {
+    "dim": 2496,
+    "predicted": 0.7094426323658204,
+    "measured": 0.6733333333333333
+   },
+   "law_iv_0.7": {
+    "dim": 2432,
+    "predicted": 0.7133866465925531,
+    "measured": 0.68
+   },
+   "exact_0.8": {
+    "dim": 3072,
+    "predicted": 0.8093082978405928,
+    "measured": 0.78
+   },
+   "law_iv_0.8": {
+    "dim": 2944,
+    "predicted": 0.808449958369728,
+    "measured": 0.76
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9966663849500522,
+    "measured": 0.9933333333333333
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 150,
+   "sample": 12,
+   "codebook": 144,
+   "ceiling": 0.9684008118613877,
+   "exact_0.7": {
+    "dim": 2496,
+    "predicted": 0.7008396480068212,
+    "measured": 0.7304964539007093
+   },
+   "law_iv_0.7": {
+    "dim": 2368,
+    "predicted": 0.7066799540212332,
+    "measured": 0.7092198581560284
+   },
+   "exact_0.8": {
+    "dim": 3136,
+    "predicted": 0.8032356626147603,
+    "measured": 0.8014184397163121
+   },
+   "law_iv_0.8": {
+    "dim": 2880,
+    "predicted": 0.8041023424517924,
+    "measured": 0.7659574468085106
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9684005671454923,
+    "measured": 0.9716312056737588
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 150,
+   "sample": 13,
+   "codebook": 130,
+   "ceiling": 0.9651662611516625,
+   "exact_0.7": {
+    "dim": 2752,
+    "predicted": 0.7092612862804539,
+    "measured": 0.708029197080292
+   },
+   "law_iv_0.7": {
+    "dim": 2304,
+    "predicted": 0.7048735689271888,
+    "measured": 0.7153284671532847
+   },
+   "exact_0.8": {
+    "dim": 3520,
+    "predicted": 0.806323328682544,
+    "measured": 0.8321167883211679
+   },
+   "law_iv_0.8": {
+    "dim": 2816,
+    "predicted": 0.803732065761608,
+    "measured": 0.7153284671532847
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9724604537100088,
+    "measured": 0.9708029197080292
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 150,
+   "sample": 14,
+   "codebook": 150,
+   "ceiling": 0.9719842725452825,
+   "exact_0.7": {
+    "dim": 2560,
+    "predicted": 0.7119395414777575,
+    "measured": 0.6884057971014492
+   },
+   "law_iv_0.7": {
+    "dim": 2368,
+    "predicted": 0.7017378423689404,
+    "measured": 0.6086956521739131
+   },
+   "exact_0.8": {
+    "dim": 3136,
+    "predicted": 0.8035445103853981,
+    "measured": 0.7101449275362319
+   },
+   "law_iv_0.8": {
+    "dim": 2880,
+    "predicted": 0.8001228176128857,
+    "measured": 0.7246376811594203
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9719840271661069,
+    "measured": 0.9710144927536232
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 150,
+   "sample": 15,
+   "codebook": 105,
+   "ceiling": 0.9533219095719095,
+   "exact_0.7": {
+    "dim": 2240,
+    "predicted": 0.7039420098229018,
+    "measured": 0.7314814814814815
+   },
+   "law_iv_0.7": {
+    "dim": 2176,
+    "predicted": 0.7022160639207388,
+    "measured": 0.7314814814814815
+   },
+   "exact_0.8": {
+    "dim": 3200,
+    "predicted": 0.8007917271379137,
+    "measured": 0.8240740740740741
+   },
+   "law_iv_0.8": {
+    "dim": 2688,
+    "predicted": 0.8038934226590861,
+    "measured": 0.7870370370370371
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.957928099262907,
+    "measured": 0.9629629629629629
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 150,
+   "sample": 16,
+   "codebook": 147,
+   "ceiling": 0.9322111513687601,
+   "exact_0.7": {
+    "dim": 2624,
+    "predicted": 0.7015678894948568,
+    "measured": 0.7291666666666666
+   },
+   "law_iv_0.7": {
+    "dim": 2368,
+    "predicted": 0.7041856359895956,
+    "measured": 0.6527777777777778
+   },
+   "exact_0.8": {
+    "dim": 3392,
+    "predicted": 0.8039964301756667,
+    "measured": 0.8194444444444444
+   },
+   "law_iv_0.8": {
+    "dim": 2880,
+    "predicted": 0.80209607341998,
+    "measured": 0.7013888888888888
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9322111476484635,
+    "measured": 0.9375
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 150,
+   "sample": 17,
+   "codebook": 104,
+   "ceiling": 0.9349512069851054,
+   "exact_0.7": {
+    "dim": 2560,
+    "predicted": 0.7012667614116176,
+    "measured": 0.635593220338983
+   },
+   "law_iv_0.7": {
+    "dim": 2176,
+    "predicted": 0.7034233249896855,
+    "measured": 0.6016949152542372
+   },
+   "exact_0.8": {
+    "dim": 3648,
+    "predicted": 0.8004980929416147,
+    "measured": 0.788135593220339
+   },
+   "law_iv_0.8": {
+    "dim": 2688,
+    "predicted": 0.8048567322253748,
+    "measured": 0.6610169491525424
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9408531890522392,
+    "measured": 0.940677966101695
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 150,
+   "sample": 18,
+   "codebook": 129,
+   "ceiling": 0.9542606516290726,
+   "exact_0.7": {
+    "dim": 2752,
+    "predicted": 0.7044384399363091,
+    "measured": 0.6917293233082706
+   },
+   "law_iv_0.7": {
+    "dim": 2304,
+    "predicted": 0.7058201062673715,
+    "measured": 0.6616541353383458
+   },
+   "exact_0.8": {
+    "dim": 3648,
+    "predicted": 0.8050114892286709,
+    "measured": 0.8120300751879699
+   },
+   "law_iv_0.8": {
+    "dim": 2816,
+    "predicted": 0.8044909238524929,
+    "measured": 0.7293233082706767
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9542524267382021,
+    "measured": 0.9398496240601504
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 150,
+   "sample": 19,
+   "codebook": 110,
+   "ceiling": 0.9038546960286091,
+   "exact_0.7": {
+    "dim": 2688,
+    "predicted": 0.7076563112057562,
+    "measured": 0.6869565217391305
+   },
+   "law_iv_0.7": {
+    "dim": 2240,
+    "predicted": 0.7110462445188946,
+    "measured": 0.591304347826087
+   },
+   "exact_0.8": {
+    "dim": 3648,
+    "predicted": 0.8016749970175026,
+    "measured": 0.7913043478260869
+   },
+   "law_iv_0.8": {
+    "dim": 2752,
+    "predicted": 0.809771747052902,
+    "measured": 0.6782608695652174
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9084906755862813,
+    "measured": 0.9130434782608695
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 300,
+   "sample": 0,
+   "codebook": 244,
+   "ceiling": 0.9689181663532992,
+   "exact_0.7": {
+    "dim": 5952,
+    "predicted": 0.7031059444584428,
+    "measured": 0.71
+   },
+   "law_iv_0.7": {
+    "dim": 5312,
+    "predicted": 0.7065134074894825,
+    "measured": 0.7
+   },
+   "exact_0.8": {
+    "dim": 7808,
+    "predicted": 0.8025160424574147,
+    "measured": 0.83
+   },
+   "law_iv_0.8": {
+    "dim": 6400,
+    "predicted": 0.8044627358015083,
+    "measured": 0.74
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.959651886019158,
+    "measured": 0.96
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 300,
+   "sample": 1,
+   "codebook": 218,
+   "ceiling": 0.9214585137085137,
+   "exact_0.7": {
+    "dim": 6208,
+    "predicted": 0.7008295520239295,
+    "measured": 0.72
+   },
+   "law_iv_0.7": {
+    "dim": 5184,
+    "predicted": 0.7060358249651537,
+    "measured": 0.63
+   },
+   "exact_0.8": {
+    "dim": 8832,
+    "predicted": 0.8006754392730063,
+    "measured": 0.775
+   },
+   "law_iv_0.8": {
+    "dim": 6208,
+    "predicted": 0.8000762903489957,
+    "measured": 0.72
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9067252981317034,
+    "measured": 0.9
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 300,
+   "sample": 2,
+   "codebook": 285,
+   "ceiling": 0.9013569056562686,
+   "exact_0.7": {
+    "dim": 6208,
+    "predicted": 0.7014174743999547,
+    "measured": 0.7133757961783439
+   },
+   "law_iv_0.7": {
+    "dim": 5440,
+    "predicted": 0.7021474363839395,
+    "measured": 0.6496815286624203
+   },
+   "exact_0.8": {
+    "dim": 8128,
+    "predicted": 0.800378147850424,
+    "measured": 0.7834394904458599
+   },
+   "law_iv_0.8": {
+    "dim": 6528,
+    "predicted": 0.8000036227130123,
+    "measured": 0.7197452229299363
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9017456803781464,
+    "measured": 0.9044585987261147
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 300,
+   "sample": 3,
+   "codebook": 224,
+   "ceiling": 0.9529371345029238,
+   "exact_0.7": {
+    "dim": 5824,
+    "predicted": 0.7032504094336667,
+    "measured": 0.765
+   },
+   "law_iv_0.7": {
+    "dim": 5184,
+    "predicted": 0.7028893463775052,
+    "measured": 0.7
+   },
+   "exact_0.8": {
+    "dim": 7872,
+    "predicted": 0.8020163980382711,
+    "measured": 0.795
+   },
+   "law_iv_0.8": {
+    "dim": 6272,
+    "predicted": 0.8025267631108846,
+    "measured": 0.77
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9473647526147658,
+    "measured": 0.945
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 300,
+   "sample": 4,
+   "codebook": 263,
+   "ceiling": 0.9659607843137255,
+   "exact_0.7": {
+    "dim": 5952,
+    "predicted": 0.7032435903761154,
+    "measured": 0.69
+   },
+   "law_iv_0.7": {
+    "dim": 5376,
+    "predicted": 0.7046245597406162,
+    "measured": 0.655
+   },
+   "exact_0.8": {
+    "dim": 7616,
+    "predicted": 0.8007492138386978,
+    "measured": 0.795
+   },
+   "law_iv_0.8": {
+    "dim": 6464,
+    "predicted": 0.8024707118319709,
+    "measured": 0.74
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9605712645825227,
+    "measured": 0.95
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 300,
+   "sample": 5,
+   "codebook": 275,
+   "ceiling": 0.923165013753249,
+   "exact_0.7": {
+    "dim": 5312,
+    "predicted": 0.7026358336441463,
+    "measured": 0.611764705882353
+   },
+   "law_iv_0.7": {
+    "dim": 5440,
+    "predicted": 0.7061918996097631,
+    "measured": 0.6
+   },
+   "exact_0.8": {
+    "dim": 7040,
+    "predicted": 0.8005960545673949,
+    "measured": 0.7529411764705882
+   },
+   "law_iv_0.8": {
+    "dim": 6528,
+    "predicted": 0.8032648961790683,
+    "measured": 0.7529411764705882
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9208691831815236,
+    "measured": 0.9294117647058824
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 300,
+   "sample": 6,
+   "codebook": 264,
+   "ceiling": 0.9359629488158899,
+   "exact_0.7": {
+    "dim": 6144,
+    "predicted": 0.703205875055072,
+    "measured": 0.67
+   },
+   "law_iv_0.7": {
+    "dim": 5376,
+    "predicted": 0.7041924235439525,
+    "measured": 0.615
+   },
+   "exact_0.8": {
+    "dim": 7808,
+    "predicted": 0.8005143619684347,
+    "measured": 0.81
+   },
+   "law_iv_0.8": {
+    "dim": 6464,
+    "predicted": 0.8021228291096691,
+    "measured": 0.7
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.933576903644156,
+    "measured": 0.95
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 300,
+   "sample": 7,
+   "codebook": 232,
+   "ceiling": 0.9518434684684683,
+   "exact_0.7": {
+    "dim": 5440,
+    "predicted": 0.7032282512510263,
+    "measured": 0.72
+   },
+   "law_iv_0.7": {
+    "dim": 5248,
+    "predicted": 0.7055969936801207,
+    "measured": 0.72
+   },
+   "exact_0.8": {
+    "dim": 7616,
+    "predicted": 0.8005286951367494,
+    "measured": 0.81
+   },
+   "law_iv_0.8": {
+    "dim": 6336,
+    "predicted": 0.8042084776824459,
+    "measured": 0.78
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9446694684007843,
+    "measured": 0.93
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 300,
+   "sample": 8,
+   "codebook": 182,
+   "ceiling": 0.9204642857142856,
+   "exact_0.7": {
+    "dim": 5440,
+    "predicted": 0.70152263163009,
+    "measured": 0.685
+   },
+   "law_iv_0.7": {
+    "dim": 4992,
+    "predicted": 0.7066405395693688,
+    "measured": 0.65
+   },
+   "exact_0.8": {
+    "dim": 8192,
+    "predicted": 0.801654209716102,
+    "measured": 0.785
+   },
+   "law_iv_0.8": {
+    "dim": 6016,
+    "predicted": 0.8020206005842172,
+    "measured": 0.68
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9145549362341708,
+    "measured": 0.915
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 300,
+   "sample": 9,
+   "codebook": 301,
+   "ceiling": 0.9875705620801315,
+   "exact_0.7": {
+    "dim": 5696,
+    "predicted": 0.7042787348474393,
+    "measured": 0.705
+   },
+   "law_iv_0.7": {
+    "dim": 5504,
+    "predicted": 0.7025943738944791,
+    "measured": 0.69
+   },
+   "exact_0.8": {
+    "dim": 6912,
+    "predicted": 0.8030596597053303,
+    "measured": 0.82
+   },
+   "law_iv_0.8": {
+    "dim": 6656,
+    "predicted": 0.8047304020897608,
+    "measured": 0.79
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9847842545703895,
+    "measured": 0.99
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 300,
+   "sample": 10,
+   "codebook": 235,
+   "ceiling": 0.9483244455316373,
+   "exact_0.7": {
+    "dim": 6208,
+    "predicted": 0.7023435916711172,
+    "measured": 0.71
+   },
+   "law_iv_0.7": {
+    "dim": 5248,
+    "predicted": 0.704117258906551,
+    "measured": 0.665
+   },
+   "exact_0.8": {
+    "dim": 8192,
+    "predicted": 0.8009424040325029,
+    "measured": 0.78
+   },
+   "law_iv_0.8": {
+    "dim": 6336,
+    "predicted": 0.8030212307492979,
+    "measured": 0.72
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9393324992799674,
+    "measured": 0.93
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 300,
+   "sample": 11,
+   "codebook": 226,
+   "ceiling": 0.9389365079365077,
+   "exact_0.7": {
+    "dim": 6272,
+    "predicted": 0.7031956644851999,
+    "measured": 0.705
+   },
+   "law_iv_0.7": {
+    "dim": 5184,
+    "predicted": 0.7018577853088124,
+    "measured": 0.655
+   },
+   "exact_0.8": {
+    "dim": 8256,
+    "predicted": 0.8018460466080903,
+    "measured": 0.82
+   },
+   "law_iv_0.8": {
+    "dim": 6272,
+    "predicted": 0.8016984652521787,
+    "measured": 0.705
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9368787966806047,
+    "measured": 0.93
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 300,
+   "sample": 12,
+   "codebook": 205,
+   "ceiling": 0.9286087662337661,
+   "exact_0.7": {
+    "dim": 6720,
+    "predicted": 0.7026676066096712,
+    "measured": 0.715
+   },
+   "law_iv_0.7": {
+    "dim": 5120,
+    "predicted": 0.7063903336738113,
+    "measured": 0.645
+   },
+   "exact_0.8": {
+    "dim": 8896,
+    "predicted": 0.8009330820012616,
+    "measured": 0.835
+   },
+   "law_iv_0.8": {
+    "dim": 6144,
+    "predicted": 0.8008413354853159,
+    "measured": 0.695
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9217731416384924,
+    "measured": 0.925
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 300,
+   "sample": 13,
+   "codebook": 299,
+   "ceiling": 0.9869651408450705,
+   "exact_0.7": {
+    "dim": 5632,
+    "predicted": 0.7005912099736398,
+    "measured": 0.71
+   },
+   "law_iv_0.7": {
+    "dim": 5504,
+    "predicted": 0.7033456065432044,
+    "measured": 0.7
+   },
+   "exact_0.8": {
+    "dim": 6848,
+    "predicted": 0.800246245890561,
+    "measured": 0.81
+   },
+   "law_iv_0.8": {
+    "dim": 6592,
+    "predicted": 0.8005081750912058,
+    "measured": 0.8
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9842207861982553,
+    "measured": 0.99
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 300,
+   "sample": 14,
+   "codebook": 266,
+   "ceiling": 0.9196360153256704,
+   "exact_0.7": {
+    "dim": 5824,
+    "predicted": 0.7032825681662019,
+    "measured": 0.7413793103448276
+   },
+   "law_iv_0.7": {
+    "dim": 5376,
+    "predicted": 0.7033326603357661,
+    "measured": 0.735632183908046
+   },
+   "exact_0.8": {
+    "dim": 7680,
+    "predicted": 0.8007956103375955,
+    "measured": 0.8160919540229885
+   },
+   "law_iv_0.8": {
+    "dim": 6464,
+    "predicted": 0.8014302889359093,
+    "measured": 0.7758620689655172
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9212978761955101,
+    "measured": 0.9425287356321839
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 300,
+   "sample": 15,
+   "codebook": 231,
+   "ceiling": 0.9195992063492062,
+   "exact_0.7": {
+    "dim": 6016,
+    "predicted": 0.7012748195222005,
+    "measured": 0.74
+   },
+   "law_iv_0.7": {
+    "dim": 5248,
+    "predicted": 0.7060941564325451,
+    "measured": 0.675
+   },
+   "exact_0.8": {
+    "dim": 8512,
+    "predicted": 0.8005763585845852,
+    "measured": 0.85
+   },
+   "law_iv_0.8": {
+    "dim": 6336,
+    "predicted": 0.8046070087502287,
+    "measured": 0.74
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9081113691893493,
+    "measured": 0.915
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 300,
+   "sample": 16,
+   "codebook": 268,
+   "ceiling": 0.8930280433429411,
+   "exact_0.7": {
+    "dim": 6592,
+    "predicted": 0.7018362618127162,
+    "measured": 0.71
+   },
+   "law_iv_0.7": {
+    "dim": 5376,
+    "predicted": 0.7024788415962552,
+    "measured": 0.61
+   },
+   "exact_0.8": {
+    "dim": 8896,
+    "predicted": 0.8013385148161202,
+    "measured": 0.815
+   },
+   "law_iv_0.8": {
+    "dim": 6464,
+    "predicted": 0.8007420041196245,
+    "measured": 0.68
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.887549577572278,
+    "measured": 0.89
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 300,
+   "sample": 17,
+   "codebook": 242,
+   "ceiling": 0.9145486518808437,
+   "exact_0.7": {
+    "dim": 6336,
+    "predicted": 0.7006675905061506,
+    "measured": 0.67
+   },
+   "law_iv_0.7": {
+    "dim": 5248,
+    "predicted": 0.7007312123089795,
+    "measured": 0.65
+   },
+   "exact_0.8": {
+    "dim": 8320,
+    "predicted": 0.8002284719961303,
+    "measured": 0.8
+   },
+   "law_iv_0.8": {
+    "dim": 6336,
+    "predicted": 0.8002984278039634,
+    "measured": 0.67
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.910876039111236,
+    "measured": 0.9
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 300,
+   "sample": 18,
+   "codebook": 267,
+   "ceiling": 0.941498015873016,
+   "exact_0.7": {
+    "dim": 5824,
+    "predicted": 0.7020894336460393,
+    "measured": 0.68
+   },
+   "law_iv_0.7": {
+    "dim": 5376,
+    "predicted": 0.7029050129389226,
+    "measured": 0.645
+   },
+   "exact_0.8": {
+    "dim": 7296,
+    "predicted": 0.800982198743036,
+    "measured": 0.8
+   },
+   "law_iv_0.8": {
+    "dim": 6464,
+    "predicted": 0.8010856179508317,
+    "measured": 0.775
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9389959693443223,
+    "measured": 0.93
+   }
+  },
+  {
+   "kg": "wn18rr",
+   "n": 300,
+   "sample": 19,
+   "codebook": 295,
+   "ceiling": 0.9948888888888888,
+   "exact_0.7": {
+    "dim": 5568,
+    "predicted": 0.704672311136708,
+    "measured": 0.78
+   },
+   "law_iv_0.7": {
+    "dim": 5504,
+    "predicted": 0.7048620811680187,
+    "measured": 0.77
+   },
+   "exact_0.8": {
+    "dim": 6720,
+    "predicted": 0.8010637484340387,
+    "measured": 0.82
+   },
+   "law_iv_0.8": {
+    "dim": 6592,
+    "predicted": 0.8017327813006403,
+    "measured": 0.805
+   },
+   "at_ceiling_d": {
+    "dim": 16384,
+    "predicted": 0.9921863328959317,
+    "measured": 0.985
+   }
+  }
+ ]
+}
