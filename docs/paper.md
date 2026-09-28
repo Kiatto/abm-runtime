@@ -2,16 +2,16 @@
 
 *(Algebraic Binary Memory — ABM)*
 
-**Preprint v1.6 — September 2026**
+**Preprint v1.7 — September 2026**
 *Normative specification: [FORMALISM.md](FORMALISM.md) (frozen, v2.1).
 Reference implementation: [`reference/abm.py`](../reference/abm.py); exact
-theory: [`bsm/memory/exact_contract.py`](../bsm/memory/exact_contract.py).
+theory, shipped as `abm.exact`: [`reference/exact.py`](../reference/exact.py).
 Every number is produced by a script in `examples/` with results committed as
-JSON; the five preregistrations are in `docs/preregistration/`.*
+JSON; the ten preregistrations are in `docs/preregistration/`.*
 
 ## Abstract
 
-We study Algebraic Binary Memory (ABM), a binary vector-symbolic model of the MAP-B family: facts are XOR-bound triples in one majority-vote trace, and reasoning alternates unbinding with cleanup onto a codebook. The O(N log M) scaling of such traces is known; asymptotic laws predict accuracy only up to a fitted constant. We compute cleanup accuracy at finite dimension from the axioms, with no parameter, and extend it to several true answers, aliases, weighted facts, the reference tie rule and the dependence between hops on one trace. Nine preregistered tests, with predictions committed before any data: seven supported their primary hypotheses and two failed — one through the tie rule, which the model had approximated and a later test confirmed; one through off-path recovery in tiny codebooks, which remains unmodelled. At an unmeasured dimension the error was 0.27 points; on dense subgraphs of two real knowledge graphs, 0.6–1.1 points once symmetric relations are recognised as one fact vector of weight 2; under grounding errors, 0.8–1.9 points without calibration. The theory predicted a failure of our own earlier law: hops on one trace are negatively correlated, by −ρ²/(1−ρ²) per bit, and chains fall below p^h, by up to 8.5 standard errors at six hops. It also predicted that the symmetric encoding costs up to 7 points at low load and gains up to 8 at high load, and where the sign changes. The known bound over-provisions dimension about sixfold. The limits are measured too: an exact store beats the trace on ProofWriter, and the trace is smaller than a minimal exact encoding only below about 75–80% accuracy. ABM is not a compressor; it offers accuracy that can be stated, and checked, before deployment.
+We study Algebraic Binary Memory (ABM), a binary vector-symbolic model of the MAP-B family: facts are XOR-bound triples in one majority-vote trace, and reasoning alternates unbinding with cleanup onto a codebook. The O(N log M) scaling is known; asymptotic laws predict accuracy only up to a fitted constant. We compute cleanup accuracy at finite dimension from the axioms, with no parameter, and extend it to several answers, aliases, weighted facts, the reference tie rule and the dependence between hops. Ten preregistered tests, predictions committed before any data: eight supported their primary hypotheses; two failed and are reported with their causes. At an unmeasured dimension the error was 0.27 points; on dense subgraphs of two real knowledge graphs, 0.6–1.1, once symmetric relations are recognised as one fact of weight 2; under grounding errors, 0.8–1.9 without calibration. Used to choose the dimension in advance on 80 unseen subgraphs, the model kept its promise, while the asymptotic law — the contract the reference exposed — missed by over 6 points in up to 12 of 20; aliases also cap accuracy at any dimension, a ceiling computable from the facts. The theory predicted a failure of our own earlier law: hops on one trace are negatively correlated, by −ρ²/(1−ρ²) per bit, and chains fall below p^h, by up to 8.5 standard errors at six hops. The known bound over-provisions dimension sixfold; an exact store beats the trace on ProofWriter; the trace is smaller than a minimal exact encoding only below 75–80% accuracy. ABM is not a compressor; it offers accuracy that can be stated, and checked, before deployment.
 
 ## 1. Introduction
 
@@ -38,10 +38,11 @@ parameters, and tests it the way such a claim should be tested.
 2. The **exact dependence between hops** on one trace (§4). The independence
    assumed by the composition law Acc(h) = p^h is false; the violation is
    derived and then measured.
-3. **Nine preregistered tests** (§6), with predictions, criteria and harnesses
+3. **Ten preregistered tests** (§6), with predictions, criteria and harnesses
    committed before any run, on synthetic data at an unmeasured dimension, on
-   two real knowledge graphs, on grounding errors, on two encodings and on deep
-   chains. Two failed; both failures are reported with their causes.
+   two real knowledge graphs, on grounding errors, on two encodings, on deep
+   chains, and on the use the paper argues for: choosing a memory's dimension
+   before storing anything. Two failed; both are reported with their causes.
 4. An account of **what the model is not** (§7): not a compressor, not better
    than an exact store at small scale, and not free of the faults we found in
    our own earlier versions (§8).
@@ -193,6 +194,14 @@ one of weight 2 — reduce the noise and gain it. Test 6 confirmed this on dense
 WN18RR, with the sign of the difference right in 6 cells of 6, from −7.0 to +7.8
 points (Fig. 2). The model can say, for a given graph, which encoding to choose
 at a given load, before storing anything.
+
+**Aliases set a ceiling.** Under the symmetric encoding, a query with a aliases at
+equal signal besides its g true answers cannot exceed g/(g + a), whatever the
+dimension. The ceiling of a set of facts is therefore computable before storing
+them; on dense WN18RR subgraphs it is about 0.93–0.95, on FB15k-237 about 0.99. A
+contract that does not state it promises accuracy no dimension can deliver.
+Test 10 confirmed it: at D = 16 384, 38 of 40 subgraphs stayed within 2 points of
+their ceiling.
 
 ![Symmetric minus asymmetric encoding, dense subgraphs (preregistered): measured
 (points) against the prediction (lines). Circles: WN18RR; triangles:
@@ -352,6 +361,7 @@ evaluated only with those criteria, and appended to the same file.
 | 7 | `deepchain.md` | hop dependence at depth, tiny codebook | **falsified**: off-path recovery, not modelled |
 | 8 | `deepchain2.md` | the same with 1 000 distractors | **falsified** at one hop: the tie rule |
 | 9 | `deepchain3.md` | the same with the exact tie rule, two dimensions | all **supported**; p^h rejected at 4.3–8.5 SE |
+| 10 | `sizing.md` | the contract in use: choosing D in advance; the alias ceiling | all **supported**; the asymptotic law misses its promise on WN18RR |
 
 **Test 2 — the exact model on new configurations.** At D = 16 384, a dimension no
 experiment had used, the mean absolute error over six loads was **0.27 points**
@@ -404,6 +414,19 @@ cost more.
 ![Composition under four kinds of extraction error (preregistered): measurement
 (points) against the prediction without calibration
 (lines).](figures/fig6_robustness.png){width=65%}
+
+**Test 10 — the contract in use.** The paper's thesis is practical, so the last
+test uses the model as an engineer would. For 80 unseen dense subgraphs of
+FB15k-237 and WN18RR (N = 150 and 300), the model chose the smallest dimension it
+predicted to reach a target accuracy T ∈ {0.70, 0.80}; accuracy was then measured
+at that dimension. With the exact model the promise held in every group: measured
+minus target averaged +0.01 to +1.68 points, and at most 2 subgraphs of 20 fell
+more than 6 points short. With the asymptotic Law IV — the contract the reference
+implementation had exposed — the promise held on FB15k-237, where aliases and twins
+are rare, and failed on WN18RR: on average 2.8 to 6.2 points below target, and in
+up to 12 of 20 subgraphs more than 6 points below. The exact model is now shipped
+as `abm.exact`, with `contract_for` and `min_dimension`; the latter refuses targets
+above the alias ceiling.
 
 **Tests 6–9** are described in §3.3 (encoding symmetry) and §4.1 (deep chains).
 Tests 7 and 8 are the two failures of this paper's own predictions; each is kept
@@ -577,10 +600,11 @@ store at the scales we measured, and we say so with measurements. It is a memory
 whose accuracy can be computed, exactly and without fitted parameters, from its
 dimension, its load, its codebook and the structure of what it stores — including
 structure that surprised us, like symmetric relations collapsing into single
-facts. Nine preregistered tests put that claim at risk, on synthetic data, on
-two real knowledge graphs, under grounding errors, on two encodings and on deep
-chains; seven supported it, two failed and changed the model, and one falsified a
-law of our own earlier versions by the amount the theory predicted. The strongest
+facts. Ten preregistered tests put that claim at risk, on synthetic data, on
+two real knowledge graphs, under grounding errors, on two encodings, on deep
+chains and in use, sizing memories in advance; eight supported it, two failed and
+changed the model, and one falsified a law of our own earlier versions by the
+amount the theory predicted. The strongest
 evidence for the theory is not that it fits: it is that its predictions were
 fixed before the data, and that where it failed, the failure was found, explained
 and tested again.
@@ -592,9 +616,13 @@ results committed as JSON; results from 10-seed reruns sit beside the originals
 with an `_s10` suffix; the five preregistrations, with their outcomes, are in
 `docs/preregistration/`. The frozen reference implementation
 (`reference/abm.py`, 257 lines, numpy-only, deterministic) and the exact theory
-(`bsm/memory/exact_contract.py`, numpy-only) are covered by the test suite, which
+(`reference/exact.py`, shipped as `abm.exact`, numpy-only) are covered by the test
+suite, which
 runs in continuous integration on Linux x86-64 (Python 3.10–3.13, NumPy
 1.24–2.5), macOS arm64 and Windows x86-64, with codewords checked bit-identical
-across the three. Figures: `examples/make_figures.py`.*
+across the three. Figures: `examples/make_figures.py`. To replicate any
+preregistration from a clean clone: `python examples/replicate.py <name>`, which
+downloads the data with checksums and compares the rerun with the published
+results; a rerun of test 5 reproduced them exactly.*
 
 ## References

@@ -4,7 +4,7 @@ Da questa data sono **definitivamente congelati**:
 
 - l'algebra (operatori: bind, bundle, permute, cleanup, projection)
 - il formalismo ([docs/FORMALISM.md](docs/FORMALISM.md) v2.1)
-- il paper ([docs/paper.md](docs/paper.md) v1.6 — era v1.1; vedi le note sotto)
+- il paper ([docs/paper.md](docs/paper.md) v1.7 — era v1.1; vedi le note sotto)
 - la reference implementation ([reference/abm.py](reference/abm.py) v1.0.0)
 
 **Nota del 2026-09-28 — perché il paper è passato a v1.2.** Il congelamento è
