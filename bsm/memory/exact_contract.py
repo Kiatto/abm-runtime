@@ -286,3 +286,46 @@ def two_hop_joint_fast(n_facts: int, dim: int, codebook: int, width: float = 8.0
         both += pk[k] * float(np.sum(w * win[d1] * win[d2]))
         single += pk[k] * float(np.sum(w * win[d1]))
     return single, both, single * single
+
+
+# ---------------------------------------------------------------------------
+# Catene di h hop: il modello per bit, valutato per Monte Carlo
+# ---------------------------------------------------------------------------
+#
+# Per h > 2 la congiunta esatta delle h distanze ha 2^h esiti per bit e diventa
+# costosa. Il modello per bit però resta esatto: i bit dei fatti della catena
+# sono ±1 uniformi e indipendenti (se le entità della catena sono distinte), gli
+# altri N - h fatti sommano a una binomiale, la traccia è il segno del totale.
+# Qui lo si campiona direttamente: nessuna memoria, nessun codeword, solo il
+# modello. L'unica ipotesi resta l'indipendenza delle distanze nulle fra hop.
+
+
+def chain_accuracy_mc(n_facts: int, dim: int, codebook: int, hops: int,
+                      trials: int = 20000, seed: int = 0) -> float:
+    """P(tutti gli h hop di una catena riescono), dal modello per bit."""
+    if n_facts < hops:
+        raise ValueError("la catena deve stare nella traccia")
+    rng = np.random.RandomState(seed)
+    null = binom_pmf(dim, 0.5)
+    null_sf = np.clip(1.0 - np.cumsum(null), 0.0, 1.0)
+    n_null = codebook - 1
+    win = null_sf ** n_null
+    if n_null > 0:
+        win = win + 0.5 * n_null * null * null_sf ** (n_null - 1)
+    win = np.clip(win, 0.0, 1.0)
+    others = n_facts - hops
+    total = 0.0
+    batch = max(1, min(trials, 2_000_000 // max(dim * hops, 1)))
+    done = 0
+    while done < trials:
+        b = min(batch, trials - done)
+        f = rng.choice(np.array([-1, 1], dtype=np.int8), size=(b, dim, hops))
+        rest = 2 * rng.binomial(others, 0.5, size=(b, dim)) - others
+        s = f.sum(axis=2).astype(np.int64) + rest
+        ties = s == 0
+        t = np.where(s > 0, 1, -1)
+        t[ties] = rng.choice([-1, 1], size=int(ties.sum()))
+        d = (f != t[:, :, None]).sum(axis=1)            # (b, hops): distanze
+        total += float(np.prod(win[d], axis=1).sum())
+        done += b
+    return total / trials
