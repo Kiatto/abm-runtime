@@ -218,6 +218,12 @@ correlation
 
   **−ρ² / (1 − ρ²) ≈ −2/(πN)**.
 
+The identity is elementary, and it may well be known in the analysis of
+Boolean functions, where the majority function is a central object
+[@odonnell2014boolean]; we have not found it stated for the decoding of
+vector-symbolic bundles, and earlier versions of this paper assumed the
+opposite.
+
 Conditioning on the number of bits where f₁ = f₂ gives the exact joint
 distribution of the two distances, and hence the exact probability that both hops
 succeed (`two_hop_joint_fast`; the null distances of the two hops are treated as
