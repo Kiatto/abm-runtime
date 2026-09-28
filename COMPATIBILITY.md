@@ -127,5 +127,27 @@ locale su Python 3.10–3.13 e NumPy 1.24–2.5
   successo di tutte le piattaforme ed è stato saltato. L'identità dei codeword
   fra piattaforme resta **non verificata**.
 
+### Seconda esecuzione — 2026-09-28, commit `f381465`, run `36403345723`
+
+**14 job su 14 verdi.**
+
+| piattaforma | NumPy 1.26 (LUT) | NumPy 2.5 (`bitwise_count`) |
+|---|---|---|
+| Linux x86-64, le 7 righe della matrice | passed | passed |
+| macOS arm64 (Apple Silicon) | passed | passed |
+| **Windows x86-64** | **passed** | **passed** |
+| **digest dei codeword** | **identico su tutte le piattaforme** | |
+
+- **Windows è supportato.** La diagnosi dedotta del mmap era giusta: con
+  `close()` il test passa. Il run intermedio `36401703252` aveva già Windows
+  verde su entrambi i path.
+- **I codeword sono gli stessi bit** su Linux x86-64, macOS arm64 e Windows
+  x86-64, su entrambi i path del popcount. È la prima verifica dell'identità
+  fra piattaforme: finora era solo un'assunzione.
+- Il run intermedio era rosso **per un bug del controllo, non dei codeword**:
+  su Windows `write_text` scriveva `\r\n`, e il confronto contava il fine riga
+  come un digest diverso. Corretto in `f381465`.
+
 Il caveat big-endian resta intatto: nessun runner GitHub è big-endian, e
-nessuna quantità di CI gratuita lo risolve.
+nessuna quantità di CI gratuita lo risolve. Restano non verificati anche
+macOS x86-64 (runner ritirato) e BLAS diversi da OpenBLAS.

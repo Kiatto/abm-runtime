@@ -9,7 +9,8 @@ della documentazione.
   fatti Law IV prevede 0.065, l'osservato è 0.066.
 - ✓ Il runtime è **algebricamente equivalente** al riferimento denso, verificato
   bit per bit (167 test, Python 3.10–3.13, NumPy 1.24–2.5), su Linux
-  x86-64 e macOS arm64.
+  x86-64, macOS arm64 e Windows x86-64 — con codeword identici bit per bit
+  sulle tre piattaforme (CI, 2026-09-28).
 - ✓ Il contratto è **riproducibile**: stessi input, stessi codeword, stessi numeri.
 
 ## Sappiamo anche cosa è stato smentito
@@ -29,8 +30,9 @@ della documentazione.
   usano fatti sintetici, il pipeline reale è stato provato su un solo documento.
 - **?** Se il criterio di accettazione riscritto il 2026-08-06 regge su conoscenza
   reale. Un giorno di vita, un solo carico sintetico.
-- **?** Se funziona fuori da Linux x86-64 con OpenBLAS. Big-endian in particolare
-  cambierebbe i codeword (`COMPATIBILITY.md`).
+- **?** Se funziona su big-endian, su macOS x86-64 e con BLAS diversi da
+  OpenBLAS. Big-endian in particolare cambierebbe i codeword
+  (`COMPATIBILITY.md`). Linux, macOS arm64 e Windows sono invece verificati.
 
 ## La cosa da non confondere
 

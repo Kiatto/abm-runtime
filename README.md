@@ -40,8 +40,10 @@ Every row below was executed, not inferred — full suite, 167 tests.
 
 NumPy 1.x is correct and passes every test bit for bit; it lacks
 `np.bitwise_count`, so the popcount falls back to a byte lookup table. Full
-matrix, measured penalties and what the matrix does *not* cover (single OS, single
-CPU, single BLAS, untested on big-endian): [COMPATIBILITY.md](COMPATIBILITY.md).
+matrix, measured penalties and what the matrix does *not* cover (single BLAS,
+macOS x86-64, untested on big-endian): [COMPATIBILITY.md](COMPATIBILITY.md).
+CI runs the full suite on Linux x86-64, macOS arm64 and Windows x86-64, and
+checks that codewords are bit-identical across all three.
 
 ```python
 from abm import Memory
