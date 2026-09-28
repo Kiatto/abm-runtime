@@ -1,29 +1,44 @@
-# Pubblicare su PyPI (2 comandi, servono le TUE credenziali)
+# Pubblicare su PyPI
 
-I pacchetti sono già costruiti e validati (`twine check: PASSED`,
-wheel testato in un venv vergine). Da fare una sola volta:
+Stato al 2026-09-28: **`abm-runtime` non è su PyPI** (risponde 404). Il nome è
+libero, e finché resta libero chiunque può registrarlo.
 
-1. Account su https://pypi.org → crea un **API token**
-   (Account settings → API tokens).
-2. Dal root del repo:
+La pubblicazione usa il **Trusted Publishing**: nessun token da creare o
+custodire. PyPI si fida del workflow [`.github/workflows/publish.yml`](.github/workflows/publish.yml)
+di questo repo, e di nient'altro. Gratuito.
 
-```bash
-python -m build                      # rigenera dist/ se serve
-python -m twine upload dist/*        # username: __token__
-                                     # password: pypi-...il token...
-```
+## Una volta sola (serve il tuo account, ~5 minuti)
 
-Fatto. Da quel momento chiunque può fare:
+1. Crea un account su <https://pypi.org> e attiva la 2FA (PyPI la richiede).
+2. Vai su <https://pypi.org/manage/account/publishing/> e aggiungi un
+   **pending publisher** con questi valori esatti:
 
-```bash
-pip install abm-runtime
-abm demo
-```
+   | campo | valore |
+   |---|---|
+   | PyPI Project Name | `abm-runtime` |
+   | Owner | `Kiatto` |
+   | Repository name | `abm-runtime` |
+   | Workflow name | `publish.yml` |
+   | Environment name | `pypi` |
 
-Consiglio: prova prima su TestPyPI
-(`twine upload --repository testpypi dist/*`,
-poi `pip install -i https://test.pypi.org/simple/ abm-runtime`).
+3. Su GitHub: **Settings → Environments → New environment**, nome `pypi`.
 
-Nota: il nome dist è `abm-runtime` (import name: `abm`). Se al
-momento dell'upload risultasse occupato, alternative già coerenti con
-il posizionamento: `abm-memory`, `algebraic-binary-memory`.
+## Ogni rilascio
+
+Su GitHub: **Releases → Draft a new release**, tag `v1.0.1` (o la versione in
+`pyproject.toml`), **Publish release**. Il workflow:
+
+1. costruisce sdist e wheel;
+2. verifica i metadati (`twine check`);
+3. installa il wheel in un ambiente vergine ed esegue il quickstart del README
+   (`abm demo` e gli import): **se il comando che il README promette non
+   funziona, non pubblica**;
+4. carica su PyPI.
+
+Da quel momento `pip install abm-runtime` funziona per chiunque.
+
+## Cosa contiene il pacchetto
+
+Solo `abm/` (il runtime di riferimento, `reference/`). **Non contiene `bsm/`**:
+il runtime bitpacked, gli esperimenti e i test di `bsm/` si usano da un clone del
+repo. Import name: `abm`.

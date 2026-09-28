@@ -24,6 +24,9 @@ pip install abm-runtime
 abm demo
 ```
 
+Not on PyPI yet? Install straight from GitHub:
+`pip install git+https://github.com/Kiatto/abm-runtime`
+
 Developer guide (no theory required): [docs/SDK.md](docs/SDK.md).
 The runtime is two files, numpy-only, ~400 lines total.
 

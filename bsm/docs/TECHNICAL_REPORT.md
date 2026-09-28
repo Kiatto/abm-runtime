@@ -504,14 +504,21 @@ All experiments are reproducible from the BSM Foundation repository:
 - RFCs: `docs/rfc/`
 
 Hardware requirements: single CPU core, 4 GB RAM, no GPU.
-Software: Python 3.9+, numpy, optional PyTorch for LearnedEncoder.
+Software: Python 3.10+ (`int.bit_count()`), numpy, optional PyTorch for
+LearnedEncoder.
+
+`bsm/` is not a published package: it runs from a clone of the repository.
 
 ```bash
-git clone https://github.com/anomalyco/opencode
-cd opencode
-pip install bsm-foundation
-bsm-bench --report md
+git clone https://github.com/Kiatto/abm-runtime
+cd abm-runtime
+uv run --with numpy --with pytest --with fastapi --with httpx \
+  python -m pytest bsm/tests reference -q
 ```
+
+*(Corrected 2026-09-28: this block previously cloned an unrelated repository,
+installed a package that never existed, and ran a `bsm-bench` command that was
+never implemented.)*
 
 ---
 

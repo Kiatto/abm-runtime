@@ -1,0 +1,53 @@
+# Pubblicazione su PyPI con Trusted Publishing: nessun token da creare, copiare
+# o far trapelare. PyPI si fida di QUESTO workflow in QUESTO repo, e basta.
+#
+# Configurazione una tantum (la fa kiatto, serve il suo account): PUBLISHING.md.
+#
+# Parte quando si pubblica una Release su GitHub. Prima di caricare, installa il
+# wheel appena costruito in un ambiente vergine ed esegue il quickstart del
+# README: se il comando che il README promette non funziona, non si pubblica.
+
+name: Publish to PyPI
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Build sdist e wheel
+        run: uv build --out-dir dist
+      - name: Metadati validi
+        run: uvx twine check dist/*
+      - name: Il quickstart del README funziona dal wheel
+        run: |
+          set -eu
+          uv venv --python 3.12 /tmp/smoke
+          uv pip install --python /tmp/smoke/bin/python dist/*.whl
+          /tmp/smoke/bin/abm demo
+          /tmp/smoke/bin/python -c "from abm import Memory; from inspector import stats, contract, report"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write   # necessario al Trusted Publishing, e a nient'altro
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
