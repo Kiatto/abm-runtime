@@ -71,3 +71,46 @@ Tutto il resto è **sostenuto in parte**, e va scritto così.
   sotto il punto.
 - Un peso w > 2 può nascere solo da duplicati veri; nei due grafi non ce ne
   sono, quindi i pesi reali sono 1 o 2.
+
+---
+
+## Esito — 2026-09-28, eseguito dopo il commit `aebd0dc`
+
+Previsioni e criteri **non modificati**. Risultati:
+[`results/twins_prereg_results.json`](../../results/twins_prereg_results.json).
+Errori come previsto − misurato, in punti.
+
+| ipotesi | con gemelli (primario) | senza gemelli | Law IV k = 0.92 | quota gemelli | esito |
+|---|---|---|---|---|---|
+| H1 — FB15k-237 denso, D = 2048 | 1.09, segno −0.81 | 1.33, −1.29 | 2.24 | 5.4% | **sostenuta** |
+| H1 — FB15k-237 denso, D = 8192 | 0.68, −0.23 | 0.71, −0.65 | 1.93 | 5.3% | **sostenuta** |
+| H2 — WN18RR denso, D = 2048 | 0.57, −0.16 | 2.94, −2.13 | 4.20 | 23.1% | **sostenuta** |
+| H2 — WN18RR denso, D = 8192 | 0.60, −0.36 | 5.12, −3.75 | 7.01 | 25.7% | **sostenuta** |
+| H3 — il meccanismo | errore minore in entrambe | bias < −2 in entrambe | — | — | **sostenuta** |
+| H4 — WN18RR uniforme, D = 2048 | 0.91 | 0.93 | 0.91 | 0.1% | **sostenuta** |
+| H4 — WN18RR uniforme, D = 8192 | 1.11 | 1.01 | 0.80 | 0.3% | **sostenuta** |
+
+**H5 — sostenuta.** Law VII esatta, 20 seed per configurazione:
+
+| configurazione | singoli: misurato / esatto / N_eff | pesanti: misurato / esatto |
+|---|---|---|
+| uniforme | 53.6 / 52.2 / 52.2 | — |
+| 10 × w = 3 | 34.6 / 34.0 / 34.3 | 100.0 / 100.0 |
+| 10 × w = 5 | 18.7 / 19.0 / 19.6 | 100.0 / 100.0 |
+| 5 × w = 8 | 15.0 / 14.8 / 16.0 | 100.0 / 100.0 |
+| 20 × w = 4 | 15.2 / 15.8 / 16.1 | 99.8 / 100.0 |
+| 2 × w = 14 | 15.2 / 14.8 / **12.5** | 100.0 / 100.0 |
+
+### Cosa dice
+
+- I **gemelli simmetrici** spiegano il pessimismo trovato nella preregistrazione 2,
+  su dati che non avevo visto e su un secondo grafo: su WN18RR denso, dove un
+  quarto delle triple è gemella, ignorarli costa fino a 8.9 punti; contarli come
+  fatti di peso 2 riporta l'errore sotto il punto.
+- Il controllo uniforme conferma che il termine non migliora tutto a caso: dove
+  i gemelli non ci sono, le due previsioni coincidono.
+- La **Law VII esatta** sostituisce lo script perduto di `conjecture7_results.json`
+  e risolve il problema aperto 4 del paper (saturazione a pesi estremi): con due
+  fatti di peso 14, la forma N_eff = Σw² sbaglia di 2.7 punti, quella esatta di 0.5.
+- Nel campione denso FB15k-237 coi seed nuovi i gemelli sono il 5%, meno che coi
+  seed 0–9: lì il termine incide poco, ed è coerente.
