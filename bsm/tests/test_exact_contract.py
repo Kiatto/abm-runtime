@@ -124,3 +124,44 @@ def test_symmetric_twins_are_one_vector():
     assert np.array_equal(mem.fact_hv("a", "r", "b"), mem.fact_hv("b", "r", "a"))
     w = fact_weights([("a", "r", "b"), ("b", "r", "a"), ("a", "q", "b")])
     assert sorted(w.values()) == [1, 2]
+
+
+def test_ordered_ties_average_to_even_split():
+    """Mediata su posizioni casuali del bersaglio, la regola esatta è la divisione a metà."""
+    from bsm.memory.exact_contract import cleanup_accuracy_ordered
+    m = 211
+    avg = np.mean([cleanup_accuracy_ordered(50, 1024, k, m - 1 - k) for k in range(m)])
+    assert avg == pytest.approx(cleanup_accuracy(50, 1024, m), abs=2e-3)
+
+
+def test_ordered_ties_match_reference_with_distractors():
+    """La risposta giusta precede i distrattori: vince i pareggi, come nella reference.
+
+    Qui la divisione a metà sbaglia di diversi errori standard; la regola esatta no.
+    """
+    from bsm.memory.exact_contract import cleanup_accuracy_ordered
+    dim, n, extra, trials = 96, 6, 300, 400
+    distr = np.stack([abm.random_hv(f"tdistr{j}", dim) for j in range(extra)])
+    hits = total = 0
+    idx_seen = []
+    for t in range(trials):
+        mem = abm.Memory(dim)
+        facts = [(f"ts{t}_{i}", "tr", f"to{t}_{i}") for i in range(n)]
+        for f in facts:
+            mem._facts.append(mem.fact_hv(*f))
+        mem._trace = abm.bundle(mem._facts)
+        names = mem.items._names + [f"tdistr{j}" for j in range(extra)]
+        matrix = np.concatenate([np.stack(mem.items._states), distr])
+        for s, r, o in facts:
+            noisy = abm.bind(mem._trace, mem.key(s, r))
+            hits += names[int(np.argmin(np.count_nonzero(matrix != noisy, axis=1)))] == o
+            total += 1
+            idx_seen.append(mem.items._names.index(o))
+    m = len(mem.items) + extra
+    ordered = np.mean([cleanup_accuracy_ordered(n, dim, k, m - 1 - k) for k in idx_seen])
+    split = cleanup_accuracy(n, dim, m)
+    measured = hits / total
+    se = sqrt(ordered * (1 - ordered) / total)
+    # misurato 0.6217: regola esatta 0.6158 (+0.6 SE), divisione a metà 0.5702 (+5.2 SE)
+    assert abs(measured - ordered) < 3 * se, (measured, ordered, se)
+    assert abs(measured - split) > 3 * se, "il test non distingue più le due regole"
