@@ -2,7 +2,7 @@
 
 *(Algebraic Binary Memory — ABM)*
 
-**Preprint v1.7 — September 2026**
+**Preprint v1.8 — September 2026**
 *Normative specification: [FORMALISM.md](FORMALISM.md) (frozen, v2.1).
 Reference implementation: [`reference/abm.py`](../reference/abm.py); exact
 theory, shipped as `abm.exact`: [`reference/exact.py`](../reference/exact.py).
@@ -362,6 +362,7 @@ evaluated only with those criteria, and appended to the same file.
 | 8 | `deepchain2.md` | the same with 1 000 distractors | **falsified** at one hop: the tie rule |
 | 9 | `deepchain3.md` | the same with the exact tie rule, two dimensions | all **supported**; p^h rejected at 4.3–8.5 SE |
 | 10 | `sizing.md` | the contract in use: choosing D in advance; the alias ceiling | all **supported**; the asymptotic law misses its promise on WN18RR |
+| 11 | `human_questions.md` | questions written by people, through a local LLM front-end | memory level **supported** (+0.3 SE); end-to-end **in part** (+7.2 points, inside its interval) |
 
 **Test 2 — the exact model on new configurations.** At D = 16 384, a dimension no
 experiment had used, the mean absolute error over six loads was **0.27 points**
@@ -428,6 +429,20 @@ up to 12 of 20 subgraphs more than 6 points below. The exact model is now shippe
 as `abm.exact`, with `contract_for` and `min_dimension`; the latter refuses targets
 above the alias ceiling.
 
+**Test 11 — questions written by people.** The 743 questions of SimpleQuestions
+v2 whose Freebase triple is in FB15k-237 were answered by a realistic pipeline:
+link the subject by name, let a local 2-billion-parameter model (Gemma 4 E2B,
+2-bit, llama.cpp, temperature 0) pick the relation among those stored for it, and
+query 28 memories of 26–2 394 triples at D = 16 384. The contract was issued after
+an audit of 100 questions and before the 643 test questions: front-end accuracy
+0.36 [0.27, 0.46] times the memory accuracy predicted by `abm.exact`, 0.802, gave
+0.289 [0.219, 0.367]. Measured: **0.361**, inside the interval but 7.2 points
+above, beyond the 5 we had set — supported in part. The memory level held
+exactly: given the true (s, r), 0.807 against 0.802 (+0.3 SE). The gap is the
+front-end's: the audit underestimated it (0.36 against 0.41 on the test), and
+front-end and memory are not independent — on questions the front-end gets right
+the memory answers 85% — the first limit the preregistration had declared.
+
 **Tests 6–9** are described in §3.3 (encoding symmetry) and §4.1 (deep chains).
 Tests 7 and 8 are the two failures of this paper's own predictions; each is kept
 with its data in `docs/preregistration/`, and each changed the model: test 8
@@ -463,8 +478,8 @@ about 3% of the time, so the biases are more likely real than not, and small.
 and the null distances of different hops, as independent; test 2 puts the cost
 of the first below one point. On real hubs a residual of +3.3 points remains
 (test 2), and dense samples favour the neighbourhood of their starting entity.
-All tests use queries that are either synthetic or the triples themselves; none
-uses questions written by people.
+Tests 1–10 query stored triples or synthetic chains; test 11 uses questions
+written by people, through a deliberately simple front-end.
 
 ## 7. What the model is, and is not
 
@@ -590,8 +605,10 @@ are standard [@baader1998term].
 3. **Off-path recovery.** In tiny codebooks a failed hop can land on the right
    entity by chance; a uniform 1/M recovery overestimates it (test 7). No clean
    model yet.
-4. **Questions written by people.** Every test here queries stored triples or
-   synthetic chains.
+4. **Two-level contracts.** On questions written by people (test 11) the memory
+   level is predicted exactly, but the end-to-end contract errs by 7 points,
+   through the audit's sampling error and a correlation between front-end and
+   memory success that the product formula ignores.
 5. **Negation and quantifiers** in the algebraic truth oracle.
 6. **Distributional confluence** for nested probabilistic redexes.
 7. **The ABM complexity class** (polynomial D, O(1) controller).

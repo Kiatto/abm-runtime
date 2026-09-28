@@ -1,0 +1,6461 @@
+{
+ "preregistration": "docs/preregistration/human_questions.md",
+ "audit": {
+  "n": 100,
+  "front_end_ok": 36,
+  "linked_ok": 85
+ },
+ "contract": {
+  "pi_audit": 0.36,
+  "pi_ci": [
+   0.2727107459049014,
+   0.45764780018837914
+  ],
+  "memory_pred": 0.8019242992583192,
+  "predicted": 0.2886927477329949,
+  "predicted_ci": [
+   0.21869337381000162,
+   0.3669988914731772
+  ]
+ },
+ "test": {
+  "n": 643,
+  "end_to_end": 0.3608087091757387,
+  "front_end": 0.4059097978227061,
+  "linked": 0.9035769828926905,
+  "memory_given_gold": 0.807153965785381,
+  "memory_pred": 0.8019242992583192
+ },
+ "per_question": [
+  {
+   "s": "/m/02fn5r",
+   "r": "/music/artist/origin",
+   "o": "/m/0z4_0",
+   "q": "Where is vince gill from?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01dbk6",
+   "r": "/people/person/religion",
+   "o": "/m/0c8wxp",
+   "q": "What is Anne Bancroft's religion?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0ddj0x",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "in which country was the the commitments movie filmed",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0645k5",
+   "r": "/film/film/featured_film_locations",
+   "o": "/m/04jpl",
+   "q": "where was v for vendetta filmed?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/07ssc",
+   "r": "/location/country/second_level_divisions",
+   "o": "/m/01s3v",
+   "q": "whats a second level division in  united kingdom",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/011ysn",
+   "r": "/film/film/genre",
+   "o": "/m/0219x_",
+   "q": "what kind of film is the thin red line (1998 film)",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0241wg",
+   "r": "/people/person/languages",
+   "o": "/m/03k50",
+   "q": "what language does kajol speak ",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/09sh8k",
+   "r": "/film/film/featured_film_locations",
+   "o": "/m/04jpl",
+   "q": "Which location did fantastic four: rise of the silver surfer take place in",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01cl2y",
+   "r": "/music/record_label/artist",
+   "o": "/m/017f4y",
+   "q": "What is the name of an artist that is signed to reprise records",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0405l",
+   "r": "/people/person/nationality",
+   "o": "/m/09c7w0",
+   "q": "What is jim jarmusch's nationality?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/01gwk3",
+   "r": "/film/film/music",
+   "o": "/m/0b6yp2",
+   "q": "which music is used in terminator 3: rise of the machines",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01n7q",
+   "r": "/location/location/contains",
+   "o": "/m/02gnmp",
+   "q": "What is an example of a school in california",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/06gb1w",
+   "r": "/film/film/executive_produced_by",
+   "o": "/m/079vf",
+   "q": "who executive produced the movie x-men 3",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0l14md",
+   "r": "/music/instrument/instrumentalists",
+   "o": "/m/01w923",
+   "q": "who played a percussion instrument?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/012s1d",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "in what north american country was spider-man (film) filmed",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02qhm3",
+   "r": "/people/deceased_person/place_of_death",
+   "o": "/m/0k_p5",
+   "q": "where did mary astor die",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/014z8v",
+   "r": "/people/person/religion",
+   "o": "/m/0c8wxp",
+   "q": "which religion does george carlin belong to",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03s5lz",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "which country filmed analyze this",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05sb1",
+   "r": "/location/country/official_language",
+   "o": "/m/02h40lc",
+   "q": "what is the official language of pakistan ",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01c6zg",
+   "r": "/location/location/time_zones",
+   "o": "/m/02llzg",
+   "q": "which time zone is upper normandy in ",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0g9yrw",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "In which country was Howard the Duck filmed?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0432_5",
+   "r": "/film/film/genre",
+   "o": "/m/02kdv5l",
+   "q": "What kind of film is infernal affairs ii",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0dj0x",
+   "r": "/location/location/contains",
+   "o": "/m/0173s9",
+   "q": "what is located in wiltshire?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/024qqx",
+   "r": "/media_common/netflix_genre/titles",
+   "o": "/m/0pc62",
+   "q": "What's an example of a blockbuster",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0gy0l_",
+   "r": "/film/film/production_companies",
+   "o": "/m/01gb54",
+   "q": "what company produced the film letters from iwo jima",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/03hxsv",
+   "r": "/film/film/film_production_design_by",
+   "o": "/m/0d5wn3",
+   "q": "who was the film production designer of  harry potter and the half-blood prince",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0h21v2",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "which country is the film poltergeist from",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/01vfqh",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "where was barton fink filmed",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01yz0x",
+   "r": "/award/award_category/disciplines_or_subjects",
+   "o": "/m/05hgj",
+   "q": "What discipline  is awarded with the hugo award for best novel",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/039c26",
+   "r": "/tv/tv_program/genre",
+   "o": "/m/02p0szs",
+   "q": "What kind of tv program is deadwood",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0dd6bf",
+   "r": "/film/film/country",
+   "o": "/m/03_3d",
+   "q": "what country is bleach: memories of nobody from",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0180mw",
+   "r": "/tv/tv_program/genre",
+   "o": "/m/04gm78f",
+   "q": "what kind or show is er (tv series)",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03m6t5",
+   "r": "/base/americancomedy/celebrity_impressionist/celebrities_impersonated",
+   "o": "/m/044qx",
+   "q": "which celebrity does rich little impersonate",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0xnvg",
+   "r": "/people/ethnicity/people",
+   "o": "/m/06qgvf",
+   "q": "Who is a notable italian american",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05w3f",
+   "r": "/music/genre/artists",
+   "o": "/m/011hdn",
+   "q": "What's a psychedelic rock artist",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01w9ph_",
+   "r": "/people/person/nationality",
+   "o": "/m/09c7w0",
+   "q": "where is the american poet from",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/07f_t4",
+   "r": "/film/film/featured_film_locations",
+   "o": "/m/052p7",
+   "q": "what located was the film 300 shot",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/05rfst",
+   "r": "/film/film/executive_produced_by",
+   "o": "/m/03c9pqt",
+   "q": "Who executively produced the film a history of violence (film)",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/08sfxj",
+   "r": "/film/film/music",
+   "o": "/m/02g1jh",
+   "q": "what music is on the film amazing grace?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/06dn58",
+   "r": "/people/person/religion",
+   "o": "/m/0c8wxp",
+   "q": "what religion does bobby cannavale practice ",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/018cqq",
+   "r": "/user/ktrueman/default_domain/international_organization/member_states",
+   "o": "/m/03rt9",
+   "q": "what is one of the member states of the international organization oecd?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01gglm",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "Which country created the film any given sunday",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01jq34",
+   "r": "/education/educational_institution/colors",
+   "o": "/m/019sc",
+   "q": "what is the school color of  university of maryland, college park",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0266s9",
+   "r": "/tv/tv_program/genre",
+   "o": "/m/01t_vv",
+   "q": "What is the genre of the tv program monk",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/016tvq",
+   "r": "/tv/tv_program/program_creator",
+   "o": "/m/014zfs",
+   "q": "who created the cosby show",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/050llt",
+   "r": "/people/person/languages",
+   "o": "/m/09bnf",
+   "q": "which language does aishwarya rai speak",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01771z",
+   "r": "/film/film/written_by",
+   "o": "/m/0gn30",
+   "q": "who wrote the film  cobra ",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/04t36",
+   "r": "/media_common/netflix_genre/titles",
+   "o": "/m/02zk08",
+   "q": "what is a title of a netflix musical film?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03wxvk",
+   "r": "/location/administrative_division/country",
+   "o": "/m/03rjj",
+   "q": "Which country is the province of como in?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05k4my",
+   "r": "/film/film/produced_by",
+   "o": "/m/0jrqq",
+   "q": "Who produced the film titled lady in the water",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02z3r8t",
+   "r": "/film/film/written_by",
+   "o": "/m/09l3p",
+   "q": "who wrote new york, i love you",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0dpl44",
+   "r": "/film/film/production_companies",
+   "o": "/m/017s11",
+   "q": "which company produced crazy in alabama",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05r6t",
+   "r": "/music/genre/artists",
+   "o": "/m/01tp5bj",
+   "q": "what artist performs punk rock?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01cdt5",
+   "r": "/medicine/symptom/symptom_of",
+   "o": "/m/0hg11",
+   "q": "what is a manifestation of dyspnea",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/017wh",
+   "r": "/location/administrative_division/first_level_division_of",
+   "o": "/m/0345h",
+   "q": "What is brandenburg a first level division of",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0fqt1ns",
+   "r": "/film/film/music",
+   "o": "/m/02cyfz",
+   "q": "who did the music in the film  the amazing spider-man",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0t_4_",
+   "r": "/location/hud_county_place/county",
+   "o": "/m/0k3k1",
+   "q": "Which county is medford, massachusetts in",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/034r25",
+   "r": "/film/film/country",
+   "o": "/m/07ssc",
+   "q": "which country produced king arthur",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0dl5d",
+   "r": "/music/genre/artists",
+   "o": "/m/01w3lzq",
+   "q": "what is a progressive rock artist?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/021b_",
+   "r": "/people/person/religion",
+   "o": "/m/03_gx",
+   "q": "What religion did carol kane practice",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0dryh9k",
+   "r": "/people/ethnicity/people",
+   "o": "/m/08d6bd",
+   "q": "who's a film actor who is also of the indian people",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0ddt_",
+   "r": "/film/film/genre",
+   "o": "/m/06n90",
+   "q": "what genre is the the phantom menace",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/021_z5",
+   "r": "/music/genre/artists",
+   "o": "/m/015bwt",
+   "q": "what artists are new jack swing artists",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0ndwt2w",
+   "r": "/film/film/written_by",
+   "o": "/m/063b4k",
+   "q": "Who is someone that gave significant contributions to the hobbit: an unexpected journey",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/07cdz",
+   "r": "/film/film/genre",
+   "o": "/m/02l7c8",
+   "q": "What genre of film is the graduate?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/02scbv",
+   "r": "/film/film/country",
+   "o": "/m/07zrf",
+   "q": "what is one of the dubbed languages in rambo: first blood part ii",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01jtp7",
+   "r": "/education/educational_institution_campus/educational_institution",
+   "o": "/m/01jtp7",
+   "q": "which school is in wharton school of the university of pennsylvania",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/047vnkj",
+   "r": "/film/film/production_companies",
+   "o": "/m/05rrtf",
+   "q": "what company did produce the 2012 science fiction movie",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0cx7f",
+   "r": "/music/genre/artists",
+   "o": "/m/0167_s",
+   "q": "What's an art rock from london",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/053x8hr",
+   "r": "/tv/tv_program/languages",
+   "o": "/m/02h40lc",
+   "q": "what language is spoken by the cast in sherlock?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01clyr",
+   "r": "/music/record_label/artist",
+   "o": "/m/0fpjd_g",
+   "q": "who is signed to the record label polydor records",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01qvz8",
+   "r": "/film/film/film_format",
+   "o": "/m/07fb8_",
+   "q": "what is the film format of gigli?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01s7w3",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "where is the film twister from?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/016cjb",
+   "r": "/music/genre/artists",
+   "o": "/m/017xm3",
+   "q": "who is the female multiple gold album gospel music singer?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/07s9rl0",
+   "r": "/media_common/netflix_genre/titles",
+   "o": "/m/0p_tz",
+   "q": "what's a good drama movie on netflix",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01srq2",
+   "r": "/film/film/film_format",
+   "o": "/m/0cj16",
+   "q": "What film format was naked lunch filmed in",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/03s5lz",
+   "r": "/film/film/executive_produced_by",
+   "o": "/m/0glyyw",
+   "q": "who was the executive producer of the film analyze this?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0660b9b",
+   "r": "/film/film/genre",
+   "o": "/m/0gf28",
+   "q": "what type of movie is the men who stare at goats",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0jlv5",
+   "r": "/people/person/gender",
+   "o": "/m/02zsn",
+   "q": "is zhang ziyi female or male",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/02q_cc",
+   "r": "/organization/organization_founder/organizations_founded",
+   "o": "/m/030_1_",
+   "q": "What organization was founded by kathleen kennedy (film producer)",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/03rz2b",
+   "r": "/film/film/genre",
+   "o": "/m/02l7c8",
+   "q": "what is the genre of monsoon wedding",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/07ldhs",
+   "r": "/people/person/religion",
+   "o": "/m/0c8wxp",
+   "q": "what religion is taylor lautner ",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/036jv",
+   "r": "/music/genre/artists",
+   "o": "/m/01vw_dv",
+   "q": "Name an artist associated with gangsta rap.",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03f4k",
+   "r": "/people/person/profession",
+   "o": "/m/0nbcg",
+   "q": "What is george gershwin's profession?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/024lt6",
+   "r": "/film/film/executive_produced_by",
+   "o": "/m/01q_ph",
+   "q": "Who was the executive producer for the movie rushmore?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/03xl77",
+   "r": "/people/person/place_of_birth",
+   "o": "/m/0r4h3",
+   "q": "Where was  born",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/01k5y0",
+   "r": "/film/film/written_by",
+   "o": "/m/096hm",
+   "q": "who wrote victor victoria",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/02nf2c",
+   "r": "/tv/tv_program/genre",
+   "o": "/m/05p553",
+   "q": "what tv genre is barney miller ",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/027jk",
+   "r": "/location/location/time_zones",
+   "o": "/m/0gsrz4",
+   "q": "what time zone is  djibouti located in",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/01c6l",
+   "r": "/film/director/film",
+   "o": "/m/07z6xs",
+   "q": "which movie is directed by brian de palma",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0d66j2",
+   "r": "/tv/tv_program/genre",
+   "o": "/m/05p553",
+   "q": "What type of TV show is brothers & sisters",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02qjj7",
+   "r": "/people/person/nationality",
+   "o": "/m/09c7w0",
+   "q": "What country does dean clain claim nationality from?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0mhfr",
+   "r": "/music/genre/artists",
+   "o": "/m/0pkyh",
+   "q": "what is a country rock musician",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02w1b8",
+   "r": "/film/film_subject/films",
+   "o": "/m/0dzlbx",
+   "q": "what film is about the arms industry",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03qjg",
+   "r": "/music/instrument/instrumentalists",
+   "o": "/m/0fpj4lx",
+   "q": "What musician can play the harmonica?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0dx97",
+   "r": "/people/deceased_person/place_of_death",
+   "o": "/m/04jpl",
+   "q": "where did christopher wren  die",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0dcsx",
+   "r": "/medicine/disease/notable_people_with_this_condition",
+   "o": "/m/0chsq",
+   "q": "what famous person had alzheimer's disease",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0jqn5",
+   "r": "/film/film/production_companies",
+   "o": "/m/030_1_",
+   "q": "Which company produced e.t. the extra-terrestrial",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03cwwl",
+   "r": "/film/film/country",
+   "o": "/m/0345h",
+   "q": "what country made resident evil: apocalypse",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05xpms",
+   "r": "/people/person/place_of_birth",
+   "o": "/m/03l2n",
+   "q": "what state was melora hardin born",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0dzf_",
+   "r": "/influence/influence_node/influenced_by",
+   "o": "/m/06mn7",
+   "q": "Who was robin williams influenced by",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/049nq",
+   "r": "/location/location/contains",
+   "o": "/m/0fqxw",
+   "q": "Name a province in Kingdom of the Netherlands.",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0lk8j",
+   "r": "/olympics/olympic_games/sports",
+   "o": "/m/0bynt",
+   "q": "what sport was played at the 1932 summer olympics ",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0gyv0b4",
+   "r": "/film/film/genre",
+   "o": "/m/02kdv5l",
+   "q": "what kind of film in kill bill volume 2",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/08l_c1",
+   "r": "/education/educational_institution/colors",
+   "o": "/m/01g5v",
+   "q": "what is a color of royal college",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03k8th",
+   "r": "/film/film/language",
+   "o": "/m/02bjrlw",
+   "q": "What language was spoken in the bourne supremacy?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01k1k4",
+   "r": "/film/film/language",
+   "o": "/m/02h40lc",
+   "q": "what language is spoken in austin powers: the spy who shagged me",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0gk4g",
+   "r": "/people/cause_of_death/people",
+   "o": "/m/0h7dd",
+   "q": "What actress died from myocardial infarction",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0b1hw",
+   "r": "/influence/influence_node/influenced_by",
+   "o": "/m/0m2l9",
+   "q": "who influenced soundgarden",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05ch98",
+   "r": "/film/film/music",
+   "o": "/m/018x3",
+   "q": "What made the music for the jacket",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01vtqml",
+   "r": "/music/artist/origin",
+   "o": "/m/0k33p",
+   "q": "where does ozzy osbourne come from",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03jsvl",
+   "r": "/music/genre/artists",
+   "o": "/m/03c3yf",
+   "q": "what artist performs roots rock",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0glt670",
+   "r": "/music/genre/artists",
+   "o": "/m/013w7j",
+   "q": "what musician has hip hop music",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/059g4",
+   "r": "/base/locations/continents/countries_within",
+   "o": "/m/06s0l",
+   "q": "Name a county in North America. ",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0295sy",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "what country made the robin williams film hook",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01kff7",
+   "r": "/film/film/language",
+   "o": "/m/02h40lc",
+   "q": "what language was the wild wild west filmed in",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/040nwr",
+   "r": "/people/person/languages",
+   "o": "/m/07c9s",
+   "q": "What language does shilpa shetty speak?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/017yfz",
+   "r": "/people/deceased_person/place_of_death",
+   "o": "/m/02_286",
+   "q": "Where did gil scott-heron die",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/031hcx",
+   "r": "/film/film/language",
+   "o": "/m/02h40lc",
+   "q": "What language is the film harry potter and the order of the phoenix spoken in?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0gwlfnb",
+   "r": "/film/film/genre",
+   "o": "/m/06n90",
+   "q": "which category does g.i. joe: retaliation fall into",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/091xrc",
+   "r": "/film/film/music",
+   "o": "/m/0b6yp2",
+   "q": "what music is in tmnt (film)?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02bqxb",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "what country is the fly from?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/09c7w0",
+   "r": "/location/location/contains",
+   "o": "/m/04_j5s",
+   "q": "What is a law school that is in the united states?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05gg4",
+   "r": "/sports/sports_team/sport",
+   "o": "/m/0jm_",
+   "q": "Which sport do the new york giants play",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0f4_2k",
+   "r": "/film/film/language",
+   "o": "/m/04h9h",
+   "q": "what language was used in the movie  angels and demons",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0s69k",
+   "r": "/location/location/time_zones",
+   "o": "/m/02fqwt",
+   "q": "what time zone is aurora in?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/09yxcz",
+   "r": "/film/film/music",
+   "o": "/m/01gg59",
+   "q": "Who did the music for the film rang de basanti",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/037q2p",
+   "r": "/education/educational_institution/colors",
+   "o": "/m/06fvc",
+   "q": "what is the characteristic color of the university of detroit mercy",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/018s6c",
+   "r": "/people/ethnicity/languages_spoken",
+   "o": "/m/0jzc",
+   "q": "What language do israelis speak",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0gwjw0c",
+   "r": "/film/film/language",
+   "o": "/m/064_8sq",
+   "q": "What language is django unchained in?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/015fs3",
+   "r": "/education/educational_institution/colors",
+   "o": "/m/01l849",
+   "q": "What is a color of western michigan university",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/050fh",
+   "r": "/sports/sports_team/colors",
+   "o": "/m/083jv",
+   "q": "what are manchester united f.c.'s team colors",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0bt9lr",
+   "r": "/film/film_subject/films",
+   "o": "/m/07_fj54",
+   "q": "whats the name of a film whose subject was dog",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/07c52",
+   "r": "/media_common/netflix_genre/titles",
+   "o": "/m/02rzdcp",
+   "q": "What is a show in the television netflix genre?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0755wz",
+   "r": "/people/person/nationality",
+   "o": "/m/07ssc",
+   "q": "what country is tom hollander from",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/047csmy",
+   "r": "/film/film/featured_film_locations",
+   "o": "/m/05qtj",
+   "q": "which european city does transformers 2 take place in?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/068p2",
+   "r": "/sports/sports_team_location/teams",
+   "o": "/m/05tfm",
+   "q": "what is the american football team based in pittsburgh?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02ln1",
+   "r": "/people/deceased_person/place_of_death",
+   "o": "/m/0ptj2",
+   "q": "Where did edmund husserl die?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01my_c",
+   "r": "/people/person/place_of_birth",
+   "o": "/m/01ppq",
+   "q": "simon fuller was born on what Island",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/016wzw",
+   "r": "/location/country/official_language",
+   "o": "/m/06nm1",
+   "q": "What's the official language of peru",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0qcr0",
+   "r": "/people/cause_of_death/people",
+   "o": "/m/09dt7",
+   "q": "what writer died of cancer",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/012jfb",
+   "r": "/film/film/language",
+   "o": "/m/02h40lc",
+   "q": "What language is featured in the film bowling for columbine",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/047d21r",
+   "r": "/film/film/production_companies",
+   "o": "/m/061dn_",
+   "q": "what production company produced the fighter",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0h3lt",
+   "r": "/location/location/time_zones",
+   "o": "/m/02lcqs",
+   "q": "What time zone is huntington beach in?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0gg8l",
+   "r": "/music/genre/artists",
+   "o": "/m/01m1dzc",
+   "q": "whats the name of a bluegrass musician",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0hvvf",
+   "r": "/film/film/genre",
+   "o": "/m/03bxz7",
+   "q": "What genre is the Bonnie and Clyde film?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0gj9tn5",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "Where in north america is ted filmed in?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0h14ln",
+   "r": "/film/film/genre",
+   "o": "/m/01jfsb",
+   "q": "what kinds of movie is perfume: the story of a murderer",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05bt6j",
+   "r": "/music/genre/artists",
+   "o": "/m/01k_0fp",
+   "q": "Who is an artist known for pop rock?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/037q2p",
+   "r": "/education/educational_institution/school_type",
+   "o": "/m/05pcjw",
+   "q": "The university of detroit mercy is what type of institution?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0mj0c",
+   "r": "/user/alexander/philosophy/philosopher/interests",
+   "o": "/m/05qfh",
+   "q": "what were william james' interests",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/01t8sr",
+   "r": "/education/educational_institution/school_type",
+   "o": "/m/01_9fk",
+   "q": "what kind of school is tennessee state university",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/01y9r2",
+   "r": "/film/film/production_companies",
+   "o": "/m/016tt2",
+   "q": "which production company is the film road to perdition a part of?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01ynzf",
+   "r": "/people/deceased_person/place_of_burial",
+   "o": "/m/018mm4",
+   "q": "where is the burial place of sidney sheldon",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/018_q8",
+   "r": "/business/business_operation/industry",
+   "o": "/m/03qh03g",
+   "q": "what type of company is viacom?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/04rwx",
+   "r": "/education/educational_institution/colors",
+   "o": "/m/036k5h",
+   "q": "what are massachusetts institute of technology's school colors",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0739y",
+   "r": "/people/person/nationality",
+   "o": "/m/03rt9",
+   "q": "what nationality is spike milligan milligan",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0yyg4",
+   "r": "/film/film/genre",
+   "o": "/m/02qfv5d",
+   "q": "What style of film is mississippi burning?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03k9fj",
+   "r": "/media_common/netflix_genre/titles",
+   "o": "/m/02q8ms8",
+   "q": "name a netflix adventure film ",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0721cy",
+   "r": "/people/person/nationality",
+   "o": "/m/09c7w0",
+   "q": "which country is sam simon from",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0fd3y",
+   "r": "/music/genre/parent_genre",
+   "o": "/m/01pfpt",
+   "q": "what is the parent category of ambient music",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/07c6l",
+   "r": "/music/instrument/instrumentalists",
+   "o": "/m/01k_0fp",
+   "q": "Who is known as a trombone instrumentalist",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0k2sk",
+   "r": "/film/film/genre",
+   "o": "/m/0556j8",
+   "q": "what film genre is who framed roger rabbit?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01l_pn",
+   "r": "/film/film/language",
+   "o": "/m/0653m",
+   "q": "what language is charlie's angels: full throttle spoken in",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/021j72",
+   "r": "/people/person/languages",
+   "o": "/m/0688f",
+   "q": "What language does raj kapoor speak",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/09c7w0",
+   "r": "/location/country/second_level_divisions",
+   "o": "/m/0fbzp",
+   "q": "What is a second level division of united states",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0qm9n",
+   "r": "/film/film/story_by",
+   "o": "/m/017xm3",
+   "q": "Who created the story for the film coal miner's daughter?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/042l3v",
+   "r": "/people/person/nationality",
+   "o": "/m/09c7w0",
+   "q": "what is herbert ross' nationality",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0_ytw",
+   "r": "/location/hud_county_place/place",
+   "o": "/m/0_ytw",
+   "q": "where is college station",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01znbj",
+   "r": "/music/record_label/artist",
+   "o": "/m/01d_h",
+   "q": "Who's a musician signed to nettwerk",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0dbdy",
+   "r": "/location/administrative_division/country",
+   "o": "/m/07ssc",
+   "q": "What country is lancashire in?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02c6pq",
+   "r": "/people/person/nationality",
+   "o": "/m/0chghy",
+   "q": "which country is simon baker from",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0f3kl",
+   "r": "/medicine/symptom/symptom_of",
+   "o": "/m/024c2",
+   "q": "what infection involves diarrhea",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02nt75",
+   "r": "/sports/sports_team/sport",
+   "o": "/m/02vx4",
+   "q": "which sport do the c.f. monterrey play",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/072192",
+   "r": "/film/film/genre",
+   "o": "/m/02l7c8",
+   "q": "What kind of motion picture is a place in the sun",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0h96g",
+   "r": "/people/person/place_of_birth",
+   "o": "/m/0cc56",
+   "q": "where in new york was sigourney weaver born",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/01fjw0",
+   "r": "/location/administrative_division/country",
+   "o": "/m/03rt9",
+   "q": "what country is wexford the administrative division for",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/047gn4y",
+   "r": "/film/film/edited_by",
+   "o": "/m/03q8ch",
+   "q": "Who edited the film prince of persia: the sands of time?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0653m",
+   "r": "/media_common/netflix_genre/titles",
+   "o": "/m/0dckvs",
+   "q": "This film falls under the mandarin chinese netflix genre.",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0hv81",
+   "r": "/film/film/genre",
+   "o": "/m/01g6gs",
+   "q": "what genre of film is america america",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/032j_n",
+   "r": "/organization/organization/place_founded",
+   "o": "/m/02_286",
+   "q": "which city was dimension films founded in ",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0jdr0",
+   "r": "/film/film/produced_by",
+   "o": "/m/015nvj",
+   "q": "who produced the film the third man?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/04093",
+   "r": "/people/person/place_of_birth",
+   "o": "/m/0hqzr",
+   "q": "Where was jules verne born",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/09ld6g",
+   "r": "/people/person/languages",
+   "o": "/m/09bnf",
+   "q": "Which language does nagesh (actor) speak",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05148p4",
+   "r": "/music/instrument/instrumentalists",
+   "o": "/m/016j2t",
+   "q": "which musician know show to play the keyboard?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/027pfb2",
+   "r": "/film/film/language",
+   "o": "/m/02h40lc",
+   "q": "in what language was scarlett filmed",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/02_1q9",
+   "r": "/tv/tv_program/languages",
+   "o": "/m/02h40lc",
+   "q": "which language was another world broadcast in",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02q87z6",
+   "r": "/film/film/music",
+   "o": "/m/02jxmr",
+   "q": "what type of music is in the film the village (2004 film)",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0342h",
+   "r": "/music/instrument/instrumentalists",
+   "o": "/m/0bkg4",
+   "q": "who knows how to play the guitar?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/08phg9",
+   "r": "/film/film/featured_film_locations",
+   "o": "/m/0k__z",
+   "q": "which university was star trek filmed at",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0kz2w",
+   "r": "/education/educational_institution/school_type",
+   "o": "/m/07tf8",
+   "q": "What type of school is brandeis university?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/07l4z",
+   "r": "/sports/sports_team/colors",
+   "o": "/m/03vtbc",
+   "q": "what is toronto blue jays's color ",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/051zy_b",
+   "r": "/film/film/produced_by",
+   "o": "/m/03v1xb",
+   "q": "Who produced the film a few good men",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0h2zvzr",
+   "r": "/film/film/country",
+   "o": "/m/07ssc",
+   "q": "which European country is the film midnight's children from ",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0m_w6",
+   "r": "/base/aareas/schema/administrative_area/administrative_parent",
+   "o": "/m/03rt9",
+   "q": "what republic is the administrative parent to county kerry",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/02x02kb",
+   "r": "/people/person/languages",
+   "o": "/m/03k50",
+   "q": "what language does achala sachdev speak",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/016clz",
+   "r": "/music/genre/artists",
+   "o": "/m/01w3lzq",
+   "q": "who is an alternative rock artist?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05cv8",
+   "r": "/people/person/nationality",
+   "o": "/m/09c7w0",
+   "q": "what is neal stephenson",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0gd_s",
+   "r": "/influence/influence_node/influenced_by",
+   "o": "/m/05qmj",
+   "q": "Who was a major influence for samuel r. delany",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/07ghq",
+   "r": "/film/film/written_by",
+   "o": "/m/03_gd",
+   "q": "the terminator was written by who?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0bw20",
+   "r": "/film/film/country",
+   "o": "/m/0345h",
+   "q": "where is k-19: the widowmaker from?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0b_6rk",
+   "r": "/time/event/locations",
+   "o": "/m/0f2r6",
+   "q": "where did the 1990 ncaa mens division i basketball tournament take place",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/050l8",
+   "r": "/base/aareas/schema/administrative_area/capital",
+   "o": "/m/0fvxg",
+   "q": "What's the capital of montana",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01x4r3",
+   "r": "/influence/influence_node/influenced_by",
+   "o": "/m/014z8v",
+   "q": "who influenced lewis black",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0xhtw",
+   "r": "/music/genre/artists",
+   "o": "/m/0d193h",
+   "q": "who are hard rock artists",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0yyn5",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "which country released working girl",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05fhy",
+   "r": "/base/biblioness/bibs_location/country",
+   "o": "/m/09c7w0",
+   "q": "Which country is Nebraska apart of?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/017_qw",
+   "r": "/music/genre/artists",
+   "o": "/m/0146pg",
+   "q": "Name someone who composed a film score",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03shpq",
+   "r": "/film/film/genre",
+   "o": "/m/07s9rl0",
+   "q": "What kind of film is the manchurian candidate?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/048htn",
+   "r": "/film/film/edited_by",
+   "o": "/m/027pdrh",
+   "q": "who edited unfaithful (2002 film)?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/064177",
+   "r": "/people/deceased_person/place_of_death",
+   "o": "/m/030qb3t",
+   "q": "Where did frances marion die?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0drnwh",
+   "r": "/film/film/edited_by",
+   "o": "/m/0bn3jg",
+   "q": "who edited memoirs of a geisha (film)",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/06by7",
+   "r": "/music/genre/artists",
+   "o": "/m/0djc3s",
+   "q": "what artist makes rock music?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0821j",
+   "r": "/influence/influence_node/influenced_by",
+   "o": "/m/07w21",
+   "q": "who was a big influence of william gibson",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/084x96",
+   "r": "/people/person/place_of_birth",
+   "o": "/m/0dzt9",
+   "q": "Where was greg ayres born",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/09qh1",
+   "r": "/influence/influence_node/influenced_by",
+   "o": "/m/01hdht",
+   "q": "who was cary grant influenced by?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05bcl",
+   "r": "/location/location/contains",
+   "o": "/m/0dwfw",
+   "q": "what is a county in northern ireland",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/015_1q",
+   "r": "/music/record_label/artist",
+   "o": "/m/04xrx",
+   "q": "who is one of the highest selling artists signed on columbia records",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/063zky",
+   "r": "/film/film/executive_produced_by",
+   "o": "/m/03mstc",
+   "q": "Who execultively produced the jetsons meet the flintstones",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0ywrc",
+   "r": "/film/film/country",
+   "o": "/m/0f8l9c",
+   "q": "what country was the film the last emperor done in",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01fmys",
+   "r": "/film/film/written_by",
+   "o": "/m/0py5b",
+   "q": "who wrote the movie home alone",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/02r8hh_",
+   "r": "/film/film/genre",
+   "o": "/m/082gq",
+   "q": "what genre is persepolis classified as",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01l69g",
+   "r": "/base/aareas/schema/administrative_area/capital",
+   "o": "/m/03czqs",
+   "q": "What's the capital of odisha",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/03b12",
+   "r": "/location/location/time_zones",
+   "o": "/m/02fqwt",
+   "q": "which timezone is gary located in",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/07q1m",
+   "r": "/film/film/cinematography",
+   "o": "/m/0627sn",
+   "q": "Who did the cinematography for the straight story?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/059_w",
+   "r": "/people/ethnicity/people",
+   "o": "/m/0x3n",
+   "q": "which singer has native americans in the united states ethnicity ",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0880p",
+   "r": "/language/human_language/countries_spoken_in",
+   "o": "/m/0jgd",
+   "q": "where do they speak the yiddish language",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0ldd",
+   "r": "/people/person/nationality",
+   "o": "/m/07ssc",
+   "q": "What is agatha christie's nationality",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0k2sk",
+   "r": "/film/film/production_companies",
+   "o": "/m/04rcl7",
+   "q": "who was the production company of who framed roger rabbit",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0c5dd",
+   "r": "/film/film/produced_by",
+   "o": "/m/030pr",
+   "q": "who produced  it happened one night",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/04llb",
+   "r": "/base/biblioness/bibs_location/country",
+   "o": "/m/05r4w",
+   "q": "Where was lisbon located in?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01r97z",
+   "r": "/film/film/production_companies",
+   "o": "/m/031rq5",
+   "q": "what production company created the film  striptease",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/033dbw",
+   "r": "/film/film/language",
+   "o": "/m/02h40lc",
+   "q": "What language is used in beloved (film)",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/023p7l",
+   "r": "/film/film/genre",
+   "o": "/m/0hcr",
+   "q": "what kind of film is pocahontas",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02mt51",
+   "r": "/film/film/genre",
+   "o": "/m/07s9rl0",
+   "q": "what kind of film is eternal sunshine of the spotless mind?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/04mvk7",
+   "r": "/sports/sports_team/sport",
+   "o": "/m/02vx4",
+   "q": "What sport does chiapas f.c. play?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/050ks",
+   "r": "/location/location/contains",
+   "o": "/m/020ddc",
+   "q": "which school is based in the state of maine",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/06by7",
+   "r": "/music/genre/artists",
+   "o": "/m/04b7xr",
+   "q": "Name an artist who plays rock music.",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/07gxw",
+   "r": "/music/genre/artists",
+   "o": "/m/01sxd1",
+   "q": "Name a techno artist.",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01vvzb1",
+   "r": "/people/person/nationality",
+   "o": "/m/09c7w0",
+   "q": "what is dmx's country of nationality?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/02lf1j",
+   "r": "/people/person/profession",
+   "o": "/m/0cbd2",
+   "q": "What is kevin pollak's profession?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/016lh0",
+   "r": "/influence/influence_node/influenced_by",
+   "o": "/m/052h3",
+   "q": "who influenced ron paul",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/06cs95",
+   "r": "/tv/tv_program/genre",
+   "o": "/m/01z77k",
+   "q": "what kind of tv program is into the west",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01q2nx",
+   "r": "/film/film/genre",
+   "o": "/m/01jfsb",
+   "q": "which genre of film is deep impact under?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03rz4",
+   "r": "/location/location/partially_contains",
+   "o": "/m/0f8l9c",
+   "q": "What country borders the indian ocean",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0298n7",
+   "r": "/film/film/featured_film_locations",
+   "o": "/m/01n7q",
+   "q": "where was seabiscuit (film) filmed?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01lxd4",
+   "r": "/music/genre/parent_genre",
+   "o": "/m/0p9xd",
+   "q": "what is the parent genre of avant-garde jazz",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/04xrx",
+   "r": "/influence/influence_node/influenced_by",
+   "o": "/m/012vd6",
+   "q": "who influenced mariah carey",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/06znpjr",
+   "r": "/film/film/language",
+   "o": "/m/02h40lc",
+   "q": "what is the language of gulliver's travels",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0t0n5",
+   "r": "/location/hud_county_place/place",
+   "o": "/m/0t0n5",
+   "q": "where is cedar rapids ",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/015y3j",
+   "r": "/education/educational_institution/colors",
+   "o": "/m/083jv",
+   "q": "what are the school colors for dickinson college?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03ydlnj",
+   "r": "/film/film/featured_film_locations",
+   "o": "/m/02jx1",
+   "q": "which locations were filmed for the boat that rocked?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01_1pv",
+   "r": "/film/film/featured_film_locations",
+   "o": "/m/04jpl",
+   "q": "where was bedknobs and broomsticks filmed",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03y_f8",
+   "r": "/sports/sports_team/sport",
+   "o": "/m/02vx4",
+   "q": "Which sport does the serbia national football team play",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/039cpd",
+   "r": "/business/business_operation/industry",
+   "o": "/m/02jjt",
+   "q": "televisa is a part of what industry?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/07rd7",
+   "r": "/film/director/film",
+   "o": "/m/01qxc7",
+   "q": "what film is  tim burton known for directing",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/07gghl",
+   "r": "/film/film/country",
+   "o": "/m/0chghy",
+   "q": "Which country is the film showtime from",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/07q1m",
+   "r": "/film/film/genre",
+   "o": "/m/04228s",
+   "q": "what category of film is the straight story",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/034qmv",
+   "r": "/film/film/story_by",
+   "o": "/m/04093",
+   "q": "Who wrote around the world in 80 days's story?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/02w7gg",
+   "r": "/people/ethnicity/people",
+   "o": "/m/02fx3c",
+   "q": "who is english people",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02sqkh",
+   "r": "/tv/tv_program/genre",
+   "o": "/m/0lsxr",
+   "q": "what kind of television show is law & order: criminal intent?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01lyv",
+   "r": "/music/genre/artists",
+   "o": "/m/0c7xjb",
+   "q": "what artists perform country music",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/06czyr",
+   "r": "/people/person/nationality",
+   "o": "/m/09c7w0",
+   "q": "what country is sara ramirez from",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0kbvv",
+   "r": "/user/jg/default_domain/olympic_games/sports",
+   "o": "/m/09_9n",
+   "q": "what event took place in the 2006 winter olympics",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/06wbm8q",
+   "r": "/film/film/executive_produced_by",
+   "o": "/m/0bjkpt",
+   "q": "who executively produced rise of the guardians",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05f7w84",
+   "r": "/tv/tv_program/languages",
+   "o": "/m/06nm1",
+   "q": "kid vs. kat is a tv program in what language",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01k7b0",
+   "r": "/film/film/country",
+   "o": "/m/059j2",
+   "q": "which country filmed the diary of anne frank (1959 film)",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01hdht",
+   "r": "/people/deceased_person/place_of_death",
+   "o": "/m/06_kh",
+   "q": "Where did douglas fairbanks die",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0gvrws1",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "which country released total recall",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02183k",
+   "r": "/education/educational_institution/colors",
+   "o": "/m/06fvc",
+   "q": "Name one of University of Georgia's school colors.",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0167xy",
+   "r": "/influence/influence_node/influenced_by",
+   "o": "/m/03c3yf",
+   "q": "what band influenced thin lizzy",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/027rpym",
+   "r": "/film/film/language",
+   "o": "/m/02h40lc",
+   "q": "which language is primarily spoken in oklahoma!",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05lbzg",
+   "r": "/base/culturalevent/event/entity_involved",
+   "o": "/m/025ndl",
+   "q": "what kingdom was involved int he first war of scottish independence ",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/016clz",
+   "r": "/music/genre/artists",
+   "o": "/m/01wy61y",
+   "q": "what is the name of an alternative rock artist from japan ",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02ntb8",
+   "r": "/film/film/executive_produced_by",
+   "o": "/m/0mdqp",
+   "q": "who is the executive producer of the movie starsky & hutch?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/09nwwf",
+   "r": "/music/genre/artists",
+   "o": "/m/017j6",
+   "q": "Who is a funk rock artist",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/09c7w0",
+   "r": "/location/location/contains",
+   "o": "/m/0ncj8",
+   "q": "which city is located in united states",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0828jw",
+   "r": "/tv/tv_program/genre",
+   "o": "/m/01hmnh",
+   "q": "What genre is the tv program lost (tv series)",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05dy7p",
+   "r": "/film/film/language",
+   "o": "/m/02h40lc",
+   "q": "Which language is the film kundun filmed in",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/01k60v",
+   "r": "/film/film/produced_by",
+   "o": "/m/0hskw",
+   "q": "Who produced silkwood?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0234j5",
+   "r": "/film/film/produced_by",
+   "o": "/m/054_mz",
+   "q": "who produced jackie brown (film)",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0ql7q",
+   "r": "/base/culturalevent/event/entity_involved",
+   "o": "/m/01d8l",
+   "q": "Where did the second crusade take place?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/07s9rl0",
+   "r": "/media_common/netflix_genre/titles",
+   "o": "/m/064r97z",
+   "q": "what is the name of a drama film on netflix",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0694j",
+   "r": "/location/location/time_zones",
+   "o": "/m/02hcv8",
+   "q": "Which timezone is quebec located in",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/02qcqkl",
+   "r": "/music/genre/artists",
+   "o": "/m/05d8vw",
+   "q": "Who's a musician that plays urban contemporary gospel",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0d7wh",
+   "r": "/people/ethnicity/people",
+   "o": "/m/0f2df",
+   "q": "Who is a person who is one of the british people",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01g1lp",
+   "r": "/people/person/gender",
+   "o": "/m/05zppz",
+   "q": "What is gus van sant's gender?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0r0f7",
+   "r": "/location/location/time_zones",
+   "o": "/m/02lcqs",
+   "q": "which timezone is inglewood, california in",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0glt670",
+   "r": "/music/genre/artists",
+   "o": "/m/0bqvs2",
+   "q": "whats the name of a hip hop music rapper",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/07c52",
+   "r": "/media_common/netflix_genre/titles",
+   "o": "/m/02pqs8l",
+   "q": "Name a HBO show featured on television",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0bpjh3",
+   "r": "/people/ethnicity/people",
+   "o": "/m/01zp33",
+   "q": "who is of bengali descent?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/050gkf",
+   "r": "/film/film/production_companies",
+   "o": "/m/04rtpt",
+   "q": "who was one of the production companies listed in the beginning of cinderella man",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02p5hf",
+   "r": "/people/deceased_person/place_of_burial",
+   "o": "/m/018mmw",
+   "q": "where was david carradine buried?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/08fn5b",
+   "r": "/film/film/production_companies",
+   "o": "/m/01gb54",
+   "q": "what production company has rights to flags of our fathers",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02ylg6",
+   "r": "/film/film/production_companies",
+   "o": "/m/025hwq",
+   "q": "punch-drunk love was produced by what company?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/030s5g",
+   "r": "/people/person/nationality",
+   "o": "/m/09c7w0",
+   "q": "What nation is jerry wald from?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01243b",
+   "r": "/music/genre/artists",
+   "o": "/m/01w524f",
+   "q": "what is an artist of indie rock?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/04t36",
+   "r": "/media_common/netflix_genre/titles",
+   "o": "/m/0hv1t",
+   "q": "what's a musical film on netflix",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0by1wkq",
+   "r": "/film/film/executive_produced_by",
+   "o": "/m/05zbm4",
+   "q": "who was the executive producer on the movie looper",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0466s8n",
+   "r": "/film/film/story_by",
+   "o": "/m/01v_0b",
+   "q": "what is the story of the road (film)",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/01tvz5j",
+   "r": "/people/person/place_of_birth",
+   "o": "/m/0_75d",
+   "q": "where was maria bello born",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0g5rg",
+   "r": "/location/location/time_zones",
+   "o": "/m/02hcv8",
+   "q": "what is the time zone associate with binghamton, new york",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0b_6mr",
+   "r": "/time/event/locations",
+   "o": "/m/0c1d0",
+   "q": "Where did 1985 ncaa mens division i basketball tournament take place?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/016r9z",
+   "r": "/user/jg/default_domain/olympic_games/sports",
+   "o": "/m/06wrt",
+   "q": "what is a sport included in the 1900 summer olympics",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0155j3",
+   "r": "/location/administrative_division/country",
+   "o": "/m/05v8c",
+   "q": "Which country is cebu in",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0pd4f",
+   "r": "/film/film/music",
+   "o": "/m/023361",
+   "q": "WHo made the music for the film patton (film)",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01cgz",
+   "r": "/media_common/netflix_genre/titles",
+   "o": "/m/0cf08",
+   "q": "What's a boxing movie available on netflix",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0drnwh",
+   "r": "/film/film/production_companies",
+   "o": "/m/01gb54",
+   "q": "what company produced memoirs of a geisha (film)",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0bvn25",
+   "r": "/film/film/production_companies",
+   "o": "/m/016tw3",
+   "q": "Who was the production company for the film knocked up?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01svry",
+   "r": "/film/film/featured_film_locations",
+   "o": "/m/0vzm",
+   "q": "What was a location featured in  the faculty",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0lgxj",
+   "r": "/olympics/olympic_games/participating_countries",
+   "o": "/m/03_3d",
+   "q": "what country participated in the  1952 summer olympics",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03f5vvx",
+   "r": "/influence/influence_node/influenced_by",
+   "o": "/m/0h25",
+   "q": "Who influenced Margaret Thatcher?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0qcrj",
+   "r": "/base/biblioness/bibs_location/state",
+   "o": "/m/01n7q",
+   "q": "in which state is menlo park",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/02bqxb",
+   "r": "/film/film/genre",
+   "o": "/m/02l7c8",
+   "q": "what kind of film is the fly",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0jm74",
+   "r": "/sports/sports_team/sport",
+   "o": "/m/018w8",
+   "q": "Which sport are the chicago bulls associated with",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/06ncr",
+   "r": "/music/instrument/instrumentalists",
+   "o": "/m/01wp8w7",
+   "q": "Name someone who played the saxophone",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0byq0v",
+   "r": "/sports/sports_team/colors",
+   "o": "/m/019sc",
+   "q": "What color are fc lorient's uniforms",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02q52q",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "Which country did the wizard of oz (1939 film) originate in?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/032zq6",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "what dreams may come was filmed in which country?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0d6b7",
+   "r": "/film/film/written_by",
+   "o": "/m/032md",
+   "q": "who wrote metropolis (film)",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0df2zx",
+   "r": "/film/film/genre",
+   "o": "/m/05p553",
+   "q": "what kind of movie is jackass number two",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/047qxs",
+   "r": "/film/film/genre",
+   "o": "/m/04xvh5",
+   "q": "what kind of film genre is timeline",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02ppg1r",
+   "r": "/tv/tv_program/genre",
+   "o": "/m/07s9rl0",
+   "q": "what television genre is the starter wife?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0_7w6",
+   "r": "/film/film/music",
+   "o": "/m/02fgpf",
+   "q": "who composed the music for beauty and the beast",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0gyy53",
+   "r": "/film/film/costume_design_by",
+   "o": "/m/02mxbd",
+   "q": "who did the costume design for the film  the other boleyn girl",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0b90_r",
+   "r": "/location/location/contains",
+   "o": "/m/0183z2",
+   "q": "what is a location in mexico?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0jnpv",
+   "r": "/sports/sports_team/sport",
+   "o": "/m/03tmr",
+   "q": "What sport do the Dallas Stars play?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/011wtv",
+   "r": "/film/film/film_format",
+   "o": "/m/07fb8_",
+   "q": "What is the film format of the film Minority Report?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/01s7w3",
+   "r": "/film/film/written_by",
+   "o": "/m/056wb",
+   "q": "Who is the writer behind twister",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/04jwly",
+   "r": "/film/film/executive_produced_by",
+   "o": "/m/06t8b",
+   "q": "who produced the film far from heaven",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03vw9m",
+   "r": "/music/genre/artists",
+   "o": "/m/0161c2",
+   "q": "which artist is considered a modern rock musician",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0bn3jg",
+   "r": "/people/person/nationality",
+   "o": "/m/03rjj",
+   "q": "what is the nationality of pietro scalia?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02jkkv",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "what country has out of sight",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/05nlzq",
+   "r": "/tv/tv_program/genre",
+   "o": "/m/095bb",
+   "q": "what kind of tv show was a pup named scooby-doo",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/035xwd",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "Which country is sleepers from",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/01qhm_",
+   "r": "/people/ethnicity/people",
+   "o": "/m/0jcx",
+   "q": "Name a person with the ethnicity of German American. ",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01r2l",
+   "r": "/language/human_language/countries_spoken_in",
+   "o": "/m/0167v",
+   "q": "What is a country where the chinese language is spoken?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01gpzx",
+   "r": "/location/administrative_division/country",
+   "o": "/m/0h7x",
+   "q": "What country has the administrative division styria",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0h1m9",
+   "r": "/people/person/place_of_birth",
+   "o": "/m/0t_3w",
+   "q": "where in Massachusetts is bette davis from ",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/065zlr",
+   "r": "/film/film/story_by",
+   "o": "/m/04l3_z",
+   "q": "who wrote the story for nutty professor ii: the klumps",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/016jny",
+   "r": "/music/genre/artists",
+   "o": "/m/04mky3",
+   "q": "What is the name of a folk rock artist from detroit?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/049mql",
+   "r": "/film/film/country",
+   "o": "/m/03rjj",
+   "q": "Which nation filmed alexander",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0lhn5",
+   "r": "/base/biblioness/bibs_location/country",
+   "o": "/m/09c7w0",
+   "q": "what country is the city savannah found in",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/019vv1",
+   "r": "/education/educational_institution/colors",
+   "o": "/m/01g5v",
+   "q": "What is one of the school colors of the charterhouse school",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/08m4c8",
+   "r": "/people/person/place_of_birth",
+   "o": "/m/0ytph",
+   "q": "Where was justin chambers born?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0b2v79",
+   "r": "/film/film/featured_film_locations",
+   "o": "/m/01_d4",
+   "q": "Where was \"The Untouchables\" filmed?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01fxg8",
+   "r": "/education/educational_institution/school_type",
+   "o": "/m/052q4j",
+   "q": "what kind of educational institution is pontifical gregorian university",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/03np_7",
+   "r": "/education/educational_institution/campuses",
+   "o": "/m/03np_7",
+   "q": "what's the name of a university of texas at arlington campus",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0gvvf4j",
+   "r": "/film/film/production_companies",
+   "o": "/m/061dn_",
+   "q": "what company produced piranha dd",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/07jnt",
+   "r": "/film/film/cinematography",
+   "o": "/m/04qvl7",
+   "q": "who is the cinematographer of the shawshank redemption",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0dh8v4",
+   "r": "/film/film/language",
+   "o": "/m/01r2l",
+   "q": "Which language is case closed: the phantom of baker street in?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/02qlg7s",
+   "r": "/people/person/place_of_birth",
+   "o": "/m/01p1v",
+   "q": "where was humberto gatica born ",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/08hsww",
+   "r": "/people/person/nationality",
+   "o": "/m/09c7w0",
+   "q": "what country is b. j. novak from?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03y2kr",
+   "r": "/people/person/nationality",
+   "o": "/m/09c7w0",
+   "q": "What is the nationality of Samuel Z. Arkoff?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01xdxy",
+   "r": "/film/film/prequel",
+   "o": "/m/0dyb1",
+   "q": "what was the prequel to the film toy story 2",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02mzg9",
+   "r": "/education/educational_institution/school_type",
+   "o": "/m/01rs41",
+   "q": "What type of school is the university of denver",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/025twgf",
+   "r": "/film/film/story_by",
+   "o": "/m/0fx02",
+   "q": "Who wrote the story of dr. no (film)?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01wg982",
+   "r": "/music/artist/origin",
+   "o": "/m/0tz14",
+   "q": "where is regurgitationmusic from ",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0l2rj",
+   "r": "/location/location/contains",
+   "o": "/m/0r4z7",
+   "q": "Name a city located in san diego county, california",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/081yw",
+   "r": "/location/location/contains",
+   "o": "/m/01h8rk",
+   "q": "what university is located in washington (u.s. state)?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01cssf",
+   "r": "/film/film/production_companies",
+   "o": "/m/016tt2",
+   "q": "The film romeo + juliet was produced by which company?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0nbjq",
+   "r": "/film/film_subject/films",
+   "o": "/m/01qz5",
+   "q": "what film is about 1924 summer olympics",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0r7fy",
+   "r": "/location/hud_county_place/place",
+   "o": "/m/0r7fy",
+   "q": "what city is in modesto",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/04dsnp",
+   "r": "/film/film/featured_film_locations",
+   "o": "/m/04jpl",
+   "q": "what was the featured film location of sicko",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05tbn",
+   "r": "/base/biblioness/bibs_location/country",
+   "o": "/m/09c7w0",
+   "q": "where is pennsylvania situated",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/04ltlj",
+   "r": "/film/film/produced_by",
+   "o": "/m/02vyw",
+   "q": "who produced the film frankenstein",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/08jtv5",
+   "r": "/people/person/nationality",
+   "o": "/m/09c7w0",
+   "q": "What is the nationality of michael bell?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/07ssc",
+   "r": "/location/location/contains",
+   "o": "/m/01z8f0",
+   "q": "what area is located in united kingdom",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03w6sj",
+   "r": "/base/culturalevent/event/entity_involved",
+   "o": "/m/059z0",
+   "q": "what is the name of a country that was involved in the western desert campaign?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01pg1d",
+   "r": "/people/person/place_of_birth",
+   "o": "/m/0t_gg",
+   "q": "where was illeana douglas born?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/07d2d",
+   "r": "/music/genre/artists",
+   "o": "/m/01pfr3",
+   "q": "which trip hop group performed one of the james bond theme songs ",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/04v7k2",
+   "r": "/people/person/religion",
+   "o": "/m/0c8wxp",
+   "q": "What religion does vijay practice",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/050t68",
+   "r": "/people/person/gender",
+   "o": "/m/05zppz",
+   "q": "What is fyvush finkel's gender?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/03m5y9p",
+   "r": "/film/film/featured_film_locations",
+   "o": "/m/07b_l",
+   "q": "What was a feature film location for w. (film)?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03rjj",
+   "r": "/location/country/second_level_divisions",
+   "o": "/m/0537y_",
+   "q": "what is a division in italy?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02grjf",
+   "r": "/education/educational_institution/colors",
+   "o": "/m/01l849",
+   "q": "What is a color of calvin college?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03rhqg",
+   "r": "/music/record_label/artist",
+   "o": "/m/047cx",
+   "q": "What's an artist signed to warner bros. records?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0dmn0x",
+   "r": "/film/film/genre",
+   "o": "/m/01jfsb",
+   "q": "What is the genre of film that the lives of others falls within?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/05q_dw",
+   "r": "/film/film/production_companies",
+   "o": "/m/03rwz3",
+   "q": "which production company does the squid and the whale belong to",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/09ps01",
+   "r": "/film/film/produced_by",
+   "o": "/m/02vyw",
+   "q": "who was the producer of the film the virgin suicides",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03vyw8",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "what country is the film mrs. parker and the vicious circle filmed in?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/02k6hp",
+   "r": "/people/cause_of_death/people",
+   "o": "/m/0kb3n",
+   "q": "who died because of cardiovascular disease",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01cx_",
+   "r": "/sports/sports_team_location/teams",
+   "o": "/m/02wvfxl",
+   "q": "what is a sports team in boston",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/018vs",
+   "r": "/music/instrument/instrumentalists",
+   "o": "/m/0473q",
+   "q": "Who plays bass guitar?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0d1qmz",
+   "r": "/film/film/written_by",
+   "o": "/m/0ff2k",
+   "q": "Who wrote you only live twice",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01lnyf",
+   "r": "/education/educational_institution/school_type",
+   "o": "/m/05jxkf",
+   "q": "What type of school is wichita state university?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0c11mj",
+   "r": "/people/person/nationality",
+   "o": "/m/01p1v",
+   "q": "which country is mauricio pinilla from",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0c3z0",
+   "r": "/film/film/language",
+   "o": "/m/06b_j",
+   "q": "what language is spoken in cast away",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01jp4s",
+   "r": "/base/biblioness/bibs_location/country",
+   "o": "/m/03rjj",
+   "q": "What country is bergamo based in?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0127s7",
+   "r": "/people/person/religion",
+   "o": "/m/0c8wxp",
+   "q": "what religion is christina aguilera",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02645b",
+   "r": "/people/person/profession",
+   "o": "/m/0q04f",
+   "q": "what does joshua logan do for a living ",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0cz_ym",
+   "r": "/film/film/genre",
+   "o": "/m/04xvlr",
+   "q": "what genre is american gangster (film)",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/01sxly",
+   "r": "/film/film/genre",
+   "o": "/m/05p553",
+   "q": "what types of movie is a fish called wanda",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01pcj4",
+   "r": "/education/educational_institution/colors",
+   "o": "/m/083jv",
+   "q": "What is a spirit color for the bard college",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/07tj4c",
+   "r": "/film/film/genre",
+   "o": "/m/07s9rl0",
+   "q": "what genre of film is emma?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/09889g",
+   "r": "/base/eating/practicer_of_diet/diet",
+   "o": "/m/07_jd",
+   "q": "what diet did michael jackson practice",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/016z68",
+   "r": "/people/person/religion",
+   "o": "/m/05sfs",
+   "q": "what is stephen rea's religion",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0l14md",
+   "r": "/music/instrument/instrumentalists",
+   "o": "/m/01wmjkb",
+   "q": "who played a percussion instrument?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03gfvsz",
+   "r": "/broadcast/content/artist",
+   "o": "/m/01svw8n",
+   "q": "who is a singer did kymx",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01rc6f",
+   "r": "/education/educational_institution/colors",
+   "o": "/m/03wkwg",
+   "q": "Which are the school colors of university of arkansas?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0d_w7",
+   "r": "/people/person/religion",
+   "o": "/m/03_gx",
+   "q": "what religion is frank gehry",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0gf14",
+   "r": "/education/educational_institution/school_type",
+   "o": "/m/05jxkf",
+   "q": "what type of school is ryerson university?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0mpbx",
+   "r": "/location/administrative_division/country",
+   "o": "/m/09c7w0",
+   "q": "what country is arlington county within",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05r6t",
+   "r": "/music/genre/artists",
+   "o": "/m/070b4",
+   "q": "who is a punk rock artist?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/04b_46",
+   "r": "/education/educational_institution/school_type",
+   "o": "/m/05pcjw",
+   "q": "what type of school is tisch school of the arts ",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03bw6",
+   "r": "/film/director/film",
+   "o": "/m/083skw",
+   "q": "what film did george cukor direct",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/034qmv",
+   "r": "/film/film/story_by",
+   "o": "/m/04093",
+   "q": "who wrote around the world in 80 days",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/07024",
+   "r": "/film/film/production_companies",
+   "o": "/m/01gb54",
+   "q": "which production company produced the film saving private ryan?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0m0jc",
+   "r": "/music/genre/artists",
+   "o": "/m/016ntp",
+   "q": "what's the name of an electronica artist",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/06bnz",
+   "r": "/location/location/contains",
+   "o": "/m/0hkpn",
+   "q": "what is one of the largest city in Russia?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02_fm2",
+   "r": "/film/film/genre",
+   "o": "/m/0hcr",
+   "q": "what type of film is treasure planet?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0jqn5",
+   "r": "/film/film/film_festivals",
+   "o": "/m/05f5rsr",
+   "q": "The film e.t. the extra-terrestrial was shown at what film festival",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/025sc50",
+   "r": "/music/genre/artists",
+   "o": "/m/01k23t",
+   "q": "who sings contemporary r&b music",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/06mxs",
+   "r": "/location/location/time_zones",
+   "o": "/m/02llzg",
+   "q": "what time zone is stockholm situated in",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/058vp",
+   "r": "/influence/influence_node/influenced_by",
+   "o": "/m/01tz6vs",
+   "q": "Who was marcel proust influenced by?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01pvxl",
+   "r": "/film/film/genre",
+   "o": "/m/04t36",
+   "q": "what kind of film was anastasia",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02h7qr",
+   "r": "/education/educational_institution/campuses",
+   "o": "/m/02h7qr",
+   "q": "which campus is towson university in",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03f5spx",
+   "r": "/people/person/profession",
+   "o": "/m/0dz3r",
+   "q": "what is timbaland's profession ",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/029k4p",
+   "r": "/film/film/genre",
+   "o": "/m/0lsxr",
+   "q": "what type of film is from dusk till dawn?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/016_nr",
+   "r": "/music/genre/parent_genre",
+   "o": "/m/0glt670",
+   "q": "what genre is east coast hip hop a part of ",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0kvqv",
+   "r": "/film/director/film",
+   "o": "/m/011ysn",
+   "q": "What's a movie that terrence malick directed",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/034lk7",
+   "r": "/location/location/time_zones",
+   "o": "/m/02hcv8",
+   "q": "what time zone is  staunton, virginia situated in",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03cmsqb",
+   "r": "/film/film/produced_by",
+   "o": "/m/0794g",
+   "q": "which sandra produced all about steve",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/015_1q",
+   "r": "/music/record_label/artist",
+   "o": "/m/0k6yt1",
+   "q": "whats the name of an artist on columbia records",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01z3bz",
+   "r": "/location/location/time_zones",
+   "o": "/m/02llzg",
+   "q": "what time zone is technical university of munich located in?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/02knxx",
+   "r": "/people/cause_of_death/people",
+   "o": "/m/015qt5",
+   "q": "Name a person who died from natural causes.",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02lp3c",
+   "r": "/people/person/nationality",
+   "o": "/m/09c7w0",
+   "q": "what is the nationality of walter murch?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/09ntbc",
+   "r": "/people/person/nationality",
+   "o": "/m/0ctw_b",
+   "q": "leo bertos was born in what country?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/014635",
+   "r": "/people/person/nationality",
+   "o": "/m/09c7w0",
+   "q": "what is the country of mark twain's nationality?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0122wc",
+   "r": "/sports/sports_team/colors",
+   "o": "/m/01g5v",
+   "q": "what is the color associated with the team real sociedad",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0161c",
+   "r": "/location/country/official_language",
+   "o": "/m/0jzc",
+   "q": "which language is spoken in bahrain",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0bcndz",
+   "r": "/film/film/film_art_direction_by",
+   "o": "/m/0fqjks",
+   "q": "who was the film art director of the king and i?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/026ck",
+   "r": "/people/person/gender",
+   "o": "/m/05zppz",
+   "q": "What is d. w. griffith's gender?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/018p4y",
+   "r": "/people/person/languages",
+   "o": "/m/02h40lc",
+   "q": "what language is spoken by pierce brosnan",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02p72j",
+   "r": "/education/educational_institution/school_type",
+   "o": "/m/05jxkf",
+   "q": "what is the school type of university of kiel",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02tf1y",
+   "r": "/people/person/nationality",
+   "o": "/m/09c7w0",
+   "q": "what country is damon wayans from?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/084w8",
+   "r": "/influence/influence_node/influenced_by",
+   "o": "/m/07g2b",
+   "q": "which author influenced william faulkner",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/084qpk",
+   "r": "/film/film/language",
+   "o": "/m/06nm1",
+   "q": "Which language is the film grindhouse in",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/09gdm7q",
+   "r": "/film/film/language",
+   "o": "/m/06b_j",
+   "q": "what language do the characters speak in the whistleblower",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01w8sf",
+   "r": "/people/person/gender",
+   "o": "/m/05zppz",
+   "q": "What is Ian Mcewan's profession?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02bj22",
+   "r": "/film/film/language",
+   "o": "/m/02h40lc",
+   "q": "What language is spoken in the film the santa clause 2",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0gtvpkw",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "What country produced to rome with love",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0hkt6",
+   "r": "/film/film_subject/films",
+   "o": "/m/07f_t4",
+   "q": "what film is based in ancient greece?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0yx_w",
+   "r": "/film/film/cinematography",
+   "o": "/m/08mhyd",
+   "q": "who was the cinematographer for rain man ",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/06wcbk7",
+   "r": "/music/record_label/artist",
+   "o": "/m/01pgzn_",
+   "q": "What is the name of an artist who was signed to universal motown records",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02rjv2w",
+   "r": "/film/film/featured_film_locations",
+   "o": "/m/02301",
+   "q": "what's a filming location used in love story (1970 film)",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01cm8w",
+   "r": "/film/film/featured_film_locations",
+   "o": "/m/02_286",
+   "q": "What metropolitan city was the rescuers located in?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/063hp4",
+   "r": "/film/film/film_art_direction_by",
+   "o": "/m/072twv",
+   "q": "who was the film art director on singin' in the rain",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0bxxzb",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "what country was i spy made in",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/045xh",
+   "r": "/award/award_category/disciplines_or_subjects",
+   "o": "/m/02xlf",
+   "q": "which literary genre is james tiptree, jr. award awarded for",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01y665",
+   "r": "/people/person/gender",
+   "o": "/m/05zppz",
+   "q": "is victor garber male or female",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0g8bw",
+   "r": "/location/country/form_of_government",
+   "o": "/m/06cx9",
+   "q": "what types of government is south vietnam",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/019c57",
+   "r": "/education/educational_institution/colors",
+   "o": "/m/083jv",
+   "q": "what is the official color for kenyon college?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/08b0cj",
+   "r": "/people/person/religion",
+   "o": "/m/0flw86",
+   "q": "what is the religion of mohamed kallon",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/04hs7d",
+   "r": "/tv/tv_program/genre",
+   "o": "/m/0hcr",
+   "q": "what type of show is yu-gi-oh duel monsters",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0342h",
+   "r": "/music/instrument/instrumentalists",
+   "o": "/m/01rwcgb",
+   "q": "who is an indian musician who plays guitar ",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0177s6",
+   "r": "/people/person/profession",
+   "o": "/m/02hrh1q",
+   "q": "What is harold lloyd's profession?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0410cp",
+   "r": "/people/person/religion",
+   "o": "/m/04pk9",
+   "q": "What religion does annabeth gish belong to?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0124ld",
+   "r": "/olympics/olympic_games/sports",
+   "o": "/m/02_5h",
+   "q": "whats an event featured in the 1952 winter olympics",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/02w7gg",
+   "r": "/people/ethnicity/people",
+   "o": "/m/08f3b1",
+   "q": "Who is a politician of the english people?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01hvjx",
+   "r": "/film/film/production_companies",
+   "o": "/m/086k8",
+   "q": "what company produced south park: bigger, longer & uncut",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0p2rj",
+   "r": "/location/us_county/county_seat",
+   "o": "/m/0ftvg",
+   "q": "What's the county seat of pulaski county",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/03gvt",
+   "r": "/music/instrument/instrumentalists",
+   "o": "/m/01mr2g6",
+   "q": "which musicians are known to play the hammond organ",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0286gm1",
+   "r": "/film/film/genre",
+   "o": "/m/07s9rl0",
+   "q": "Which genre is whos afraid of virginia woolf? under",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01vh096",
+   "r": "/influence/influence_node/influenced_by",
+   "o": "/m/081k8",
+   "q": "Who was victor hugo influenced by?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/048z7l",
+   "r": "/people/ethnicity/languages_spoken",
+   "o": "/m/032f6",
+   "q": "What language do most jewish american speak",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/01l2b3",
+   "r": "/film/film/film_format",
+   "o": "/m/0cj16",
+   "q": "what format was bend it like beckham filmed in",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/02w4v",
+   "r": "/music/genre/artists",
+   "o": "/m/01kd57",
+   "q": "what's the name of a folk music act",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05bt6j",
+   "r": "/music/genre/artists",
+   "o": "/m/011z3g",
+   "q": "what is a popular pop rock band",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03w1v2",
+   "r": "/people/person/religion",
+   "o": "/m/0kpl",
+   "q": "which religion does michael pitt practice",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/020hyj",
+   "r": "/people/person/nationality",
+   "o": "/m/0b90_r",
+   "q": "what is the nationality of luis miguel?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01337_",
+   "r": "/people/deceased_person/place_of_burial",
+   "o": "/m/018mm4",
+   "q": "where is james coburn buried",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/016ywb",
+   "r": "/film/film/story_by",
+   "o": "/m/081k8",
+   "q": "who wrote the story for henry v",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/011k11",
+   "r": "/organization/organization/place_founded",
+   "o": "/m/04jpl",
+   "q": "which city was decca records founded in",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/07bty",
+   "r": "/people/person/gender",
+   "o": "/m/05zppz",
+   "q": "is thomas edison a male or female",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01pcq3",
+   "r": "/people/person/languages",
+   "o": "/m/064_8sq",
+   "q": "what's a language that anna paquin can speak",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/06t8b",
+   "r": "/film/director/film",
+   "o": "/m/0418wg",
+   "q": "What is a film that steven soderbergh directed?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/07srw",
+   "r": "/location/administrative_division/country",
+   "o": "/m/09c7w0",
+   "q": "which country is utah in ",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/01jzyx",
+   "r": "/education/educational_institution/colors",
+   "o": "/m/083jv",
+   "q": "What's one of the colors of st. johns university",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03cd0x",
+   "r": "/film/film/genre",
+   "o": "/m/04pbhw",
+   "q": "what kind of movie is catwoman (film)",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01k3s2",
+   "r": "/education/educational_institution/campuses",
+   "o": "/m/01k3s2",
+   "q": "What is the name of the university of alberta campus?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02lf70",
+   "r": "/people/person/languages",
+   "o": "/m/02bjrlw",
+   "q": "which language does lorraine bracco speak",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02r79_h",
+   "r": "/film/film/production_companies",
+   "o": "/m/05mgj0",
+   "q": "Which production company produced the imaginarium of dr. parnassus?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/015l4k",
+   "r": "/user/jg/default_domain/olympic_games/sports",
+   "o": "/m/03tmr",
+   "q": "what was a sport played in the 1968 winter olympics",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0by1wkq",
+   "r": "/film/film/genre",
+   "o": "/m/01jfsb",
+   "q": "What was the genre of the film looper?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/016fyc",
+   "r": "/film/film/featured_film_locations",
+   "o": "/m/02_286",
+   "q": "in which city was the the usual suspects filmed",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01jfsb",
+   "r": "/media_common/netflix_genre/titles",
+   "o": "/m/0233bn",
+   "q": "What is a crime film in the netflix genre thriller?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/017y26",
+   "r": "/education/educational_institution/school_type",
+   "o": "/m/01rs41",
+   "q": "what type of school is the university of pennsylvania law school",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0ds35l9",
+   "r": "/film/film/written_by",
+   "o": "/m/08vr94",
+   "q": "who wrote bridesmaids",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0dq626",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "what country  made the film holes",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0bx_hnp",
+   "r": "/film/film/genre",
+   "o": "/m/0jtdp",
+   "q": "what type of film is george harrison: living in the material world",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/02w70",
+   "r": "/location/location/time_zones",
+   "o": "/m/042g7t",
+   "q": "what time zone is fredericton on?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/07bty",
+   "r": "/organization/organization_founder/organizations_founded",
+   "o": "/m/03bnb",
+   "q": "what is an organization founded by thomas edison",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01g23m",
+   "r": "/people/person/place_of_birth",
+   "o": "/m/030qb3t",
+   "q": "which city was kate hudson born",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02_kd",
+   "r": "/film/film/genre",
+   "o": "/m/06cvj",
+   "q": "What is the genre of the film four weddings and a funeral",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/06ch55",
+   "r": "/music/instrument/instrumentalists",
+   "o": "/m/0197tq",
+   "q": "who plays jazz piano?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02hnl",
+   "r": "/music/instrument/instrumentalists",
+   "o": "/m/0ph2w",
+   "q": "What instrumentalist is known for using a drum kit?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02z3r8t",
+   "r": "/film/film/language",
+   "o": "/m/0121sr",
+   "q": "what language is spoken in new york, i love you",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/060__7",
+   "r": "/film/film/genre",
+   "o": "/m/060__y",
+   "q": "what is the film genre for snow falling on cedars?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/026z9",
+   "r": "/music/genre/artists",
+   "o": "/m/01lqf49",
+   "q": "Whats the name of a disco artist",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0694j",
+   "r": "/base/aareas/schema/administrative_area/capital",
+   "o": "/m/0pmp2",
+   "q": "what is the capital of quebec",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/030qb3t",
+   "r": "/location/location/contains",
+   "o": "/m/018mrd",
+   "q": "which cemetery is located in los angeles",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/047csmy",
+   "r": "/film/film/language",
+   "o": "/m/02h40lc",
+   "q": "what is the primary language in the film  transformers 2",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01vw8k",
+   "r": "/film/film/genre",
+   "o": "/m/03k9fj",
+   "q": "what genre is the film troy",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/040rjq",
+   "r": "/people/person/nationality",
+   "o": "/m/07ssc",
+   "q": "what is martin mcdonagh's nationality?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02z44tp",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "what country was rich man, poor man filmed in",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/025sc50",
+   "r": "/music/genre/artists",
+   "o": "/m/013v5j",
+   "q": "Name an artist from the contemporary r&b genre",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/09x8ms",
+   "r": "/people/deceased_person/place_of_death",
+   "o": "/m/0f2wj",
+   "q": "Where in LA did adrian adolph greenberg die",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0330r",
+   "r": "/tv/tv_program/genre",
+   "o": "/m/011ys5",
+   "q": "What kind of tv program is frasier?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/018cqq",
+   "r": "/user/ktrueman/default_domain/international_organization/member_states",
+   "o": "/m/0d060g",
+   "q": "What country is a member of oecd",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0ggx5q",
+   "r": "/music/genre/artists",
+   "o": "/m/019x62",
+   "q": "Name an artist in the genre of dance music",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0bpm4yw",
+   "r": "/film/film/music",
+   "o": "/m/0150t6",
+   "q": "what German music composer produce the dark knight rises movie",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01jnc_",
+   "r": "/film/film/language",
+   "o": "/m/02h40lc",
+   "q": "what language do they speak in blues brothers 2000",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/04psf",
+   "r": "/people/cause_of_death/people",
+   "o": "/m/01kgg9",
+   "q": "which actress passed away due to leukemia ",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0488g",
+   "r": "/base/biblioness/bibs_location/country",
+   "o": "/m/09c7w0",
+   "q": "which country is kansas based in",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/020bv3",
+   "r": "/film/film/language",
+   "o": "/m/064_8sq",
+   "q": "what is a language that love actually was produced in",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0n0bp",
+   "r": "/film/film/language",
+   "o": "/m/02h40lc",
+   "q": "Which language is the film judgment at nuremberg in",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01hmk9",
+   "r": "/influence/influence_node/influenced_by",
+   "o": "/m/01k9lpl",
+   "q": "Name someone who was influenced by richard pryor",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01cssf",
+   "r": "/film/film/music",
+   "o": "/m/05y7hc",
+   "q": "who is the composer for romeo + juliet",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02ntb8",
+   "r": "/film/film/produced_by",
+   "o": "/m/06dkzt",
+   "q": "Who produced the film starsky & hutch",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/03f22dp",
+   "r": "/people/person/religion",
+   "o": "/m/03j6c",
+   "q": "what creed does ashok kumar practice",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02ph9tm",
+   "r": "/film/film/production_companies",
+   "o": "/m/017s11",
+   "q": "which company produced the film you dont mess with the zohan",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/01f8hf",
+   "r": "/film/film/story_by",
+   "o": "/m/0cv9fc",
+   "q": "who wrote the story for aliens (film)",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0cp0ph6",
+   "r": "/film/film/genre",
+   "o": "/m/05p553",
+   "q": "what kind of movie is bad teacher",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01pq4w",
+   "r": "/education/university/fraternities_and_sororities",
+   "o": "/m/0325pb",
+   "q": "what is an organization within greek life at vanderbilt university",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/06zn2v2",
+   "r": "/film/film/film_format",
+   "o": "/m/0cj16",
+   "q": "Which film format is don't be afraid of the dark in",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/04rrd",
+   "r": "/base/biblioness/bibs_location/country",
+   "o": "/m/09c7w0",
+   "q": "what country is  maryland from",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/099p5",
+   "r": "/people/person/religion",
+   "o": "/m/07w8f",
+   "q": "what religion does linus pauling follow?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/021j38",
+   "r": "/location/administrative_division/country",
+   "o": "/m/0162b",
+   "q": "what administrative division is chittagong in ",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0ckrgs",
+   "r": "/film/film/language",
+   "o": "/m/03_9r",
+   "q": "what language was used in the film sailor moon s the movie",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02k1pr",
+   "r": "/film/film/genre",
+   "o": "/m/03k9fj",
+   "q": "what kind of film is the poseidon adventure",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0crs0b8",
+   "r": "/film/film/country",
+   "o": "/m/0f8l9c",
+   "q": "which country did the movie brighton rock come from",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/011yhm",
+   "r": "/film/film/country",
+   "o": "/m/07ssc",
+   "q": "What country was the film fargo created in?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/025g__",
+   "r": "/music/genre/artists",
+   "o": "/m/01k3qj",
+   "q": "Name a musician in the j-pop genre.",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03ywyk",
+   "r": "/people/person/nationality",
+   "o": "/m/09c7w0",
+   "q": "what is the nationality of  cheryl hines",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01cszh",
+   "r": "/music/record_label/artist",
+   "o": "/m/0b_xm",
+   "q": "Which rock band was signed to arista records",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/026390q",
+   "r": "/film/film/country",
+   "o": "/m/0f8l9c",
+   "q": "what country is thelma and louise from?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03mqtr",
+   "r": "/media_common/netflix_genre/titles",
+   "o": "/m/0c38gj",
+   "q": "which political drama film in netflix features leonardo dicaprio?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0dwl2",
+   "r": "/business/business_operation/industry",
+   "o": "/m/01mw1",
+   "q": "what industry is valve corporation in",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0fpzt5",
+   "r": "/people/person/profession",
+   "o": "/m/0kyk",
+   "q": "What is the profession of orson scott card",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0330r",
+   "r": "/tv/tv_program/genre",
+   "o": "/m/05p553",
+   "q": "What genre is the tv program frasier",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0rrhp",
+   "r": "/location/hud_county_place/county",
+   "o": "/m/0jxh9",
+   "q": "what county is lakeland located in",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01sxd1",
+   "r": "/people/person/profession",
+   "o": "/m/01d_h8",
+   "q": "What is the profession of sarah brightman?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0d8h4",
+   "r": "/location/administrative_division/country",
+   "o": "/m/0f8l9c",
+   "q": "Which country is the region nord-pas-de-calais in?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/03phtz",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "is daylight from the united states or canada",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/011yth",
+   "r": "/film/film/produced_by",
+   "o": "/m/04y8r",
+   "q": "who produced the film the insider?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/09r94m",
+   "r": "/film/film/produced_by",
+   "o": "/m/02q42j_",
+   "q": "Who produced united 93 (film)",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05q_dw",
+   "r": "/film/film/featured_film_locations",
+   "o": "/m/02_286",
+   "q": "Where was the squid and the whale filmed",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0y3_8",
+   "r": "/music/genre/artists",
+   "o": "/m/02wb6yq",
+   "q": "who performs synthpop?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/04wqsm",
+   "r": "/sports/sports_team/sport",
+   "o": "/m/02vx4",
+   "q": "what sport does deportivo toluca play",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0mb0",
+   "r": "/influence/influence_node/influenced_by",
+   "o": "/m/0448r",
+   "q": "who was anne rice influenced by?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/014z8v",
+   "r": "/people/person/profession",
+   "o": "/m/03gjzk",
+   "q": "What did george carlin work as",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0n00",
+   "r": "/people/person/religion",
+   "o": "/m/0kpl",
+   "q": "What type of religion does alan turing believe in",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/053tj7",
+   "r": "/film/film/film_format",
+   "o": "/m/0cj16",
+   "q": "which country is neil smith from",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/04p3w",
+   "r": "/people/cause_of_death/people",
+   "o": "/m/0d4jl",
+   "q": "who died of lung cancer",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0lgxj",
+   "r": "/olympics/olympic_games/participating_countries",
+   "o": "/m/0d0vqn",
+   "q": "Name a country that participated in the 1952 summer olympics",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03y_46",
+   "r": "/people/person/nationality",
+   "o": "/m/02jx1",
+   "q": "What is mark williams's nationality ",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0yb_4",
+   "r": "/location/location/contains",
+   "o": "/m/01rtm4",
+   "q": "what college is located in bronxville",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/07srw",
+   "r": "/base/biblioness/bibs_location/country",
+   "o": "/m/09c7w0",
+   "q": "what country is utah in",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/065zlr",
+   "r": "/film/film/featured_film_locations",
+   "o": "/m/0k_q_",
+   "q": "what is one of the featured film locations of the film nutty professor ii: the klumps",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/07wlf",
+   "r": "/education/educational_institution/colors",
+   "o": "/m/01jnf1",
+   "q": "What is the color for university of utah",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05r5c",
+   "r": "/music/instrument/instrumentalists",
+   "o": "/m/02rgz4",
+   "q": "which musician plays the piano",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/06fc0b",
+   "r": "/people/person/profession",
+   "o": "/m/01d_h8",
+   "q": "Other than portraying the character Vincent Chase, what is another of Adrian Grenier's professions? ",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0r5y9",
+   "r": "/base/biblioness/bibs_location/country",
+   "o": "/m/09c7w0",
+   "q": "what country is san mateo in",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0chnf",
+   "r": "/influence/influence_node/influenced_by",
+   "o": "/m/0fpzzp",
+   "q": "solaris (operating system) was influenced by which computer operating system?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03vfr_",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "what country was shown in the spongebob squarepants movie",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/033q4k",
+   "r": "/education/university/fraternities_and_sororities",
+   "o": "/m/0325pb",
+   "q": "what is a greek organization at sonoma state university",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0g6ff",
+   "r": "/people/ethnicity/geographic_distribution",
+   "o": "/m/0d0kn",
+   "q": "which country contains ethnic russians?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02hnl",
+   "r": "/music/instrument/instrumentalists",
+   "o": "/m/0473q",
+   "q": "who plays the drum kit",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0m123",
+   "r": "/tv/tv_program/genre",
+   "o": "/m/07s9rl0",
+   "q": "What genre is the TV show the waltons?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03nqnnk",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "What country was searching for debra winger filmed in",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0lx2l",
+   "r": "/influence/influence_node/influenced_by",
+   "o": "/m/052hl",
+   "q": "who is the inspiration of jim carrey",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05krk",
+   "r": "/education/university/fraternities_and_sororities",
+   "o": "/m/035tlh",
+   "q": "name a fraternity at ohio state university.",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05t54s",
+   "r": "/film/film/genre",
+   "o": "/m/01jfsb",
+   "q": "how would live free or die hard be categorized",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/017gm7",
+   "r": "/film/film/produced_by",
+   "o": "/m/0js9s",
+   "q": "who produced the lord of the rings: the two towers?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/033g4d",
+   "r": "/film/film/language",
+   "o": "/m/0459q4",
+   "q": "What language is lethal weapon 4 offered in?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0g3zrd",
+   "r": "/film/film/featured_film_locations",
+   "o": "/m/01_d4",
+   "q": "where was the film public enemies (2009 film) shot?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/07s9rl0",
+   "r": "/media_common/netflix_genre/titles",
+   "o": "/m/0m9p3",
+   "q": "whats a movie title that is a netflix drama",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0hnp7",
+   "r": "/people/deceased_person/place_of_burial",
+   "o": "/m/018mmj",
+   "q": "which part was errol flynn burried",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01cyd5",
+   "r": "/education/educational_institution/school_type",
+   "o": "/m/01rs41",
+   "q": "What kind of school is phillips exeter academy?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/052smk",
+   "r": "/music/genre/artists",
+   "o": "/m/016wvy",
+   "q": "who is a well known drone music artist ",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/04x1_w",
+   "r": "/people/person/place_of_birth",
+   "o": "/m/02_286",
+   "q": "Where was olivia wilde born",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0ds33",
+   "r": "/film/film/produced_by",
+   "o": "/m/02qzjj",
+   "q": "who is the producer of armageddon",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/026wlxw",
+   "r": "/film/film/story_by",
+   "o": "/m/02q4mt",
+   "q": "who wrote the story for get smart",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/06qd3",
+   "r": "/base/aareas/schema/administrative_area/administrative_area_type",
+   "o": "/m/0hzc9wc",
+   "q": "what is the administrative type of south korea",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0m63c",
+   "r": "/film/film/production_companies",
+   "o": "/m/04rcl7",
+   "q": "who produced the lion king",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/06q5t7",
+   "r": "/influence/influence_node/influenced_by",
+   "o": "/m/05ty4m",
+   "q": "which actor influenced jason segel",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/02rhwjr",
+   "r": "/tv/tv_program/genre",
+   "o": "/m/0jxy",
+   "q": "what kind of show is mobile suit gundam 00?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/06nns1",
+   "r": "/people/person/place_of_birth",
+   "o": "/m/01cx_",
+   "q": "where was  lisa edelstein born",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/02bn75",
+   "r": "/people/person/nationality",
+   "o": "/m/09c7w0",
+   "q": "is alex north from canada or the united states",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/076zy_g",
+   "r": "/film/film/music",
+   "o": "/m/04pf4r",
+   "q": "Who provided the music for unstoppable?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0n6ds",
+   "r": "/film/film/produced_by",
+   "o": "/m/043q6n_",
+   "q": "who produced cruel intentions",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0fw2f",
+   "r": "/base/biblioness/bibs_location/country",
+   "o": "/m/09c7w0",
+   "q": "what country is charleston in?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0mvsg",
+   "r": "/location/location/time_zones",
+   "o": "/m/02hcv8",
+   "q": "what timezone is lexington county in?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/015cz0",
+   "r": "/education/educational_institution/school_type",
+   "o": "/m/05jxkf",
+   "q": "what kind of university is tel aviv university?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03tn80",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "What country created the film congo?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0j_c",
+   "r": "/film/director/film",
+   "o": "/m/0jwvf",
+   "q": "Name a film directed by alfred hitchcock",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0ck91",
+   "r": "/people/person/languages",
+   "o": "/m/02h40lc",
+   "q": "Which language does jane seymour speak?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0ql7q",
+   "r": "/base/culturalevent/event/entity_involved",
+   "o": "/m/0j54b",
+   "q": "what family was involved in second crusade?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/08lpkq",
+   "r": "/music/genre/parent_genre",
+   "o": "/m/03_d0",
+   "q": "what is the parent genre of vocal jazz?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0ggx5q",
+   "r": "/music/genre/artists",
+   "o": "/m/043zg",
+   "q": "which artist makes dance music?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0dnvn3",
+   "r": "/film/film/produced_by",
+   "o": "/m/01qg7c",
+   "q": "Who produced the ladykillers?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0df4y",
+   "r": "/base/aareas/schema/administrative_area/administrative_parent",
+   "o": "/m/0d05w3",
+   "q": "what is the administrative parent of tianjin",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/01y8zd",
+   "r": "/education/educational_institution/campuses",
+   "o": "/m/01y8zd",
+   "q": "What is a campus of mcmaster university?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02g8h",
+   "r": "/people/person/place_of_birth",
+   "o": "/m/0pc7r",
+   "q": "what was denis leary's place of birth?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01kmd4",
+   "r": "/people/person/gender",
+   "o": "/m/05zppz",
+   "q": "is kobe bryant male or female",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0cbkc",
+   "r": "/people/person/languages",
+   "o": "/m/04306rv",
+   "q": "What language does catherine deneuve speak",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0bmch_x",
+   "r": "/film/film/language",
+   "o": "/m/04306rv",
+   "q": "what language was spoken in unknown",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/084302",
+   "r": "/film/film/genre",
+   "o": "/m/07s9rl0",
+   "q": "what is the genre of the prestige",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/06x68",
+   "r": "/sports/sports_team/colors",
+   "o": "/m/06fvc",
+   "q": "What color is associated with the st. louis cardinals",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/05w3f",
+   "r": "/music/genre/artists",
+   "o": "/m/0jltp",
+   "q": "name an artist that produces psychedelic rock",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05bt6j",
+   "r": "/music/genre/artists",
+   "o": "/m/02wb6yq",
+   "q": "Name a modern female pop rock musician",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0h99n",
+   "r": "/medicine/disease/notable_people_with_this_condition",
+   "o": "/m/06tp4h",
+   "q": "Who is a notable person who is affected by attention deficit hyperactivity disorder",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0qpn9",
+   "r": "/location/location/time_zones",
+   "o": "/m/02hczc",
+   "q": "what time zone is  mesa in",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/043c4j",
+   "r": "/people/person/nationality",
+   "o": "/m/09c7w0",
+   "q": "Which country does matt chamberlain have nationality in",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/09_2gj",
+   "r": "/people/deceased_person/place_of_death",
+   "o": "/m/0c8tk",
+   "q": "where did raghuvaran pass away at?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/013b6_",
+   "r": "/people/ethnicity/people",
+   "o": "/m/0lccn",
+   "q": "what person is an ashkenazi jews?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03cdg",
+   "r": "/influence/influence_node/influenced_by",
+   "o": "/m/08304",
+   "q": "which activist influenced george bernard shaw",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01vfqh",
+   "r": "/film/film/genre",
+   "o": "/m/05p553",
+   "q": "what film genre is barton fink?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/078sj4",
+   "r": "/film/film/cinematography",
+   "o": "/m/02vx4c2",
+   "q": "who is the cinematographer for syriana",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/0cvkv5",
+   "r": "/film/film/genre",
+   "o": "/m/0lsxr",
+   "q": "What kind of film is volver?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02pl5bx",
+   "r": "/music/genre/artists",
+   "o": "/m/03x82v",
+   "q": "Who is a reggae fusion artist?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/011ypx",
+   "r": "/film/film/music",
+   "o": "/m/0kvnn",
+   "q": "who made the music for good will hunting",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/012mrr",
+   "r": "/film/film/edited_by",
+   "o": "/m/03q8ch",
+   "q": "who was the editor for the film close encounters of the third kind?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05k2xy",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "which country is the interpreter from",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01738f",
+   "r": "/music/genre/artists",
+   "o": "/m/01vw20_",
+   "q": "what artist is a form of funk metal?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/05yzt_",
+   "r": "/people/person/profession",
+   "o": "/m/02hrh1q",
+   "q": "what is carmine coppola's profession?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/09z2b7",
+   "r": "/film/film/country",
+   "o": "/m/09c7w0",
+   "q": "Where was the film the wings of the dove released?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/02w7gg",
+   "r": "/people/ethnicity/people",
+   "o": "/m/0l6px",
+   "q": "Who is a person that associates themselves with english people",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/053x8hr",
+   "r": "/tv/tv_program/genre",
+   "o": "/m/0lsxr",
+   "q": "what television genre is sherlock?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01w1sx",
+   "r": "/film/film_subject/films",
+   "o": "/m/08720",
+   "q": "what film is about the cold war?",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03pc89",
+   "r": "/film/film/music",
+   "o": "/m/037lyl",
+   "q": "who is credited for the music in mash (film)",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03h_yfh",
+   "r": "/people/person/place_of_birth",
+   "o": "/m/0fttg",
+   "q": "where was nat king cole from",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0dls3",
+   "r": "/music/genre/artists",
+   "o": "/m/0ycp3",
+   "q": "what is the name of a grunge rock band",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/04dbw3",
+   "r": "/people/ethnicity/languages_spoken",
+   "o": "/m/0t_2",
+   "q": "what language do people in cuban american speak",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/01npcx",
+   "r": "/film/film/genre",
+   "o": "/m/0bkbm",
+   "q": "What kind of film is goldeneye?",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/025ts_z",
+   "r": "/film/film/language",
+   "o": "/m/02h40lc",
+   "q": "What language was utilized for the film 24: redemption",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/07l450",
+   "r": "/film/film/written_by",
+   "o": "/m/0h5f5n",
+   "q": "who wrote the film the last king of scotland",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": false
+  },
+  {
+   "s": "/m/01k5y0",
+   "r": "/film/film/country",
+   "o": "/m/07ssc",
+   "q": "which country released victor victoria",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0bl1_",
+   "r": "/film/film/language",
+   "o": "/m/02h40lc",
+   "q": "What is the language of the film midnight cowboy?",
+   "linked_ok": false,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0cjf0",
+   "r": "/medicine/symptom/symptom_of",
+   "o": "/m/04psf",
+   "q": "what illness is a fever a symptom of",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/0cfgd",
+   "r": "/music/artist/origin",
+   "o": "/m/03msf",
+   "q": "where did the music artist deep purple come from",
+   "linked_ok": true,
+   "relation_ok": true,
+   "end_to_end_ok": true,
+   "memory_ok_given_gold": true
+  },
+  {
+   "s": "/m/03b1sb",
+   "r": "/film/film/genre",
+   "o": "/m/0lsxr",
+   "q": "what types of movie is the grifters (film)",
+   "linked_ok": true,
+   "relation_ok": false,
+   "end_to_end_ok": false,
+   "memory_ok_given_gold": true
+  }
+ ]
+}

@@ -82,3 +82,40 @@ Tutto il resto è **sostenuto in parte**.
   accuratezza, non la sua qualità.
 - Le domande sono solo quelle con la tripla in FB15k-237: un sottoinsieme
   selezionato di SimpleQuestions.
+
+---
+
+## Esito — 2026-09-28, eseguito dopo il commit `b63f65b`
+
+Criteri **non modificati**. Risultati:
+[`results/human_questions_prereg_results.json`](../../results/human_questions_prereg_results.json).
+
+Contratto, emesso dopo l'audit e prima del test: π̂ = 0.36 [0.273, 0.458],
+m̄ = 0.8019, **previsto 0.2887 [0.2187, 0.3670]**.
+
+| | misurato sul test (643) | previsto | esito |
+|---|---|---|---|
+| **H1** end-to-end | **0.3608** | 0.2887 [0.2187, 0.3670] | **sostenuta in parte**: dentro l'intervallo, ma +7.2 punti (soglia 5; falsificazione oltre 10) |
+| **H2** memoria con (s, r) veri | 0.8072 | 0.8019 | **sostenuta**: +0.3 SE |
+| **H3** front-end | 0.4059 | audit [0.273, 0.458] | **sostenuta** |
+
+Collegamento corretto sul test: 90.4%; il front-end sbaglia soprattutto la
+relazione.
+
+### Da dove viene lo scarto
+
+- **L'audit ha sottostimato il front-end** (0.36 contro 0.406 sul test): rumore di
+  campionamento su 100 domande, ed è il motivo dell'intervallo del contratto.
+- **Front-end e memoria non sono indipendenti**, primo limite dichiarato: sulle 261
+  domande con front-end giusto la memoria risponde all'85.1%, contro l'80.7%
+  complessivo. Le domande che il front-end capisce sono anche quelle con meno
+  interferenza in memoria.
+- 10 risposte giuste per una strada sbagliata, secondo limite dichiarato.
+
+### Cosa dice
+
+Su domande scritte da persone il livello della memoria fa ciò che la teoria
+prevede (+0.3 SE), e l'errore del contratto sta tutto nel front-end: stima
+dell'audit e correlazione fra i livelli. Un contratto a due livelli deve stimare
+il front-end su un audit più grande, o condizionare la memoria sulle domande che
+il front-end risolve.
