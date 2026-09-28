@@ -77,3 +77,42 @@ parte**, e va scritto così.
 - In B e C il modello assume indipendenza fra candidati a pari segnale: B serve
   proprio a misurare quanto costa questa ipotesi.
 - Collisioni del seed a 32 bit: con M ≤ ~4500, probabilità ≈ 0,2%.
+
+---
+
+## Esito — 2026-09-28, eseguito dopo il commit `0856406`
+
+Previsioni e criteri qui sopra **non sono stati modificati**. Risultati:
+[`results/exact_prereg_results.json`](../../results/exact_prereg_results.json).
+Errori come previsto − misurato, in punti.
+
+| ipotesi | modello esatto | Law IV, k = 0.92 (confronto) | esito |
+|---|---|---|---|
+| H1 — A, D = 16384 | 0.27, con segno −0.09 | 0.69, −0.58 | **sostenuta** |
+| H2 — B, g = 1 | 0.58 | 0.60 | **sostenuta** |
+| H2 — B, g = 2 | 0.86 | 13.1 | **sostenuta** |
+| H2 — B, g = 4 | 0.32 | 21.1 | **sostenuta** |
+| H3 — C, D = 8192 | 1.06, con segno −1.06 | 2.79, −2.79 | **sostenuta** |
+| H3 — C, D = 2048 | 2.88, con segno **−2.61** | 4.56, −4.32 | **sostenuta in parte**: il bias con segno supera ±2, non ±4 |
+| H4 — C, esatto contro Law IV | 1.97 | 3.68 | **sostenuta** |
+| H5 — C, hub | differenza +3.28 | — | **né sostenuta né falsificata** (soglie 3 e 8) |
+
+### Cosa dice
+
+- **Zero parametri reggono in una dimensione mai misurata**: a D = 16384 l'errore
+  medio è 0.27 punti.
+- **L'ipotesi di indipendenza fra candidati a pari segnale costa meno di un
+  punto** (parte B), mentre ignorare i candidati multipli, come fa la Law IV,
+  costa 13–21 punti.
+- Sui sottografi densi reali il modello esatto sbaglia meno della metà della
+  Law IV.
+
+### Cosa non torna
+
+- **Sui sottografi densi a D = 2048 il modello è pessimista**, soprattutto ad
+  alto carico: a N = 400 misurato 27.6, previsto 19.3; a N = 200 53.5 contro
+  49.6. La direzione è la stessa degli hub (+3.28). Qualcosa nella struttura di
+  un grafo reale denso rende le query più facili di quanto prevedano le
+  distribuzioni esatte per fatti indipendenti. **Non è spiegato**; non va
+  corretto a posteriori, va capito e messo alla prova con una nuova
+  preregistrazione.
