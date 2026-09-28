@@ -34,8 +34,8 @@ dependencies = [
 abm = "abm.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/Kiatto/bsm-foundation"
-Source = "https://github.com/Kiatto/bsm-foundation"
+Homepage = "https://github.com/Kiatto/abm-runtime"
+Source = "https://github.com/Kiatto/abm-runtime"
 
 [tool.setuptools]
 package-dir = {"abm" = "reference"}
