@@ -19,7 +19,8 @@ Paper `docs/paper.md` **v1.4**, voto della review ostile **7/10**.
 |---|---|---|
 | `fb15k237.md` — Law IV (k = 0.92) su FB15k-237 uniforme | `fc3aa26` | **fatta**: H1 sostenuta (1.05 punti), H2 hub né sostenuta né falsificata |
 | `exact_contract.md` — contratto esatto, 0 parametri: D = 16384, multi-oggetto, FB15k-237 denso | `0856406` | **fatta**: H1, H2, H4 sostenute; H3 sostenuta a 8192 e in parte a 2048 (bias −2.6); H5 indecisa |
-| `dependence.md` — Law V violata di una quantità esatta; P3 ricostruito | `e6bb351` | in esecuzione / da valutare |
+| `dependence.md` — Law V violata di una quantità esatta; P3 ricostruito | `e6bb351` | **fatta**: E1, E2, G sostenute; Law V respinta a 6 SE come previsto |
+| `twins.md` — gemelli simmetrici (peso 2), Law VII esatta, WN18RR | `aebd0dc` | in esecuzione / da valutare |
 
 Risultati: `results/exact_prereg_results.json`, `results/dependence_prereg_results.json`.
 Valutare **solo** con i criteri scritti nei file di preregistrazione, e

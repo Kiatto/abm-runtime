@@ -88,3 +88,42 @@ il 15%. Il 7% tiene conto del rumore di un crossing stimato con 30 seed.
 - La costruzione di G (13 relazioni a rotazione) non è necessariamente quella,
   perduta, dell'esperimento originale: i valori assoluti di N\* possono differire
   da quelli del paper; il confronto sostanziale è sul guadagno.
+
+---
+
+## Esito — 2026-09-28, eseguito dopo il commit `e6bb351`
+
+Previsioni e criteri **non modificati**. Risultati:
+[`results/dependence_prereg_results.json`](../../results/dependence_prereg_results.json).
+
+**E1 — sostenuta.**
+
+| N | misurato | previsto | SE | scarto | distanza da 0 |
+|---|---|---|---|---|---|
+| 10 | −0.06342 | −0.06447 | 0.00070 | +1.5 SE | 91 SE |
+| 30 | −0.02124 | −0.02131 | 0.00040 | +0.2 SE | 53 SE |
+| 90 | −0.00715 | −0.00708 | 0.00023 | −0.3 SE | 31 SE |
+
+**E2 — sostenuta, e la Law V è respinta.**
+
+| N | D | P(entrambi) misurato | previsto | Law V (p₁·p₂) | φ misurato | φ previsto | scarto | \|φ\| / SE |
+|---|---|---|---|---|---|---|---|---|
+| 10 | 48 | 0.2160 | 0.2189 | 0.2235 | −0.0301 | −0.0318 | +0.3 SE | **6.0** |
+| 30 | 240 | 0.2558 | 0.2573 | 0.2598 | −0.0156 | −0.0112 | −1.6 SE | **5.4** |
+
+I successi di due hop sulla stessa traccia **non** sono indipendenti: sono
+correlati negativamente, della quantità calcolata dagli assiomi. La Law V
+(Acc = p^h) è falsificata come legge esatta; resta un'approssimazione il cui
+errore è ora noto, ed è piccolo solo quando N è grande.
+
+**G — sostenuta.**
+
+| distrattori | N\* pieno (prev.) | N\* tipato (prev.) | guadagno misurato | previsto | scarto |
+|---|---|---|---|---|---|
+| 2 000 | 55.3 (55.6) | 101.6 (103.3) | 1.84× | 1.86× | −1.1% |
+| 8 000 | 45.9 (45.6) | 101.6 (103.3) | 2.21× | 2.26× | −2.2% |
+| 32 000 | 38.6 (37.5) | 101.6 (103.3) | 2.63× | 2.75× | −4.4% |
+
+Tutti entro il 7%. Da notare, senza trarne conclusioni: lo scarto sul guadagno
+cresce con i distrattori (−1.1 → −4.4%). P3 è ora riproducibile; il rapporto di
+Gumbel del paper (1.94 / 2.37 / 2.82×) sovrastimava di più.
