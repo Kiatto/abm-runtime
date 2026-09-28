@@ -1,8 +1,8 @@
-# A Quantitative Theory of Associative Memory, with a Reference Implementation
+# A Quantitative Theory of Binary Holographic Memory, with a Reference Implementation
 
 *(Algebraic Binary Memory — ABM)*
 
-**Preprint v1.2 — September 2026**
+**Preprint v1.3 — September 2026**
 *Normative specification: [FORMALISM.md](FORMALISM.md) (frozen, v2.1).
 Reference implementation: [`reference/abm.py`](../reference/abm.py).
 All experiments reproducible from `examples/`; raw results in the
@@ -10,49 +10,7 @@ repository as JSON.*
 
 ## Abstract
 
-We study Algebraic Binary Memory (ABM): a computational model in which
-knowledge lives in a single holographic binary trace — the bitwise
-majority vote of XOR-bound facts in {−1,+1}^D — and reasoning is a
-sequence of unbinding (XOR) and cleanup operations. We give a minimal
-axiomatization (A1: binding is an isometric involution; A2: bundling has
-Gaussian superposition statistics; A3: cleanup is an idempotent
-projection onto a codebook) and show experimentally that the three
-operators are *necessary and independent*: ablating each destroys a
-disjoint capability set. From the axioms we derive two quantitative
-laws and verify them with confidence intervals: a **capacity law**
-N\* = k·2D/(π·z_G(M)²) with k = 0.92 ± 0.03, stable within 2% over a
-36× codebook range once the second-order Gumbel term is included; and
-an **error-composition law** Acc(h) = p^h (mean deviation
-0.020 ± 0.008), which we prove is a structural consequence of cleanup
-idempotence rather than an empirical regularity. The model makes
-predictions in advance of measurement, two of which we verify —
-reasoning depth is exponentially cheap (D_min grows 2.1× from 1 to 64
-hops, versus 64× under a linear model), and sleep-time algebraic
-compilation converts p² chains into single-cleanup queries (89% vs 25%
-at high load) — and two of which we falsify and retain (a topological
-bottleneck law and a geometric-decay model of raw chaining). A Memory
-Calculus with a Normal Form Theorem shows that fact composition and
-bridge elimination are instances of normalization in the free Boolean
-group, not primitive rules. Externally, a forward chainer whose only
-truth oracle is a Hamming distance to a single vector reaches
-99.8–92.4% (±1.4) on ProofWriter at depths 0–5, and a negative result
-on HotpotQA cleanly attributes end-to-end failure to the grounding
-layer rather than the algebra — an attribution confirmed by a pilot in
-which an LLM grounding layer restores 10/10 on the same task. The contribution is not a new memory but a *discipline*: a quantitative
-theory of associative memory — laws with confidence intervals,
-falsifications retained, structural theorems separated from resource
-laws — whose accuracy, capacity and reasoning depth can be contracted
-*before deployment* (theory-predicted accuracy within 4.2% of
-measurement at a fixed 1 KB budget, with no fitted parameters; 1.7%
-theory error in an end-to-end document→compiler→memory pilot whose
-contract, with a declared confidence interval inherited from the audit
-sample, was issued before any query). In that pilot the theory
-corrected the *benchmark*: a direction-blind symbolic audit
-under-scored the system by 47 points until membership was measured up
-to the exact edge symmetry of the encoding — the runtime was right and
-the metric was wrong. ABM is a deterministic algebraic memory runtime
-for compiled symbolic knowledge; it complements LLMs rather than
-replacing them.
+We study Algebraic Binary Memory (ABM), a binary vector-symbolic model of the MAP-B family: facts are XOR-bound triples stored in one majority-vote trace in {−1,+1}^D, and reasoning alternates unbinding with cleanup onto a codebook. That the dimension needed for membership in such a trace scales as O(N log M) is known; we make it predictive. The capacity law N\* = k·2D/(π·z_G(M)²), with a second-order Gumbel threshold, is derived with k = 1 and measured at k = 0.92 ± 0.03 (range), stable within 2% over a 36× codebook range. Assuming independence across hops, which we measure but do not prove, multi-hop accuracy composes as p^h. From these laws we derived three predictions before measuring them: required dimension grows logarithmically with depth, offline composition turns two cleanups into one, and typed cleanup raises capacity by z_G(M)²/z_G(|S|)² (measured about 5% below, consistently). Two of our own models were falsified and are kept with their data. A symbolic chainer whose only truth oracle is one Hamming distance reaches 99.8–92.4% on the parsable part of ProofWriter at depths 0–5. A parameter-free accuracy contract is within 4.2 points of measurement on average but errs only on the optimistic side; in a synthetic document-to-memory pilot, a contract issued before any query was 9.8 points off, inside its declared ±15. The contribution is a resource theory whose capacity, depth and reliability can be stated before deployment, with the record of where it failed.
 
 ## 1. Introduction
 
@@ -67,13 +25,15 @@ ask a model-theoretic question:
 
 This question is independent of any language model, benchmark, or
 implementation. Our contribution is a quantitative treatment: a minimal
-axiom set, laws with confidence intervals, theorems for what was
-previously folklore, predictions made before measurement — and
+axiom set, laws with confidence intervals, derivations with explicit
+constants where the literature gives asymptotic bounds, predictions made before measurement — and
 falsifications retained on record. The model is deterministic, requires
 no training, uses no floating-point tensors in the reasoning path, and
 its null distribution is known a priori — which is what makes a
 *resource theory* (space D, codebook M, depth h, reliability p)
-possible at all.
+possible at all. In the vector-symbolic taxonomy ABM is a MAP-B
+architecture [@clarkson2023capacity]; §8 separates what is already known
+about it from what is new here.
 
 **Methodological rule.** No law enters the formalism without a new
 quantitative prediction and a designed falsification experiment.
@@ -114,6 +74,10 @@ maximizer of Σwᵢ·Φ_{xᵢ}(x) (provable bitwise). Binding is the group
 action that preserves Φ. Reasoning is a trajectory of Φ-descents with
 resets.
 
+**Conventions.** ± is a 95% confidence half-width across seeds unless
+the text says SD or range. Differences between accuracies are in
+percentage points.
+
 ### 2.1 The operators are necessary and independent
 
 Ablating each operator kills a disjoint capability set (measured,
@@ -133,9 +97,21 @@ computation operators.
 
 ## 3. Capacity laws
 
+The laws referred to by number throughout:
+
+| law | statement | status |
+|---|---|---|
+| I | null distance Binomial(D, ½) ≈ 𝒩(D/2, √D/2); the basis of every threshold | exact |
+| IV | capacity: N\* = k·2D/(π·z_G(M)²) | derived k = 1; measured 0.92 ± 0.03 |
+| V | hop composition: Acc(h) = p^h with cleanup between hops | corroborated; the argument assumes independence (§4) |
+| VI | failure grows with out-degree | **retired**: a load artifact (§6) |
+| VI′ | topological neutrality: only N_eff/D matters | corroborated |
+| VII | redundancy: N_eff = Σw² | corroborated; saturates at w ≳ 10 |
+| VIII | every end-to-end failure is attributable to one level | principle; supported by pilots only (§7) |
+
 **Law IV (capacity).** The load at which query accuracy crosses 50% is
 
-  N\* = k · 2D / (π · z_G(M)²),  k = 0.92 ± 0.03
+  N\* = k · 2D / (π · z_G(M)²),  derived k = 1, measured k = 0.92 ± 0.03 (range)
 
 where z_G(M) = √(2 ln M) − (ln ln M + ln 4π)/(2√(2 ln M)) is the
 second-order Gumbel threshold for the minimum of M null distances.
@@ -147,6 +123,19 @@ D ∈ [512, 4096]); the Gumbel form is stable within 2% over
 M ∈ [447, 16 242] (R² = 0.9988 vs 0.979 linear). The ln M dependence
 was posed as a prediction and confirmed before the constant was
 refined.
+
+The constant is recomputed from the saved results by
+`examples/k_from_results.py`. Across the codebook sweep (D = 2048, M from
+447 to 16 242) k = 0.936 ± 0.009 (SD), a 2.2% spread; across the dimension
+sweep (D from 512 to 4096) k = 0.914 ± 0.025 (SD), lower at D ≤ 1024
+(0.89) than above it (0.93–0.94). We quote 0.92 ± 0.03 as the range over
+both sweeps; the drift at small D is a finite-size effect we have not
+modelled. The O(N log M) form itself is not new (§8); what the law adds is
+the constant and the accuracy curve (Fig. 1).
+
+![Law IV. Measured 50%-accuracy load N\* (10 seeds, 95% CI) against the
+prediction, solved as a fixed point because the codebook grows with the
+load (M = 2N + 11). Dotted: pure theory, k = 1.](figures/fig1_capacity.png){width=60%}
 
 **Law VII (redundancy).** A fact written with multiplicity wᵢ weights
 the majority vote; the effective load felt by singletons is
@@ -186,18 +175,21 @@ eliminates them exactly.
 
 ## 4. Error composition and the Memory Calculus
 
-**Theorem (hop composition).** With cleanup between hops,
+**Proposition (hop composition).** With cleanup between hops, and
+assuming the hop outcomes are independent,
 
   P(h-hop chain correct) = p^h + ε, |ε| ≤ h/M·(1+o(1)).
 
-*Proof structure.* (i) *Noise reset*: cleanup returns an exact codebook
+*Argument.* (i) *Noise reset*: cleanup returns an exact codebook
 element (A3), so each hop's key is built from noise-free vectors; (ii)
 *decorrelation*: noise components of distinct keys are uncorrelated
 bitwise (E[k_i k_j] = 0; proven to first order, and measured:
 success-event correlation φ = 0.014 ± 0.024, bit-level noise
 correlation −0.005 across 1 800 query pairs); (iii) *absorption*:
 off-path decodes are near-uniform over C, so return probability is
-O(1/M). Empirically |Acc − p^h| = 0.020 ± 0.008 over 10 seeds. The law
+O(1/M). Step (ii) is proved only to first order: joint independence is
+measured, not proved (§9, problem 3), which is why this is a proposition
+and not a theorem. Empirically |Acc − p^h| = 0.020 ± 0.008 over 10 seeds. The law
 is a structural property of the composition cleanup→bind→cleanup, not
 of any benchmark.
 
@@ -205,16 +197,16 @@ of any benchmark.
 cleanup(e), in two sorts: an *exact fragment* (⊕, ρ) and a
 *probabilistic fragment* (⊞, cleanup).
 
-- **Normal Form Theorem (exact fragment, proved).** (E, ⊕, 1) is the
-  free Boolean group on ρ-stratified atoms: every exact term has the
-  unique normal form "atoms of odd multiplicity". Mechanically
-  verified: 200/200 random reduction orders converge.
+- **Normal form (exact fragment).** (E, ⊕, 1) is the free Boolean group
+  — a vector space over GF(2) — on ρ-stratified atoms, so every exact term
+  has the unique normal form "atoms of odd multiplicity". The fact is
+  elementary; it is stated because the calculus is built on it. Checked on
+  200 random reduction orders.
 - **Compose is not a rule.** For facts sharing a bridge,
   nf(f₁ ⊕ f₂) = c_A ⊕ ρr₁ ⊕ ρr₂ ⊕ c_C: the two-hop fact is *generated*
   by normalization, and the bridge is *exactly eliminated*
-  (**Bridge Elimination**: the composed fact contains no information
-  about c_B — structural compression and information hiding,
-  unavailable to any retrieval system).
+  (**Bridge Elimination**: since c_B ⊕ c_B = 1, the composed fact contains
+  no information about c_B).
 - **No-go theorem.** T ⊕ T = 1: any algorithm that reuses a raw decode
   (containing T) inside a subsequent key on the same trace collapses
   deterministically. Depth *requires* symbolization (A3). We also
@@ -228,7 +220,8 @@ cleanup(e), in two sorts: an *exact fragment* (⊕, ρ) and a
   open.
 - **Cost semantics.** Exact steps are free and certain; ⊞ spends
   capacity (Law IV/VII); cleanup spends reliability (Law V). The hop
-  composition theorem is precisely the soundness of this semantics.
+  composition proposition is precisely the soundness of this semantics,
+  under the same independence assumption.
 
 ## 5. Predictions verified in advance
 
@@ -240,23 +233,36 @@ target 95% chain accuracy:
 |---|---|---|---|---|---|---|---|
 | D_min | 4035 | 4656 | 6305 | 6305 | 6790 | 7275 | 8488 |
 
-Growth 1→64 hops: **2.1×** (a linear model predicts ~64×); log fit
-R² = 0.94 vs 0.73 linear. The limiting resource of associative
-reasoning is load, not depth.
+Growth 1→64 hops: **2.1×**. The prediction is modest: logarithmic growth
+is what Law V implies together with a Gaussian tail, since keeping
+p^h ≥ 0.95 needs a per-hop error of order 1/h and hence a margin that grows
+only as √(ln h). What the measurement adds is that the constant is small.
+Resolution is limited: D was searched on a geometric grid with 25% steps,
+with 3 seeds per point (SD up to ≈ 860), so the values at h = 4–16 cannot be
+told apart; the 1→64 trend can. Load, not depth, is the limiting resource
+(Fig. 2).
+
+![P1. Minimum D for chain accuracy ≥ 95% at constant load N = 120
+(mean ± SD over 3 seeds, geometric grid with 25% steps).](figures/fig2_depth.png){width=60%}
 
 **P2 — The compiler.** The calculus predicts that normalizing before
 decoding (composing facts exactly at "sleep time" into a second trace)
 converts p² two-hop queries into single-cleanup queries at the
 compiled trace's load. Measured: 99% vs 82% (40 chains), **89% vs 25%**
 (80), **44% vs 3%** (160); the naive path tracks p² throughout.
-Offline consolidation is not biologically-inspired heuristics; it is
-the optimal strategy prescribed by the cost semantics.
+Offline consolidation is the strategy the cost semantics prescribes,
+not a heuristic borrowed from biology (Fig. 3).
+
+![P2. Accuracy of two-hop queries answered by two cleanups
+(interpreted) or by one cleanup on a compiled trace T₂; dotted: p²
+from Law V.](figures/fig4_compiler.png){width=60%}
 
 **P3 — Typed projection.** Restricting cleanup to a typed sub-codebook
 S buys capacity by exactly z_G(M)²/z_G(|S|)² (no free parameters).
 Measured gains 1.84/2.25/2.68× vs predicted 1.94/2.37/2.82× over a 16×
-distractor range — within 5% — and typed cleanup is immune to codebook
-inflation. This is geometric attention with a price list.
+distractor range: all three are about 5% below the prediction, a
+consistent bias we have not explained. Typed cleanup is also immune to
+codebook inflation.
 
 **Compose cost.** P_compose = p² (two independent cleanups): measured
 0.78/0.25/0.02 vs predicted 0.80/0.21/0.02 across three loads.
@@ -273,8 +279,8 @@ Both remain in the formalism, marked RETIRED, with the data.
 ### 6.1 Two limits derived at the implementation layer
 
 The bitpacked runtime made two claims that this paper never made, but that
-the theory can adjudicate. Both were tested and both fell, for reasons the
-model predicts.
+the theory can adjudicate. Both were tested and both fell; the model
+explains why, after the fact.
 
 **Cleanup cannot be sublinear in this regime.** A metric-tree index
 (VP-tree) was expected to give O(log M) cleanup. Measured, it visits 4 487
@@ -297,9 +303,11 @@ follows from the same extreme-value reasoning as Law IV — accept iff
 z ≥ Φ⁻¹((1−α)^{1/M}) — which caps false accepts at α for any codebook size
 (measured: 30/30 true accepts, 3/300 false accepts at α = 0.01; the
 threshold is 3.09 at M = 10 and 6.00 at M = 10⁷). The ProofWriter oracle of
-§7 is the M = 1 case: a membership test is a single comparison, and z ≥ 3
-corresponds to α ≈ 0.0014. That is why a fixed threshold is correct there
-and wrong for cleanup.
+§7 is the M = 1 case: each membership test is a single comparison, and
+z ≥ 3 corresponds to α ≈ 0.0014 per test. A proof runs many such tests,
+however, and the oracle does not correct for their number, so its
+false-accept rate per proof grows with it. That is a limitation of the
+present oracle, not a confirmation of it.
 
 ## 7. External validation and error attribution
 
@@ -312,10 +320,19 @@ facts are written back (noise grows with depth — part of the test).
 |---|---|---|---|---|
 | accuracy | 99.8% ± 0.3 | 99.1% ± 0.3 | 92.4% ± 1.4 | 42% |
 
-The depth-5 degradation is quantitatively the load increase Law IV
-predicts. Declared limits: ~35–55% grammatical coverage (4 patterns);
-negation subset untested; chaining control is symbolic, the truth
-oracle is purely algebraic.
+The depth-5 degradation is consistent with the load increase that Law IV
+implies; we do not report the predicted value. Declared limits: ~35–55%
+grammatical coverage (4 patterns), and accuracy is measured only on the
+problems those patterns parse, so the subset is selected; negation is
+untested; chaining control is symbolic, the truth oracle is purely
+algebraic. An exact symbolic set would score 100% on the same subset: the
+result shows that one Hamming distance is a *sufficient* truth oracle, not
+that it beats an exact store. What the trace buys is fixed-size storage,
+and we do not yet report its memory footprint against an exact store
+(Fig. 4).
+
+![ProofWriter, parsable subset: accuracy by inference depth (10 seeds,
+95% CI) against the majority baseline.](figures/fig3_proofwriter.png){width=60%}
 
 **HotpotQA [@yang2018hotpotqa] (negative result).** With a regex grounding layer, the
 algebra is never engaged (1.9 triples per 42 sentences; 0.5% of
@@ -326,7 +343,7 @@ error-conservation principle (Law VIII): every failure is attributable
 to exactly one level (grounding / capacity / cleanup / controller) by
 level ablation.
 
-**Attribution confirmed (pilot).** Replacing the regex layer with an
+**Attribution pilot.** Replacing the regex layer with an
 LLM extractor (all 10 contexts read, gold + distractors; generic
 35-relation schema; question-blind protocol with auto-inverses;
 chains up to 3 hops) restores **10/10** on the same task with
@@ -336,10 +353,35 @@ Law IV effect of the doubled load. Declared caveats: n=10 feasibility
 sample; extractor previously exposed to the questions; production
 numbers require a blind extractor at n ≥ 100.
 
-**Capacity contract.** At a fixed 1 KB budget (D=8192), theory-predicted
-accuracy (Laws IV + Gumbel, zero fitted parameters) matches measurement
-with 4.2% mean error over N ∈ [100, 600]: *"up to 300 facts at ≥ 85%
-accuracy in 1 KB"* is a spec sheet signable before deployment.
+**Capacity contract.** At a fixed 1 KB budget (D = 8192), the accuracy
+predicted by Law IV from pure theory (k = 1, no fitted parameter) is
+within 4.2 points of measurement on average over N ∈ [100, 600]. The error
+has one sign, however: the contract is never pessimistic, and for N ≥ 300
+it is optimistic by 3.9–8.5 points (Fig. 5). That is the same ≈ 8% that
+k = 0.92 measures, and the contract does not yet apply it. The spec-sheet
+line an earlier version printed, *"up to 300 facts at ≥ 85% accuracy in
+1 KB"*, fails its own measurement: at N = 300 the measured accuracy is
+84.6%. A contract of this kind can be issued before deployment only with
+its bias declared.
+
+![Capacity contract at 1 KB (D = 8192): accuracy predicted from pure theory
+(k = 1) against measurement.](figures/fig5_contract.png){width=60%}
+
+**Synthetic end-to-end pilot.** 500 sentences written by us, a template
+extractor with deliberate gaps (one phrasing in four uncovered, one trap
+that inverts the arguments), 379 triples, D = 16 384 chosen by Law IV, and
+1 000 queries. The first contract, built on a string-match audit of the
+triples, predicted 10% and was violated by 47 points (measured 56.8%):
+inverted triples still answer correctly, because the encoding is symmetric
+in s and o (see *Cross-domain invariance* below), and the audit did not
+account for it. We then changed the audit to test membership up to that
+symmetry — a change made *after* seeing the violation. The second contract,
+issued before any query from an audit of 40 chains, predicted 47% ± 15%;
+measured accuracy was 56.8%, 9.8 points off and inside the interval.
+Recomputing the audit term on the full gold set, possible only in a dry
+run, brings the prediction to 58.5%, a 1.7-point residual; the rest is the
+audit's sampling error. The pilot is synthetic, the protocol change was
+post hoc, and the audit has n = 40.
 
 **Resource Composition Law (empirically corroborated, per-query form).**
 Injecting four extraction-error types at rates ε ∈ [0, 0.5] (2-hop
@@ -354,7 +396,10 @@ errors outperform i.i.d. errors of equal mean rate (52% vs 30% at
 ε = 0.4) because the damage concentrates on fewer queries. One
 prediction was falsified and is retained: chain confidence does *not*
 detect grounding errors (the confident-wrong signal exists per hop but
-dilutes in the product), so grounding must be audited at its own level.
+dilutes in the product), so grounding must be audited at its own level (Fig. 6).
+
+![Resource composition: end-to-end accuracy under four kinds of injected
+extraction error at rate ε (2-hop chains, D = 2048); dotted: prediction.](figures/fig6_robustness.png){width=65%}
 
 **Compiler ranking (dry run).** Three simulated extractors with equal
 apparent quality but different error structure (uniform 8%, whole-chain
@@ -421,13 +466,27 @@ supply the operator vocabulary: Plate's holographic reduced representations
 [@plate1995hrr], Gallant and Okaywe's matrix binding [@gallant2013objects],
 and Rachkovskij and Kussul's context-dependent thinning
 [@rachkovskij2001thinning]. Superposition capacity of the D/ln M form is
-classical; the closest precedent to our Law IV is the capacity theory of
-Frady, Kleyko and Sommer [@frady2018sequence], which derives retrieval
-accuracy from crosstalk noise in VSA-coded recurrent networks. We differ in
-two respects: our threshold is the second-order Gumbel extreme-value
-statistic of the *codebook* rather than a fixed SNR criterion, and our law
-is stated as a deployable contract — a single constant k = 0.92 ± 0.03 with
-no per-configuration fitting. Hopfield networks [@hopfield1982] share the
+classical. For the architecture ABM belongs to, MAP-B, Clarkson, Ubaru and
+Yang [@clarkson2023capacity] prove that membership in a majority bundle of
+n items — including bundles of bindings, which is what an ABM trace is —
+needs dimension O(n log(d/δ)) for failure probability δ over d items.
+Thomas, Dasgupta and Rosing [@thomas2021theoretical] give a broader
+theoretical treatment of hyperdimensional computing, and Frady, Kleyko and
+Sommer [@frady2018sequence] derive retrieval accuracy from crosstalk noise
+in VSA-coded recurrent networks.
+
+Law IV therefore does not establish the scaling. What it adds is narrower:
+explicit constants — the 2/π of majority correlation and a second-order
+Gumbel threshold on the codebook — that predict the *accuracy curve* and the
+50% collapse point instead of bounding a failure probability, with one
+measured constant (0.92 ± 0.03 against a derived 1). Those bounds stop at a
+single bundle; the composition results of §4–§5 (multi-hop chaining,
+offline compilation, typed projection) and the contracts built on them
+are, to our knowledge, not covered there. Holographic embeddings of
+knowledge graphs [@nickel2016hole] also store (s, r, o) triples in
+compositional holographic vectors, but learn the embeddings for link
+prediction; ABM learns nothing and stores the facts themselves in one
+trace. Hopfield networks [@hopfield1982] share the
 interference-plus-extreme-value mechanism (our measured c ≈ 0.07–0.09 at
 M ≈ 2N recalls the 0.138·N regime of Amit, Gutfreund and Sompolinsky
 [@amit1985storing]). ProofWriter [@tafjord2021proofwriter] and RuleTaker
@@ -439,8 +498,9 @@ with composition delegated to the language model. The confluence results of
 §4 are standard rewriting theory [@baader1998term] applied to a new algebra.
 
 Our contribution relative to this literature is the *resource theory*: laws
-with confidence intervals and derivations, a calculus with normal forms
-whose cost semantics is proved sound, predictions issued before measurement,
+with confidence intervals and derivations, a calculus whose cost semantics
+is sound under the independence assumption of §4, predictions issued before
+measurement,
 and an axiomatization justified by operator-ablation.
 
 ## 9. Open problems
@@ -467,8 +527,8 @@ as a *computational model of associative memory with predictable
 resources*: three necessary and independent operators, laws that
 survived deliberate falsification attempts, a calculus in which
 composition and abstraction are normal-form phenomena, and contracts
-(capacity, depth, reliability) that can be signed before the system
-runs. The theory's strongest evidence is that it corrected and retired
+(capacity, depth, reliability) that can be issued before the system runs,
+provided their measured bias is declared with them. The theory's strongest evidence is that it corrected and retired
 its own laws — and that its predictions, from depth-scaling to
 compilation to typed projection, were confirmed *after* being derived.
 
@@ -479,8 +539,10 @@ compilation to typed projection, were confirmed *after* being derived.
 frozen as FORMALISM.md v2.1; the reference implementation
 (`reference/abm.py`, 257 lines, numpy-only, deterministic) passes the
 property tests derived from the axioms. The full test suite runs in
-continuous integration on Linux x86-64 (Python 3.10–3.13, NumPy 1.24–2.5)
-and macOS arm64.*
+continuous integration on Linux x86-64 (Python 3.10–3.13, NumPy 1.24–2.5),
+macOS arm64 and Windows x86-64, with codewords checked bit-identical across
+the three. The constant k is recomputed from the saved results by
+`examples/k_from_results.py`; the figures by `examples/make_figures.py`.*
 
 
 ## References

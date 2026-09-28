@@ -1,9 +1,9 @@
 ---
-title: "A Quantitative Theory of Associative Memory, with a Reference Implementation"
+title: "A Quantitative Theory of Binary Holographic Memory, with a Reference Implementation"
 subtitle: "Algebraic Binary Memory (ABM)"
 author:
   - kiatto
-date: "Preprint v1.2 — September 2026"
+date: "Preprint v1.3 — September 2026"
 bibliography: docs/paper/refs.bib
 link-citations: true
 numbersections: true

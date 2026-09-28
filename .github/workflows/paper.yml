@@ -45,6 +45,7 @@ jobs:
           set -eu
           pandoc docs/paper/metadata.yaml docs/paper.md \
             --citeproc \
+            --resource-path=docs \
             -H docs/paper/header.tex \
             --pdf-engine=xelatex \
             -o paper.pdf 2>build.log || { cat build.log; exit 1; }
