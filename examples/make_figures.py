@@ -215,9 +215,29 @@ def fig_dependence():
     fig.savefig(OUT / "fig9_dependence.png")
 
 
+def fig_asymmetric():
+    """Preregistrazione 6: simmetrico − asimmetrico, previsto e misurato."""
+    cells = json.loads((RES / "asymmetric_prereg_results.json").read_text())["cells"]
+    fig, ax = plt.subplots(figsize=(4.2, 3))
+    for (kg, dim), col, mk in ((("wn18rr", 2048), "#1a6faf", "o"), (("wn18rr", 8192), "#c0392b", "o"),
+                               (("fb15k237", 2048), "#1a6faf", "^"), (("fb15k237", 8192), "#c0392b", "^")):
+        sel = sorted((c for c in cells if c["kg"] == kg and c["dim"] == dim), key=lambda c: c["n"])
+        ns = [c["n"] for c in sel]
+        ax.plot(ns, [100 * (c["pred_sym"] - c["pred_asym"]) for c in sel], "-", color=col,
+                alpha=0.5 if kg == "fb15k237" else 0.9)
+        ax.plot(ns, [100 * (c["meas_sym"] - c["meas_asym"]) for c in sel], mk, color=col,
+                label=f"{'WN18RR' if kg == 'wn18rr' else 'FB15k-237'}, D = {dim}", ms=5)
+    ax.axhline(0, color="#999", lw=0.8)
+    ax.set_xscale("log"); ax.set_xlabel("triples stored (dense)")
+    ax.set_ylabel("symmetric − asymmetric (points)")
+    ax.set_title("Encoding symmetry: cost, then benefit")
+    ax.legend(fontsize=7); fig.tight_layout()
+    fig.savefig(OUT / "fig10_asymmetric.png")
+
+
 if __name__ == "__main__":
     for f in (fig_capacity, fig_depth, fig_proofwriter, fig_compiler,
-              fig_contract, fig_robustness, fig_fb15k, fig_twins, fig_dependence):
+              fig_contract, fig_robustness, fig_fb15k, fig_twins, fig_dependence, fig_asymmetric):
         f()
         print("✓", f.__name__)
     print("→", OUT)

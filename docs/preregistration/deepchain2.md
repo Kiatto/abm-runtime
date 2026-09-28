@@ -56,3 +56,42 @@ Tutto il resto è **sostenuto in parte**.
 - Se questo test passa, dice che la dipendenza cresce con la profondità **quando
   il recupero è trascurabile**; non dà un modello per i codebook piccoli, dove la
   preregistrazione 7 è fallita.
+
+---
+
+## Esito — 2026-09-28, eseguito dopo il commit `b4eec35`: FALSIFICATA
+
+Previsioni e criteri **non modificati**. Risultati:
+[`results/deepchain2_prereg_results.json`](../../results/deepchain2_prereg_results.json).
+
+| h | catene | misurato | modello | scarto | Law V | scarto |
+|---|---|---|---|---|---|---|
+| 1 | 96 000 | 0.7958 | 0.7778 | **+13.8 SE** | 0.7778 | +13.8 SE |
+| 2 | 48 000 | 0.6300 | 0.6011 | +12.4 SE | 0.6056 | +10.5 SE |
+| 3 | 32 000 | 0.4950 | 0.4617 | +11.5 SE | 0.4714 | +8.1 SE |
+| 4 | 24 000 | 0.3841 | 0.3513 | +10.1 SE | 0.3669 | +5.3 SE |
+| 6 | 16 000 | 0.2352 | 0.1978 | +11.0 SE | 0.2221 | +3.8 SE |
+
+**H1 — falsificata**, già a h = 1. **H2 — falsificata**: a h = 6 il misurato sta
+sopra p^h.
+
+### Perché
+
+Il modello sbaglia già il **singolo** hop, di 1.8 punti. La causa è l'unica
+approssimazione che il modello dichiarava: la regola dei pareggi. La reference
+risolve un pareggio a favore del codeword inserito per primo, e la risposta
+giusta è sempre inserita prima dei 1 000 distrattori, quindi vince ogni pareggio
+con loro; il modello divideva i pareggi a metà. A D = 320, con 1 000 codeword
+nulli, i pareggi non sono rari.
+
+**Esplorativo, dopo aver visto i dati.** Con la regola della reference (la
+risposta giusta vince i pareggi con i distrattori, divide a metà quelli con gli
+altri item) il singolo hop previsto è **0.7953, contro 0.7958 misurato**.
+
+### Cosa ne segue
+
+- La regola dei pareggi va modellata esattamente, con l'ordine di inserimento; a D
+  grande o con pochi codeword nulli conta poco, qui conta quasi 2 punti.
+- La domanda sulla profondità non è ancora risolta: tutto il modello era spostato
+  dalla regola dei pareggi. Va rivalutata con la regola esatta, e poi messa alla
+  prova su dati nuovi.
