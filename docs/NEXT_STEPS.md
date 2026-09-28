@@ -13,7 +13,7 @@ aggira; i risultati vecchi restano accanto ai nuovi; budget zero.
 
 ## Stato al 2026-09-28, sera
 
-Paper `docs/paper.md` **v1.6** (nove preregistrazioni), review ostile 8.5/10. Da integrare nel paper: preregistrazioni 6–9 (due fallite, con le cause), la regola esatta dei pareggi, la figura 10. Problema aperto emerso: recupero fuori percorso con codebook piccoli (nessun modello pulito).
+Paper `docs/paper.md` **v1.7** (dieci preregistrazioni, abm.exact nel pacchetto), review ostile 8.5/10. Da integrare nel paper: preregistrazioni 6–9 (due fallite, con le cause), la regola esatta dei pareggi, la figura 10. Problema aperto emerso: recupero fuori percorso con codebook piccoli (nessun modello pulito).
 
 | preregistrazione | commit | stato |
 |---|---|---|
@@ -27,6 +27,7 @@ Paper `docs/paper.md` **v1.6** (nove preregistrazioni), review ostile 8.5/10. Da
 | `deepchain2.md` — lo stesso con 1000 distrattori | `b4eec35` | **FALSIFICATA** già al singolo hop: regola dei pareggi (la reference sceglie il primo inserito) |
 | `deepchain3.md` — lo stesso con la regola esatta dei pareggi, D = 256 e 320 | `794def8` | **fatta**: H1, H2 sostenute; Law V respinta fino a 8.5 SE a h = 6 |
 | `sizing.md` — il contratto usato per scegliere D prima; il tetto degli alias | `c14c4b4` | **fatta**: H1–H3 sostenute; la Law IV manca la promessa su WN18RR (12/20) |
+| `human_questions.md` — il contratto su domande scritte da persone (SimpleQuestions ∩ FB15k-237, LLM locale) | `b63f65b` | in esecuzione / da valutare |
 
 Risultati: `results/exact_prereg_results.json`, `results/dependence_prereg_results.json`.
 Valutare **solo** con i criteri scritti nei file di preregistrazione, e
@@ -73,8 +74,10 @@ richiedono persone. Il lavoro sul paper non sostituisce nessuna delle due cose.
 
 ## Da fare, emerso dalla preregistrazione 10
 
-Il pacchetto pubblicato (`abm`, cioè `reference/`) espone come contratto la Law IV,
-che su grafi con relazioni simmetriche promette più di quanto mantiene. Il modello
-esatto sta in `bsm/memory/exact_contract.py`, che il wheel non contiene. Va
-portato nel pacchetto (senza modificare `reference/abm.py`, congelato), e il
-contratto deve dichiarare il tetto degli alias.
+~~Portare il modello esatto nel pacchetto~~ fatto: `abm.exact` (`reference/exact.py`),
+con `contract_for` e `min_dimension`; il tetto degli alias è dichiarato.
+
+## Per la preregistrazione 11 serve il server locale
+
+    M=$(ls ~/.cache/huggingface/hub/models--unsloth--gemma-4-E2B-it-qat-GGUF/snapshots/*/gemma-4-E2B-it-qat-UD-Q2_K_XL.gguf)
+    ~/.unsloth/llama.cpp/build/bin/llama-server -m "$M" --host 127.0.0.1 --port 8765 -c 4096 -t 8 --parallel 1
