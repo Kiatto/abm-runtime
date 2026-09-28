@@ -103,7 +103,7 @@ accuracy.
 |---|---|---|
 | I | null distance Binomial(D, ½) | exact |
 | IV | asymptotic capacity N\* = k·2D/(π·z_G(M)²) | scaling correct; the constant k is the error of its approximations (§3.2); superseded for prediction |
-| IV-exact | cleanup accuracy from exact majority agreement and binomial distances (§3.2–3.3) | **preregistered** (tests 2–5): every primary hypothesis supported, except dense FB15k-237 at D = 2048 before twins were counted (in part) (§6) |
+| IV-exact | cleanup accuracy from exact majority agreement and binomial distances (§3.2–3.3) | **preregistered** (tests 2–6, 9, 10): every primary hypothesis supported, except dense FB15k-237 at D = 2048 before twins were counted (in part) (§6) |
 | V | hops compose as Acc(h) = p^h | **falsified as an exact law**: hops on one trace are negatively correlated, by a derived amount that grows with depth (§4) |
 | VI | failure grows with out-degree | **retired**: a load artifact (§8) |
 | VI′ | topological neutrality: only load matters | corroborated on synthetic data; on real hubs, residual +3.3 points, neither supported nor falsified |
@@ -144,7 +144,7 @@ n_b null codewords inserted before it and n_a after wins iff
 
   P(win | d) = P(null > d)^{n_b} · P(null ≥ d)^{n_a},
 
-which is exact given independent null distances (`win_ordered`). Tests 1–6 used
+which is exact given independent null distances (`win_ordered`). Tests 1–8 used
 an even split of ties instead — its average over random positions — which is
 accurate where ties are rare or positions mixed; test 8 found where it is not
 (§6). The extensions of §3.3 add one assumption each, stated there: that
@@ -449,8 +449,9 @@ errors of the final predictor are **at or below the noise floor** — the mean
 |error| a perfect model would show, √(2/π) times each cell's standard error: at
 D = 16 384, 0.27 against a floor of 0.70; on dense WN18RR with twins, 0.57 and
 0.60 against 1.31; for composition, 0.75–1.24 against 1.2–1.4. There the model
-cannot be told apart from the truth with these data. Second, **four of the
-seventeen final summaries carry a signed bias whose 95% interval excludes zero**:
+cannot be told apart from the truth with these data; the same holds for both
+encodings in test 6. Second, **four of the twenty-five final summaries carry a
+signed bias whose 95% interval excludes zero**:
 dense FB15k-237 at D = 2048 (−0.81), uniform WN18RR at D = 2048 (−0.67) and 8192
 (+1.11), and wrong-relation errors (+1.34). All are below 1.4 points, and the two
 WN18RR biases have opposite signs, so they do not point to one missing term; the
@@ -613,7 +614,7 @@ and tested again.
 
 *Reproducibility: every number is produced by a script in `examples/` with
 results committed as JSON; results from 10-seed reruns sit beside the originals
-with an `_s10` suffix; the five preregistrations, with their outcomes, are in
+with an `_s10` suffix; the ten preregistrations, with their outcomes, are in
 `docs/preregistration/`. The frozen reference implementation
 (`reference/abm.py`, 257 lines, numpy-only, deterministic) and the exact theory
 (`reference/exact.py`, shipped as `abm.exact`, numpy-only) are covered by the test
