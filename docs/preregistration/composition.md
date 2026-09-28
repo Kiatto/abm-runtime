@@ -66,3 +66,39 @@ Tutto il resto è **sostenuto in parte**.
 - La previsione 0 per le catene non intatte ignora la probabilità, di ordine
   1/M, che un cleanup sbagliato arrivi per caso alla risposta giusta.
 - Le relazioni sono due (r₁, r₂): nessun alias per costruzione.
+
+---
+
+## Esito — 2026-09-28, eseguito dopo il commit `32d948c`
+
+Previsioni e criteri **non modificati**. Risultati:
+[`results/composition_prereg_results.json`](../../results/composition_prereg_results.json).
+
+| parte | errore medio assoluto | con segno | esito |
+|---|---|---|---|
+| R1 — missing | 0.75 | +0.43 | **sostenuta** |
+| R1 — wrong_relation | 1.89 | +1.34 | **sostenuta** |
+| R1 — wrong_entity | 1.01 | +0.43 | **sostenuta** |
+| R1 — spurious | 1.18 | −0.63 | **sostenuta** |
+| R2 — iid | 1.24 | −1.21 | **sostenuta** |
+| R2 — chain | 1.12 | −0.49 | **sostenuta** |
+| R2 — hop2 | 1.19 | −1.13 | **sostenuta** |
+
+**H3 — sostenuta.** A ε = 0.4, misurato: chain 28.3 > iid 18.0 > hop2 10.0.
+
+### Cosa dice
+
+- La composizione grounding × reasoning regge **senza nessuna calibrazione**:
+  errore sotto i 2 punti per ogni tipo e ogni struttura.
+- **I fatti mancanti passano da 10.2 punti di errore** (lo script calibrato, 10
+  seed) **a 0.75**. La "traccia più leggera" non va aggiunta a mano: esce dal
+  calcolo al carico effettivo.
+- A parità di tasso medio d'errore, gli errori concentrati sulla stessa catena
+  costano meno, e quelli concentrati su un solo hop di più: l'ordine previsto
+  dalle quote di catene intatte regge.
+
+### Cosa non dice
+
+- La correzione per la dipendenza fra hop qui **non incide** (0.75 contro 0.76 per
+  i mancanti): a N = 120 l'effetto è sotto il rumore. Conta solo a N piccolo
+  (preregistrazione 3).
