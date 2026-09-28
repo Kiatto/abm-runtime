@@ -95,7 +95,9 @@ jobs:
           find digests -name codeword_digest.txt | sort | while read -r f; do
             printf '%s  %s\n' "$(cat "$f")" "$(dirname "$f")"
           done
-          n=$(cat digests/*/codeword_digest.txt | sort -u | wc -l)
+          # Si confronta solo l'hash esadecimale: fine riga e spazi non sono bit
+          # dei codeword.
+          n=$(cat digests/*/codeword_digest.txt | tr -cd '0-9a-f\n' | grep -v '^$' | sort -u | wc -l)
           if [ "$n" -ne 1 ]; then
             echo "FALSIFICATO: i codeword differiscono tra piattaforme ($n digest distinti)."
             exit 1

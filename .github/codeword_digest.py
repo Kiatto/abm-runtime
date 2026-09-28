@@ -37,4 +37,6 @@ print(json.dumps({
     "numpy": np.__version__,
 }, indent=2))
 
-Path("codeword_digest.txt").write_text(digest + "\n")
+# newline="\n": in modalità testo Windows scriverebbe "\r\n", e il confronto
+# fra piattaforme vedrebbe due digest diversi anche con bit identici.
+Path("codeword_digest.txt").write_text(digest + "\n", newline="\n")
