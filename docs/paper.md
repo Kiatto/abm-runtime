@@ -455,7 +455,9 @@ signed bias whose 95% interval excludes zero**:
 dense FB15k-237 at D = 2048 (−0.81), uniform WN18RR at D = 2048 (−0.67) and 8192
 (+1.11), and wrong-relation errors (+1.34). All are below 1.4 points, and the two
 WN18RR biases have opposite signs, so they do not point to one missing term; the
-wrong-relation bias is unexplained.
+wrong-relation bias is unexplained. With twenty-five summaries, about one would
+exclude zero by chance at the 95% level; four do, which chance alone would give
+about 3% of the time, so the biases are more likely real than not, and small.
 
 **What the tests leave open.** The exact model treats candidates at equal signal,
 and the null distances of different hops, as independent; test 2 puts the cost
