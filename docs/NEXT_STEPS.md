@@ -25,7 +25,7 @@ Paper `docs/paper.md` **v1.5**, review ostile 8/10. Da integrare nel paper: prer
 | `asymmetric.md` — encoding simmetrico contro asimmetrico | `f4a7dd1` | **fatta**: H1–H4 sostenute; inversione 6/6 |
 | `deepchain.md` — dipendenza fra hop nelle catene profonde (h fino a 6) | `2157233` | **FALSIFICATA**: codebook minuscolo, domina il recupero fuori percorso |
 | `deepchain2.md` — lo stesso con 1000 distrattori | `b4eec35` | **FALSIFICATA** già al singolo hop: regola dei pareggi (la reference sceglie il primo inserito) |
-| `deepchain3.md` — lo stesso con la regola esatta dei pareggi, D = 256 e 320 | `794def8` | in esecuzione / da valutare |
+| `deepchain3.md` — lo stesso con la regola esatta dei pareggi, D = 256 e 320 | `794def8` | **fatta**: H1, H2 sostenute; Law V respinta fino a 8.5 SE a h = 6 |
 
 Risultati: `results/exact_prereg_results.json`, `results/dependence_prereg_results.json`.
 Valutare **solo** con i criteri scritti nei file di preregistrazione, e
