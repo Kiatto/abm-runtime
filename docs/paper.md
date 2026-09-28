@@ -355,6 +355,21 @@ model gives 0.88 points.
 ![Test 1, FB15k-237 uniform samples: measurement against the preregistered Law IV
 prediction (dashed).](figures/fig7_fb15k237.png){width=60%}
 
+**How much margin.** The criteria compare mean errors with thresholds; they do
+not say how far below the threshold a result sits, or whether a mean error is
+distinguishable from sampling noise. `examples/prereg_summary.py` adds both,
+resampling seeds within cells (2 000 bootstrap draws). Two findings. First, most
+errors of the final predictor are **at or below the noise floor** — the mean
+|error| a perfect model would show, √(2/π) times each cell's standard error: at
+D = 16 384, 0.27 against a floor of 0.70; on dense WN18RR with twins, 0.57 and
+0.60 against 1.31; for composition, 0.75–1.24 against 1.2–1.4. There the model
+cannot be told apart from the truth with these data. Second, **four of the
+seventeen final summaries carry a signed bias whose 95% interval excludes zero**:
+dense FB15k-237 at D = 2048 (−0.81), uniform WN18RR at D = 2048 (−0.67) and 8192
+(+1.11), and wrong-relation errors (+1.34). All are below 1.4 points, and the two
+WN18RR biases have opposite signs, so they do not point to one missing term; the
+wrong-relation bias is unexplained.
+
 **What the tests leave open.** The exact model treats candidates at equal signal,
 and the null distances of different hops, as independent; test 2 puts the cost
 of the first below one point. On real hubs a residual of +3.3 points remains
