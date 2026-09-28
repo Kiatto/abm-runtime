@@ -89,6 +89,16 @@ def main():
         rows[f"5 · R2 {st}"] = summary([c for c in co if c.get("struct") == st],
                                        lambda c: c["eps"], lambda c: c["measured"],
                                        lambda c: c["pred_exact"], rng)
+    asym = json.loads((RES / "asymmetric_prereg_results.json").read_text())["cells"]
+    for kg in ("fb15k237", "wn18rr"):
+        for d in (2048, 8192):
+            sel = [c for c in asym if c["kg"] == kg and c["dim"] == d]
+            for enc, meas, pred in (("simmetrico", "seeds_meas_sym", "pred_sym"),
+                                    ("asimmetrico", "seeds_meas_asym", "pred_asym")):
+                # una "cella" per seed misurato, con la previsione di cella
+                flat = [{"n": c["n"], "m": v, "p": c[pred]} for c in sel for v in c[meas]]
+                rows[f"6 · {kg} {enc}, D={d}"] = summary(
+                    flat, lambda c: c["n"], lambda c: c["m"], lambda c: c["p"], rng)
     OUT.write_text(json.dumps(rows, indent=1))
     print(f"{'test':42} {'celle':>5} {'|err|':>6} {'rumore':>7} {'con segno [CI 95%]':>24}  bias")
     for k, v in rows.items():

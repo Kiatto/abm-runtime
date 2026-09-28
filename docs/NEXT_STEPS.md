@@ -13,7 +13,7 @@ aggira; i risultati vecchi restano accanto ai nuovi; budget zero.
 
 ## Stato al 2026-09-28, sera
 
-Paper `docs/paper.md` **v1.5**, review ostile 8/10. Da integrare nel paper: preregistrazioni 6–9 (due fallite, con le cause), la regola esatta dei pareggi, la figura 10. Problema aperto emerso: recupero fuori percorso con codebook piccoli (nessun modello pulito).
+Paper `docs/paper.md` **v1.6** (nove preregistrazioni), review ostile 8.5/10. Da integrare nel paper: preregistrazioni 6–9 (due fallite, con le cause), la regola esatta dei pareggi, la figura 10. Problema aperto emerso: recupero fuori percorso con codebook piccoli (nessun modello pulito).
 
 | preregistrazione | commit | stato |
 |---|---|---|
@@ -26,6 +26,7 @@ Paper `docs/paper.md` **v1.5**, review ostile 8/10. Da integrare nel paper: prer
 | `deepchain.md` — dipendenza fra hop nelle catene profonde (h fino a 6) | `2157233` | **FALSIFICATA**: codebook minuscolo, domina il recupero fuori percorso |
 | `deepchain2.md` — lo stesso con 1000 distrattori | `b4eec35` | **FALSIFICATA** già al singolo hop: regola dei pareggi (la reference sceglie il primo inserito) |
 | `deepchain3.md` — lo stesso con la regola esatta dei pareggi, D = 256 e 320 | `794def8` | **fatta**: H1, H2 sostenute; Law V respinta fino a 8.5 SE a h = 6 |
+| `sizing.md` — il contratto usato per scegliere D prima; il tetto degli alias | `c14c4b4` | in esecuzione / da valutare |
 
 Risultati: `results/exact_prereg_results.json`, `results/dependence_prereg_results.json`.
 Valutare **solo** con i criteri scritti nei file di preregistrazione, e
@@ -61,3 +62,11 @@ scrivere l'esito in coda allo stesso file, come in `fb15k237.md`.
 
 PyPI e Zenodo richiedono i suoi account; l'endorsement arXiv e i tester
 richiedono persone. Il lavoro sul paper non sostituisce nessuna delle due cose.
+
+## Strumenti aggiunti
+
+- `examples/replicate.py`: riesegue le preregistrazioni da un clone pulito
+  (scarica i dati con sha256, scrive in `results/replica/`, confronta con i
+  pubblicati).
+- `examples/prereg_summary.py`: intervalli bootstrap e pavimento di rumore per
+  ogni errore riassuntivo.
