@@ -51,14 +51,14 @@ def fig_capacity():
 
 
 def fig_depth():
-    d = json.loads((RES / "depth_scaling_results.json").read_text())["dmin"]
+    d = json.loads((RES / "depth_scaling_s10_results.json").read_text())["dmin"]
     hs = sorted(int(k) for k in d)
     ds = [d[str(h)]["dmin"] for h in hs]
     sd = [d[str(h)]["sd"] for h in hs]
     fig, ax = plt.subplots(figsize=(4.2, 3))
-    # 3 seeds, D searched on a geometric grid with 25% steps: bars are SD.
+    # 10 seeds, D on a geometric grid with 10% steps (v1.4 rerun): bars are SD.
     ax.errorbar(hs, ds, yerr=sd, fmt="o-", color="#1a6faf",
-                capsize=3, label="D_min, chain acc. ≥ 95%\n(mean ± SD, 3 seeds)")
+                capsize=3, label="D_min, chain acc. ≥ 95%\n(mean ± SD, 10 seeds)")
     ax.set_xscale("log", base=2); ax.set_ylim(0, 10000)
     ax.set_xlabel("h (hops)"); ax.set_ylabel("minimum D")
     ax.set_title("P1: required dimension vs depth (N = 120)")
@@ -98,21 +98,25 @@ def fig_compiler():
 
 
 def fig_contract():
-    d = json.loads((RES / "capacity_contract_results.json").read_text())
+    # 10 seed, 200 query per seed: la riesecuzione della v1.4. k = 0.92 viene da
+    # ALTRI esperimenti ed è stato fissato prima della riesecuzione.
+    d = json.loads((RES / "capacity_contract_s10_results.json").read_text())
     ns = sorted(int(k) for k in d)
     fig, ax = plt.subplots(figsize=(4.2, 3))
-    ax.plot(ns, [d[str(n)]["pred"] * 100 for n in ns], "--",
-            color="#c0392b", label="predicted (pure theory, k = 1)")
-    ax.plot(ns, [d[str(n)]["meas"] * 100 for n in ns], "o-",
-            color="#1a6faf", label="measured")
+    ax.plot(ns, [d[str(n)]["pred"] * 100 for n in ns], ":",
+            color="#999", label="pure theory, k = 1")
+    ax.plot(ns, [d[str(n)]["pred_k092"] * 100 for n in ns], "--",
+            color="#c0392b", label="k = 0.92, measured elsewhere")
+    ax.plot(ns, [d[str(n)]["meas"] * 100 for n in ns], "o",
+            color="#1a6faf", label="measured (10 seeds)")
     ax.set_xlabel("facts stored in 1 KB (D = 8192)"); ax.set_ylabel("accuracy (%)")
-    ax.set_title("Capacity contract: optimistic at every N ≥ 300")
+    ax.set_title("Capacity contract, out of sample")
     ax.legend(); fig.tight_layout()
     fig.savefig(OUT / "fig5_contract.png")
 
 
 def fig_robustness():
-    d = json.loads((RES / "extraction_robustness_results.json").read_text())
+    d = json.loads((RES / "extraction_robustness_s10_results.json").read_text())
     fig, ax = plt.subplots(figsize=(4.6, 3.2))
     colors = {"missing": "#1a6faf", "wrong_relation": "#c0392b",
               "wrong_entity": "#8e44ad", "spurious": "#27ae60"}
@@ -123,14 +127,33 @@ def fig_robustness():
         ax.plot(eps, ms, "o-", color=col, label=kind, ms=3)
         ax.plot(eps, ps, ":", color=col, alpha=0.6)
     ax.set_xlabel("extraction error rate ε"); ax.set_ylabel("accuracy (%)")
-    ax.set_title("Resource composition (dotted: prediction)")
+    ax.set_title("Resource composition, 10 seeds (dotted: prediction)")
     ax.legend(fontsize=7); fig.tight_layout()
     fig.savefig(OUT / "fig6_robustness.png")
 
 
+def fig_fb15k():
+    """Law IV su FB15k-237: previsione preregistrata contro misura."""
+    cells = json.loads((RES / "fb15k237_prereg_results.json").read_text())["cells"]
+    fig, ax = plt.subplots(figsize=(4.2, 3))
+    for dim, col in ((2048, "#1a6faf"), (8192, "#c0392b")):
+        ns = sorted({c["n"] for c in cells if c["dim"] == dim})
+        meas = [100 * np.mean([c["measured"] for c in cells
+                               if c["dim"] == dim and c["n"] == n]) for n in ns]
+        pred = [100 * np.mean([c["pred_k092_alias"] for c in cells
+                               if c["dim"] == dim and c["n"] == n]) for n in ns]
+        ax.plot(ns, pred, "--", color=col, alpha=0.8)
+        ax.plot(ns, meas, "o", color=col, label=f"D = {dim}")
+    ax.set_xscale("log")
+    ax.set_xlabel("triples stored (FB15k-237)"); ax.set_ylabel("accuracy (%)")
+    ax.set_title("Preregistered: FB15k-237 (dashed: prediction)")
+    ax.legend(); fig.tight_layout()
+    fig.savefig(OUT / "fig7_fb15k237.png")
+
+
 if __name__ == "__main__":
     for f in (fig_capacity, fig_depth, fig_proofwriter, fig_compiler,
-              fig_contract, fig_robustness):
+              fig_contract, fig_robustness, fig_fb15k):
         f()
         print("✓", f.__name__)
     print("→", OUT)

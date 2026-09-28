@@ -1,0 +1,35 @@
+{
+  "d": 500,
+  "delta": 0.1,
+  "trials": 200,
+  "grid": 1.1,
+  "rows": {
+    "10": {
+      "m_clarkson": 5157.790608306663,
+      "m_exact": 869.032613778469,
+      "m_measured": 900,
+      "m_measured_tauC": 743,
+      "clarkson_over_measured": 5.73087845367407,
+      "exact_over_measured": 0.9655917930871878,
+      "clarkson_over_measured_tauC": 6.9418446948945665
+    },
+    "25": {
+      "m_clarkson": 12894.476520766657,
+      "m_exact": 2172.5815344461726,
+      "m_measured": 2045,
+      "m_measured_tauC": 1859,
+      "clarkson_over_measured": 6.305367491817436,
+      "exact_over_measured": 1.0623870584088864,
+      "clarkson_over_measured_tauC": 6.936243421606593
+    },
+    "50": {
+      "m_clarkson": 25788.953041533314,
+      "m_exact": 4345.163068892345,
+      "m_measured": 4091,
+      "m_measured_tauC": 4500,
+      "clarkson_over_measured": 6.3038262140144985,
+      "exact_over_measured": 1.0621273695654718,
+      "clarkson_over_measured_tauC": 5.73087845367407
+    }
+  }
+}

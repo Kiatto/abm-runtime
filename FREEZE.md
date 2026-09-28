@@ -4,7 +4,7 @@ Da questa data sono **definitivamente congelati**:
 
 - l'algebra (operatori: bind, bundle, permute, cleanup, projection)
 - il formalismo ([docs/FORMALISM.md](docs/FORMALISM.md) v2.1)
-- il paper ([docs/paper.md](docs/paper.md) v1.3 — era v1.1; vedi le note sotto)
+- il paper ([docs/paper.md](docs/paper.md) v1.4 — era v1.1; vedi le note sotto)
 - la reference implementation ([reference/abm.py](reference/abm.py) v1.0.0)
 
 **Nota del 2026-09-28 — perché il paper è passato a v1.2.** Il congelamento è
@@ -21,8 +21,14 @@ una composizione che assume l'indipendenza, il confronto con una crescita linear
 che nessuno propone, l'1.7% nell'abstract), aggiunti i precedenti diretti
 (Clarkson et al. 2023 su MAP-B) che ridimensionano la novità della Law IV, inserite
 le figure che esistevano già, e reso riproducibile k da uno script. Abstract entro
-il limite di arXiv. Nessuna nuova Law, teorema, assioma od operatore. Dalla v1.3 in
-poi vale di nuovo la regola sotto.
+il limite di arXiv. Nessuna nuova Law, teorema, assioma od operatore.
+
+**Nota del 2026-09-28 — v1.4, riaperta da kiatto** per i punti A e B della review:
+riesecuzioni a 10 seed degli esperimenti sintetici con 3 seed, un test
+preregistrato su un knowledge graph reale (FB15k-237), la baseline con insieme
+esatto su ProofWriter e il confronto quantitativo con Clarkson et al. Nessuna
+nuova Law, teorema, assioma od operatore; i risultati vecchi restano in results/
+accanto ai nuovi (suffisso _s10). Dalla v1.4 in poi vale di nuovo la regola sotto.
 
 **Modifiche consentite:** correzioni di bug, performance, documentazione,
 packaging. Nient'altro: niente nuove Law, teoremi, assiomi, operatori,

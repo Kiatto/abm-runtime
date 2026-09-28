@@ -2,7 +2,7 @@
 
 *(Algebraic Binary Memory — ABM)*
 
-**Preprint v1.3 — September 2026**
+**Preprint v1.4 — September 2026**
 *Normative specification: [FORMALISM.md](FORMALISM.md) (frozen, v2.1).
 Reference implementation: [`reference/abm.py`](../reference/abm.py).
 All experiments reproducible from `examples/`; raw results in the
@@ -10,7 +10,7 @@ repository as JSON.*
 
 ## Abstract
 
-We study Algebraic Binary Memory (ABM), a binary vector-symbolic model of the MAP-B family: facts are XOR-bound triples stored in one majority-vote trace in {−1,+1}^D, and reasoning alternates unbinding with cleanup onto a codebook. That the dimension needed for membership in such a trace scales as O(N log M) is known; we make it predictive. The capacity law N\* = k·2D/(π·z_G(M)²), with a second-order Gumbel threshold, is derived with k = 1 and measured at k = 0.92 ± 0.03 (range), stable within 2% over a 36× codebook range. Assuming independence across hops, which we measure but do not prove, multi-hop accuracy composes as p^h. From these laws we derived three predictions before measuring them: required dimension grows logarithmically with depth, offline composition turns two cleanups into one, and typed cleanup raises capacity by z_G(M)²/z_G(|S|)² (measured about 5% below, consistently). Two of our own models were falsified and are kept with their data. A symbolic chainer whose only truth oracle is one Hamming distance reaches 99.8–92.4% on the parsable part of ProofWriter at depths 0–5. A parameter-free accuracy contract is within 4.2 points of measurement on average but errs only on the optimistic side; in a synthetic document-to-memory pilot, a contract issued before any query was 9.8 points off, inside its declared ±15. The contribution is a resource theory whose capacity, depth and reliability can be stated before deployment, with the record of where it failed.
+We study Algebraic Binary Memory (ABM), a binary vector-symbolic model of the MAP-B family: facts are XOR-bound triples stored in one majority-vote trace in {−1,+1}^D, and reasoning alternates unbinding with cleanup onto a codebook. That the dimension needed for membership in such a trace scales as O(N log M) is known; we make it predictive. The capacity law N\* = k·2D/(π·z_G(M)²), with a second-order Gumbel threshold, is derived with k = 1 and measured at k = 0.92 ± 0.03 (range). On the membership task of the known bound, its explicit constant over-provisions dimension about sixfold, while exact constants match simulation within grid resolution. With k fixed on synthetic data, the accuracy contract predicts a fresh ten-seed rerun within 0.3 points, and, in a preregistered test on the real knowledge graph FB15k-237, within 1.05 points (signed −0.5). Assuming independence across hops, which we measure but do not prove, multi-hop accuracy composes as p^h, and three predictions derived before measurement held. Two of our own models were falsified and are kept with their data. The results also bound the model: on ProofWriter an exact store scores 100% where the trace scores 92% at depth 5, and by Law IV the trace needs fewer bits than a minimal exact encoding only below about 75–80% per-query accuracy. The contribution is not compression but a memory whose capacity, depth and reliability can be stated before deployment, with the record of where it failed.
 
 ## 1. Introduction
 
@@ -39,7 +39,7 @@ about it from what is new here.
 quantitative prediction and a designed falsification experiment.
 Retired laws stay in the record with the data that killed them. This
 rule is load-bearing: it corrected our capacity law (linear → Gumbel
-form), retired one law entirely (§6), and produced the two verified
+form), retired one law entirely (§6), and produced the three verified
 predictions of §5.
 
 ## 2. The model
@@ -81,13 +81,14 @@ percentage points.
 ### 2.1 The operators are necessary and independent
 
 Ablating each operator kills a disjoint capability set (measured,
-D=1024, N=50, 3 seeds):
+D = 1024, N = 50, 10 seeds; an earlier 3-seed run gave 85% and 67% for the
+first two entries of the full model, with the same zeros):
 
 | variant | relational recall | holographic O(D) | 3-hop | compose | symbols |
 |---|---|---|---|---|---|
-| full | 85% | ✓ | 67% | ✓ | ✓ |
+| full | 82% | ✓ | 80% | ✓ | ✓ |
 | −binding | **0%** (content membership survives at 73%) | ✓ | 0% | 0% | ✓ |
-| −cleanup | 0% | ✓ | 0% | ✓ (signal 3.7σ, never a symbol) | **0%** |
+| −cleanup | 0% | ✓ | 0% | ✓ (signal 3.6σ, never a symbol) | **0%** |
 | −bundling | **100%** | **✗ (50× space)** | 100% | ✓ | ✓ |
 
 Binding carries relational structure; cleanup carries symbolization and
@@ -102,10 +103,10 @@ The laws referred to by number throughout:
 | law | statement | status |
 |---|---|---|
 | I | null distance Binomial(D, ½) ≈ 𝒩(D/2, √D/2); the basis of every threshold | exact |
-| IV | capacity: N\* = k·2D/(π·z_G(M)²) | derived k = 1; measured 0.92 ± 0.03 |
+| IV | capacity: N\* = k·2D/(π·z_G(M)²) | derived k = 1; measured 0.92 ± 0.03; preregistered test on FB15k-237 passed (§7) |
 | V | hop composition: Acc(h) = p^h with cleanup between hops | corroborated; the argument assumes independence (§4) |
 | VI | failure grows with out-degree | **retired**: a load artifact (§6) |
-| VI′ | topological neutrality: only N_eff/D matters | corroborated |
+| VI′ | topological neutrality: only N_eff/D matters | corroborated on synthetic data; on real hubs neither supported nor falsified (§7) |
 | VII | redundancy: N_eff = Σw² | corroborated; saturates at w ≳ 10 |
 | VIII | every end-to-end failure is attributable to one level | principle; supported by pilots only (§7) |
 
@@ -119,14 +120,15 @@ Derivation: member-trace correlation (A2) gives a signal z-score
 √(2D/(πN)); retrieval fails when the extreme of M−1 null distances
 crosses it. The naive linear model N\* = cD is *rejected by our own
 data*: c drifts systematically with D (0.098→0.068, disjoint CIs over
-D ∈ [512, 4096]); the Gumbel form is stable within 2% over
+D ∈ [512, 4096]); the Gumbel form is stable within 1.1% over
 M ∈ [447, 16 242] (R² = 0.9988 vs 0.979 linear). The ln M dependence
 was posed as a prediction and confirmed before the constant was
 refined.
 
 The constant is recomputed from the saved results by
 `examples/k_from_results.py`. Across the codebook sweep (D = 2048, M from
-447 to 16 242) k = 0.936 ± 0.009 (SD), a 2.2% spread; across the dimension
+447 to 16 242) k = 0.943 ± 0.005 (SD, 10 seeds), a 1.1% spread (3 seeds had
+given 0.936 ± 0.009, 2.2%); across the dimension
 sweep (D from 512 to 4096) k = 0.914 ± 0.025 (SD), lower at D ≤ 1024
 (0.89) than above it (0.93–0.94). We quote 0.92 ± 0.03 as the range over
 both sweeps; the drift at small D is a finite-size effect we have not
@@ -231,19 +233,21 @@ target 95% chain accuracy:
 
 | h | 1 | 2 | 4 | 8 | 16 | 32 | 64 |
 |---|---|---|---|---|---|---|---|
-| D_min | 4035 | 4656 | 6305 | 6305 | 6790 | 7275 | 8488 |
+| D_min | 3846 | 4402 | 5277 | 5528 | 6248 | 7017 | 7697 |
 
-Growth 1→64 hops: **2.1×**. The prediction is modest: logarithmic growth
-is what Law V implies together with a Gaussian tail, since keeping
-p^h ≥ 0.95 needs a per-hop error of order 1/h and hence a margin that grows
-only as √(ln h). What the measurement adds is that the constant is small.
-Resolution is limited: D was searched on a geometric grid with 25% steps,
-with 3 seeds per point (SD up to ≈ 860), so the values at h = 4–16 cannot be
-told apart; the 1→64 trend can. Load, not depth, is the limiting resource
+Growth 1→64 hops: **2.0×**, with a logarithmic fit R² = 0.992 against 0.798
+for a linear one (10 seeds, D searched on a geometric grid with 10% steps; SD
+300–600). An earlier 3-seed run on a 25% grid gave 2.1× but could not
+separate h = 4 from h = 8; the finer run is monotone. The prediction is
+modest: logarithmic growth is what Law V implies together with a Gaussian
+tail, since keeping p^h ≥ 0.95 needs a per-hop error of order 1/h and hence a
+margin that grows only as √(ln h). What the measurement adds is that the
+constant is small. In the same run at fixed D = 1024, Law V itself holds to
+|Acc − p̂^h| = 0.007 over h ≤ 24. Load, not depth, is the limiting resource
 (Fig. 2).
 
 ![P1. Minimum D for chain accuracy ≥ 95% at constant load N = 120
-(mean ± SD over 3 seeds, geometric grid with 25% steps).](figures/fig2_depth.png){width=60%}
+(mean ± SD over 10 seeds, geometric grid with 10% steps).](figures/fig2_depth.png){width=60%}
 
 **P2 — The compiler.** The calculus predicts that normalizing before
 decoding (composing facts exactly at "sleep time" into a second trace)
@@ -265,7 +269,7 @@ consistent bias we have not explained. Typed cleanup is also immune to
 codebook inflation.
 
 **Compose cost.** P_compose = p² (two independent cleanups): measured
-0.78/0.25/0.02 vs predicted 0.80/0.21/0.02 across three loads.
+0.77/0.23/0.01 vs predicted 0.77/0.21/0.02 across three loads (10 seeds).
 
 ## 6. Falsifications retained
 
@@ -325,11 +329,24 @@ implies; we do not report the predicted value. Declared limits: ~35–55%
 grammatical coverage (4 patterns), and accuracy is measured only on the
 problems those patterns parse, so the subset is selected; negation is
 untested; chaining control is symbolic, the truth oracle is purely
-algebraic. An exact symbolic set would score 100% on the same subset: the
-result shows that one Hamming distance is a *sufficient* truth oracle, not
-that it beats an exact store. What the trace buys is fixed-size storage,
-and we do not yet report its memory footprint against an exact store
-(Fig. 4).
+algebraic (Fig. 4).
+
+**Against an exact store.** The same forward chainer on the same questions,
+with a Python set in place of the trace, scores **100% at every depth**, so
+the parser and the chaining are sound and the whole 8-point loss at depth 5
+belongs to the algebraic oracle. Its footprint is also smaller: a 512-byte
+trace against 8–23 bytes for a minimal exact encoding of the same facts. At
+this scale the trace loses on both axes.
+
+The comparison generalises. By Law IV, holding N facts at single-query
+accuracy a needs D/N = π·(z_G(M) + Φ⁻¹(a))²/(2k) bits per fact, while a
+minimal exact encoding of (s, r, o) needs 2·log₂V + log₂R. The trace is the
+smaller of the two only below a = 74% (M = 100) to 81% (M = 10⁵); at 95% it
+is 1.5–1.8 times larger. A holographic trace is therefore not a compressor.
+What it offers instead is a fixed size, membership by one Hamming distance,
+exact algebraic composition (§4), and a degradation that can be stated in
+advance (§7, capacity contract). Whether those are worth the bits is a
+question of use, not of this paper.
 
 ![ProofWriter, parsable subset: accuracy by inference depth (10 seeds,
 95% CI) against the majority baseline.](figures/fig3_proofwriter.png){width=60%}
@@ -357,15 +374,22 @@ numbers require a blind extractor at n ≥ 100.
 predicted by Law IV from pure theory (k = 1, no fitted parameter) is
 within 4.2 points of measurement on average over N ∈ [100, 600]. The error
 has one sign, however: the contract is never pessimistic, and for N ≥ 300
-it is optimistic by 3.9–8.5 points (Fig. 5). That is the same ≈ 8% that
-k = 0.92 measures, and the contract does not yet apply it. The spec-sheet
-line an earlier version printed, *"up to 300 facts at ≥ 85% accuracy in
-1 KB"*, fails its own measurement: at N = 300 the measured accuracy is
-84.6%. A contract of this kind can be issued before deployment only with
-its bias declared.
+it is optimistic by 3.9–8.5 points. That is the same ≈ 8% that k = 0.92
+measures. The spec-sheet line an earlier version printed, *"up to 300 facts
+at ≥ 85% accuracy in 1 KB"*, fails its own measurement: at N = 300 the
+measured accuracy is 84.6%.
 
-![Capacity contract at 1 KB (D = 8192): accuracy predicted from pure theory
-(k = 1) against measurement.](figures/fig5_contract.png){width=60%}
+With k = 0.92 in the forward formula, the bias disappears. The constant
+comes from other experiments (§3) and was fixed before a fresh rerun with
+10 seeds and up to 200 queries per seed: the calibrated contract is within
+**0.3 points** of measurement on average (signed −0.1), inside the sampling
+error (≈ 1 point) at every load, where pure theory is off by 3.2 (signed
++3.2). This is an out-of-sample prediction, and an extrapolation: k was
+measured at D ≤ 4096, the contract runs at D = 8192 (Fig. 5).
+
+![Capacity contract at 1 KB (D = 8192), fresh 10-seed rerun: pure theory
+(k = 1) and the calibrated contract (k = 0.92, measured on other
+experiments) against measurement.](figures/fig5_contract.png){width=60%}
 
 **Synthetic end-to-end pilot.** 500 sentences written by us, a template
 extractor with deliberate gaps (one phrasing in four uncovered, one trap
@@ -388,8 +412,12 @@ Injecting four extraction-error types at rates ε ∈ [0, 0.5] (2-hop
 chains, D=2048), end-to-end accuracy follows Acc = E_q[Pg(q)] ·
 Pr(N_eff(ε)): grounding and reasoning compose multiplicatively, with
 the reasoning factor evaluated at the load the grounding actually
-leaves (missing facts also *lighten* the trace). Mean deviation ~3%
-over 40 cells. Stress-tested against non-i.i.d. structures: the
+leaves (missing facts also *lighten* the trace). Over 40 cells and 10
+seeds the mean absolute deviation is 3.6 points (an earlier version printed
+"~3%"; its own 3-seed data gave 4.3). The average hides where the error is:
+for wrong relations, wrong entities and spurious facts the prediction is
+within 1 point on average, but for **missing** facts it is pessimistic by
+10.2 points. A lighter trace helps more than N_eff(ε) accounts for. Stress-tested against non-i.i.d. structures: the
 per-query form survives (|dev| 2.3–4.8%) while the mean-precision form
 Acc = p̄^k · Pr breaks exactly where predicted — cluster-correlated
 errors outperform i.i.d. errors of equal mean rate (52% vs 30% at
@@ -438,6 +466,36 @@ restores accuracy to p at *every* g, confirming that aliasing is
 symmetry, not noise. It remains a hypothesis pending mixed multi-hop
 plans and real corpora.
 
+**Preregistered test on a real knowledge graph.** Every law above was
+measured on synthetic facts: random entities and relations, used
+uniformly. To test Law IV on real structure — hubs, long-tailed degrees,
+one-to-many relations — we preregistered predictions and success criteria
+on FB15k-237 [@toutanova2015observed] and committed them, with the harness,
+before any run (`docs/preregistration/fb15k237.md`). Ten seeds per cell
+sample N triples uniformly from the training split; each stored (s, r) is
+queried, and an answer counts as correct if it is any true object (35% of
+pairs have several). The prediction is Law IV with k = 0.92, never measured
+on this dataset, times the aliasing factor of §7 computed from the stored
+facts before querying.
+
+The primary hypothesis passed its criteria (mean absolute error ≤ 5, signed
+within ±3): over 12 cells at D = 2048 and D = 8192 the mean absolute error is
+**1.05 points**, signed −0.47, and the same in each D separately (Fig. 7).
+With k = 1 the error is 2.5 points and optimistic again. Two limits: the
+aliasing factor is 0.994–1.000 in every cell, because FB15k-237 was built
+without inverse relations, so that term was not really tested; and
+uniform sampling makes the stored graph sparse, since few of the 14 505
+entities recur in a sample of at most 1 600 triples. The secondary
+hypothesis, that hub subjects are predicted as well as the rest (Law VI′),
+was neither supported nor falsified: hubs were answered *better* than
+predicted by 5.5 points, between the preregistered thresholds of 5 and 10.
+A possible cause, identified only after the run and untested, is that hub
+queries have more true objects and the prediction assumes one.
+
+![Preregistered test on FB15k-237: measured accuracy (points, 10 seeds)
+against the prediction fixed before the run (dashed), at two
+dimensions.](figures/fig7_fb15k237.png){width=60%}
+
 **Real-document pilot (error attribution, not capacity).** Two sessions on
 real documents (a product catalogue and a six-page Italian employment
 contract) first produced 0 useful answers out of 4. The contract was then
@@ -479,8 +537,22 @@ Law IV therefore does not establish the scaling. What it adds is narrower:
 explicit constants — the 2/π of majority correlation and a second-order
 Gumbel threshold on the codebook — that predict the *accuracy curve* and the
 50% collapse point instead of bounding a failure probability, with one
-measured constant (0.92 ± 0.03 against a derived 1). Those bounds stop at a
-single bundle; the composition results of §4–§5 (multi-hop chaining,
+measured constant (0.92 ± 0.03 against a derived 1).
+
+The difference is quantitative, not only of kind. From the proof of their
+Theorem 16 the sufficient dimension is m_C = 56·n·ln(2d/δ): the proof uses a
+lower bound of 1/√(7n) on the per-coordinate signal, where the true value is
+√(2/(πn)), and Hoeffding's inequality in place of a Gaussian tail. On their
+own task — a threshold membership test over d = 500 items, all correct with
+probability 1 − δ = 0.9 — we measured the minimum dimension by simulation
+(`examples/clarkson_comparison.py`, 200 trials per point, 10% grid). For
+n = 10, 25 and 50, m_C exceeds the measured minimum 5.7–6.3 times, with the
+threshold at half the expected signal, and 5.7–6.9 times with exactly their
+threshold; the same rule with exact constants, m = 2πn·z² with
+z = Φ⁻¹(1 − δ/2d), matches the measurement within the grid. This is not a
+flaw in their theorem, which proves a scaling and is sufficient as stated;
+it is why a contract, which needs the dimension itself, needs the constants.
+Those bounds also stop at a single bundle; the composition results of §4–§5 (multi-hop chaining,
 offline compilation, typed projection) and the contracts built on them
 are, to our knowledge, not covered there. Holographic embeddings of
 knowledge graphs [@nickel2016hole] also store (s, r, o) triples in
@@ -518,6 +590,13 @@ and an axiomatization justified by operator-ablation.
    on unaffected queries beyond the first-order model (+4 pt on the
    clustered extractor, consistent across seeds). Only one clustering
    type has been tested; characterization is left for future work.
+8. The drift of k with D (0.89 at D ≤ 1024, 0.93–0.94 above): a finite-size
+   correction that, if derived, would predict k instead of measuring it.
+9. Missing facts help more than N_eff(ε) predicts (+10 points); and on
+   real hubs the prediction is 5.5 points pessimistic, possibly because
+   queries with several true objects have several targets.
+10. A dense-subgraph version of the FB15k-237 test, preregistered, to test
+    Law IV where entities recur.
 
 ## 10. Conclusion
 
@@ -542,7 +621,10 @@ property tests derived from the axioms. The full test suite runs in
 continuous integration on Linux x86-64 (Python 3.10–3.13, NumPy 1.24–2.5),
 macOS arm64 and Windows x86-64, with codewords checked bit-identical across
 the three. The constant k is recomputed from the saved results by
-`examples/k_from_results.py`; the figures by `examples/make_figures.py`.*
+`examples/k_from_results.py`; the figures by `examples/make_figures.py`.
+Results from 10-seed reruns are stored beside the originals with an `_s10`
+suffix, and the preregistration of §7 is `docs/preregistration/fb15k237.md`,
+committed before its run.*
 
 
 ## References
