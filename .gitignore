@@ -62,3 +62,6 @@ docs/paper/paper.pdf
 
 # cache di compilazione Unsloth, non fa parte del progetto
 unsloth_compiled_cache/
+
+# repliche locali delle preregistrazioni (examples/replicate.py)
+results/replica/
