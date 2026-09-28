@@ -13,7 +13,7 @@ aggira; i risultati vecchi restano accanto ai nuovi; budget zero.
 
 ## Stato al 2026-09-28, sera
 
-Paper `docs/paper.md` **v1.5** (teoria esatta + cinque preregistrazioni). Prossimo passo: una nuova review ostile della v1.5.
+Paper `docs/paper.md` **v1.5**, review ostile 8/10. Da integrare nel paper: preregistrazioni 6–9 (due fallite, con le cause), la regola esatta dei pareggi, la figura 10. Problema aperto emerso: recupero fuori percorso con codebook piccoli (nessun modello pulito).
 
 | preregistrazione | commit | stato |
 |---|---|---|
@@ -23,7 +23,9 @@ Paper `docs/paper.md` **v1.5** (teoria esatta + cinque preregistrazioni). Prossi
 | `twins.md` — gemelli simmetrici (peso 2), Law VII esatta, WN18RR | `aebd0dc` | **fatta**: H1–H5 tutte sostenute |
 | `composition.md` — composizione grounding × reasoning senza calibrazione, stress test ricostruito | `32d948c` | **fatta**: H1–H3 sostenute; missing da 10.2 a 0.75 punti |
 | `asymmetric.md` — encoding simmetrico contro asimmetrico | `f4a7dd1` | **fatta**: H1–H4 sostenute; inversione 6/6 |
-| `deepchain.md` — dipendenza fra hop nelle catene profonde (h fino a 6) | `2157233` | in esecuzione / da valutare |
+| `deepchain.md` — dipendenza fra hop nelle catene profonde (h fino a 6) | `2157233` | **FALSIFICATA**: codebook minuscolo, domina il recupero fuori percorso |
+| `deepchain2.md` — lo stesso con 1000 distrattori | `b4eec35` | **FALSIFICATA** già al singolo hop: regola dei pareggi (la reference sceglie il primo inserito) |
+| `deepchain3.md` — lo stesso con la regola esatta dei pareggi, D = 256 e 320 | `794def8` | in esecuzione / da valutare |
 
 Risultati: `results/exact_prereg_results.json`, `results/dependence_prereg_results.json`.
 Valutare **solo** con i criteri scritti nei file di preregistrazione, e
