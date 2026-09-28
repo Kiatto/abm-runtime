@@ -56,3 +56,46 @@ Tutto il resto è **sostenuto in parte**.
 - A h ≤ 2 la differenza con la Law V è sotto i 2 SE: lì il test riguarda solo H1.
 - Le catene hanno entità distinte; in un grafo con cicli i bit dei fatti non sono
   più indipendenti, e il modello non si applica così com'è.
+
+---
+
+## Esito — 2026-09-28, eseguito dopo il commit `2157233`: FALSIFICATA
+
+Previsioni e criteri **non modificati**. Risultati:
+[`results/deepchain_prereg_results.json`](../../results/deepchain_prereg_results.json).
+
+| h | catene | misurato | modello | scarto dal modello | Law V | scarto dalla Law V |
+|---|---|---|---|---|---|---|
+| 1 | 72 000 | 0.7126 | 0.7095 | +1.8 SE | 0.7095 | +1.8 SE |
+| 2 | 36 000 | 0.5519 | 0.5414 | +3.8 SE | 0.5460 | +2.2 SE |
+| 3 | 24 000 | 0.4332 | 0.4047 | **+8.7 SE** | 0.4144 | +5.7 SE |
+| 4 | 18 000 | 0.3391 | 0.2943 | **+12.4 SE** | 0.3089 | +8.4 SE |
+| 6 | 12 000 | 0.2144 | 0.1429 | **+18.9 SE** | 0.1627 | +13.6 SE |
+
+**H1 — falsificata** (oltre 5 SE per h = 3, 4, 6). **H2 — falsificata**: a h = 6
+il misurato sta *sopra* p^h, non sotto.
+
+### Perché, per quanto ne so
+
+Un errore di disegno, mio. Per rendere l'effetto grande ho scelto un codebook
+minuscolo (M ≈ 20). Con M così piccolo, un hop sbagliato ha una probabilità non
+trascurabile di ricadere per caso sull'entità giusta al passo successivo, e da lì
+la catena riprende. Il paper conteneva questo termine (|ε| ≤ h/M nella vecchia
+proposizione sulla composizione); la previsione lo ha ignorato, assegnando 0 a
+ogni catena con un hop sbagliato. A h = 6, h/M ≈ 0.3.
+
+**Esplorativo, dopo aver visto i dati.** Una catena di Markov con la Law V e un
+recupero uniforme 1/M dà 0.5590 / 0.4471 / 0.3624 / 0.2504 per h = 2 / 3 / 4 / 6:
+ora *sopra* il misurato. La verità sta fra le due curve; plausibilmente
+dipendenza negativa e recupero agiscono insieme, e il recupero è minore di 1/M
+perché un hop sbagliato tende a finire su un'altra catena della stessa traccia,
+non a caso. **Non ho un modello pulito, e non lo dichiaro.**
+
+### Cosa ne segue
+
+- La domanda originale — la dipendenza fra hop cresce con la profondità? — resta
+  aperta, perché questo test non poteva separarla dal recupero.
+- Il test giusto la isola: stesso disegno, con un codebook grande (distrattori),
+  dove il recupero è trascurabile. È la preregistrazione successiva.
+- Il modello per catene profonde **non vale** con codebook piccoli finché non
+  include il recupero fuori percorso. Il paper deve dirlo.
