@@ -1,9 +1,9 @@
 ---
-title: "A Quantitative Theory of Binary Holographic Memory, with a Reference Implementation"
+title: "An Exact, Parameter-Free Resource Theory for Binary Holographic Memory, with Preregistered Tests"
 subtitle: "Algebraic Binary Memory (ABM)"
 author:
   - kiatto
-date: "Preprint v1.4 — September 2026"
+date: "Preprint v1.5 — September 2026"
 bibliography: docs/paper/refs.bib
 link-citations: true
 numbersections: true

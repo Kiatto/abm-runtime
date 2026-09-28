@@ -13,7 +13,7 @@ aggira; i risultati vecchi restano accanto ai nuovi; budget zero.
 
 ## Stato al 2026-09-28, sera
 
-Paper `docs/paper.md` **v1.4**, voto della review ostile **7/10**.
+Paper `docs/paper.md` **v1.5** (teoria esatta + cinque preregistrazioni). Prossimo passo: una nuova review ostile della v1.5.
 
 | preregistrazione | commit | stato |
 |---|---|---|
@@ -29,8 +29,7 @@ scrivere l'esito in coda allo stesso file, come in `fb15k237.md`.
 
 ## Prossimi passi, in ordine
 
-1. **Valutare le due preregistrazioni in corso** e registrarne l'esito.
-2. **Paper v1.5**, se reggono: il contratto esatto (`bsm/memory/exact_contract.py`)
+1. ~~Valutare le preregistrazioni~~ fatto. 2. ~~Paper v1.5~~ fatto: il contratto esatto (`bsm/memory/exact_contract.py`)
    diventa il risultato principale, senza parametri; la Law IV resta come
    approssimazione asintotica che spiega la scala; la Law V diventa "violata di
    −ρ²/(1−ρ²) per bit", con la formula esatta per due hop. Aggiornare abstract
