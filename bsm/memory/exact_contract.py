@@ -244,3 +244,45 @@ def fact_weights(triples):
     """Peso di ogni vettore distinto: (s, r, o) e (o, r, s) sono lo stesso vettore."""
     from collections import Counter
     return Counter((frozenset((s, o)), r) for s, r, o in triples)
+
+
+def two_hop_joint_fast(n_facts: int, dim: int, codebook: int, width: float = 8.0):
+    """Come two_hop_joint, in tempo circa lineare in D invece che cubico.
+
+    Condizionando sul numero k di bit in cui f1 = f2 (k ~ Binomial(D, 1/2)): sui k
+    bit uguali i due hop sono in disaccordo insieme (a di essi, a ~ Bin(k, 1 - u));
+    sui D - k bit diversi esattamente uno dei due lo è (b per il primo,
+    b ~ Bin(D - k, 1 - v), e D - k - b per il secondo). Quindi d1 = a + b e
+    d2 = a + (D - k - b). Le tre binomiali si troncano a `width` deviazioni
+    standard; la massa scartata è sotto 1e-12.
+    """
+    u = _agree_given(n_facts, same=True)
+    v = _agree_given(n_facts, same=False)
+    null = binom_pmf(dim, 0.5)
+    null_sf = np.clip(1.0 - np.cumsum(null), 0.0, 1.0)
+    n_null = codebook - 1
+    win = null_sf ** n_null
+    if n_null > 0:
+        win = win + 0.5 * n_null * null * null_sf ** (n_null - 1)
+    win = np.clip(win, 0.0, 1.0)
+
+    def window(n, p):
+        mu, sd = n * p, np.sqrt(max(n * p * (1 - p), 1e-12))
+        lo, hi = max(0, int(mu - width * sd) - 1), min(n, int(mu + width * sd) + 2)
+        return lo, hi
+
+    pk = binom_pmf(dim, 0.5)
+    klo, khi = window(dim, 0.5)
+    both = single = 0.0
+    for k in range(klo, khi + 1):
+        alo, ahi = window(k, 1 - u)
+        blo, bhi = window(dim - k, 1 - v)
+        pa = binom_pmf(k, 1 - u)[alo:ahi + 1]
+        pb = binom_pmf(dim - k, 1 - v)[blo:bhi + 1]
+        a = np.arange(alo, ahi + 1)[:, None]
+        b = np.arange(blo, bhi + 1)[None, :]
+        d1, d2 = a + b, a + (dim - k - b)
+        w = pa[:, None] * pb[None, :]
+        both += pk[k] * float(np.sum(w * win[d1] * win[d2]))
+        single += pk[k] * float(np.sum(w * win[d1]))
+    return single, both, single * single

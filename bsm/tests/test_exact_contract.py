@@ -83,3 +83,44 @@ def test_exact_model_matches_reference_simulation():
     se = sqrt(predicted * (1 - predicted) / total)
     assert abs(measured - predicted) < 3 * se, (measured, predicted, se)
     assert abs(measured - law_iv) > 3 * se, "il test non distingue più dalla Law IV"
+
+
+def test_two_hop_fast_equals_convolution():
+    from bsm.memory.exact_contract import two_hop_joint, two_hop_joint_fast
+    for n, dim, m in ((10, 48, 17), (30, 240, 47), (7, 96, 20)):
+        slow, fast = two_hop_joint(n, dim, m), two_hop_joint_fast(n, dim, m)
+        assert fast == pytest.approx(slow, abs=1e-9)
+
+
+def test_two_hop_marginal_is_single_hop_accuracy():
+    from bsm.memory.exact_contract import two_hop_joint_fast
+    p, _both, _ = two_hop_joint_fast(120, 2048, 182)
+    assert p == pytest.approx(cleanup_accuracy(120, 2048, 182), abs=1e-9)
+
+
+def test_law_v_is_violated_in_the_predicted_direction():
+    """Due hop sulla stessa traccia sono correlati negativamente: P(entrambi) < p²."""
+    from bsm.memory.exact_contract import bit_correlation, two_hop_joint_fast
+    p, both, p2 = two_hop_joint_fast(10, 48, 17)
+    assert both < p2
+    assert bit_correlation(10) < 0
+
+
+def test_weighted_agreement_reduces_to_unweighted():
+    from bsm.memory.exact_contract import cleanup_accuracy_mixed, p_agree_weighted
+    for n in (5, 10, 90):
+        assert p_agree_weighted(1, [1] * (n - 1)) == pytest.approx(p_agree(n), abs=1e-12)
+    p = p_agree(100)
+    assert cleanup_accuracy_mixed(1024, 211, [p, p]) == pytest.approx(
+        cleanup_accuracy(100, 1024, 211, correct=2), abs=1e-9)
+    assert cleanup_accuracy_mixed(1024, 211, [p], [p]) == pytest.approx(
+        cleanup_accuracy(100, 1024, 211, correct=1, aliases=1), abs=1e-9)
+
+
+def test_symmetric_twins_are_one_vector():
+    """(s, r, o) e (o, r, s) sono lo stesso vettore: fact_weights li conta insieme."""
+    from bsm.memory.exact_contract import fact_weights
+    mem = abm.Memory(256)
+    assert np.array_equal(mem.fact_hv("a", "r", "b"), mem.fact_hv("b", "r", "a"))
+    w = fact_weights([("a", "r", "b"), ("b", "r", "a"), ("a", "q", "b")])
+    assert sorted(w.values()) == [1, 2]
