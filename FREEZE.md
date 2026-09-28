@@ -4,7 +4,7 @@ Da questa data sono **definitivamente congelati**:
 
 - l'algebra (operatori: bind, bundle, permute, cleanup, projection)
 - il formalismo ([docs/FORMALISM.md](docs/FORMALISM.md) v2.1)
-- il paper ([docs/paper.md](docs/paper.md) v1.5 — era v1.1; vedi le note sotto)
+- il paper ([docs/paper.md](docs/paper.md) v1.6 — era v1.1; vedi le note sotto)
 - la reference implementation ([reference/abm.py](reference/abm.py) v1.0.0)
 
 **Nota del 2026-09-28 — perché il paper è passato a v1.2.** Il congelamento è
@@ -37,6 +37,11 @@ preregistrazioni (`docs/preregistration/`). La Law V è falsificata come legge
 esatta, con una violazione prevista in anticipo; la Law IV resta come
 approssimazione asintotica. Nessun assioma nuovo. Finché vale il mandato, ogni
 modifica sostanziale al paper richiede una preregistrazione.
+
+**v1.6 (stesso giorno).** Integrate le preregistrazioni 6–9: l'encoding
+simmetrico contro l'asimmetrico, e le catene profonde, con i due fallimenti (7 e
+8) riportati con le loro cause. La regola dei pareggi della reference è ora
+modellata esattamente.
 
 **Modifiche consentite:** correzioni di bug, performance, documentazione,
 packaging. Nient'altro: niente nuove Law, teoremi, assiomi, operatori,

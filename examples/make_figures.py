@@ -235,9 +235,27 @@ def fig_asymmetric():
     fig.savefig(OUT / "fig10_asymmetric.png")
 
 
+def fig_deepchain():
+    """Preregistrazione 9: catene profonde, misurato contro modello e Law V."""
+    rows = json.loads((RES / "deepchain3_prereg_results.json").read_text())["rows"]
+    fig, ax = plt.subplots(figsize=(4.2, 3))
+    for dim, col in ((256, "#1a6faf"), (320, "#c0392b")):
+        sel = sorted((r for r in rows if r["dim"] == dim), key=lambda r: r["h"])
+        hs = [r["h"] for r in sel]
+        ax.plot(hs, [100 * (r["measured"] - r["pred_law_v"]) for r in sel], "o", color=col,
+                label=f"measured − Law V, D = {dim}")
+        ax.plot(hs, [100 * (r["pred_model"] - r["pred_law_v"]) for r in sel], "-", color=col,
+                alpha=0.7)
+    ax.axhline(0, color="#999", lw=0.8, ls="--")
+    ax.set_xlabel("hops h"); ax.set_ylabel("chain accuracy − p^h (points)")
+    ax.set_title("Deep chains fall below p^h (line: model)")
+    ax.legend(fontsize=7); fig.tight_layout()
+    fig.savefig(OUT / "fig11_deepchain.png")
+
+
 if __name__ == "__main__":
     for f in (fig_capacity, fig_depth, fig_proofwriter, fig_compiler,
-              fig_contract, fig_robustness, fig_fb15k, fig_twins, fig_dependence, fig_asymmetric):
+              fig_contract, fig_robustness, fig_fb15k, fig_twins, fig_dependence, fig_asymmetric, fig_deepchain):
         f()
         print("✓", f.__name__)
     print("→", OUT)
