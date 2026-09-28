@@ -22,6 +22,8 @@ Paper `docs/paper.md` **v1.5** (teoria esatta + cinque preregistrazioni). Prossi
 | `dependence.md` — Law V violata di una quantità esatta; P3 ricostruito | `e6bb351` | **fatta**: E1, E2, G sostenute; Law V respinta a 6 SE come previsto |
 | `twins.md` — gemelli simmetrici (peso 2), Law VII esatta, WN18RR | `aebd0dc` | **fatta**: H1–H5 tutte sostenute |
 | `composition.md` — composizione grounding × reasoning senza calibrazione, stress test ricostruito | `32d948c` | **fatta**: H1–H3 sostenute; missing da 10.2 a 0.75 punti |
+| `asymmetric.md` — encoding simmetrico contro asimmetrico | `f4a7dd1` | **fatta**: H1–H4 sostenute; inversione 6/6 |
+| `deepchain.md` — dipendenza fra hop nelle catene profonde (h fino a 6) | `2157233` | in esecuzione / da valutare |
 
 Risultati: `results/exact_prereg_results.json`, `results/dependence_prereg_results.json`.
 Valutare **solo** con i criteri scritti nei file di preregistrazione, e

@@ -73,3 +73,37 @@ Tutto il resto è **sostenuto in parte**.
   lì il test è sulla precisione di H1 e H2, non sull'inversione.
 - L'asimmetrico perde le query inverse gratuite; questo test non ne misura il
   costo, che dipende dall'uso.
+
+---
+
+## Esito — 2026-09-28, eseguito dopo il commit `f4a7dd1`
+
+Previsioni e criteri **non modificati**. Risultati:
+[`results/asymmetric_prereg_results.json`](../../results/asymmetric_prereg_results.json).
+
+| grafo, D | asimmetrico (H1) | simmetrico (H2) | differenza (H4) |
+|---|---|---|---|
+| FB15k-237, 2048 | 0.68, segno −0.68 | 1.05 | — |
+| FB15k-237, 8192 | 0.60, −0.50 | 0.81 | — |
+| WN18RR, 2048 | 0.74, −0.65 | 0.72 | 0.64 |
+| WN18RR, 8192 | 0.92, −0.09 | 0.60 | 0.86 |
+
+**H1, H2, H4 — sostenute.**
+
+**H3 — sostenuta, 6 segni su 6.** Differenza simmetrico − asimmetrico su WN18RR:
+
+| D | N | misurata | prevista |
+|---|---|---|---|
+| 2048 | 100 | **−6.1** | −5.2 |
+| 2048 | 300 | **+6.6** | +6.2 |
+| 2048 | 400 | **+2.9** | +3.3 |
+| 8192 | 400 | **−7.0** | −6.1 |
+| 8192 | 1200 | **+6.6** | +6.9 |
+| 8192 | 1600 | **+7.8** | +6.0 |
+
+### Cosa dice
+
+Nessuno dei due encoding è migliore in assoluto. A basso carico la simmetria
+costa fino a 7 punti (domina l'alias); ad alto carico aiuta fino a 8 (i gemelli
+fusi in un solo fatto riducono il rumore). Il modello, senza parametri, prevede
+dove sta l'inversione per un grafo dato, prima di memorizzarlo.
