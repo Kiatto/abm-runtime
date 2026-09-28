@@ -1,0 +1,47 @@
+{
+  "0": {
+    "n": 150,
+    "holographic_acc": 1.0,
+    "exact_acc": 1.0,
+    "disagreements": 0,
+    "final_facts_mean": 8.573333333333334,
+    "trace_bytes": 512,
+    "exact_min_bytes_mean": 8.22
+  },
+  "1": {
+    "n": 150,
+    "holographic_acc": 1.0,
+    "exact_acc": 1.0,
+    "disagreements": 0,
+    "final_facts_mean": 9.693333333333333,
+    "trace_bytes": 512,
+    "exact_min_bytes_mean": 9.296666666666667
+  },
+  "2": {
+    "n": 150,
+    "holographic_acc": 0.98,
+    "exact_acc": 1.0,
+    "disagreements": 3,
+    "final_facts_mean": 10.24,
+    "trace_bytes": 512,
+    "exact_min_bytes_mean": 9.713333333333333
+  },
+  "3": {
+    "n": 150,
+    "holographic_acc": 0.9866666666666667,
+    "exact_acc": 1.0,
+    "disagreements": 2,
+    "final_facts_mean": 11.76,
+    "trace_bytes": 512,
+    "exact_min_bytes_mean": 11.6
+  },
+  "5": {
+    "n": 150,
+    "holographic_acc": 0.92,
+    "exact_acc": 1.0,
+    "disagreements": 12,
+    "final_facts_mean": 23.066666666666666,
+    "trace_bytes": 512,
+    "exact_min_bytes_mean": 23.066666666666666
+  }
+}

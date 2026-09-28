@@ -27,9 +27,13 @@ import pyarrow.parquet as pq
 
 from bsm.memory.vsa import WorkingMemory, bind_xor, hamming
 
-PARQUET = ("/tmp/claude-1000/-var-www-html-BitKore/"
-           "c904bff8-7b97-4d4b-9e76-49f65ca6a95e/scratchpad/"
-           "proofwriter_val.parquet")
+# Validation split di ProofWriter dal mirror Hugging Face tasksource/proofwriter.
+# Prima puntava a uno scratchpad di una sessione passata, cioè a un file che
+# nessun altro poteva avere. Per riprodurre:
+#   curl -sL -o data/external/proofwriter_val.parquet https://huggingface.co/\
+#   datasets/tasksource/proofwriter/resolve/main/data/validation-00000-of-00001-8f79b25dd5b0f2c3.parquet
+PARQUET = (Path(__file__).resolve().parent.parent
+           / "data" / "external" / "proofwriter_val.parquet")
 
 RE_FACT = re.compile(r"^(\w+) is (\w+)\.?$")
 RE_RULE_IF = re.compile(
