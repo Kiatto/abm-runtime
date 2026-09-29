@@ -36,9 +36,17 @@ jobs:
       - name: Dipendenze (font DejaVu + pacchetti LaTeX mancanti in TinyTeX)
         run: |
           set -eu
-          apk add --no-cache font-dejavu
+          # I mirror CTAN scelti a caso da tlmgr ogni tanto non rispondono (due build
+          # fallite qui il 2026-09-28, stesse identiche dipendenze verdi subito dopo):
+          # si riprova, e dal secondo tentativo si usa un mirror fisso.
+          for i in 1 2 3; do apk add --no-cache font-dejavu && break; sleep 10; done
           fc-cache -f
-          tlmgr install newunicodechar amsfonts
+          for i in 1 2 3 4; do
+            if tlmgr install newunicodechar amsfonts; then break; fi
+            [ "$i" = 4 ] && exit 1
+            tlmgr option repository https://mirrors.mit.edu/CTAN/systems/texlive/tlnet
+            sleep 15
+          done
 
       - name: Build PDF
         run: |
