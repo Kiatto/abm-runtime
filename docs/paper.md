@@ -2,16 +2,16 @@
 
 *(Algebraic Binary Memory — ABM)*
 
-**Preprint v1.8 — September 2026**
+**Preprint v1.9 — September 2026**
 *Normative specification: [FORMALISM.md](FORMALISM.md) (frozen, v2.1).
 Reference implementation: [`reference/abm.py`](../reference/abm.py); exact
 theory, shipped as `abm.exact`: [`reference/exact.py`](../reference/exact.py).
 Every number is produced by a script in `examples/` with results committed as
-JSON; the ten preregistrations are in `docs/preregistration/`.*
+JSON; the eleven preregistrations are in `docs/preregistration/`.*
 
 ## Abstract
 
-We study Algebraic Binary Memory (ABM), a binary vector-symbolic model of the MAP-B family: facts are XOR-bound triples in one majority-vote trace, and reasoning alternates unbinding with cleanup onto a codebook. The O(N log M) scaling is known; asymptotic laws predict accuracy only up to a fitted constant. We compute cleanup accuracy at finite dimension from the axioms, with no parameter, and extend it to several answers, aliases, weighted facts, the reference tie rule and the dependence between hops. Ten preregistered tests, predictions committed before any data: eight supported their primary hypotheses; two failed and are reported with their causes. At an unmeasured dimension the error was 0.27 points; on dense subgraphs of two real knowledge graphs, 0.6–1.1, once symmetric relations are recognised as one fact of weight 2; under grounding errors, 0.8–1.9 without calibration. Used to choose the dimension in advance on 80 unseen subgraphs, the model kept its promise, while the asymptotic law — the contract the reference exposed — missed by over 6 points in up to 12 of 20; aliases also cap accuracy at any dimension, a ceiling computable from the facts. The theory predicted a failure of our own earlier law: hops on one trace are negatively correlated, by −ρ²/(1−ρ²) per bit, and chains fall below p^h, by up to 8.5 standard errors at six hops. The known bound over-provisions dimension sixfold; an exact store beats the trace on ProofWriter; the trace is smaller than a minimal exact encoding only below 75–80% accuracy. ABM is not a compressor; it offers accuracy that can be stated, and checked, before deployment.
+We study Algebraic Binary Memory (ABM), a binary vector-symbolic model of the MAP-B family: facts are XOR-bound triples in one majority-vote trace, and reasoning alternates unbinding with cleanup onto a codebook. Building on the finite-size retrieval theory of Frady, Kleyko and Sommer, we compute cleanup accuracy at finite dimension from the discrete distributions of this model, with no fitted parameter, under stated idealisations: independent random codewords, and facts independent over GF(2). We extend it to several answers, aliases, weighted facts, the reference tie rule and the dependence between hops. Eleven preregistered tests, predictions committed before any data: eight supported their primary hypotheses, one in part, and two failed and are reported with their causes. At an unmeasured dimension the error was 0.27 points; on dense subgraphs of two real knowledge graphs, 0.6–1.1, once symmetric relations are counted as one fact of weight 2; under grounding errors, 0.8–1.9 without calibration. Used to choose the dimension in advance on 80 unseen subgraphs, the model kept its promise where the asymptotic law missed by over 6 points in up to 12 of 20, mostly through the alias and twin terms it lacks. Hops on one trace are negatively correlated, by −ρ²/(1−ρ²) per bit, and chains fall below p^h, by up to 8.5 standard errors at six hops. The idealisation of independent facts fails on even cycles: four facts on a rectangle multiply to the identity, and on a biclique the model is up to 6 points optimistic; we report this and leave its modelling open. ABM is not a compressor, and an exact store beats it on ProofWriter; what it offers is accuracy that can be stated, and checked, before deployment.
 
 ## 1. Introduction
 
@@ -30,19 +30,22 @@ parameters, and tests it the way such a claim should be tested.
 
 **Contributions.**
 
-1. An **exact finite-D accuracy** for cleanup, derived from the axioms: exact
-   majority agreement and binomial distances, extended to several true answers,
+1. A **finite-D accuracy without fitted parameters** for cleanup, a
+   specialisation of the finite-size theory of Frady, Kleyko and Sommer
+   [@frady2018sequence; @kleyko2023perceptron] to binary majority traces: exact
+   majority agreement and binomial distances, with the reference tie rule, extended to several true answers,
    aliases, weighted facts and symmetric twins (§3). It replaces an asymptotic
    law whose single constant, k = 0.92, turns out to be nothing but the error of
    its own approximations.
-2. The **exact dependence between hops** on one trace (§4). The independence
+2. The **dependence between hops** on one trace, derived in closed form (§4). The independence
    assumed by the composition law Acc(h) = p^h is false; the violation is
    derived and then measured.
-3. **Ten preregistered tests** (§6), with predictions, criteria and harnesses
+3. **Eleven preregistered tests** (§6), with predictions, criteria and harnesses
    committed before any run, on synthetic data at an unmeasured dimension, on
    two real knowledge graphs, on grounding errors, on two encodings, on deep
    chains, and on the use the paper argues for: choosing a memory's dimension
-   before storing anything. Two failed; both are reported with their causes.
+   before storing anything, and questions written by people. Two failed; both
+   are reported with their causes, and one was supported only in part.
 4. An account of **what the model is not** (§7): not a compressor, not better
    than an exact store at small scale, and not free of the faults we found in
    our own earlier versions (§8).
@@ -136,8 +139,9 @@ true codeword is therefore Binomial(D, 1 − p_agree(N)), each of the M − 1 nu
 distances is Binomial(D, ½), and the probability that cleanup returns the true
 object is a finite sum over these distributions. There is no parameter.
 
-What "exact" means here, precisely: for independent random codewords and facts,
-the probability is computed from the exact discrete distributions, with no
+What "exact" means here, precisely: for independent random codewords, and for
+facts whose vectors are independent — which they are not always, see below — the
+probability is computed from the exact discrete distributions, with no
 Gaussian or extreme-value approximation. Ties need care. The reference returns
 the *first* codeword inserted among those at minimal distance, so a target with
 n_b null codewords inserted before it and n_a after wins iff
@@ -150,9 +154,27 @@ accurate where ties are rare or positions mixed; test 8 found where it is not
 (§6). The extensions of §3.3 add one assumption each, stated there: that
 candidates at equal signal have independent distances.
 
+**Idealisations, all in one place.** The model is exact only under three
+assumptions, and every use of the word in this paper carries them: (i) the null
+distances of the M − 1 wrong codewords are independent; (ii) candidates at equal
+signal (§3.3), and the null distances of consecutive hops (§4), are independent;
+(iii) the fact vectors are independent over GF(2). The third fails on even
+cycles of the fact graph: in a rectangle (a,r,b), (a,r,c), (d,r,b), (d,r,c) the
+four vectors multiply to the identity on every bit, so they are not four
+independent Rademacher variables. By exhaustive counting, p_agree for each is
+0.625, not 0.6875. On a K₄,₅ biclique with 20 facts at D = 64 the model predicts
+0.930 against a measured 0.887 ± 0.008, and a model that keeps the linear
+dependence in the vote (but not in the cleanup) predicts 0.882; under load, with
+distractor facts, the independent model is 1–6 points optimistic and the linear
+one 3–4 points pessimistic (`examples/cycles_probe.py`, exploratory, not
+preregistered). Knowledge graphs contain bicliques; their share in our samples,
+and their part in the residuals of §6, is open (§10).
+
 Against the capacity data behind k, the exact N\* is 50.5 / 87.5 / 155.5 / 277.5
 at D = 512 / 1024 / 2048 / 4096, measured 50.2 ± 4.5 / 87.1 ± 3.1 / 158.8 ± 5.3 /
-280.0 ± 6.4: inside every interval, including the small D where k drifted. **k =
+280.0 ± 6.4: inside every interval, including the small D where k drifted. The script behind these measurements was lost; a rerun with the protocol they
+imply (`examples/capacity_seed10.py`, 10 new seeds) gives 50.6 ± 1.7 / 86.8 ± 2.2 /
+156.2 ± 3.4 / 279.6 ± 5.5, again with the exact model inside every interval. **k =
 0.92 is the error of the Gaussian and Gumbel approximations, not a property of
 the memory.** Against a Monte Carlo of the reference implementation at D = 256,
 N = 20, the exact model gives 0.722 for a measured 0.714, where Law IV gives
@@ -374,8 +396,8 @@ signed bias of −2.61, outside the ±2 we had set: **supported in part**. The e
 model was *pessimistic* on dense real graphs, most at high load (−8.4 at
 N = 400).
 
-**Test 4 — symmetric twins.** Looking for the cause, after test 2 and on its data,
-we found that in the dense samples 6–14% of the triples had their symmetric twin
+**Test 4 — symmetric twins.** Looking for the cause, after test 2 and on its data:
+in the dense samples 6–14% of the triples had their symmetric twin
 in the sample — two directions of one relation, and so one vector of weight 2
 (§3.3) — against 0% in uniform samples. Counting twins as weight 2 removed the
 bias on those cells. Because that fit was made after seeing the data, it was
@@ -498,20 +520,25 @@ test, not per proof.
 majority baseline.](figures/fig3_proofwriter.png){width=60%}
 
 **Not a compressor.** Holding N facts at single-query accuracy a needs about
-π·(z_G(M) + Φ⁻¹(a))²/(2k) bits per fact, while a minimal exact encoding of
-(s, r, o) needs 2·log₂V + log₂R. The trace is the smaller of the two only below
-a = 74% (M = 100) to 81% (M = 10⁵); at 95% it is 1.5–1.8 times larger. What it
+π·(z_G(M) + Φ⁻¹(a))²/(2k) bits per fact (Law IV), while a minimal exact encoding
+of (s, r, o) needs 2·log₂V + log₂R. At high accuracy the trace is the larger of
+the two; the accuracy at which they cross depends on V, R and M, and an earlier
+version printed a crossover range that no committed script reproduces, so we
+withdraw it (§8). What it
 offers instead is a fixed size, membership by one distance, exact algebraic
 composition (§4.2) and — the subject of this paper — a degradation that can be
 computed before deployment.
 
-**The known bound over-provisions.** Clarkson, Ubaru and Yang's Theorem 16
+**Sufficient bounds and sizing constants.** Clarkson, Ubaru and Yang's Theorem 16
 [@clarkson2023capacity] gives, from its proof, a sufficient dimension
 m_C = 56·n·ln(2d/δ) for a threshold membership test over d items. On their own
 task (d = 500, δ = 0.1; `examples/clarkson_comparison.py`) m_C exceeds the
 measured minimum 5.7–6.3 times, and 5.7–6.9 times with exactly their threshold,
-while exact constants match the measurement within a 10% grid. Their theorem
-proves a scaling and is correct as stated; a contract needs the dimension itself.
+while a Gaussian-tail estimate, 2π·n·z², matches the measurement within a 10%
+grid. This compares a constant chosen for a proof with a measurement, and says
+nothing against the theorem, which proves a scaling and is correct as stated; it
+only shows that sizing a memory needs a different number. The comparison uses the
+2023 preprint's constant.
 
 **Capacity contract.** At 1 KB (D = 8192), with 10 fresh seeds, the exact model is
 within 0.4 points of measurement on average, Law IV with k = 0.92 within 0.3, and
@@ -550,6 +577,9 @@ It is a case, not a sample.
 | "~3% mean deviation" for the composition law | the script's own data gave 4.3 (3 seeds) and 3.6 (10), and 10.2 for missing facts |
 | sublinear cleanup; a fixed acceptance threshold | §3.4 |
 | our deep-chain prediction with a tiny codebook | preregistered test 7: off-path recovery dominates, up to +18.9 SE |
+| the bits-per-fact crossover (74–81%, v1.8) | no committed script reproduces it; withdrawn (audit 2026-09-30) |
+| "the known bound over-provisions dimension sixfold" (v1.8 abstract) | a proof constant against a measurement; kept in §7 as a sizing remark, out of the abstract |
+| "exact" without the GF(2) caveat | facts on even cycles are dependent; several points on a loaded biclique (§3.2) |
 | the even split of ties | preregistered test 8: with 1 000 distractors after the target, it misses a single hop by 1.8 points (13.8 SE); replaced by the exact rule |
 
 **Lost scripts.** Four result files had no script that produced them:
@@ -577,11 +607,21 @@ Capacity of the D/ln M form is classical. For MAP-B, Clarkson, Ubaru and Yang
 [@clarkson2023capacity] prove O(n log(d/δ)) bounds for membership in majority
 bundles, including bundles of bindings; Thomas, Dasgupta and Rosing
 [@thomas2021theoretical] give a broader theory of hyperdimensional computing;
-Frady, Kleyko and Sommer [@frady2018sequence] derive retrieval accuracy from
-crosstalk noise in VSA-coded recurrent networks. Our contribution relative to
-them is narrower than a new scaling: exact finite-D accuracy without parameters,
-its extension to several answers, weights and hop dependence, and preregistered
-tests on real graphs. Clarkson et al. also prove that the reliability of nested
+Frady, Kleyko and Sommer [@frady2018sequence] derive finite-size retrieval
+accuracy — the probability that the winner-take-all readout returns the right
+item — from the crosstalk distribution in VSA-coded memories, and Kleyko et al.
+[@kleyko2023perceptron] extend this theory to predict accuracy across VSA
+models; Plate [@plate1995hrr] and Gallant and Okaywe [@gallant2013objects] give
+the earlier capacity analyses, and Schlegel, Neubert and Protzel
+[@schlegel2022comparison] and Mirus, Stewart and Conradt [@mirus2020capacity]
+compare capacity across architectures empirically. Our §3 is a refinement of
+that line, not an alternative: the same readout probability, computed with the
+exact discrete distributions of a binary majority trace, and extended to the
+reference tie rule, several answers, aliases, weights, symmetric twins and hop
+dependence, with preregistered tests on real graphs. Resonator networks
+[@frady2020resonator] factor a bound vector by iterating cleanup on all factors
+at once; §4 concerns the simpler hop-by-hop cleanup, whose errors are
+correlated through the shared trace. Clarkson et al. also prove that the reliability of nested
 bundling decays with depth (their Lemma 17); the hop dependence of §4.1 concerns
 a different composition — cleanup between hops on one flat bundle.
 
@@ -597,33 +637,39 @@ are standard [@baader1998term].
 
 ## 10. Open problems
 
-1. **Real hubs.** A residual of +3.3 points on high-degree subjects (test 2) is
+1. **Cycles.** Facts that close even cycles are dependent over GF(2) (§3.2);
+   on a loaded biclique the model is several points optimistic, and keeping the
+   dependence only in the vote overcorrects. A model that keeps it in the cleanup
+   too, and the count of 4-cycles in the real samples, are open; they are a
+   candidate cause of the hub residual below.
+2. **Real hubs.** A residual of +3.3 points on high-degree subjects (test 2) is
    not explained by twins alone.
-2. **Joint independence of candidates.** The exact model treats candidates at
+3. **Joint independence of candidates.** The exact model treats candidates at
    equal signal, and the null distances of consecutive hops, as independent;
    test 2 bounds the first cost below a point, the second is unmeasured.
-3. **Off-path recovery.** In tiny codebooks a failed hop can land on the right
+4. **Off-path recovery.** In tiny codebooks a failed hop can land on the right
    entity by chance; a uniform 1/M recovery overestimates it (test 7). No clean
    model yet.
-4. **Two-level contracts.** On questions written by people (test 11) the memory
+5. **Two-level contracts.** On questions written by people (test 11) the memory
    level is predicted exactly, but the end-to-end contract errs by 7 points,
    through the audit's sampling error and a correlation between front-end and
    memory success that the product formula ignores.
-5. **Negation and quantifiers** in the algebraic truth oracle.
-6. **Distributional confluence** for nested probabilistic redexes.
-7. **The ABM complexity class** (polynomial D, O(1) controller).
+6. **Negation and quantifiers** in the algebraic truth oracle.
+7. **Distributional confluence** for nested probabilistic redexes.
+8. **The ABM complexity class** (polynomial D, O(1) controller).
 
 ## 11. Conclusion
 
 ABM is not a better retriever, not a compressor, and not better than an exact
 store at the scales we measured, and we say so with measurements. It is a memory
-whose accuracy can be computed, exactly and without fitted parameters, from its
+whose accuracy can be computed without fitted parameters, under stated
+idealisations, from its
 dimension, its load, its codebook and the structure of what it stores — including
-structure that surprised us, like symmetric relations collapsing into single
-facts. Ten preregistered tests put that claim at risk, on synthetic data, on
+structure such as symmetric relations collapsing into single facts. Eleven
+preregistered tests put that claim at risk, on synthetic data, on
 two real knowledge graphs, under grounding errors, on two encodings, on deep
-chains and in use, sizing memories in advance; eight supported it, two failed and
-changed the model, and one falsified a law of our own earlier versions by the
+chains, in use sizing memories in advance, and on questions written by people;
+eight supported it, one in part, two failed and changed the model, and one falsified a law of our own earlier versions by the
 amount the theory predicted. The strongest
 evidence for the theory is not that it fits: it is that its predictions were
 fixed before the data, and that where it failed, the failure was found, explained
@@ -633,7 +679,7 @@ and tested again.
 
 *Reproducibility: every number is produced by a script in `examples/` with
 results committed as JSON; results from 10-seed reruns sit beside the originals
-with an `_s10` suffix; the ten preregistrations, with their outcomes, are in
+with an `_s10` suffix; the eleven preregistrations, with their outcomes, are in
 `docs/preregistration/`. The frozen reference implementation
 (`reference/abm.py`, 257 lines, numpy-only, deterministic) and the exact theory
 (`reference/exact.py`, shipped as `abm.exact`, numpy-only) are covered by the test
