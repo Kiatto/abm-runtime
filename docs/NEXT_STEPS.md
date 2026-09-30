@@ -33,6 +33,15 @@ Risultati: `results/exact_prereg_results.json`, `results/dependence_prereg_resul
 Valutare **solo** con i criteri scritti nei file di preregistrazione, e
 scrivere l'esito in coda allo stesso file, come in `fb15k237.md`.
 
+## Stato al 2026-09-30
+
+Tier A dell'audit fatto sul testo (commit `2a41f74`, `9407eab`), paper **v1.9**.
+Aperto: (a) modello dei cicli pari su GF(2) — l'indipendente è ottimista fino a
+6 punti, il "lineare" (dipendenza solo nel voto) pessimista di 3–4
+(`examples/cycles_probe.py`); (b) contare i 4-cicli nei campioni reali e
+correlarli al residuo sugli hub; (c) verificare la versione JAIR 2026 di
+Clarkson; (d) Tier B e C di `docs/audit_2026-09-30.md`; (e) nuovo audit ostile su v1.9.
+
 ## Prossimi passi, in ordine
 
 1. ~~Valutare le preregistrazioni~~ fatto. 2. ~~Paper v1.5~~ fatto: il contratto esatto (`bsm/memory/exact_contract.py`)
