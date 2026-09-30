@@ -73,3 +73,38 @@ def test_module_is_complete():
     for name in ("cleanup_accuracy", "contract_for", "min_dimension", "win_ordered",
                  "two_hop_joint_fast", "chain_accuracy_mc", "p_agree_weighted"):
         assert hasattr(exact, name), name
+
+
+def test_degenerate_probabilities_give_no_nan():
+    """Audit 2026-09-30: binom_pmf(d, 0) dava nan (0·log 0); N = 1 dava nan."""
+    assert list(exact.binom_pmf(4, 0.0)) == [1, 0, 0, 0, 0]
+    assert list(exact.binom_pmf(4, 1.0)) == [0, 0, 0, 0, 1]
+    assert exact.cleanup_accuracy(1, 64, 5) == 1.0
+    assert exact.min_dimension([("a", "r", "b")], 0.9) == 64
+
+
+def test_unanswerable_query_scores_zero():
+    assert exact.predict_queries([("a", "r", "b")], 256, [("zzz", "r")]) == [0.0]
+
+
+def test_self_loops_match_the_reference():
+    """Audit 2026-09-30: (s, r, s) vale ρ(c_r) e rende ogni x un alias di (x, r).
+
+    Prima il modello prevedeva ~0.81 dove la reference misura ~0.48. Tolleranza
+    larga: nei pareggi la reference favorisce il soggetto, inserito prima, mentre il
+    modello li divide a metà (scarto residuo ~2 punti).
+    """
+    import abm
+    dim, hits, total = 256, 0, 0
+    for t in range(150):
+        trip = [(f"s{t}_{i}", "rel", f"o{t}_{i}") for i in range(10)] + [(f"z{t}", "rel", f"z{t}")]
+        mem = abm.Memory(dim)
+        for f in trip:
+            mem._facts.append(mem.fact_hv(*f))
+        mem._trace = abm.bundle(mem._facts)
+        for s, r, o in trip[:10]:
+            hits += mem.query(s, r)[0] == o
+            total += 1
+    pred = float(np.mean(exact.predict_queries(trip, dim, [(s, r) for s, r, _o in trip[:10]])))
+    assert abs(hits / total - pred) < 0.05, (hits / total, pred)
+    assert pred < 0.6                      # la versione vecchia prevedeva ~0.81

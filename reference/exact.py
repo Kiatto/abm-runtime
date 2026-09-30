@@ -35,9 +35,11 @@ def _log_binom_pmf(dim: int, p: float) -> np.ndarray:
     d = np.arange(dim + 1, dtype=np.float64)
     logc = np.concatenate(([0.0], np.cumsum(np.log(np.arange(dim, 0, -1, dtype=np.float64))
                                             - np.log(np.arange(1, dim + 1, dtype=np.float64)))))
-    with np.errstate(divide="ignore"):
-        lp, lq = np.log(p), np.log1p(-p)
-    return logc + d * lp + (dim - d) * lq
+    if p <= 0.0 or p >= 1.0:                 # distribuzione degenere: evita 0·log 0 = nan
+        out = np.full(dim + 1, -np.inf)
+        out[0 if p <= 0.0 else dim] = 0.0
+        return out
+    return logc + d * np.log(p) + (dim - d) * np.log1p(-p)
 
 
 def binom_pmf(dim: int, p: float) -> np.ndarray:
@@ -242,10 +244,17 @@ def cleanup_accuracy_mixed(dim: int, codebook: int, correct_p, alias_p=()) -> fl
     return float(np.sum(p_min_correct * beats_alias * np.clip(win, 0.0, 1.0)))
 
 
+def fact_key(s, r, o):
+    """Chiave del vettore di un fatto. (s, r, o) e (o, r, s) sono lo stesso vettore;
+    un self-loop (s, r, s) vale c_s ⊕ ρ(c_r) ⊕ c_s = ρ(c_r), quindi TUTTI i self-loop
+    di una relazione sono lo stesso vettore, qualunque sia s."""
+    return ("__self__", r) if s == o else (frozenset((s, o)), r)
+
+
 def fact_weights(triples):
-    """Peso di ogni vettore distinto: (s, r, o) e (o, r, s) sono lo stesso vettore."""
+    """Peso di ogni vettore distinto (vedi fact_key)."""
     from collections import Counter
-    return Counter((frozenset((s, o)), r) for s, r, o in triples)
+    return Counter(fact_key(s, r, o) for s, r, o in triples)
 
 
 def two_hop_joint_fast(n_facts: int, dim: int, codebook: int, width: float = 8.0):
@@ -402,11 +411,18 @@ def predict_queries(triples, dim: int, queries=None):
             p_by_w[w] = p_agree_weighted(w, others)
         return p_by_w[w]
 
+    self_rels = {r for s, r, o in triples if s == o}
     out = []
     for s, r in queries:
         good, bad = objects[(s, r)], into[(s, r)] - objects[(s, r)]
-        cp = [p_of((frozenset((s, o)), r)) for o in good]
-        ap = [p_of((frozenset((x, s)), r)) for x in bad]
+        cp = [p_of(fact_key(s, r, o)) for o in good]
+        ap = [p_of(fact_key(x, r, s)) for x in bad]
+        # un self-loop su r, ρ(c_r), dà a OGNI query (x, r) il candidato x stesso
+        if r in self_rels and s not in good and s not in bad:
+            ap.append(p_of(("__self__", r)))
+        if not cp:                       # nessun oggetto vero memorizzato: non rispondibile
+            out.append(0.0)
+            continue
         out.append(cleanup_accuracy_mixed(dim, m, cp, ap))
     return out
 
@@ -415,8 +431,17 @@ def ceiling(triples, queries=None) -> float:
     """Il tetto di accuratezza imposto dagli alias, qualunque sia D: media di g/(g+a)."""
     objects, into, _m = _structure(triples)
     queries = list(objects) if queries is None else list(queries)
-    return float(np.mean([len(objects[q]) / (len(objects[q]) + len(into[q] - objects[q]))
-                          for q in queries]))
+    self_rels = {r for s, r, o in triples if s == o}
+
+    def cap(q):
+        s, r = q
+        g, a = len(objects[q]), len(into[q] - objects[q])
+        if r in self_rels and s not in objects[q] and s not in into[q]:
+            a += 1
+        return g / (g + a) if g else 0.0
+    if not queries:
+        raise ValueError("no queries: the triples contain no (subject, relation) pair")
+    return float(np.mean([cap(q) for q in queries]))
 
 
 def contract_for(triples, dim: int, queries=None) -> dict:
