@@ -13,7 +13,7 @@ aggira; i risultati vecchi restano accanto ai nuovi; budget zero.
 
 ## Stato al 2026-09-28, sera
 
-Paper `docs/paper.md` **v1.8** (undici preregistrazioni, abm.exact nel pacchetto), review ostile 8.5/10. Da integrare nel paper: preregistrazioni 6–9 (due fallite, con le cause), la regola esatta dei pareggi, la figura 10. Problema aperto emerso: recupero fuori percorso con codebook piccoli (nessun modello pulito).
+Paper `docs/paper.md` **v1.8** (undici preregistrazioni, abm.exact nel pacchetto), **audit ostile a più agenti del 2026-09-30: 5.5/10** (il mio 8.5 era troppo generoso). Leggere `docs/audit_2026-09-30.md`: nove bloccanti prima di qualsiasi email. Da integrare nel paper: preregistrazioni 6–9 (due fallite, con le cause), la regola esatta dei pareggi, la figura 10. Problema aperto emerso: recupero fuori percorso con codebook piccoli (nessun modello pulito).
 
 | preregistrazione | commit | stato |
 |---|---|---|
