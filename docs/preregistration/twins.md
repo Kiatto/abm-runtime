@@ -131,5 +131,8 @@ self-loop coincide con la pubblicata entro 1e-16):
   uniforme, D = 8192, N = 200, seed 7 — previsti 97.6%, misurati 80.0%. Il
   modello corretto prevede 80.2%.
 
-Le medie si spostano meno di 0.1 punti; le ipotesi H1–H5 **non** sono state
-rivalutate con il modello attuale.
+Rivalutate con i criteri fissati sopra (lo script calcola anche la versione
+pubblicata, che riproduce la tabella dell'esito alla seconda cifra), **H1–H4 restano
+sostenute** con il modello attuale: H1 1.09 / −0.81 e 0.69 / −0.24; H2 0.58 / −0.17
+e 0.59 / −0.37; H3 invariata; H4 0.95 e 0.84 (era 1.11: è la cella da 17.6 punti).
+H5 usa pesi sintetici, senza self-loop.

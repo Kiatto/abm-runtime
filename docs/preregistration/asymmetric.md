@@ -111,5 +111,10 @@ dove sta l'inversione per un grafo dato, prima di memorizzarlo.
 ## Nota del 2026-10-01: self-loop
 
 Il 2026-09-30 (commit `2a41f74`) `abm.exact` ha iniziato a modellare i self-loop (s, r, s), che in FB15k-237 sono 1625 (l'audit diceva 0) e in WN18RR 7. Questa preregistrazione è stata calcolata prima. I numeri sopra restano quelli pubblicati: `examples/replicate.py` li riproduce sul commit che li ha registrati. L'harness congelato non gira più sul modello attuale (usa la `predict`
-della preregistrazione 4). L'effetto dei self-loop su questa preregistrazione
-**non è stato ricalcolato**.
+della preregistrazione 4).
+
+`examples/selfloop_impact.py` (esplorativo) ricalcola la previsione simmetrica di
+ogni cella sugli stessi seed. H1 e H3 non la usano. Ricalcolata, la versione
+pubblicata riproduce la tabella dell'esito; con il modello attuale, **H2 e H4
+restano sostenute**: H2 1.05, 0.82, 0.71, 0.60; H4 0.63 e 0.86. Lo spostamento
+massimo di una cella è 0.06 punti.

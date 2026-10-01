@@ -598,8 +598,9 @@ before the fix. An exploratory recomputation on the same samples
 by under 0.1 points on either graph. One WN18RR cell (uniform, D = 8192,
 N = 200) was predicted at 97.6% against 80.0% measured; the corrected model
 predicts 80.2%. No dimension chosen in test 10 changes, so no promise flips. In
-test 11 the memory prediction moves from 80.19% to 80.32%. Test 6 was not
-recomputed. The frozen harnesses of tests 4, 6 and 10 no longer run on the
+test 11 the memory prediction moves from 80.19% to 80.32%. Re-evaluated with
+their preregistered criteria, every hypothesis of tests 4 and 6 is still
+supported; no cell of test 6 moves by more than 0.06 points. The frozen harnesses of tests 4, 6 and 10 no longer run on the
 current model; `replicate.py` runs each harness on the commit that recorded its
 results.
 

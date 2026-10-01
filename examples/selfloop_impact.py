@@ -20,6 +20,12 @@ Per la preregistrazione 10 (sizing), sui sottografi che contengono self-loop, si
 rifà la scelta della D con il modello attuale, si misura a quella D e si guarda
 se la promessa (misurata >= obiettivo) è mantenuta.
 
+Per la preregistrazione 6 (asymmetric) si ricalcola la previsione simmetrica di
+ogni cella (media sui seed 20–29) e si rivalutano, con i criteri del file di
+preregistrazione, le due ipotesi che ne dipendono: H2 (errore del simmetrico,
+sostenuta se ≤ 2.5, falsificata se > 5) e H4 (errore sulla differenza su WN18RR,
+stesse soglie). H1 e H3 non usano la previsione simmetrica.
+
 Scrive results/selfloop_impact_results.json. Uso, dalla root:
     python examples/selfloop_impact.py
 """
@@ -36,6 +42,7 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "examples"))
 import exact  # noqa: E402
 import exact_prereg as ep  # noqa: E402
+import asymmetric_prereg as ap  # noqa: E402
 import sizing_prereg as sp  # noqa: E402
 import twins_prereg as tp  # noqa: E402
 
@@ -59,6 +66,50 @@ def cell(kg, name, sampler, dim, n, seed):
     queries = [keys[i] for i in idx]
     loops = sum(s == o for s, _r, o in sample)
     return loops, float(np.mean(exact.predict_queries(sample, dim, queries)))
+
+
+def twins_hypotheses(rows, published):
+    """H1–H4 della preregistrazione 4, con la previsione pubblicata e con quella
+    attuale, sulle celle mediate sui seed. H5 (pesi sintetici) non ha self-loop."""
+    nt = {(c["kg"], c["sampler"], c["dim"], c["n"], c["seed"]): (c["pred_no_twins"], c["twin_share"])
+          for c in published["cells"] if c["part"] in ("T1", "T2")}
+    out = {}
+    for which in ("published", "current"):
+        cells = defaultdict(list)
+        for r in rows:
+            cells[(r["kg"], r["sampler"], r["dim"], r["n"])].append(r)
+
+        def err(kg, sampler, dim, key):
+            e = []
+            for (k, s_, d, _n), rs in cells.items():
+                if (k, s_, d) == (kg, sampler, dim):
+                    pred = np.mean([nt[(r["kg"], r["sampler"], r["dim"], r["n"], r["seed"])][0]
+                                    if key == "no_twins" else r[which] for r in rs])
+                    e.append(100 * (pred - np.mean([r["measured"] for r in rs])))
+            return float(np.mean(np.abs(e))), float(np.mean(e))
+        res = {}
+        for dim in (2048, 8192):
+            a, b = err("fb15k237", "dense", dim, "twins")
+            res[f"H1 {dim}"] = {"abs": a, "signed": b,
+                                "verdict": "sostenuta" if a <= 2 and abs(b) <= 1.5 else
+                                "falsificata" if a > 5 or abs(b) > 3 else "in parte"}
+            a, b = err("wn18rr", "dense", dim, "twins")
+            res[f"H2 {dim}"] = {"abs": a, "signed": b,
+                                "verdict": "sostenuta" if a <= 3 and abs(b) <= 2 else
+                                "falsificata" if a > 6 or abs(b) > 4 else "in parte"}
+            na, nb = err("wn18rr", "dense", dim, "no_twins")
+            res[f"H3 {dim}"] = {"no_twins_signed": nb, "no_twins_abs": na, "twins_abs": a}
+            a, _b = err("wn18rr", "uniform", dim, "twins")
+            share = float(np.mean([v[1] for k, v in nt.items() if k[:3] == ("wn18rr", "uniform", dim)]))
+            res[f"H4 {dim}"] = {"abs": a, "twin_share": share,
+                                "verdict": "sostenuta" if share < 0.01 and a <= 3 else
+                                "falsificata" if a > 6 else "in parte"}
+        h3 = [res[f"H3 {d}"] for d in (2048, 8192)]
+        res["H3"] = ("sostenuta" if all(h["no_twins_signed"] < -2 and h["twins_abs"] < h["no_twins_abs"]
+                                         for h in h3) else
+                     "falsificata" if any(h["no_twins_signed"] >= 0 for h in h3) else "in parte")
+        out[which] = res
+    return out
 
 
 def pred_current(st, dim):
@@ -89,6 +140,40 @@ def sizing_rows(kgs):
     return rows, check
 
 
+def asymmetric_rows(kgs):
+    published = json.loads((ROOT / "results" / "asymmetric_prereg_results.json").read_text())
+    rows, check = [], 0.0
+    for c in published["cells"]:
+        preds, loops = [], 0
+        for seed in ap.SEEDS:
+            sample, queries, _o, _i = ap.sample_of(kgs[c["kg"]], c["kg"], c["dim"], c["n"], seed)
+            loops += sum(s == o for s, _r, o in sample)
+            preds.append(float(np.mean(exact.predict_queries(sample, c["dim"], queries))))
+        cur = float(np.mean(preds))
+        if not loops:
+            check = max(check, abs(cur - c["pred_sym"]))
+        rows.append({"kg": c["kg"], "dim": c["dim"], "n": c["n"], "self_loops": loops,
+                     "pred_sym_published": c["pred_sym"], "pred_sym_current": cur,
+                     "pred_asym": c["pred_asym"], "meas_sym": c["meas_sym"],
+                     "meas_asym": c["meas_asym"]})
+
+    def verdict(err):
+        return "sostenuta" if err <= 2.5 else "falsificata" if err > 5 else "in parte"
+    hyp = {}
+    for kg in ("fb15k237", "wn18rr"):
+        for dim in (2048, 8192):
+            sel = [r for r in rows if r["kg"] == kg and r["dim"] == dim]
+            for which in ("published", "current"):
+                h2 = 100 * np.mean([abs(r[f"pred_sym_{which}"] - r["meas_sym"]) for r in sel])
+                key = f"{kg} {dim} {which}"
+                hyp[key] = {"H2": float(h2), "H2_verdict": verdict(h2)}
+                if kg == "wn18rr":
+                    h4 = 100 * np.mean([abs((r[f"pred_sym_{which}"] - r["pred_asym"])
+                                            - (r["meas_sym"] - r["meas_asym"])) for r in sel])
+                    hyp[key].update({"H4": float(h4), "H4_verdict": verdict(h4)})
+    return rows, check, hyp
+
+
 def main():
     published = json.loads((ROOT / "results" / "twins_prereg_results.json").read_text())
     pub = {(c["kg"], c["sampler"], c["dim"], c["n"], c["seed"]): c
@@ -114,19 +199,36 @@ def main():
             "mean_abs_err_current": float(np.mean([abs(r["current"] - r["measured"]) for r in sel])),
             "max_abs_shift": float(max((abs(r["current"] - r["published"]) for r in sel),
                                        default=0.0))}
+    thyp = twins_hypotheses(rows, published)
     srows, scheck = sizing_rows({"fb15k237": fb, "wn18rr": wn})
+    arows, acheck, ahyp = asymmetric_rows({"fb15k237": fb, "wn18rr": wn})
     OUT.write_text(json.dumps({"exploratory": True, "check_max_diff_no_loops": check,
-                               "summary": summary, "rows": rows,
-                               "sizing": {"check_max_diff_no_loops": scheck, "rows": srows}},
+                               "summary": summary, "hypotheses": thyp, "rows": rows,
+                               "sizing": {"check_max_diff_no_loops": scheck, "rows": srows},
+                               "asymmetric": {"check_max_diff_no_loops": acheck,
+                                              "hypotheses": ahyp, "rows": arows}},
                               indent=1))
     print("controllo, celle senza self-loop: max |current - published| =", check)
     print(json.dumps(summary, indent=1))
+    for which, res in thyp.items():
+        print("twins", which)
+        for k, v in res.items():
+            print("  ", k, v if isinstance(v, str) else
+                  {a: (round(b, 2) if isinstance(b, float) else b) for a, b in v.items()})
     print("sizing, controllo senza self-loop:", scheck)
     for r in srows:
         print(r["kg"], r["n"], r["sample"], r["target"], "loops", r["self_loops"],
               "D", r["published"]["dim"], "->", r["current"]["dim"],
               "mis", r["published"]["measured"], "->", r["current"]["measured"],
               "promessa", r["kept_published"], "->", r["kept_current"])
+    print("asymmetric, controllo senza self-loop:", acheck)
+    for r in arows:
+        if r["self_loops"]:
+            print(" ", r["kg"], r["dim"], r["n"], "loops", r["self_loops"], "pred_sym",
+                  round(100 * r["pred_sym_published"], 2), "->", round(100 * r["pred_sym_current"], 2),
+                  "mis", round(100 * r["meas_sym"], 2))
+    for k, v in ahyp.items():
+        print(" ", k, {a: (round(b, 2) if isinstance(b, float) else b) for a, b in v.items()})
     print("->", OUT)
 
 

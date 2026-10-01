@@ -102,7 +102,8 @@ audit had counted as zero. The model has handled them since 2026-09-30, after
 tests 4, 6, 10 and 11 had been computed. Recomputed on the same samples, the mean
 bias of test 4 moves by under 0.1 points. One WN18RR cell had been predicted at
 97.6% against 80.0% measured; the corrected model gives 80.2%. No dimension chosen
-in test 10 changes. Test 6 has **not** been recomputed.
+in test 10 changes. Re-evaluated with their preregistered criteria, every
+hypothesis of tests 4 and 6 is still supported.
 
 ---
 

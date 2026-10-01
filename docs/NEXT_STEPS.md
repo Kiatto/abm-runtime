@@ -54,8 +54,9 @@ Trovato: **FB15k-237 ha 1625 self-loop** (l'audit diceva 0). Il modello corretto
 del 30/9 li tratta; twins, asymmetric e sizing, congelati, non girano più sul
 modello attuale. Effetto misurato (`examples/selfloop_impact.py`, esplorativo):
 medie di twins spostate < 0.1 punti, ma una cella WN18RR era sbagliata di 17.6
-punti e ora no; sizing invariato; test 11 +0.13 punti. **Aperto:** asymmetric non
-ricalcolato; H1–H5 di twins non rivalutate sul modello attuale.
+punti e ora no; sizing invariato; test 11 +0.13 punti. Poi ricalcolati anche
+asymmetric e le ipotesi: H1–H4 di twins e H2, H4 di asymmetric restano sostenute
+con il modello attuale.
 
 `BENCHMARKS.md` fatto (ogni numero con file, script e nome in `replicate.py`;
 limiti in poche righe), linkato dal README. Prossimo: la pubblicazione (punto 6),
