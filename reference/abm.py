@@ -108,7 +108,11 @@ def predicted_accuracy(n_facts: int, dim: int, codebook: int) -> float:
 
 def capacity(dim: int, codebook: int, k: float = 0.92) -> float:
     """Law IV, inverse direction: the 50%-accuracy collapse load N*.
-    k = 0.92 +/- 0.03 (measured); k = 1 is the theoretical constant."""
+    k = 0.92 +/- 0.03 (measured); k = 1 is the theoretical constant.
+
+    Asymptotic Gaussian form with a fixed codebook. exact.capacity(dim,
+    codebook_of_n) has a different signature (codebook as a function of N)
+    and gives the exact crossing; the two values differ in general."""
     return k * 2 * dim / (pi * z_gumbel(codebook) ** 2)
 
 
@@ -160,9 +164,12 @@ class ItemMemory:
 class Memory:
     """A single D-bit holographic trace holding N facts.
 
-    Contract (Law IV): expected single-query accuracy at the current
+    Law IV estimates: expected single-query accuracy at the current
     load is `self.expected_accuracy()`; the collapse load is
     `capacity(dim, len(items))`. Both are computable before any query.
+    They are the asymptotic Gaussian approximation, a few points
+    optimistic at small D and blind to symmetric twins and aliases; the
+    exact contract is `exact.contract_for(triples, dim)`.
     """
 
     def __init__(self, dim: int = 2048,
@@ -182,6 +189,9 @@ class Memory:
         return bind(self.key(s, r), self.items.add(o))
 
     def store(self, s: str, r: str, o: str, weight: int = 1):
+        if isinstance(weight, bool) or not isinstance(weight, (int, np.integer)) \
+                or weight < 1:
+            raise ValueError(f"weight must be a positive integer, got {weight!r}")
         for _ in range(weight):                    # Law VII: N_eff = sum w^2
             self._facts.append(self.fact_hv(s, r, o))
         self._trace = bundle(self._facts)
@@ -192,6 +202,8 @@ class Memory:
               subset: Optional[Sequence[str]] = None) -> Tuple[str, float]:
         """Elementary query: cleanup(T xor key). Returns (object name,
         calibrated confidence)."""
+        if self._trace is None:
+            raise ValueError("query on an empty memory: store at least one fact first")
         noisy = bind(self._trace, self.key(s, r))
         name, dist = self.items.cleanup(noisy, subset)
         return name, confidence(dist, self.dim)
@@ -245,7 +257,9 @@ class Memory:
     # -- introspection ----------------------------------------------------
 
     def expected_accuracy(self) -> float:
-        """The contract: theory-predicted accuracy at the current load."""
+        """Law IV estimate of single-query accuracy at the current load
+        (asymptotic Gaussian; for the exact contract use
+        exact.contract_for)."""
         if not self._facts:
             return 1.0
         return predicted_accuracy(len(self._facts), self.dim,

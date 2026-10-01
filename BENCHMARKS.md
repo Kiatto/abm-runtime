@@ -22,7 +22,7 @@ twelve byte for byte, and two (tests 4 and 10) up to the last digit of one float
 | | result | test |
 |---|---|---|
 | Prediction error at a dimension never used before (D = 16 384) | **0.27 points** (signed −0.09) | 2 |
-| Dense subgraphs of two real knowledge graphs, symmetric twins counted | **0.6–1.1 points** | 2, 4 |
+| Dense subgraphs of two real knowledge graphs, symmetric twins counted | **0.6–1.1 points** | 4 (test 2, before twins: 2.88 at D = 2048) |
 | Under grounding errors of four kinds, up to 50%, no calibration | **0.75–1.89 points** | 5 |
 | Choosing D in advance on 80 unseen subgraphs | promise kept in every group (measured − target: +0.01 to +1.68) | 10 |
 | Same, with the asymptotic Law IV that the package used to expose | WN18RR: 2.8–6.2 points below target, up to 12/20 subgraphs more than 6 below | 10 |
@@ -36,6 +36,8 @@ facts independent over GF(2). Where those fail, so does the model. See
 ---
 
 ## The eleven preregistered tests
+
+The paper's tally (eight supported, one in part, two failed) goes by primary hypothesis. Test 2's primary H1 was supported, and a secondary one was in part. Test 11's primary, end-to-end, was in part.
 
 | # | file | what it tests | outcome | result file | `replicate.py` name |
 |---|---|---|---|---|---|
@@ -88,18 +90,19 @@ held its prediction; the front end was underestimated by the audit (0.36 against
 | Capacity N\* at 50% accuracy, D = 512–4096, 10 seeds | exact model inside every interval | `capacity_seed10.py` | `capacity_seed10_rerun.json` | `seed10` |
 | Comparison with the bound of Clarkson et al. | see paper §7 | `clarkson_comparison.py` | `clarkson_comparison_results.json` | `clarkson` |
 | ProofWriter, parsable subset, 150 problems per depth | 92–100% at depths 0, 1, 2, 3 and 5 | `proofwriter_eval.py 150` | `proofwriter_results.json` | `proofwriter` |
+| ProofWriter, 10 seeds, 100 problems per depth (88 at depth 2), Fig. 3 | 99.8%, 99.1%, 92.4% at depths 0, 2, 5 | `proofwriter_seeds.py` | `seed10_results.json` (field `proofwriter`) | `proofwriter_seeds` |
 | Self-loops, effect of the 2026-09-30 model fix (exploratory) | see below | `selfloop_impact.py` | `selfloop_impact_results.json` | — |
 | Test 10, stronger asymptotic arms (post hoc) | Law IV × g/(g+a) closes about two thirds of the WN18RR gap; a naive twin term does not help | `sizing_lawiv_posthoc.py` | `sizing_lawiv_posthoc_results.json` | — |
 | Test 11, cluster bootstrap and strict scoring (post hoc) | strict end-to-end 0.345, 95% [0.305, 0.385]; end-to-end 0.361, [0.318, 0.402] (bootstrap over the 28 memories) | `human_questions_stats.py` | `human_questions_stats_results.json` | — |
 | Even cycles (GF(2) dependence) in the real samples (exploratory) | 5–16% rank deficit; no detectable association with per-cell error | `cycles_residuals.py` | `cycles_residuals_results.json` | — |
-| Gaussian FKS integral with the same p_agree (exploratory) | agrees with the exact model within 0.005 points on every configuration of the paper | `fks_gaussian_vs_exact.py` | `fks_gaussian_vs_exact_results.json` | — |
+| Gaussian FKS integral with the same p_agree (exploratory) | agrees with the exact model within 0.1 points on every tested configuration (0.005 on test 2) | `fks_gaussian_vs_exact.py` | `fks_gaussian_vs_exact_results.json` | — |
 
 **ProofWriter, against an exact store.** On the open-world attribute fragment, the
 forward chainer whose only truth oracle is a Hamming distance to the trace reaches
 99.8%, 99.1% and 92.4% at depths 0, 2 and 5 (10 seeds). The same chainer with a
 Python set in place of the trace scores **100% at every depth**. ABM loses to an
 exact store, and the trace takes 512 bytes where a minimal exact encoding takes
-8–23. Only 35–55% of the problems parse, so the subset is selected.
+8–23. Only 35–56% of the problems parse, so the subset is selected.
 
 **Self-loops.** FB15k-237 train has 1 625 self-loops (0.6%), which an earlier
 audit had counted as zero. The model has handled them since 2026-09-30, after
@@ -115,7 +118,7 @@ hypothesis of tests 4 and 6 is still supported.
 
 - **The binomial refinement adds nothing measurable.** The finite-M integral of
   Frady, Kleyko and Sommer, given the same exact p_agree, matches the exact
-  model within 0.005 points at the dimensions used here. It differs by more than
+  model within 0.1 points on every tested configuration (0.005 on test 2). It differs by more than
   half a point only at D ≤ 256 with very large codebooks. The gain over the
   asymptotic law comes from treating M finitely; the contribution here is the
   closed-form p_agree with its tie rule, and the multi-answer, alias, twin and

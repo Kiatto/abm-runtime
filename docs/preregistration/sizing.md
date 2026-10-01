@@ -110,3 +110,10 @@ della preregistrazione 4).
 nessun sottografo WN18RR ne contiene). **Nessuna D cambia**, quindi nessuna
 promessa cambia esito. Controllo: sui sottografi senza self-loop la previsione
 attuale coincide con la pubblicata entro 1e-16.
+
+## Errata del 2026-10-01: il criterio per sottografo (H1)
+
+L'esito sopra non cambia. Due errori di questa preregistrazione:
+
+- **Il rumore dichiarato è sbagliato.** "200 query per sottografo" è un tetto (`Q_MAX` in `examples/sizing_prereg.py`), non il numero: su FB15k-237 con N = 150 la mediana è 92 query e il minimo 10; altrove la mediana è 135–200 e il minimo 85–93. Con 92 query l'errore standard a T = 0.8 è circa 4.2 punti, non 3.
+- **La seconda condizione di H1 era mal tarata.** Se la misura di ogni sottografo è binomiale attorno alla previsione alla D scelta, con il suo numero di query, i sottografi attesi sotto T − 6 sono 0.4–2.2 per gruppo (osservati 0–2), e un modello perfetto supera "al più 2 su 20" in tutti e otto i gruppi con probabilità 0.39 (0.25 se la probabilità di successo è T invece della previsione). Il criterio era quindi più severo del previsto, non più lasco: superarlo non è una prova debole, ma un fallimento avrebbe detto poco. Le prossime soglie per sottografo vanno fissate in unità di errore standard.

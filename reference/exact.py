@@ -104,6 +104,12 @@ def capacity(dim: int, codebook_of_n=lambda n: 2 * n + 11,
 
     `codebook_of_n` dà il codebook in funzione del carico, perché nei
     benchmark del paper cresce con N (M = 2N + 11).
+
+    Firma diversa da abm.capacity(dim, codebook, k): qui il codebook è una
+    funzione di N e il risultato è esatto (fatti semplici, senza gemelli né
+    alias); abm.capacity prende un codebook fisso e usa la forma gaussiana
+    asintotica della Legge IV con la costante misurata k. I due numeri non
+    coincidono in generale.
     """
     for _ in range(60):
         mid = (lo + hi) / 2
@@ -421,19 +427,66 @@ def _structure(triples):
     return objects, into, codebook
 
 
-def predict_queries(triples, dim: int, queries=None, codebook=None):
+def _check_dim(dim):
+    if isinstance(dim, bool) or not isinstance(dim, (int, np.integer)) or dim < 1:
+        raise ValueError(f"dim must be a positive integer, got {dim!r}")
+    return int(dim)
+
+
+def _check_codebook(codebook, m):
+    """`codebook` must be an integer >= m, the distinct subjects, relations and
+    objects in the triples (the default)."""
+    if codebook is None:
+        return m
+    if isinstance(codebook, bool) or not isinstance(codebook, (int, np.integer)):
+        raise ValueError(f"codebook must be an integer, got {codebook!r}")
+    if codebook < m:
+        raise ValueError(f"codebook={codebook} is smaller than the {m} distinct symbols "
+                         "(subjects, relations and objects) in the triples")
+    return int(codebook)
+
+
+def _alias_count(q, objects, into, self_rels):
+    """Alias di (s, r): soggetti x con (x, r, s) memorizzato, più s stesso se r ha un
+    self-loop. Usato sia dal tetto sia da alias_share."""
+    s, r = q
+    a = len(into.get(q, set()) - objects.get(q, set()))
+    if r in self_rels and s not in objects.get(q, set()) and s not in into.get(q, set()):
+        a += 1
+    return a
+
+
+def _check_queries(triples, queries, unknown):
+    if unknown not in ("raise", "zero"):
+        raise ValueError(f"unknown must be 'raise' or 'zero', got {unknown!r}")
+    if unknown == "zero":
+        return
+    symbols = {x for s, _r, o in triples for x in (s, o)}
+    relations = {r for _s, r, _o in triples}
+    for s, r in queries:
+        if s not in symbols or r not in relations:
+            raise KeyError(f"query ({s!r}, {r!r}): the subject or the relation never occurs "
+                           "in the triples (pass unknown='zero' to score it 0.0)")
+
+
+def predict_queries(triples, dim: int, queries=None, codebook=None, unknown="raise"):
     """Accuratezza prevista di ogni query (s, r), per l'encoding della reference.
 
     Conta i gemelli simmetrici come un fatto di peso 2, gli alias come candidati a
     pari segnale, più oggetti veri come più bersagli. Divide i pareggi a metà.
-    `codebook`, se dato, sostituisce il numero di entità distinte nelle triple
-    (per esempio quando l'item memory contiene anche distrattori). Una query senza
-    oggetto vero memorizzato (non rispondibile, o solo alias) vale 0.0.
+    `codebook`, se dato, sostituisce il numero di simboli distinti nelle triple
+    (soggetti, relazioni e oggetti: anche le relazioni contano), per esempio quando
+    l'item memory contiene anche distrattori; deve essere un intero non minore di
+    quel numero. Una query i cui simboli compaiono nelle triple ma senza oggetto
+    vero memorizzato (non rispondibile, o solo alias) vale 0.0. Una query il cui
+    soggetto o relazione non compare mai nelle triple (di solito un refuso) solleva
+    KeyError; con unknown="zero" vale invece 0.0, come fino alla v1.10.
     """
+    dim = _check_dim(dim)
     objects, into, m = _structure(triples)
-    if codebook is not None:
-        m = int(codebook)
+    m = _check_codebook(codebook, m)
     queries = list(objects) if queries is None else list(queries)
+    _check_queries(triples, queries, unknown)
     weights = fact_weights(triples)
     all_w = list(weights.values())
     p_by_w = {}
@@ -466,10 +519,7 @@ def ceiling(triples, queries=None) -> float:
     self_rels = {r for s, r, o in triples if s == o}
 
     def cap(q):
-        s, r = q
-        g, a = len(objects[q]), len(into[q] - objects[q])
-        if r in self_rels and s not in objects[q] and s not in into[q]:
-            a += 1
+        g, a = len(objects.get(q, set())), _alias_count(q, objects, into, self_rels)
         return g / (g + a) if g else 0.0
     if not queries:
         raise ValueError("no queries: the triples contain no (subject, relation) pair")
@@ -483,44 +533,59 @@ def _queries_or_raise(objects, queries):
     return queries
 
 
-def contract_for(triples, dim: int, queries=None, codebook=None) -> dict:
+def contract_for(triples, dim: int, queries=None, codebook=None, unknown="raise") -> dict:
     """Il contratto di queste triple a dimensione `dim`, calcolato prima di memorizzarle.
 
     Restituisce l'accuratezza prevista (media sulle query), il tetto imposto dagli
-    alias, la quota di fatti con gemello simmetrico e di query con alias.
+    alias, la quota di triple con gemello simmetrico (s, r, o) e (o, r, s), s != o
+    (i duplicati semplici non contano), e la quota di query con almeno un alias
+    (self-loop compresi, come nel tetto). `queries`, `codebook` e `unknown` come in
+    predict_queries.
     """
+    dim = _check_dim(dim)
     objects, into, m = _structure(triples)
-    if codebook is not None:
-        m = int(codebook)
+    m = _check_codebook(codebook, m)
     queries = _queries_or_raise(objects, queries)
-    weights = fact_weights(triples)
+    _check_queries(triples, queries, unknown)
+    distinct = set(triples)
+    self_rels = {r for s, r, o in triples if s == o}
     return {
         "dim": dim,
         "facts": len(triples),
         "codebook": m,
-        "expected_accuracy": float(np.mean(predict_queries(triples, dim, queries, m))),
+        "expected_accuracy": float(np.mean(predict_queries(triples, dim, queries, m, unknown))),
         "ceiling": ceiling(triples, queries),
-        "twin_share": sum(c for c in weights.values() if c > 1) / max(len(triples), 1),
-        "alias_share": float(np.mean([len(into[q] - objects[q]) > 0 for q in queries])),
+        "twin_share": sum(s != o and (o, r, s) in distinct for s, r, o in triples)
+        / max(len(triples), 1),
+        "alias_share": float(np.mean([_alias_count(q, objects, into, self_rels) > 0
+                                      for q in queries])),
     }
 
 
 def min_dimension(triples, target: float, step: int = 64, d_max: int = 1 << 16,
-                  queries=None, codebook=None):
-    """La dimensione minima (multiplo di `step`) con accuratezza prevista >= target.
+                  queries=None, codebook=None, unknown="raise"):
+    """La dimensione minima (multiplo di `step`, al più `d_max`) con accuratezza
+    prevista >= target.
 
-    Restituisce None se il target supera ciò che si ottiene a `d_max`, per esempio
-    perché sta sopra il tetto degli alias. `queries` e `codebook` come in
-    contract_for.
+    Restituisce None se il target supera ciò che si ottiene al più grande multiplo
+    di `step` non oltre `d_max`, per esempio perché sta sopra il tetto degli alias.
+    `queries`, `codebook` e `unknown` come in predict_queries.
     """
-    objects, _into, _m = _structure(triples)
+    if isinstance(step, bool) or not isinstance(step, (int, np.integer)) or step < 1:
+        raise ValueError(f"step must be a positive integer, got {step!r}")
+    if isinstance(d_max, bool) or not isinstance(d_max, (int, np.integer)) or d_max < step:
+        raise ValueError(f"d_max must be an integer >= step ({step}), got {d_max!r}")
+    objects, _into, m = _structure(triples)
     queries = _queries_or_raise(objects, queries)
+    _check_queries(triples, queries, unknown)
+    codebook = _check_codebook(codebook, m)
 
     def acc(d):
-        return float(np.mean(predict_queries(triples, d, queries, codebook)))
-    if acc(d_max) < target:
+        return float(np.mean(predict_queries(triples, d, queries, codebook, unknown)))
+    top = d_max // step
+    if acc(step * top) < target:
         return None
-    lo, hi = 0, d_max // step
+    lo, hi = 0, top
     while hi - lo > 1:
         mid = (lo + hi) // 2
         if acc(step * mid) >= target:

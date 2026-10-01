@@ -3,8 +3,9 @@
 Nessuna delle preregistrazioni del paper è stata replicata da qualcun altro.
 Questo script non lo sostituisce, ma toglie ogni ostacolo pratico a farlo:
 
-1. scarica i dati pubblici (FB15k-237 con i nomi delle entità, WN18RR,
-   ProofWriter, SimpleQuestions v2) e verifica i loro sha256;
+1. scarica i dati pubblici che servono ai target scelti (FB15k-237 con i nomi
+   delle entità, WN18RR, ProofWriter, SimpleQuestions v2; nessuno per i target
+   sintetici) e verifica i loro sha256;
 2. riesegue gli harness delle preregistrazioni scelte, scrivendo i risultati in
    una cartella a parte (results/replica/), senza toccare quelli pubblicati;
    Di default ogni harness gira sul codice del commit che ha registrato i
@@ -85,6 +86,18 @@ PREREGS = {
     # il file pubblicato usa 150 problemi per profondità (il default dello script è 100)
     "proofwriter": ("proofwriter_eval.py", ["150"], "proofwriter_results.json",
                     "proofwriter_results.json", None, "~1 min"),
+    # Fig. 3: solo la parte "proofwriter" di seed10_results.json (law4 è il target seed10)
+    "proofwriter_seeds": ("proofwriter_seeds.py", [], "seed10_proofwriter_check.json",
+                          "seed10_results.json", ("proofwriter",), "~1 min"),
+}
+
+# i dati che ogni harness legge: si scaricano solo quelli dei target scelti
+FB, WN, PW = "fb15k237_train.txt", "wn18rr_train.csv", "proofwriter_val.parquet"
+NEEDS = {
+    "fb15k237": {FB}, "exact_contract": {FB}, "twins": {FB, WN}, "asymmetric": {FB, WN},
+    "sizing": {FB, WN},
+    "human_questions": {FB, "fb15k_mid2name.txt", "SimpleQuestions_v2.tgz"},
+    "proofwriter": {PW}, "proofwriter_seeds": {PW},
 }
 
 
@@ -96,12 +109,15 @@ COMMITS = {
     "deepchain": "84532ed", "deepchain2": "64db145", "deepchain3": "dd07d49",
     "sizing": "df18e43", "human_questions": "f7ea046", "seed10": "9407eab",
     "clarkson": "28ac0da", "proofwriter": "13538cc",
+    # seed10_results.json (13538cc) non ha un commit che lo scriva: lo script è
+    # posteriore e gira sul codice di ca77196, dove proofwriter_eval legge data/
+    "proofwriter_seeds": "ca77196",
 }
 # harness copiati dal codice attuale sull'albero di quel commit: human_questions
 # per --memory-only (la pipeline è la stessa, il modello resta quello del commit);
 # proofwriter perché a 13538cc leggeva il parquet da uno scratchpad privato e
 # scriveva nella cartella corrente (cambiano solo i due percorsi)
-OVERLAY = {"human_questions", "proofwriter"}
+OVERLAY = {"human_questions", "proofwriter", "proofwriter_seeds"}
 
 
 def spec(name):
@@ -131,9 +147,12 @@ def close(a, b, rel=1e-12):
     return a == b
 
 
-def fetch():
+def fetch(names):
     DATA.mkdir(parents=True, exist_ok=True)
+    need = set().union(*(NEEDS.get(n, set()) for n in names))
     for name, (url, sha) in DATASETS.items():
+        if name not in need:
+            continue
         path = DATA / name
         if not path.exists():
             print(f"scarico {name} ...", flush=True)
@@ -142,7 +161,7 @@ def fetch():
         if got != sha:
             raise SystemExit(f"{name}: sha256 {got}, atteso {sha}")
         print(f"ok  {name}")
-    if not (DATA / "SimpleQuestions_v2").is_dir():
+    if "SimpleQuestions_v2.tgz" in need and not (DATA / "SimpleQuestions_v2").is_dir():
         import tarfile
         with tarfile.open(DATA / "SimpleQuestions_v2.tgz") as t:
             try:
@@ -220,7 +239,7 @@ def main():
     names = list(PREREGS) if args.all else args.names
     if not names:
         ap.error("indica almeno una preregistrazione, o --all, o --list")
-    fetch()
+    fetch(names)
     import tempfile
     with tempfile.TemporaryDirectory() as tmp:
         results = {n: run(n, args.code, tmp) for n in names}

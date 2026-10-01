@@ -83,8 +83,42 @@ def test_degenerate_probabilities_give_no_nan():
     assert exact.min_dimension([("a", "r", "b")], 0.9) == 64
 
 
-def test_unanswerable_query_scores_zero():
-    assert exact.predict_queries([("a", "r", "b")], 256, [("zzz", "r")]) == [0.0]
+def test_unknown_query_raises_unless_asked_to_score_zero():
+    """Audit 2026-10-01, punto 11: un refuso non deve valere 0.0 in silenzio."""
+    with pytest.raises(KeyError):
+        exact.predict_queries([("a", "r", "b")], 256, [("zzz", "r")])
+    with pytest.raises(KeyError):
+        exact.contract_for([("a", "r", "b")], 256, queries=[("a", "typo")])
+    assert exact.predict_queries([("a", "r", "b")], 256, [("zzz", "r")],
+                                 unknown="zero") == [0.0]
+
+
+def test_alias_share_counts_self_loops_like_the_ceiling():
+    c = exact.contract_for([("a", "r", "a"), ("b", "r", "c")], 4096)
+    assert c["ceiling"] == pytest.approx(0.75)
+    assert c["alias_share"] == pytest.approx(0.5)
+
+
+def test_twin_share_ignores_plain_duplicates():
+    assert exact.contract_for([("a", "r", "b"), ("a", "r", "b")], 256)["twin_share"] == 0
+    assert exact.contract_for([("a", "r", "b"), ("b", "r", "a")], 256)["twin_share"] == 1
+
+
+def test_codebook_dim_step_are_validated():
+    t = [("a", "r", "b")]
+    for bad in (1, 2, 3.0, 2.5, True):
+        with pytest.raises(ValueError):
+            exact.contract_for(t, 256, codebook=bad)
+    assert exact.contract_for(t, 256, codebook=3)["codebook"] == 3
+    for d in (0, -1, 64.0):
+        with pytest.raises(ValueError):
+            exact.contract_for(t, d)
+    with pytest.raises(ValueError):
+        exact.min_dimension(t, 0.9, step=0)
+    with pytest.raises(ValueError):
+        exact.min_dimension(t, 0.9, step=64, d_max=32)
+    d = exact.min_dimension(_triples(), 0.9, step=64, d_max=1000)
+    assert d is None or (d <= 1000 and exact.contract_for(_triples(), d)["expected_accuracy"] >= 0.9)
 
 
 def test_self_loops_match_the_reference():

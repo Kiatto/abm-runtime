@@ -98,6 +98,14 @@ class TestTheorems:
         node, conf = m.chain("x", ["r1", "r2"])
         assert node == "z" and conf > 0.25
 
+    def test_empty_memory_and_zero_weight_raise_clear_errors(self):
+        import pytest
+        m = Memory(256)
+        with pytest.raises(ValueError):
+            m.query("a", "r")
+        with pytest.raises(ValueError):
+            m.store("a", "r", "b", weight=0)
+
     def test_capacity_contract(self):
         # predicted accuracy within 10 points of measured at mid load
         m = Memory(2048)

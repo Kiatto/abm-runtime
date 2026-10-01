@@ -62,6 +62,24 @@ con il modello attuale.
 limiti in poche righe), linkato dal README. Prossimo: la pubblicazione (punto 6),
 che richiede kiatto.
 
+## Stato al 2026-10-01, sera
+
+Paper v1.10 rivisto dopo il **secondo audit ostile: 6.0/10** (`docs/audit_2026-10-01.md`).
+Fatti: Tier B/C del primo audit; FKS gaussiano (il raffinamento binomiale non
+aggiunge nulla di misurabile: il contributo è la contabilità — pareggi, risposte
+multiple, alias, gemelli, hop — e la validazione preregistrata); cicli pari
+(nessuna associazione con l'errore); residuo sugli hub = gemelli; Tier A 2–4 e
+B 5–7, 9, 11, C 12–13, 15–16 del secondo audit. 196 test; replicate copre anche
+proofwriter_seeds e scarica solo i dati necessari.
+
+**Bloccante che solo kiatto può sbloccare:** il push (il remoto è indietro: chi
+clona non può riprodurre BENCHMARKS.md). Poi tag, e replica da un clone del remoto.
+
+Aperti, non bloccanti per la prima email: test su testo estratto a carico reale
+(DocRED, preregistrato; L); tabella a pari memoria contro Bloom/hash (M);
+indipendenza delle distanze nulle fra hop a D piccolo (C14); --code current per
+i test 4, 6, 10 (C17); un secondo campionatore denso (C18).
+
 ## Prossimi passi, in ordine
 
 1. ~~Valutare le preregistrazioni~~ fatto. 2. ~~Paper v1.5~~ fatto: il contratto esatto (`bsm/memory/exact_contract.py`)
