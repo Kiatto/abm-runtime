@@ -28,6 +28,8 @@ Not on PyPI yet? Install straight from GitHub:
 `pip install git+https://github.com/Kiatto/abm-runtime`
 
 Developer guide (no theory required): [docs/SDK.md](docs/SDK.md).
+What is measured, what failed, and how to rerun all of it:
+[BENCHMARKS.md](BENCHMARKS.md).
 The runtime is two files, numpy-only, ~400 lines total.
 
 ### Supported configurations
