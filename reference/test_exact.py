@@ -108,3 +108,47 @@ def test_self_loops_match_the_reference():
     pred = float(np.mean(exact.predict_queries(trip, dim, [(s, r) for s, r, _o in trip[:10]])))
     assert abs(hits / total - pred) < 0.05, (hits / total, pred)
     assert pred < 0.6                      # la versione vecchia prevedeva ~0.81
+
+
+def test_alias_only_and_unanswerable_give_zero_not_errors():
+    """Audit 2026-09-30, punto 21: niente ValueError in italiano, niente nan."""
+    assert exact.cleanup_accuracy_mixed(256, 10, [], [0.6]) == 0.0
+    assert exact.cleanup_accuracy(5, 256, 10, correct=0, aliases=1) == 0.0
+    # (b, r) ha solo l'alias a: non rispondibile
+    assert exact.predict_queries([("a", "r", "b")], 256, [("b", "r")]) == [0.0]
+    for bad in (lambda: exact.contract_for([], 256),
+                lambda: exact.min_dimension([], 0.9),
+                lambda: exact.contract_for([("a", "r", "b")], 256, queries=[]),
+                lambda: exact.cleanup_accuracy_mixed(256, 1, [0.6], [0.6]),
+                lambda: exact.p_agree(0)):
+        with pytest.raises(ValueError) as err:
+            bad()
+        assert err.value.args[0].isascii()
+
+
+def test_codebook_and_queries_overrides():
+    """Audit 2026-09-30, punto 22."""
+    triples = _triples()
+    m = len({x for t in triples for x in t})
+    base = exact.predict_queries(triples, 512)
+    assert exact.predict_queries(triples, 512, codebook=m) == base
+    bigger = exact.predict_queries(triples, 512, codebook=10 * m)
+    assert all(b <= a + 1e-15 for a, b in zip(base, bigger)) and sum(bigger) < sum(base)
+    c = exact.contract_for(triples, 512, codebook=10 * m)
+    assert c["codebook"] == 10 * m
+    assert c["expected_accuracy"] == pytest.approx(float(np.mean(bigger)))
+    assert exact.min_dimension(triples, 0.9, codebook=10 * m) >= exact.min_dimension(triples, 0.9)
+    q = [("s", "has")]
+    d = exact.min_dimension(triples, 0.9, queries=q)
+    assert exact.contract_for(triples, d, queries=q)["expected_accuracy"] >= 0.9
+    assert exact.contract_for(triples, d - 64, queries=q)["expected_accuracy"] < 0.9
+
+
+def test_null_vector_is_cached_and_unchanged():
+    """La cache non deve cambiare i numeri, e il vettore in cache non è scrivibile."""
+    w = exact._null_win(256, 30)
+    assert exact._null_win(256, 30) is w and not w.flags.writeable
+    null = exact.binom_pmf(256, 0.5)
+    sf = np.clip(1.0 - np.cumsum(null), 0.0, 1.0)
+    ref = np.clip(sf ** 30 + 0.5 * 30 * null * sf ** 29, 0.0, 1.0)
+    assert np.array_equal(w, ref)

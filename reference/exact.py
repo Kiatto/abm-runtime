@@ -27,6 +27,8 @@ Solo numpy, come il resto del runtime.
 """
 from __future__ import annotations
 
+from functools import lru_cache
+
 import numpy as np
 
 
@@ -54,7 +56,7 @@ def p_agree(n_facts: int) -> float:
     n pari) vale 1/2.
     """
     if n_facts < 1:
-        raise ValueError("serve almeno un fatto")
+        raise ValueError("p_agree needs at least one stored fact (n_facts >= 1)")
     m = n_facts - 1
     k = np.arange(m + 1)
     pk = binom_pmf(m, 0.5)
@@ -72,8 +74,11 @@ def cleanup_accuracy(n_facts: int, dim: int, codebook: int,
     oggetti veri con probabilità correct / (correct + aliases).
     """
     g = correct + aliases
-    if g < 1 or codebook < g:
-        raise ValueError("servono 1 <= correct + aliases <= codebook")
+    if correct < 0 or aliases < 0 or codebook < g:
+        raise ValueError("cleanup_accuracy needs correct, aliases >= 0 and "
+                         "correct + aliases <= codebook")
+    if correct == 0:                      # unanswerable or alias-only: never correct
+        return 0.0
     q = 1.0 - p_agree(n_facts)
     sig = binom_pmf(dim, q)
     null = binom_pmf(dim, 0.5)
@@ -151,7 +156,7 @@ def two_hop_joint(n_facts: int, dim: int, codebook: int):
     Restituisce anche p², cioè la previsione della Law V, per il confronto.
     """
     if n_facts < 2:
-        raise ValueError("servono almeno due fatti")
+        raise ValueError("two_hop_joint needs at least two stored facts")
     u = _agree_given(n_facts, same=True)     # f1 = f2: la traccia concorda con entrambi o con nessuno
     v = _agree_given(n_facts, same=False)    # f1 = -f2: concorda con esattamente uno
     # per bit, P(accordo1, accordo2): (+,+), (+,-), (-,+), (-,-)
@@ -220,28 +225,53 @@ def cleanup_accuracy_mixed(dim: int, codebook: int, correct_p, alias_p=()) -> fl
     si dividono a metà.
     """
     correct_p, alias_p = list(correct_p), list(alias_p)
-    if not correct_p:
-        raise ValueError("serve almeno un oggetto vero")
     n_null = codebook - len(correct_p) - len(alias_p)
     if n_null < 0:
-        raise ValueError("codebook troppo piccolo")
+        raise ValueError(f"codebook ({codebook}) is smaller than the number of "
+                         f"signal candidates ({len(correct_p) + len(alias_p)})")
+    if not correct_p:              # unanswerable or alias-only: never correct
+        return 0.0
 
     def all_above(ps):             # P(tutte le distanze > d), per d = 0..dim
         out = np.ones(dim + 1)
         for p in ps:
-            out *= np.clip(1.0 - np.cumsum(binom_pmf(dim, 1.0 - p)), 0.0, 1.0)
+            out = out * _signal_sf(dim, float(p))
         return out
     fc, fa = all_above(correct_p), all_above(alias_p)
     fc_prev = np.concatenate(([1.0], fc[:-1]))
     fa_prev = np.concatenate(([1.0], fa[:-1]))
     p_min_correct = fc_prev - fc                      # min degli oggetti veri == d
     beats_alias = fa + 0.5 * (fa_prev - fa)           # alias tutti > d, o pari a metà
+    return float(np.sum(p_min_correct * beats_alias * _null_win(dim, n_null)))
+
+
+@lru_cache(maxsize=256)
+def _null_win_cached(dim: int, n_null: int) -> np.ndarray:
+    """P(il candidato batte n_null codeword nulli | distanza d), pareggi a metà."""
     null = binom_pmf(dim, 0.5)
     null_sf = np.clip(1.0 - np.cumsum(null), 0.0, 1.0)
     win = null_sf ** n_null
     if n_null > 0:
         win = win + 0.5 * n_null * null * null_sf ** (n_null - 1)
-    return float(np.sum(p_min_correct * beats_alias * np.clip(win, 0.0, 1.0)))
+    win = np.clip(win, 0.0, 1.0)
+    win.setflags(write=False)
+    return win
+
+
+def _null_win(dim: int, n_null: int) -> np.ndarray:
+    return _null_win_cached(int(dim), int(n_null))
+
+
+@lru_cache(maxsize=4096)
+def _signal_sf_cached(dim: int, p: float) -> np.ndarray:
+    """P(distanza di un candidato con accordo p > d), d = 0..dim."""
+    out = np.clip(1.0 - np.cumsum(binom_pmf(dim, 1.0 - p)), 0.0, 1.0)
+    out.setflags(write=False)
+    return out
+
+
+def _signal_sf(dim: int, p: float) -> np.ndarray:
+    return _signal_sf_cached(int(dim), float(p))
 
 
 def fact_key(s, r, o):
@@ -320,7 +350,7 @@ def chain_accuracy_mc(n_facts: int, dim: int, codebook: int, hops: int,
     bersaglio nel codebook conta. Senza, i pareggi si dividono a metà.
     """
     if n_facts < hops:
-        raise ValueError("la catena deve stare nella traccia")
+        raise ValueError("chain_accuracy_mc needs n_facts >= hops")
     rng = np.random.RandomState(seed)
     null = binom_pmf(dim, 0.5)
     null_sf = np.clip(1.0 - np.cumsum(null), 0.0, 1.0)
@@ -391,13 +421,18 @@ def _structure(triples):
     return objects, into, codebook
 
 
-def predict_queries(triples, dim: int, queries=None):
+def predict_queries(triples, dim: int, queries=None, codebook=None):
     """Accuratezza prevista di ogni query (s, r), per l'encoding della reference.
 
     Conta i gemelli simmetrici come un fatto di peso 2, gli alias come candidati a
     pari segnale, più oggetti veri come più bersagli. Divide i pareggi a metà.
+    `codebook`, se dato, sostituisce il numero di entità distinte nelle triple
+    (per esempio quando l'item memory contiene anche distrattori). Una query senza
+    oggetto vero memorizzato (non rispondibile, o solo alias) vale 0.0.
     """
     objects, into, m = _structure(triples)
+    if codebook is not None:
+        m = int(codebook)
     queries = list(objects) if queries is None else list(queries)
     weights = fact_weights(triples)
     all_w = list(weights.values())
@@ -420,9 +455,6 @@ def predict_queries(triples, dim: int, queries=None):
         # un self-loop su r, ρ(c_r), dà a OGNI query (x, r) il candidato x stesso
         if r in self_rels and s not in good and s not in bad:
             ap.append(p_of(("__self__", r)))
-        if not cp:                       # nessun oggetto vero memorizzato: non rispondibile
-            out.append(0.0)
-            continue
         out.append(cleanup_accuracy_mixed(dim, m, cp, ap))
     return out
 
@@ -444,34 +476,48 @@ def ceiling(triples, queries=None) -> float:
     return float(np.mean([cap(q) for q in queries]))
 
 
-def contract_for(triples, dim: int, queries=None) -> dict:
+def _queries_or_raise(objects, queries):
+    queries = list(objects) if queries is None else list(queries)
+    if not queries:
+        raise ValueError("no queries: the triples contain no (subject, relation) pair")
+    return queries
+
+
+def contract_for(triples, dim: int, queries=None, codebook=None) -> dict:
     """Il contratto di queste triple a dimensione `dim`, calcolato prima di memorizzarle.
 
     Restituisce l'accuratezza prevista (media sulle query), il tetto imposto dagli
     alias, la quota di fatti con gemello simmetrico e di query con alias.
     """
     objects, into, m = _structure(triples)
-    queries = list(objects) if queries is None else list(queries)
+    if codebook is not None:
+        m = int(codebook)
+    queries = _queries_or_raise(objects, queries)
     weights = fact_weights(triples)
     return {
         "dim": dim,
         "facts": len(triples),
         "codebook": m,
-        "expected_accuracy": float(np.mean(predict_queries(triples, dim, queries))),
+        "expected_accuracy": float(np.mean(predict_queries(triples, dim, queries, m))),
         "ceiling": ceiling(triples, queries),
         "twin_share": sum(c for c in weights.values() if c > 1) / max(len(triples), 1),
         "alias_share": float(np.mean([len(into[q] - objects[q]) > 0 for q in queries])),
     }
 
 
-def min_dimension(triples, target: float, step: int = 64, d_max: int = 1 << 16):
+def min_dimension(triples, target: float, step: int = 64, d_max: int = 1 << 16,
+                  queries=None, codebook=None):
     """La dimensione minima (multiplo di `step`) con accuratezza prevista >= target.
 
     Restituisce None se il target supera ciò che si ottiene a `d_max`, per esempio
-    perché sta sopra il tetto degli alias.
+    perché sta sopra il tetto degli alias. `queries` e `codebook` come in
+    contract_for.
     """
+    objects, _into, _m = _structure(triples)
+    queries = _queries_or_raise(objects, queries)
+
     def acc(d):
-        return float(np.mean(predict_queries(triples, d)))
+        return float(np.mean(predict_queries(triples, d, queries, codebook)))
     if acc(d_max) < target:
         return None
     lo, hi = 0, d_max // step

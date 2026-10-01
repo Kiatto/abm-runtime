@@ -60,7 +60,7 @@ def test_exact_model_matches_reference_simulation():
     Monte Carlo con reference/abm.py a D piccolo, dove il test è veloce, a un
     carico con accuratezza ~0.72, dove le approssimazioni della Law IV sbagliano
     di ~7 punti (misurato: 0.714 contro 0.722 esatto, 0.792 Law IV con k = 1, su
-    200 prove). Tolleranza: 3 errori standard, abbastanza stretta da escludere
+    800 query: 40 prove da 20 fatti). Tolleranza: 3 errori standard, abbastanza stretta da escludere
     la Law IV: il test deve distinguere i due modelli, non solo passare.
     """
     dim, n, trials = 256, 20, 40
