@@ -89,6 +89,10 @@ held its prediction; the front end was underestimated by the audit (0.36 against
 | Comparison with the bound of Clarkson et al. | see paper §7 | `clarkson_comparison.py` | `clarkson_comparison_results.json` | `clarkson` |
 | ProofWriter, parsable subset, 150 problems per depth | 92–100% at depths 0, 1, 2, 3 and 5 | `proofwriter_eval.py 150` | `proofwriter_results.json` | `proofwriter` |
 | Self-loops, effect of the 2026-09-30 model fix (exploratory) | see below | `selfloop_impact.py` | `selfloop_impact_results.json` | — |
+| Test 10, stronger asymptotic arms (post hoc) | Law IV × g/(g+a) closes about two thirds of the WN18RR gap; a naive twin term does not help | `sizing_lawiv_posthoc.py` | `sizing_lawiv_posthoc_results.json` | — |
+| Test 11, cluster bootstrap and strict scoring (post hoc) | strict end-to-end 0.345; 95% [0.318, 0.402] over the 28 memories | `human_questions_stats.py` | `human_questions_stats_results.json` | — |
+| Even cycles (GF(2) dependence) in the real samples (exploratory) | 5–16% rank deficit; no detectable association with per-cell error | `cycles_residuals.py` | `cycles_residuals_results.json` | — |
+| Gaussian FKS integral with the same p_agree (exploratory) | agrees with the exact model within 0.005 points on every configuration of the paper | `fks_gaussian_vs_exact.py` | `fks_gaussian_vs_exact_results.json` | — |
 
 **ProofWriter, against an exact store.** On the open-world attribute fragment, the
 forward chainer whose only truth oracle is a Hamming distance to the trace reaches
@@ -109,6 +113,13 @@ hypothesis of tests 4 and 6 is still supported.
 
 ## Limits, stated plainly
 
+- **The binomial refinement adds nothing measurable.** The finite-M integral of
+  Frady, Kleyko and Sommer, given the same exact p_agree, matches the exact
+  model within 0.005 points at the dimensions used here. It differs by more than
+  half a point only at D ≤ 256 with very large codebooks. The gain over the
+  asymptotic law comes from treating M finitely; the contribution here is the
+  closed-form p_agree with its tie rule, and the multi-answer, alias, twin and
+  hop-dependence extensions.
 - **ABM is not a compressor.** An exact store beats it on ProofWriter, and on
   bytes per fact.
 - **Even cycles break the independence assumption.** Four facts on a rectangle
@@ -117,7 +128,9 @@ hypothesis of tests 4 and 6 is still supported.
 - **Tiny codebooks are out of scope.** Off-path recovery dominates there (test 7,
   falsified).
 - **Dense real graphs at low D and high load:** the model was pessimistic by up
-  to 8 points before twins were counted, and residual bias remains on hubs.
+  to 8 points before twins were counted, and a bias of about −0.8 points
+  remains at D = 2048 on FB15k-237, unexplained. The hub residual of test 2
+  (+3.3) was the missing twin term (exploratory recomputation).
 - **Small samples.** Cells use at most 200 queries. The minimum detectable bias is
   about 3–4 points in the noisy cells (audit 2026-09-30), and pass criteria of
   ±2–3 points are only 1.5–3 times that floor.
