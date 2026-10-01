@@ -35,8 +35,10 @@ parameters, and tests it the way such a claim should be tested.
    [@frady2018sequence; @kleyko2023perceptron] to binary majority traces: exact
    majority agreement and binomial distances, with the reference tie rule, extended to several true answers,
    aliases, weighted facts and symmetric twins (§3). It replaces an asymptotic
-   law whose single constant, k = 0.92, turns out to be nothing but the error of
-   its own approximations.
+   law whose single constant, k = 0.92, turns out to be the error of its own
+   approximations. The binomial distances themselves add nothing measurable at
+   the dimensions we use: the FKS finite-M integral, with the same p_agree,
+   agrees within 0.005 points (§3.2).
 2. The **dependence between hops** on one trace, derived in closed form (§4). The independence
    assumed by the composition law Acc(h) = p^h is false; the violation is
    derived and then measured.
@@ -109,7 +111,7 @@ accuracy.
 | IV-exact | cleanup accuracy from exact majority agreement and binomial distances (§3.2–3.3) | **preregistered** (tests 2–6, 9, 10): every primary hypothesis supported, except dense FB15k-237 at D = 2048 before twins were counted (in part) (§6) |
 | V | hops compose as Acc(h) = p^h | **falsified as an exact law**: hops on one trace are negatively correlated, by a derived amount that grows with depth (§4) |
 | VI | failure grows with out-degree | **retired**: a load artifact (§8) |
-| VI′ | topological neutrality: only load matters | corroborated on synthetic data; on real hubs, residual +3.3 points, neither supported nor falsified |
+| VI′ | topological neutrality: only load matters | corroborated on synthetic data; on real hubs the +3.3-point residual of test 2 was the missing twin term (−1.6 [−3.5, +0.3] with twins, exploratory) |
 | VII | redundancy: a fact of weight w counts w² (N_eff = Σw²) | approximate; the exact weighted form is preregistered and removes its saturation error (§3.3) |
 | VIII | every end-to-end failure is attributable to one level | design principle; not tested as a law |
 
@@ -129,7 +131,8 @@ prediction and held (a linear model N\* = cD is rejected: c drifts from 0.098
 to 0.068 over D ∈ [512, 4096]). But k is a fitted constant, and it drifts.
 
 **The exact accuracy.** Both approximations in Law IV — a Gaussian signal and a
-Gumbel extreme — can be removed. By A2, each bit of the query agrees with the
+Gumbel extreme — can be removed, although only the second matters in practice
+(see below). By A2, each bit of the query agrees with the
 codeword of a stored object with probability exactly
 
   p_agree(N) = P( 1 + Σ_{j=2}^{N} x_j > 0 ) + ½·P( 1 + Σ_{j=2}^{N} x_j = 0 ),
@@ -172,16 +175,45 @@ independent Rademacher variables. By exhaustive counting, p_agree for each is
 dependence in the vote (but not in the cleanup) predicts 0.882; under load, with
 distractor facts, the independent model is 1–6 points optimistic and the linear
 one 3–4 points pessimistic (`examples/cycles_probe.py`, exploratory, not
-preregistered). Knowledge graphs contain bicliques; their share in our samples,
-and their part in the residuals of §6, is open (§10).
+preregistered). Knowledge graphs do contain such dependencies. In the dense
+FB15k-237 samples of test 4, 14% of distinct fact vectors lie in a 4-dependency
+(four facts whose XOR is the identity) at D = 2048 and 27% at D = 8192; the
+GF(2) rank deficit, which also counts longer even cycles, is 5–16% across the
+dense samples of tests 2 and 4, and zero in uniform ones. At this sample size it
+shows no detectable association with the per-cell error: taking deviations from
+the mean of each (graph, D, N) group, the correlation of rank deficit with
+predicted − measured accuracy is +0.13 [−0.12, 0.36] for dense FB15k-237 at
+D = 2048 and +0.03 [−0.15, 0.20] over all 240 dense cells (bootstrap over
+cells; `examples/cycles_residuals.py`, exploratory, on published data). Since
+cycles make the model optimistic, they cannot be the main cause of the
+pessimistic dense bias (−0.81 at D = 2048); a small optimistic share masked by
+another effect is not excluded.
 
 Against the capacity data behind k, the exact N\* is 50.5 / 87.5 / 155.5 / 277.5
 at D = 512 / 1024 / 2048 / 4096, measured 50.2 ± 4.5 / 87.1 ± 3.1 / 158.8 ± 5.3 /
 280.0 ± 6.4: inside every interval, including the small D where k drifted. The script behind these measurements was lost; a rerun with the protocol they
 imply (`examples/capacity_seed10.py`, 10 new seeds) gives 50.6 ± 1.7 / 86.8 ± 2.2 /
-156.2 ± 3.4 / 279.6 ± 5.5, again with the exact model inside every interval. **k =
-0.92 is the error of the Gaussian and Gumbel approximations, not a property of
-the memory.** Against a Monte Carlo of the reference implementation at D = 256,
+156.2 ± 3.4 / 279.6 ± 5.5, again with the exact model, 50.2 / 88.7 / 155.3 /
+277.4 on that script's grid, inside every interval. **k = 0.92 is the error of
+the asymptotic treatment of M and of the approximate p_agree, not a property of
+the memory.**
+
+*Relation to Frady, Kleyko and Sommer.* Their finite-M readout, ∫φ(x)Φ(·)^{M−1}dx
+with Gaussian crosstalk, is not an asymptotic law of the Law IV kind. To measure
+what our binomial distances add, we instantiated it for the majority trace with
+our exact p_agree(N) (signal distance N(Dq, Dq(1−q)), null distances N(D/2, D/4),
+g true answers; cells with aliases not covered; `examples/fks_gaussian_vs_exact.py`,
+exploratory). On every configuration above the two agree: N\* 50.2 / 88.7 /
+155.3 / 277.4 for both (gaps under 0.03 facts), mean absolute error 0.27 and 0.59
+points on test 2 parts A and B for both, and 0.723 against 0.722 in the D = 256
+cell. A continuity correction makes the Gaussian worse. Among the sampled points
+of a sweep over D and M, they differ by more than half a point only at D = 64
+with M ≥ 4 096 and at D = 256 with M = 65 536, by at most 2.8 points. So the
+gain over Law IV comes from treating M finitely with the exact p_agree, which the
+FKS integral does once given that p_agree; we did not test the p_agree
+approximation of the original papers. What this paper adds is the closed-form
+p_agree with its tie rule and the extensions: several answers, aliases, weighted
+twins, and the dependence between hops. Against a Monte Carlo of the reference implementation at D = 256,
 N = 20, the exact model gives 0.722 for a measured 0.714, where Law IV gives
 0.792; the test suite requires the exact model within 3 standard errors *and*
 Law IV outside them. These checks use data we had already seen; the tests of §6
@@ -558,8 +590,14 @@ is near or below the smallest bias its test detects.
 **What the tests leave open.** The exact model treats candidates at equal signal,
 and the null distances of different hops, as independent; test 2 puts the cost
 of the first below one point. A later exploratory run at g = 5 found it
-below 0.3 points and not distinguishable from zero (§3.3). On real hubs a residual of +3.3 points remains
-(test 2), and dense samples favour the neighbourhood of their starting entity.
+below 0.3 points and not distinguishable from zero (§3.3). The hub residual of test 2
+(+3.28 points, hub minus rest, measured − predicted) was computed before twins
+were counted. On the same queries it is −1.64 [−3.49, +0.26] with twins, and
+−1.81 [−3.69, +0.06] with twins and self-loops (`examples/cycles_residuals.py`):
+the residual was the missing twin term, and what remains is compatible with
+zero. Hub queries are three times as often on a 4-dependency (48% against 16%),
+but the per-cell hub–rest gap in dependence does not track the gap in error
+(r = +0.07 [−0.04, +0.22]). Dense samples favour the neighbourhood of their starting entity.
 Tests 1–10 query stored triples or synthetic chains; test 11 uses questions
 written by people, through a deliberately simple front-end.
 
@@ -718,10 +756,12 @@ are standard [@baader1998term].
 1. **Cycles.** Facts that close even cycles are dependent over GF(2) (§3.2);
    on a loaded biclique the model is several points optimistic, and keeping the
    dependence only in the vote overcorrects. A model that keeps it in the cleanup
-   too, and the count of 4-cycles in the real samples, are open; they are a
-   candidate cause of the hub residual below.
-2. **Real hubs.** A residual of +3.3 points on high-degree subjects (test 2) is
-   not explained by twins alone.
+   too is open. In the real dense samples 5–16% of the rank is lost to such
+   dependencies, with no detectable association with the per-cell error at
+   this sample size (§3.2).
+2. **Real hubs.** The +3.3-point residual of test 2 disappears once twins are
+   counted (§6); that recomputation is exploratory, and a preregistered test on
+   new hubs has not been run.
 3. **Joint independence of candidates.** The exact model treats candidates at
    equal signal, and the null distances of consecutive hops, as independent;
    the first cost is measured (test 2 and an exploratory run, §3.3): at most
