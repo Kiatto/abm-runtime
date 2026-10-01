@@ -119,3 +119,10 @@ prevede (+0.3 SE), e l'errore del contratto sta tutto nel front-end: stima
 dell'audit e correlazione fra i livelli. Un contratto a due livelli deve stimare
 il front-end su un audit più grande, o condizionare la memoria sulle domande che
 il front-end risolve.
+
+## Nota del 2026-10-01: self-loop
+
+Il 2026-09-30 (commit `2a41f74`) `abm.exact` ha iniziato a modellare i self-loop (s, r, s), che in FB15k-237 sono 1625 (l'audit diceva 0) e in WN18RR 7. Questa preregistrazione è stata calcolata prima. I numeri sopra restano quelli pubblicati: `examples/replicate.py` li riproduce sul commit che li ha registrati. Con il modello attuale la previsione della memoria sulle 643 domande
+di test passa da 0.8019 a 0.8032 (+0.13 punti; `replicate.py human_questions
+--code current`); la risposta della memoria è identica su 643 domande su 643. Il
+contratto (π_audit × previsione) si sposta della stessa frazione, e l'esito non cambia.

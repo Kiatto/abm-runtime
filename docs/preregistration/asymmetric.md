@@ -107,3 +107,9 @@ Nessuno dei due encoding è migliore in assoluto. A basso carico la simmetria
 costa fino a 7 punti (domina l'alias); ad alto carico aiuta fino a 8 (i gemelli
 fusi in un solo fatto riducono il rumore). Il modello, senza parametri, prevede
 dove sta l'inversione per un grafo dato, prima di memorizzarlo.
+
+## Nota del 2026-10-01: self-loop
+
+Il 2026-09-30 (commit `2a41f74`) `abm.exact` ha iniziato a modellare i self-loop (s, r, s), che in FB15k-237 sono 1625 (l'audit diceva 0) e in WN18RR 7. Questa preregistrazione è stata calcolata prima. I numeri sopra restano quelli pubblicati: `examples/replicate.py` li riproduce sul commit che li ha registrati. L'harness congelato non gira più sul modello attuale (usa la `predict`
+della preregistrazione 4). L'effetto dei self-loop su questa preregistrazione
+**non è stato ricalcolato**.

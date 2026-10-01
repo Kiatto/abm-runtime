@@ -3,10 +3,15 @@
 Nessuna delle preregistrazioni del paper è stata replicata da qualcun altro.
 Questo script non lo sostituisce, ma toglie ogni ostacolo pratico a farlo:
 
-1. scarica i dati pubblici (FB15k-237, WN18RR, ProofWriter) da Hugging Face e
-   verifica i loro sha256;
+1. scarica i dati pubblici (FB15k-237 con i nomi delle entità, WN18RR,
+   ProofWriter, SimpleQuestions v2) e verifica i loro sha256;
 2. riesegue gli harness delle preregistrazioni scelte, scrivendo i risultati in
    una cartella a parte (results/replica/), senza toccare quelli pubblicati;
+   Di default ogni harness gira sul codice del commit che ha registrato i
+   risultati (--code published); --code current usa il codice di adesso.
+   Dopo il 2026-09-30 il modello esatto tratta i self-loop (s, r, s), che in
+   FB15k-237 sono 1625: le preregistrazioni che lo usano danno numeri un po'
+   diversi con il codice attuale.
 3. confronta, per ogni preregistrazione, i numeri riassuntivi della replica con
    quelli pubblicati.
 
@@ -14,6 +19,11 @@ Gli harness sono deterministici (seed fissati): una replica sulla stessa
 piattaforma deve riprodurre i numeri pubblicati; su un'altra piattaforma deve
 riprodurli se i codeword sono gli stessi bit, cosa che la CI verifica su Linux,
 macOS arm64 e Windows.
+
+Il test 11 (human_questions) interroga un modello linguistico locale: qui se ne
+riesegue solo la parte deterministica (previsione di abm.exact e risposta della
+memoria alla relazione vera, con --memory-only), confrontata con i campi
+corrispondenti del file pubblicato. ProofWriter richiede pyarrow.
 
 Uso, dalla root del repo:
     python examples/replicate.py --list
@@ -44,9 +54,18 @@ DATASETS = {
         "https://huggingface.co/datasets/tasksource/proofwriter/resolve/main/data/"
         "validation-00000-of-00001-8f79b25dd5b0f2c3.parquet",
         "34281c119af707a0f13878a1938c3522750852869ae897a5a0ee3a5b97cc0ff4"),
+    "fb15k_mid2name.txt": (
+        "https://huggingface.co/datasets/KGraph/FB15k-237/resolve/main/data/FB15k_mid2name.txt",
+        "4da94b8059a83bc7e08c832f573d34221d38e85030576e332a0d0e9726d13d73"),
+    # archivio originale di Bordes et al. (2015), il link della pagina del dataset
+    "SimpleQuestions_v2.tgz": (
+        "https://www.dropbox.com/s/tohrsllcfy7rch4/SimpleQuestions_v2.tgz?dl=1",
+        "58f65630895de4f9712eeb33458ca20538972436fd48bf5913df4765e6788bf5"),
 }
 
 # preregistrazione -> (harness, file di risultati, tempo indicativo su 12 core)
+# oppure (harness, argomenti, file prodotto, file pubblicato, campi confrontati, tempo):
+# con campi = None si confronta il file intero
 PREREGS = {
     "fb15k237": ("fb15k237_prereg.py", "fb15k237_prereg_results.json", "~10 min"),
     "exact_contract": ("exact_prereg.py", "exact_prereg_results.json", "~1 h"),
@@ -58,7 +77,58 @@ PREREGS = {
     "deepchain2": ("deepchain2_prereg.py", "deepchain2_prereg_results.json", "~10 min"),
     "deepchain3": ("deepchain3_prereg.py", "deepchain3_prereg_results.json", "~25 min"),
     "sizing": ("sizing_prereg.py", "sizing_prereg_results.json", "~30 min"),
+    "human_questions": ("human_questions_prereg.py", ["--memory-only"],
+                        "human_questions_memory_check.json", "human_questions_prereg_results.json",
+                        ("memory_pred", "memory_given_gold", "memory_ok_given_gold"), "~1 min"),
+    "seed10": ("capacity_seed10.py", "capacity_seed10_rerun.json", "~3 min"),
+    "clarkson": ("clarkson_comparison.py", "clarkson_comparison_results.json", "~2 min"),
+    # il file pubblicato usa 150 problemi per profondità (il default dello script è 100)
+    "proofwriter": ("proofwriter_eval.py", ["150"], "proofwriter_results.json",
+                    "proofwriter_results.json", None, "~1 min"),
 }
+
+
+# il commit in cui ogni file di risultati è stato registrato: con --code published
+# (il default) l'harness gira sul codice di quel commit, non su quello attuale
+COMMITS = {
+    "fb15k237": "eebc030", "exact_contract": "fedd815", "dependence": "7340fb9",
+    "twins": "95ab8e0", "composition": "a8db06e", "asymmetric": "359bdd1",
+    "deepchain": "84532ed", "deepchain2": "64db145", "deepchain3": "dd07d49",
+    "sizing": "df18e43", "human_questions": "f7ea046", "seed10": "9407eab",
+    "clarkson": "28ac0da", "proofwriter": "13538cc",
+}
+# harness copiati dal codice attuale sull'albero di quel commit: human_questions
+# per --memory-only (la pipeline è la stessa, il modello resta quello del commit);
+# proofwriter perché a 13538cc leggeva il parquet da uno scratchpad privato e
+# scriveva nella cartella corrente (cambiano solo i due percorsi)
+OVERLAY = {"human_questions", "proofwriter"}
+
+
+def spec(name):
+    e = PREREGS[name]
+    if len(e) == 3:
+        return e[0], [], e[1], e[1], None, e[2]
+    return e
+
+
+def fields(name, d):
+    """I campi confrontati, letti dal file prodotto o da quello pubblicato."""
+    if "per_question" in d:                      # file pubblicato del test 11
+        return {"memory_pred": d["test"]["memory_pred"],
+                "memory_given_gold": d["test"]["memory_given_gold"],
+                "memory_ok_given_gold": [q["memory_ok_given_gold"] for q in d["per_question"]]}
+    return {k: d[k] for k in spec(name)[4]}
+
+
+def close(a, b, rel=1e-12):
+    """Uguali a meno dell'arrotondamento dei float (ordine delle somme, BLAS)."""
+    if isinstance(a, dict):
+        return isinstance(b, dict) and a.keys() == b.keys() and all(close(a[k], b[k]) for k in a)
+    if isinstance(a, list):
+        return isinstance(b, list) and len(a) == len(b) and all(map(close, a, b))
+    if isinstance(a, float) and isinstance(b, (int, float)) and not isinstance(b, bool):
+        return abs(a - b) <= rel * max(abs(a), abs(b), 1e-300)
+    return a == b
 
 
 def fetch():
@@ -72,27 +142,64 @@ def fetch():
         if got != sha:
             raise SystemExit(f"{name}: sha256 {got}, atteso {sha}")
         print(f"ok  {name}")
+    if not (DATA / "SimpleQuestions_v2").is_dir():
+        import tarfile
+        with tarfile.open(DATA / "SimpleQuestions_v2.tgz") as t:
+            try:
+                t.extractall(DATA, filter="data")
+            except TypeError:                    # Python senza i filtri di tarfile
+                t.extractall(DATA)
 
 
-def run(name):
-    harness, result, _t = PREREGS[name]
-    published = ROOT / "results" / result
-    backup = REPLICA / f"_published_{result}"
+def tree_at(commit, tmp):
+    """L'albero del repo al commit indicato, con data/ collegata a quella vera."""
+    tree = Path(tmp) / commit
+    tree.mkdir()
+    archive = subprocess.run(["git", "archive", commit, "examples", "reference", "bsm", "results"],
+                             check=True, cwd=ROOT, capture_output=True).stdout
+    subprocess.run(["tar", "-x", "-C", str(tree)], input=archive, check=True)
+    (tree / "data").symlink_to(ROOT / "data")
+    return tree
+
+
+def run(name, code, tmp):
+    harness, extra, result, pub, keys, _t = spec(name)
     REPLICA.mkdir(parents=True, exist_ok=True)
-    # gli harness scrivono in results/: si salva il pubblicato e lo si ripristina
-    if published.exists():
-        shutil.copy(published, backup)
-    try:
-        subprocess.run([sys.executable, str(ROOT / "examples" / harness)], check=True, cwd=ROOT)
-        shutil.copy(published, REPLICA / result)
-    finally:
-        if backup.exists():
-            shutil.copy(backup, published)
-            backup.unlink()
-    same = json.loads((REPLICA / result).read_text()) == json.loads(published.read_text())
-    print(f"{name}: replica {'IDENTICA' if same else 'DIVERSA'} dai risultati pubblicati "
-          f"({REPLICA / result})")
-    return same
+    if code == "published":
+        tree = tree_at(COMMITS[name], tmp)
+        if name in OVERLAY:                      # opzione aggiunta dopo: il modello resta quello
+            shutil.copy(ROOT / "examples" / harness, tree / "examples" / harness)
+        subprocess.run([sys.executable, str(tree / "examples" / harness), *extra],
+                       check=True, cwd=tree)
+        shutil.copy(tree / "results" / result, REPLICA / result)
+    else:
+        published = ROOT / "results" / result
+        backup = REPLICA / f"_published_{result}"
+        # gli harness scrivono in results/: si salva il pubblicato e lo si ripristina
+        if published.exists():
+            shutil.copy(published, backup)
+        try:
+            subprocess.run([sys.executable, str(ROOT / "examples" / harness), *extra],
+                           check=True, cwd=ROOT)
+            shutil.copy(published, REPLICA / result)
+        finally:
+            if backup.exists():
+                shutil.copy(backup, published)
+                backup.unlink()
+        if pub != result:                        # file solo di controllo, non pubblicato
+            published.unlink(missing_ok=True)
+    replica = json.loads((REPLICA / result).read_text())
+    reference = json.loads((ROOT / "results" / pub).read_text())
+    if keys is not None:
+        replica, reference = fields(name, replica), fields(name, reference)
+    if replica == reference:
+        verdict = "IDENTICA"
+    elif close(replica, reference):
+        verdict = "IDENTICA a meno di 1e-12 relativo"
+    else:
+        verdict = "DIVERSA"
+    print(f"{name}: replica {verdict} dai risultati pubblicati ({REPLICA / result})", flush=True)
+    return verdict != "DIVERSA"
 
 
 def main():
@@ -100,16 +207,23 @@ def main():
     ap.add_argument("names", nargs="*")
     ap.add_argument("--all", action="store_true")
     ap.add_argument("--list", action="store_true")
+    ap.add_argument("--code", choices=("published", "current"), default="published",
+                    help="published: il codice del commit che ha prodotto i risultati; "
+                         "current: il codice di adesso (se il modello è cambiato, può dare "
+                         "numeri diversi da quelli pubblicati)")
     args = ap.parse_args()
     if args.list:
-        for k, (h, r, t) in PREREGS.items():
-            print(f"{k:15} {h:25} {t}")
+        for k in PREREGS:
+            h, extra, *_r, t = spec(k)
+            print(f"{k:15} {' '.join([h, *extra]):40} {t}")
         return
     names = list(PREREGS) if args.all else args.names
     if not names:
         ap.error("indica almeno una preregistrazione, o --all, o --list")
     fetch()
-    results = {n: run(n) for n in names}
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmp:
+        results = {n: run(n, args.code, tmp) for n in names}
     print("\nriepilogo:", ", ".join(f"{n}={'ok' if s else 'DIVERSA'}" for n, s in results.items()))
 
 

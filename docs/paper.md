@@ -2,7 +2,7 @@
 
 *(Algebraic Binary Memory — ABM)*
 
-**Preprint v1.9 — September 2026**
+**Preprint v1.10 — October 2026**
 *Normative specification: [FORMALISM.md](FORMALISM.md) (frozen, v2.1).
 Reference implementation: [`reference/abm.py`](../reference/abm.py); exact
 theory, shipped as `abm.exact`: [`reference/exact.py`](../reference/exact.py).
@@ -589,6 +589,20 @@ It is a case, not a sample.
 versions that rested on them are superseded by the preregistered tests, whose
 harnesses are committed.
 
+**Self-loops.** Since 2026-09-30 `abm.exact` models self-loops (s, r, s): each
+one is ρ(c_r) whatever s is, so all those of a relation are one vector, and every
+query (x, r) sees x as an alias. FB15k-237 train has 1 625 of them (0.6%), not
+none as the audit stated; WN18RR has 7. Tests 4, 6, 10 and 11 were computed
+before the fix. An exploratory recomputation on the same samples
+(`examples/selfloop_impact.py`, not preregistered) moves the mean bias of test 4
+by under 0.1 points on either graph. One WN18RR cell (uniform, D = 8192,
+N = 200) was predicted at 97.6% against 80.0% measured; the corrected model
+predicts 80.2%. No dimension chosen in test 10 changes, so no promise flips. In
+test 11 the memory prediction moves from 80.19% to 80.32%. Test 6 was not
+recomputed. The frozen harnesses of tests 4, 6 and 10 no longer run on the
+current model; `replicate.py` runs each harness on the commit that recorded its
+results.
+
 **Not yet re-tested.** The compiler-ranking dry run (three simulated extractors
 ranked by a per-query contract before any query, 2/2 resolvable pairs at 95% CI)
 and the cross-domain invariance results (four synthetic topologies, mean
@@ -688,7 +702,10 @@ runs in continuous integration on Linux x86-64 (Python 3.10–3.13, NumPy
 1.24–2.5), macOS arm64 and Windows x86-64, with codewords checked bit-identical
 across the three. Figures: `examples/make_figures.py`. To replicate any
 preregistration from a clean clone: `python examples/replicate.py <name>`, which
-downloads the data with checksums and compares the rerun with the published
-results; a rerun of test 5 reproduced them exactly.*
+downloads the data with checksums, runs each harness on the commit that recorded
+its results and compares the rerun with them (test 11 only in its deterministic
+part, without the language model). On 2026-10-01 all eleven tests, the
+seed-10 capacity data, the Clarkson comparison and ProofWriter reproduced:
+twelve byte-identical, two (tests 4 and 10) up to the last digit of one float.*
 
 ## References

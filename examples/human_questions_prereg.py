@@ -22,6 +22,11 @@ con l'intervallo al 95% di pi_audit (Wilson).
 
 Serve il server locale:  llama-server -m <gguf> --port 8765 (vedi il file di
 preregistrazione). Uso, dalla root:  python examples/human_questions_prereg.py [--smoke]
+
+--memory-only rifà, senza modello linguistico, la parte deterministica: la
+previsione di abm.exact e la risposta della memoria alla (s, r) vera, per le
+stesse 643 domande di test. Scrive results/human_questions_memory_check.json
+(non tocca i risultati pubblicati); replicate.py lo confronta con quelli.
 """
 import argparse
 import hashlib
@@ -41,6 +46,7 @@ import exact  # noqa: E402
 
 DATA = ROOT / "data" / "external"
 OUT = ROOT / "results" / "human_questions_prereg_results.json"
+OUT_MEMORY = ROOT / "results" / "human_questions_memory_check.json"
 SHA = {"fb15k237_train.txt": "6e4c2782169af21e9743f3b1d200886f5d595bf6bc504ec1351720949c5cdfae",
        "fb15k_mid2name.txt": "4da94b8059a83bc7e08c832f573d34221d38e85030576e332a0d0e9726d13d73",
        "SimpleQuestions_v2.tgz": "58f65630895de4f9712eeb33458ca20538972436fd48bf5913df4765e6788bf5"}
@@ -163,6 +169,7 @@ def wilson(k, n, z=1.96):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--smoke", action="store_true")
+    ap.add_argument("--memory-only", action="store_true")
     args = ap.parse_args()
     check_data()
     by_s, names, qs = load()
@@ -179,6 +186,22 @@ def main():
         print("smoke ok:", len(qs), "domande,", len(trip), "memorie, chiavi:", sorted(res))
         return
     memories = {}
+    if args.memory_only:
+        mem_pred, rows = [], []
+        for i in test_idx:
+            q = qs[i]
+            k = batch_of[q["s"]]
+            if k not in memories:
+                memories[k] = BatchMemory(trip[k], names)
+            bm = memories[k]
+            mem_pred.append(exact.predict_queries(trip[k], DIM, [(q["s"], q["r"])])[0])
+            rows.append(bm.query(q["s"], q["r"]) in bm.objects[(q["s"], q["r"])])
+        OUT_MEMORY.write_text(json.dumps(
+            {"memory_pred": float(np.mean(mem_pred)),
+             "memory_given_gold": float(np.mean(rows)),
+             "memory_ok_given_gold": [bool(x) for x in rows]}, indent=1))
+        print("->", OUT_MEMORY)
+        return
 
     def bm_for(q):
         k = batch_of[q["s"]]

@@ -30,6 +30,10 @@ dependencies = [
     "numpy>=1.24",
 ]
 
+[project.optional-dependencies]
+# examples/replicate.py: ProofWriter è in parquet
+replicate = ["pyarrow>=14"]
+
 [project.scripts]
 abm = "abm.cli:main"
 

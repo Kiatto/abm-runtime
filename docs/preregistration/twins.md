@@ -114,3 +114,22 @@ Errori come previsto − misurato, in punti.
   fatti di peso 14, la forma N_eff = Σw² sbaglia di 2.7 punti, quella esatta di 0.5.
 - Nel campione denso FB15k-237 coi seed nuovi i gemelli sono il 5%, meno che coi
   seed 0–9: lì il termine incide poco, ed è coerente.
+
+## Nota del 2026-10-01: self-loop (esplorativa, non preregistrata)
+
+Il 2026-09-30 (commit `2a41f74`) `abm.exact` ha iniziato a modellare i self-loop (s, r, s), che in FB15k-237 sono 1625 (l'audit diceva 0) e in WN18RR 7. Questa preregistrazione è stata calcolata prima. I numeri sopra restano quelli pubblicati: `examples/replicate.py` li riproduce sul commit che li ha registrati. L'harness congelato non gira più sul modello attuale: legge i pesi con
+la chiave vecchia e va in crash su un self-loop.
+
+`examples/selfloop_impact.py` rigenera gli stessi campioni e le stesse query, e
+ricalcola la previsione con il modello attuale (controllo: sulle celle senza
+self-loop coincide con la pubblicata entro 1e-16):
+
+- FB15k-237: 18 celle su 120 contengono self-loop; bias medio −0.52 → −0.52
+  punti, errore assoluto medio 2.29 → 2.29; spostamento massimo 0.45 punti.
+- WN18RR: 6 celle su 240; bias −0.02 → −0.11, errore assoluto 2.06 → 1.98.
+- **Una cella era sbagliata di 17.6 punti senza che lo vedessimo**: WN18RR
+  uniforme, D = 8192, N = 200, seed 7 — previsti 97.6%, misurati 80.0%. Il
+  modello corretto prevede 80.2%.
+
+Le medie si spostano meno di 0.1 punti; le ipotesi H1–H5 **non** sono state
+rivalutate con il modello attuale.

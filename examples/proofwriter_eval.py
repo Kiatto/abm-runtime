@@ -177,8 +177,9 @@ def main():
     maj = max(set(answers), key=answers.count)
     print(f"  baseline classe di maggioranza ('{maj}'): "
           f"{answers.count(maj)/len(answers):.0%}")
-    Path("proofwriter_results.json").write_text(json.dumps(results, indent=2))
-    print("  → proofwriter_results.json")
+    out = Path(__file__).resolve().parent.parent / "results" / "proofwriter_results.json"
+    out.write_text(json.dumps(results, indent=2))
+    print("  →", out)
 
 
 if __name__ == "__main__":

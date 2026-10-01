@@ -42,6 +42,24 @@ Aperto: (a) modello dei cicli pari su GF(2) — l'indipendente è ottimista fino
 correlarli al residuo sugli hub; (c) verificare la versione JAIR 2026 di
 Clarkson; (d) Tier B e C di `docs/audit_2026-09-30.md`; (e) nuovo audit ostile su v1.9.
 
+## Stato al 2026-10-01
+
+Paper **v1.10**. `replicate.py` copre ora tutte le 11 preregistrazioni più
+seed10, Clarkson e ProofWriter, e fa girare ogni harness sul commit che ha
+registrato i risultati (`--code published`, default). Esito: 14/14 riprodotte
+(12 byte per byte, twins e sizing all'ultima cifra di un float). Test 11 solo
+nella parte deterministica (`--memory-only`, senza LLM).
+
+Trovato: **FB15k-237 ha 1625 self-loop** (l'audit diceva 0). Il modello corretto
+del 30/9 li tratta; twins, asymmetric e sizing, congelati, non girano più sul
+modello attuale. Effetto misurato (`examples/selfloop_impact.py`, esplorativo):
+medie di twins spostate < 0.1 punti, ma una cella WN18RR era sbagliata di 17.6
+punti e ora no; sizing invariato; test 11 +0.13 punti. **Aperto:** asymmetric non
+ricalcolato; H1–H5 di twins non rivalutate sul modello attuale.
+
+Prossimo: `BENCHMARKS.md` nel formato di Laya (ogni numero con il suo file e il
+suo script, i limiti in poche righe), poi la pubblicazione (punto 6).
+
 ## Prossimi passi, in ordine
 
 1. ~~Valutare le preregistrazioni~~ fatto. 2. ~~Paper v1.5~~ fatto: il contratto esatto (`bsm/memory/exact_contract.py`)
@@ -53,14 +71,8 @@ Clarkson; (d) Tier B e C di `docs/audit_2026-09-30.md`; (e) nuovo audit ostile s
 3. **Conformal prediction** per il termine d'audit dei contratti (oggi un IC
    gaussiano su n = 40): garanzia a campione finito, senza ipotesi di
    distribuzione.
-4. **Riproducibilità**: quattro JSON in `results/` non hanno lo script che li ha
-   prodotti, perso prima del commit: `independence_results.json` e
-   `projection_results.json` (sostituiti dalla preregistrazione 3),
-   `conjecture7_results.json` (Law VII, il confronto 6.3% contro 28.5%) e
-   `composition_stress_results.json` (stress test della composizione). Gli
-   ultimi due vanno ricostruiti con una preregistrazione, e il paper deve
-   dichiararli non riproducibili finché non lo sono. La Law VII ha anche una
-   versione esatta possibile: p_agree con pesi interi, per convoluzione.
+4. ~~Riproducibilità dei quattro JSON senza script~~: fatto nel paper v1.9
+   ("Lost scripts", sostituiti dai test 3, 4 e 5).
 5. **Il pessimismo del modello esatto su sottografi densi reali** (fino a 8
    punti a D = 2048, alto carico; stessa direzione sugli hub): capire la causa,
    poi preregistrare.

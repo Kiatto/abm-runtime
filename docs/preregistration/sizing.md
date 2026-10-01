@@ -99,3 +99,14 @@ Il contratto che la reference espone (`predicted_accuracy`, Law IV) va sostituit
 per chi dimensiona una memoria su un grafo con relazioni simmetriche, dal modello
 esatto, e deve dichiarare il tetto. Oggi il modello esatto è in `bsm/`, non nel
 pacchetto pubblicato.
+
+## Nota del 2026-10-01: self-loop (esplorativa, non preregistrata)
+
+Il 2026-09-30 (commit `2a41f74`) `abm.exact` ha iniziato a modellare i self-loop (s, r, s), che in FB15k-237 sono 1625 (l'audit diceva 0) e in WN18RR 7. Questa preregistrazione è stata calcolata prima. I numeri sopra restano quelli pubblicati: `examples/replicate.py` li riproduce sul commit che li ha registrati. L'harness congelato non gira più sul modello attuale (usa la `predict`
+della preregistrazione 4).
+
+`examples/selfloop_impact.py` ripete la scelta della D con il modello attuale sui
+9 sottografi FB15k-237 che contengono self-loop (18 coppie sottografo × obiettivo;
+nessun sottografo WN18RR ne contiene). **Nessuna D cambia**, quindi nessuna
+promessa cambia esito. Controllo: sui sottografi senza self-loop la previsione
+attuale coincide con la pubblicata entro 1e-16.
