@@ -90,7 +90,7 @@ held its prediction; the front end was underestimated by the audit (0.36 against
 | ProofWriter, parsable subset, 150 problems per depth | 92–100% at depths 0, 1, 2, 3 and 5 | `proofwriter_eval.py 150` | `proofwriter_results.json` | `proofwriter` |
 | Self-loops, effect of the 2026-09-30 model fix (exploratory) | see below | `selfloop_impact.py` | `selfloop_impact_results.json` | — |
 | Test 10, stronger asymptotic arms (post hoc) | Law IV × g/(g+a) closes about two thirds of the WN18RR gap; a naive twin term does not help | `sizing_lawiv_posthoc.py` | `sizing_lawiv_posthoc_results.json` | — |
-| Test 11, cluster bootstrap and strict scoring (post hoc) | strict end-to-end 0.345; 95% [0.318, 0.402] over the 28 memories | `human_questions_stats.py` | `human_questions_stats_results.json` | — |
+| Test 11, cluster bootstrap and strict scoring (post hoc) | strict end-to-end 0.345, 95% [0.305, 0.385]; end-to-end 0.361, [0.318, 0.402] (bootstrap over the 28 memories) | `human_questions_stats.py` | `human_questions_stats_results.json` | — |
 | Even cycles (GF(2) dependence) in the real samples (exploratory) | 5–16% rank deficit; no detectable association with per-cell error | `cycles_residuals.py` | `cycles_residuals_results.json` | — |
 | Gaussian FKS integral with the same p_agree (exploratory) | agrees with the exact model within 0.005 points on every configuration of the paper | `fks_gaussian_vs_exact.py` | `fks_gaussian_vs_exact_results.json` | — |
 
