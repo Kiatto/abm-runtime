@@ -3,8 +3,8 @@
 Every number on this page comes from a committed result file, which a committed
 script produced. Twelve of the tests were **preregistered**: their predictions
 and pass criteria were committed before any data was looked at
-(`docs/preregistration/`). Two of the twelve failed. The paper (v1.10) reports the first eleven; test 12 came after it. They are kept below with
-their causes.
+(`docs/preregistration/`). Two of the twelve failed; they are kept below with
+their causes. The paper (v1.10) reports the first eleven; test 12 came after it.
 
 What is measured is not task accuracy against other systems. It is how well the
 model **predicts, in advance, the accuracy of the memory**: predicted minus
