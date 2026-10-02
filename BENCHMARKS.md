@@ -52,6 +52,7 @@ The paper's tally (eight supported, one in part, two failed) goes by primary hyp
 | 9 | `deepchain3.md` | the same with the exact tie rule | supported; p^h rejected at 4.3–8.5 SE | `deepchain3_prereg_results.json` | `deepchain3` |
 | 10 | `sizing.md` | choosing D in advance; the alias ceiling | all supported; Law IV misses on WN18RR | `sizing_prereg_results.json` | `sizing` |
 | 11 | `human_questions.md` | human-written questions through a local LLM front-end | memory level supported; end-to-end **in part** (+7.2 points, inside its interval, beyond the 5 set) | `human_questions_prereg_results.json` | `human_questions` |
+| 12 | `escalation.md` | the contract as the criterion for escalating questions to a larger LLM (Qwen3-4B + exact store) | H1–H3 supported: +4.8 points over random, +1.9 over the small model's confidence; but the large path won almost always (0.87 vs 0.26), so routing itself did not pay | `escalation_prereg_results.json` | — |
 
 Result files are in `results/`, harnesses in `examples/<file stem>_prereg.py`.
 Summary errors with confidence intervals: `results/prereg_summary_results.json`,

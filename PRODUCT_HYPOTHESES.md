@@ -176,7 +176,12 @@ Tutte presuppongono H0. Nessuna ha senso se H0 cade.
 > domande passate al modello grande, che deciderlo a caso o con la confidenza
 > del modello piccolo.
 
-- **Stato:** non verificata. Proposta da kiatto il 2026-10-02.
+- **Stato:** in verifica. Proposta da kiatto il 2026-10-02. Il test tecnico
+  (preregistrazione 12, `escalation.md`) la sostiene in parte: il contratto ordina
+  le domande meglio del caso (+4.8 punti) e della confidenza del modello piccolo
+  (+1.9), ma lì il percorso grande vinceva quasi sempre (0.87 contro 0.26), quindi
+  non mostra che instradare convenga. Trigger di costruzione non scattato: serve
+  ancora un utente esterno.
 - **Evidenza:** nessuna. Contro: nel test 11 gli errori end-to-end vengono
   soprattutto dal front-end (0.36), non dalla memoria (0.807), e il contratto
   prevede la memoria. Se vale anche qui, il contratto ha poco da decidere.

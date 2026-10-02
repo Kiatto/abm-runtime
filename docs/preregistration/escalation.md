@@ -91,3 +91,53 @@ vede in parte la confidenza. H3 sostenuta: i due segnali guardano errori diversi
 - Il contratto prevede l'errore della memoria, non quello del front-end; C usa la
   relazione scelta dal piccolo, che può essere sbagliata.
 - Il costo è contato come quota di domande passate, non in tempo o denaro.
+
+---
+
+## Esito — 2026-10-02, eseguito dopo il commit `b3fb4b1`
+
+Ipotesi e criteri **non modificati**. Risultati:
+[`results/escalation_prereg_results.json`](../../results/escalation_prereg_results.json);
+risposte dei modelli in `results/escalation_small_answers.json` e
+`results/escalation_big_answers.json`. Le scelte di Gemma coincidono con quelle
+del test 11 su 643 domande su 643.
+
+**Deviazione.** Le domande forzate sono 68, non 59: in 9 casi Gemma ha dato una
+risposta senza un indice valido, e l'harness le tratta come forzate (il piccolo non
+ha una relazione con cui interrogare la memoria). Vale per tutti i criteri allo stesso
+modo. Non era previsto nel testo sopra.
+
+Accuratezza dei percorsi da soli: **piccolo 0.263**, **grande 0.871**.
+
+| quota | C | F | CF | R | oracolo |
+|---|---|---|---|---|---|
+| 20% | 0.370 | 0.361 | 0.369 | 0.344 | 0.463 |
+| 30% | 0.457 | 0.442 | 0.454 | 0.410 | 0.563 |
+| 40% | 0.529 | 0.505 | 0.535 | 0.475 | 0.663 |
+| 50% | 0.605 | 0.577 | 0.608 | 0.542 | 0.764 |
+
+L'oracolo (escalare le domande in cui il grande ha ragione e il piccolo no) non è un
+criterio preregistrato: è il limite superiore, riportato per leggere le altre colonne.
+
+| ipotesi | stima (punti di AUC4) | 95%, cluster | esito |
+|---|---|---|---|
+| **H1** — C contro R | +4.8 | [+3.4, +5.9] | **sostenuta** |
+| **H2** — C contro F | +1.9 | [+0.15, +3.5] | **sostenuta**, di poco |
+| **H3** — CF contro F | +2.0 | [+0.9, +3.4] | **sostenuta** |
+| CF contro C (non preregistrata) | +0.1 | [−0.5, +1.1] | — |
+
+**Conseguenza per H6:** non si abbandona.
+
+### Cosa dice, e cosa no
+
+- Il contratto **ordina** le domande meglio del caso e meglio della confidenza del
+  modello piccolo, e la confidenza non gli aggiunge quasi nulla: il segnale utile
+  per instradare sta già nel contratto.
+- In questo impianto, però, il percorso grande vince quasi sempre: ha ragione dove
+  il piccolo sbaglia in 400 domande, il contrario accade in 9. La politica migliore
+  qui è passare tutto al grande, e un router non serve. Al 50% il contratto recupera
+  il 28% del guadagno dell'oracolo sul caso ((0.605 − 0.542) / (0.764 − 0.542)).
+- Il test mostra quindi che il contratto sa **ordinare**, non che instradare
+  **convenga**. Per quello serve un percorso grande davvero costoso e un piccolo
+  che regga da solo su una parte delle domande: è il limite dichiarato prima
+  ("lo store esatto favorisce l'escalation in sé"), e si è avverato.

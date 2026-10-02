@@ -1,0 +1,5859 @@
+{
+ "preregistration": "docs/preregistration/escalation.md",
+ "dim": 8192,
+ "n": 643,
+ "forced": 68,
+ "small_accuracy": 0.26283048211508553,
+ "big_accuracy": 0.8709175738724728,
+ "curves": {
+  "C": {
+   "0.2": 0.3701399688958009,
+   "0.3": 0.4572317262830482,
+   "0.4": 0.5287713841368584,
+   "0.5": 0.6049766718506998
+  },
+  "F": {
+   "0.2": 0.3608087091757387,
+   "0.3": 0.4416796267496112,
+   "0.4": 0.505443234836703,
+   "0.5": 0.5769828926905132
+  },
+  "CF": {
+   "0.2": 0.36858475894245724,
+   "0.3": 0.45412130637636083,
+   "0.4": 0.5349922239502333,
+   "0.5": 0.6080870917573873
+  },
+  "R": {
+   "0.2": 0.3440232605314775,
+   "0.3": 0.40962877814591614,
+   "0.4": 0.475234295760361,
+   "0.5": 0.5418648995875265
+  }
+ },
+ "auc": {
+  "C": 0.49027993779160184,
+  "F": 0.47122861586314146,
+  "CF": 0.4914463452566097,
+  "R": 0.4426878085063203
+ },
+ "diff": {
+  "C-R": {
+   "point": 0.04759212928528156,
+   "ci95": [
+    0.033719819205469334,
+    0.05925079229134886
+   ]
+  },
+  "C-F": {
+   "point": 0.019051321928460374,
+   "ci95": [
+    0.001493281720484231,
+    0.03470175433761765
+   ]
+  },
+  "CF-F": {
+   "point": 0.02021772939346822,
+   "ci95": [
+    0.008797361172270986,
+    0.033554697406532316
+   ]
+  },
+  "CF-C": {
+   "point": 0.001166407465007846,
+   "ci95": [
+    -0.005486108718867393,
+    0.011293177335274487
+   ]
+  }
+ },
+ "per_question": [
+  {
+   "i": 104,
+   "memory": 13,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9407068883104716,
+   "F": 0.5025746714318953
+  },
+  {
+   "i": 18,
+   "memory": 10,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24860758738782315,
+   "F": 0.7305182149633752
+  },
+  {
+   "i": 463,
+   "memory": 25,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.361969426353437,
+   "F": 0.2550087697849622
+  },
+  {
+   "i": 480,
+   "memory": 19,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4234855446288617,
+   "F": 0.4213555533750807
+  },
+  {
+   "i": 418,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.043581451994609895,
+   "F": 0.22995486320519376
+  },
+  {
+   "i": 344,
+   "memory": 10,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24860758738782315,
+   "F": 0.6118680867354138
+  },
+  {
+   "i": 539,
+   "memory": 2,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.27756463280034005,
+   "F": 0.5262251445369228
+  },
+  {
+   "i": 329,
+   "memory": 13,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.45024590558481814,
+   "F": 0.39973264400224073
+  },
+  {
+   "i": 361,
+   "memory": 17,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9976202281897143,
+   "F": 0.8008797142792232
+  },
+  {
+   "i": 554,
+   "memory": 5,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3478244097203405,
+   "F": 0.5382108244413207
+  },
+  {
+   "i": 150,
+   "memory": 12,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6338196505909627,
+   "F": 0.29267575850777927
+  },
+  {
+   "i": 146,
+   "memory": 2,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.27756463280034005,
+   "F": 0.4997518668972425
+  },
+  {
+   "i": 218,
+   "memory": 20,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 266,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.9132916144364541,
+   "F": 0.39200263352476583
+  },
+  {
+   "i": 590,
+   "memory": 25,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.14446495559534697,
+   "F": 0.3223428835170904
+  },
+  {
+   "i": 432,
+   "memory": 12,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3017581195045768,
+   "F": 0.4913756490670656
+  },
+  {
+   "i": 2,
+   "memory": 0,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.7524632661414528,
+   "F": 0.6273672524139086
+  },
+  {
+   "i": 736,
+   "memory": 4,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6867956806870127,
+   "F": 0.5583164203288675
+  },
+  {
+   "i": 559,
+   "memory": 5,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5605192684409459,
+   "F": 0.6313095096321478
+  },
+  {
+   "i": 621,
+   "memory": 23,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.41531873801896063,
+   "F": 0.5708411360616324
+  },
+  {
+   "i": 365,
+   "memory": 3,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.42361931367123196,
+   "F": 0.21503473318043653
+  },
+  {
+   "i": 252,
+   "memory": 22,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 142,
+   "memory": 0,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5214777780950296,
+   "F": 0.6526187696894911
+  },
+  {
+   "i": 391,
+   "memory": 3,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9997938992849621,
+   "F": 1.0
+  },
+  {
+   "i": 83,
+   "memory": 1,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.2171560368393191,
+   "F": 0.5591640611937417
+  },
+  {
+   "i": 426,
+   "memory": 13,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9151226185120879,
+   "F": 0.5142849810550659
+  },
+  {
+   "i": 281,
+   "memory": 10,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24860758738782315,
+   "F": 0.38828035473669026
+  },
+  {
+   "i": 428,
+   "memory": 12,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6338196505909627,
+   "F": 0.5197799735623069
+  },
+  {
+   "i": 316,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4173565517289977,
+   "F": 0.3987415963929843
+  },
+  {
+   "i": 347,
+   "memory": 4,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3418544049552866,
+   "F": 0.19384853595767976
+  },
+  {
+   "i": 13,
+   "memory": 11,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.4374589919495685,
+   "F": 0.33897276693741124
+  },
+  {
+   "i": 157,
+   "memory": 0,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5214777780950296,
+   "F": 0.4688733329467657
+  },
+  {
+   "i": 12,
+   "memory": 17,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9992242953761674,
+   "F": 0.2687233233083275
+  },
+  {
+   "i": 210,
+   "memory": 7,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3877980344486601,
+   "F": 0.4912083829385076
+  },
+  {
+   "i": 528,
+   "memory": 18,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9926655829077503,
+   "F": 0.6893706926696228
+  },
+  {
+   "i": 576,
+   "memory": 17,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 634,
+   "memory": 9,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6267270047170783,
+   "F": 0.5058610950417258
+  },
+  {
+   "i": 255,
+   "memory": 2,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4670568382999157,
+   "F": 0.49178084353933266
+  },
+  {
+   "i": 619,
+   "memory": 10,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 96,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.11156297586818306,
+   "F": 0.17936186284873556
+  },
+  {
+   "i": 278,
+   "memory": 26,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 431,
+   "memory": 19,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4234855446288617,
+   "F": 0.3484153721413215
+  },
+  {
+   "i": 689,
+   "memory": 25,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.14446495559534697,
+   "F": 0.2686260847208902
+  },
+  {
+   "i": 341,
+   "memory": 5,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9074450712969842,
+   "F": 0.6913132690428991
+  },
+  {
+   "i": 502,
+   "memory": 22,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.2637987392924295,
+   "F": 0.7317880958804596
+  },
+  {
+   "i": 330,
+   "memory": 13,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 230,
+   "memory": 24,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3550286276526652,
+   "F": 0.27245693073237137
+  },
+  {
+   "i": 304,
+   "memory": 25,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.14446495559534697,
+   "F": 0.5066172001191062
+  },
+  {
+   "i": 45,
+   "memory": 5,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3478244097203405,
+   "F": 0.6311506600706843
+  },
+  {
+   "i": 352,
+   "memory": 8,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.2734812425498457,
+   "F": 0.4169857011068191
+  },
+  {
+   "i": 513,
+   "memory": 16,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.05809839455680429,
+   "F": 0.6918892936912389
+  },
+  {
+   "i": 177,
+   "memory": 20,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6805756163851027,
+   "F": 0.21142128878077848
+  },
+  {
+   "i": 336,
+   "memory": 14,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8675293080606875,
+   "F": 0.6705827123691951
+  },
+  {
+   "i": 695,
+   "memory": 0,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9951529380856999,
+   "F": 1.0
+  },
+  {
+   "i": 648,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.043581451994609895,
+   "F": 0.6903806357473357
+  },
+  {
+   "i": 95,
+   "memory": 5,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3478244097203405,
+   "F": 0.4906054153663536
+  },
+  {
+   "i": 311,
+   "memory": 19,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4234855446288617,
+   "F": 0.429322113149623
+  },
+  {
+   "i": 200,
+   "memory": 21,
+   "small_ok": true,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.7500590116503043,
+   "F": 0.5053670902231007
+  },
+  {
+   "i": 6,
+   "memory": 8,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.993328938368705,
+   "F": 0.6559786836033531
+  },
+  {
+   "i": 273,
+   "memory": 9,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4023313244856018,
+   "F": 0.7927107806209774
+  },
+  {
+   "i": 723,
+   "memory": 26,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4138039339476378,
+   "F": 0.585157319562594
+  },
+  {
+   "i": 41,
+   "memory": 26,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 475,
+   "memory": 24,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9449722201295097,
+   "F": 0.752890282703456
+  },
+  {
+   "i": 208,
+   "memory": 6,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.53480913256345,
+   "F": 0.4851994116977309
+  },
+  {
+   "i": 268,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.12321891010973443,
+   "F": 0.6378152312198518
+  },
+  {
+   "i": 92,
+   "memory": 17,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.8712386338212051,
+   "F": 0.6125929959386317
+  },
+  {
+   "i": 116,
+   "memory": 15,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.916766895541029,
+   "F": 0.20564899863561065
+  },
+  {
+   "i": 735,
+   "memory": 15,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 44,
+   "memory": 25,
+   "small_ok": true,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.9854543130450855,
+   "F": 0.685481838862859
+  },
+  {
+   "i": 276,
+   "memory": 3,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6509655959909244,
+   "F": 0.3465276596095786
+  },
+  {
+   "i": 543,
+   "memory": 4,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9984620892736047,
+   "F": 0.8335288167657048
+  },
+  {
+   "i": 639,
+   "memory": 5,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.694620140425453,
+   "F": 0.2613912602540092
+  },
+  {
+   "i": 464,
+   "memory": 21,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5190933731940215,
+   "F": 0.6606631314451213
+  },
+  {
+   "i": 688,
+   "memory": 18,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.970010761917618,
+   "F": 1.0
+  },
+  {
+   "i": 388,
+   "memory": 8,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9996484150639207,
+   "F": 1.0
+  },
+  {
+   "i": 570,
+   "memory": 18,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6248545983725412,
+   "F": 0.6074346276613097
+  },
+  {
+   "i": 5,
+   "memory": 4,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 291,
+   "memory": 15,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4531219292002292,
+   "F": 0.516582909922671
+  },
+  {
+   "i": 741,
+   "memory": 18,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6735086398314255,
+   "F": 0.32918841822633393
+  },
+  {
+   "i": 538,
+   "memory": 15,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9419863594249188,
+   "F": 0.2935900018873514
+  },
+  {
+   "i": 662,
+   "memory": 15,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4531219292002292,
+   "F": 0.5914328645764567
+  },
+  {
+   "i": 369,
+   "memory": 26,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24048561868859777,
+   "F": 0.6564073527713228
+  },
+  {
+   "i": 726,
+   "memory": 26,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9529789626673335,
+   "F": 0.815926079568317
+  },
+  {
+   "i": 441,
+   "memory": 22,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.14468943957317912,
+   "F": 0.5444983172234678
+  },
+  {
+   "i": 667,
+   "memory": 12,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6338196505909627,
+   "F": 0.23800918254310652
+  },
+  {
+   "i": 454,
+   "memory": 7,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 612,
+   "memory": 13,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.45024590558481814,
+   "F": 0.5913351889469344
+  },
+  {
+   "i": 637,
+   "memory": 0,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8623384065896399,
+   "F": 0.4074512428239188
+  },
+  {
+   "i": 671,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.0296587584451487,
+   "F": 0.2926389871065488
+  },
+  {
+   "i": 286,
+   "memory": 25,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4441392208952336,
+   "F": 0.3310761859126665
+  },
+  {
+   "i": 256,
+   "memory": 18,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.49496745506307094,
+   "F": 0.4071134919567451
+  },
+  {
+   "i": 342,
+   "memory": 18,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 327,
+   "memory": 4,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9986521080514172,
+   "F": 0.679391261325094
+  },
+  {
+   "i": 551,
+   "memory": 25,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.14446495559534697,
+   "F": 1.0
+  },
+  {
+   "i": 698,
+   "memory": 1,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9538818731850526,
+   "F": 0.3648130818623959
+  },
+  {
+   "i": 306,
+   "memory": 18,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.16708325880055463,
+   "F": 0.7294419902448446
+  },
+  {
+   "i": 47,
+   "memory": 12,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.7258041375732041,
+   "F": 0.79812842811549
+  },
+  {
+   "i": 550,
+   "memory": 4,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.950093941219663,
+   "F": 0.5099112448677923
+  },
+  {
+   "i": 16,
+   "memory": 5,
+   "small_ok": true,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.7816692882026766,
+   "F": 0.28450542708872295
+  },
+  {
+   "i": 39,
+   "memory": 4,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3418544049552866,
+   "F": 0.24305745083975527
+  },
+  {
+   "i": 501,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.43040411068774637,
+   "F": 0.5446131213466296
+  },
+  {
+   "i": 358,
+   "memory": 8,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.15050752137834245,
+   "F": 0.3301006116728055
+  },
+  {
+   "i": 665,
+   "memory": 9,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9915093154182004,
+   "F": 0.6281578480151314
+  },
+  {
+   "i": 172,
+   "memory": 5,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3478244097203405,
+   "F": 0.6466471597626813
+  },
+  {
+   "i": 248,
+   "memory": 5,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9838124927878235,
+   "F": 0.29502244515787085
+  },
+  {
+   "i": 57,
+   "memory": 19,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4234855446288617,
+   "F": 0.4050978803638039
+  },
+  {
+   "i": 372,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.05809839455680429,
+   "F": 0.6486545140554719
+  },
+  {
+   "i": 673,
+   "memory": 22,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.44472646967598445,
+   "F": 0.6299455236711096
+  },
+  {
+   "i": 557,
+   "memory": 17,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.30227558464307247,
+   "F": 0.7356495183838673
+  },
+  {
+   "i": 63,
+   "memory": 12,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3017581195045768,
+   "F": 0.3594746633395851
+  },
+  {
+   "i": 552,
+   "memory": 15,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6832374500872233,
+   "F": 0.5230411845250453
+  },
+  {
+   "i": 30,
+   "memory": 23,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9935202946339452,
+   "F": 0.7040235469849204
+  },
+  {
+   "i": 190,
+   "memory": 26,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9990898196343199,
+   "F": 0.727252723491321
+  },
+  {
+   "i": 48,
+   "memory": 15,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 527,
+   "memory": 19,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4234855446288617,
+   "F": 0.385749792495235
+  },
+  {
+   "i": 460,
+   "memory": 22,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.14468943957317912,
+   "F": 0.606447696444978
+  },
+  {
+   "i": 333,
+   "memory": 22,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6632212798160974,
+   "F": 0.1807687662193382
+  },
+  {
+   "i": 401,
+   "memory": 22,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.14468943957317912,
+   "F": 0.7393819681275751
+  },
+  {
+   "i": 633,
+   "memory": 3,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.7786765308080561,
+   "F": 0.3822103436938327
+  },
+  {
+   "i": 657,
+   "memory": 7,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.2230017940226518,
+   "F": 0.22499860612940148
+  },
+  {
+   "i": 235,
+   "memory": 11,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6663615146408488,
+   "F": 0.17064067118424567
+  },
+  {
+   "i": 413,
+   "memory": 21,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5190933731940215,
+   "F": 0.5824653960152049
+  },
+  {
+   "i": 75,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 537,
+   "memory": 22,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.699246631789383,
+   "F": 0.4568177565198255
+  },
+  {
+   "i": 184,
+   "memory": 11,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4374589919495685,
+   "F": 0.24581077769439402
+  },
+  {
+   "i": 234,
+   "memory": 2,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.27756463280034005,
+   "F": 0.8205677919562614
+  },
+  {
+   "i": 500,
+   "memory": 7,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3877980344486601,
+   "F": 0.2599811492577146
+  },
+  {
+   "i": 321,
+   "memory": 0,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.7524632661414528,
+   "F": 0.3194685411584509
+  },
+  {
+   "i": 560,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.12321891010973443,
+   "F": 0.8726402573979465
+  },
+  {
+   "i": 38,
+   "memory": 1,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3281130979638824,
+   "F": 0.5095427708085768
+  },
+  {
+   "i": 597,
+   "memory": 17,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.30227558464307247,
+   "F": 0.3301110792205657
+  },
+  {
+   "i": 504,
+   "memory": 1,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 363,
+   "memory": 15,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.806458397285623,
+   "F": 1.0
+  },
+  {
+   "i": 275,
+   "memory": 2,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9995737385320673,
+   "F": 0.5993920128647418
+  },
+  {
+   "i": 536,
+   "memory": 8,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.15050752137834245,
+   "F": 0.17757665496737912
+  },
+  {
+   "i": 42,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 491,
+   "memory": 6,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.7648891642039223,
+   "F": 0.7087585873607569
+  },
+  {
+   "i": 674,
+   "memory": 15,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4531219292002292,
+   "F": 0.6650106329536412
+  },
+  {
+   "i": 393,
+   "memory": 23,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8941157924235726,
+   "F": 0.35192039960013227
+  },
+  {
+   "i": 468,
+   "memory": 6,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.53480913256345,
+   "F": 0.24371685182796363
+  },
+  {
+   "i": 274,
+   "memory": 0,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5214777780950296,
+   "F": 0.6494247864868303
+  },
+  {
+   "i": 649,
+   "memory": 15,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6832374500872233,
+   "F": 0.41601160822022626
+  },
+  {
+   "i": 558,
+   "memory": 21,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9474340341742452,
+   "F": 0.5624794324497177
+  },
+  {
+   "i": 175,
+   "memory": 2,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.27756463280034005,
+   "F": 0.656601480234815
+  },
+  {
+   "i": 424,
+   "memory": 17,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9893008486661309,
+   "F": 0.7266079099379873
+  },
+  {
+   "i": 606,
+   "memory": 21,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.7500590116503043,
+   "F": 0.4107806347388754
+  },
+  {
+   "i": 478,
+   "memory": 24,
+   "small_ok": true,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.3550286276526652,
+   "F": 0.3860756184933386
+  },
+  {
+   "i": 72,
+   "memory": 25,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6204816208882866,
+   "F": 0.22104026901685975
+  },
+  {
+   "i": 355,
+   "memory": 1,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.989331459690022,
+   "F": 0.7553023734755475
+  },
+  {
+   "i": 523,
+   "memory": 0,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8623384065896399,
+   "F": 0.24318639349703203
+  },
+  {
+   "i": 359,
+   "memory": 17,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.7264223528971226,
+   "F": 0.2706310112165919
+  },
+  {
+   "i": 575,
+   "memory": 8,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9986957770983229,
+   "F": 0.23068217487589315
+  },
+  {
+   "i": 246,
+   "memory": 18,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3004750212970118,
+   "F": 0.4859529320134572
+  },
+  {
+   "i": 320,
+   "memory": 15,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4531219292002292,
+   "F": 0.35610319429717535
+  },
+  {
+   "i": 724,
+   "memory": 15,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4531219292002292,
+   "F": 0.2272054301787565
+  },
+  {
+   "i": 144,
+   "memory": 9,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 530,
+   "memory": 6,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.7648891642039223,
+   "F": 0.5137008375507535
+  },
+  {
+   "i": 77,
+   "memory": 11,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9528670245423753,
+   "F": 0.19174520532048026
+  },
+  {
+   "i": 565,
+   "memory": 5,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9990120963420089,
+   "F": 1.0
+  },
+  {
+   "i": 301,
+   "memory": 17,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6344982051819419,
+   "F": 0.4119485834991297
+  },
+  {
+   "i": 87,
+   "memory": 20,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.915345143724418,
+   "F": 0.8440261495220792
+  },
+  {
+   "i": 701,
+   "memory": 18,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9773986451468984,
+   "F": 0.44935785756840263
+  },
+  {
+   "i": 307,
+   "memory": 17,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.791031890017223,
+   "F": 0.517006271251261
+  },
+  {
+   "i": 679,
+   "memory": 19,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6506565737647907,
+   "F": 0.6998193856697323
+  },
+  {
+   "i": 581,
+   "memory": 26,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24048561868859777,
+   "F": 0.18956842595330725
+  },
+  {
+   "i": 630,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 101,
+   "memory": 0,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 283,
+   "memory": 19,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 410,
+   "memory": 21,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5190933731940215,
+   "F": 0.7689289509063056
+  },
+  {
+   "i": 228,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.05809839455680429,
+   "F": 0.7679799721402389
+  },
+  {
+   "i": 419,
+   "memory": 15,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4531219292002292,
+   "F": 0.5651824336564262
+  },
+  {
+   "i": 563,
+   "memory": 5,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5605192684409459,
+   "F": 0.24306411511350381
+  },
+  {
+   "i": 587,
+   "memory": 15,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9688892213330528,
+   "F": 1.0
+  },
+  {
+   "i": 192,
+   "memory": 0,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9182507461857,
+   "F": 0.4943610434742535
+  },
+  {
+   "i": 511,
+   "memory": 8,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4583854513962383,
+   "F": 0.6098499349821286
+  },
+  {
+   "i": 221,
+   "memory": 3,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.42361931367123196,
+   "F": 0.16290076658203917
+  },
+  {
+   "i": 178,
+   "memory": 17,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.30227558464307247,
+   "F": 0.6523562146267129
+  },
+  {
+   "i": 717,
+   "memory": 3,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.42361931367123196,
+   "F": 0.5491911119904289
+  },
+  {
+   "i": 663,
+   "memory": 10,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 395,
+   "memory": 2,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.27756463280034005,
+   "F": 0.6247537661725512
+  },
+  {
+   "i": 209,
+   "memory": 25,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.14446495559534697,
+   "F": 0.35987422973040323
+  },
+  {
+   "i": 339,
+   "memory": 15,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4531219292002292,
+   "F": 0.3303247920451459
+  },
+  {
+   "i": 647,
+   "memory": 10,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24860758738782315,
+   "F": 0.8555381268169933
+  },
+  {
+   "i": 579,
+   "memory": 18,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4078487842415233,
+   "F": 0.41085575985056183
+  },
+  {
+   "i": 334,
+   "memory": 22,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8343189629895954,
+   "F": 0.3577591331745814
+  },
+  {
+   "i": 721,
+   "memory": 24,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.569364842691988,
+   "F": 0.23159500575390787
+  },
+  {
+   "i": 183,
+   "memory": 26,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24048561868859777,
+   "F": 0.3619988964234469
+  },
+  {
+   "i": 446,
+   "memory": 8,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.15050752137834245,
+   "F": 0.4681387065739179
+  },
+  {
+   "i": 237,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6866258306283838,
+   "F": 0.2716935022536531
+  },
+  {
+   "i": 1,
+   "memory": 13,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6801275295074128,
+   "F": 0.42587711536057254
+  },
+  {
+   "i": 567,
+   "memory": 8,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.2734812425498457,
+   "F": 0.4666463416396975
+  },
+  {
+   "i": 195,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 585,
+   "memory": 21,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5190933731940215,
+   "F": 0.49542287751559444
+  },
+  {
+   "i": 216,
+   "memory": 3,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 312,
+   "memory": 13,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.45024590558481814,
+   "F": 0.448099337585714
+  },
+  {
+   "i": 238,
+   "memory": 20,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4506694614229929,
+   "F": 0.2233527999555726
+  },
+  {
+   "i": 133,
+   "memory": 12,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9998745979690671,
+   "F": 0.7248009400665049
+  },
+  {
+   "i": 55,
+   "memory": 4,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.8334236052874783,
+   "F": 0.25650034559358514
+  },
+  {
+   "i": 74,
+   "memory": 3,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9604268568172594,
+   "F": 0.4341159438692295
+  },
+  {
+   "i": 545,
+   "memory": 24,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.569364842691988,
+   "F": 0.6518732859128882
+  },
+  {
+   "i": 632,
+   "memory": 25,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.361969426353437,
+   "F": 0.5999612282497823
+  },
+  {
+   "i": 384,
+   "memory": 26,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 540,
+   "memory": 4,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3418544049552866,
+   "F": 0.4648695072684609
+  },
+  {
+   "i": 114,
+   "memory": 7,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8116571945293902,
+   "F": 0.46213798080140533
+  },
+  {
+   "i": 382,
+   "memory": 7,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9993215551044193,
+   "F": 0.793566701758329
+  },
+  {
+   "i": 625,
+   "memory": 9,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6267270047170783,
+   "F": 0.5028901149315433
+  },
+  {
+   "i": 471,
+   "memory": 13,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.45024590558481814,
+   "F": 0.47506808575058573
+  },
+  {
+   "i": 467,
+   "memory": 24,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9997517906030619,
+   "F": 1.0
+  },
+  {
+   "i": 584,
+   "memory": 9,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4023313244856018,
+   "F": 0.40754159671072127
+  },
+  {
+   "i": 481,
+   "memory": 1,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.15240943334815388,
+   "F": 0.3126289659177448
+  },
+  {
+   "i": 618,
+   "memory": 4,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3418544049552866,
+   "F": 0.7667035405321699
+  },
+  {
+   "i": 737,
+   "memory": 7,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6048860902075845,
+   "F": 0.6690777005221988
+  },
+  {
+   "i": 399,
+   "memory": 10,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9999346133021971,
+   "F": 0.6867096343356306
+  },
+  {
+   "i": 615,
+   "memory": 19,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.7782684180333589,
+   "F": 0.5035622642324655
+  },
+  {
+   "i": 677,
+   "memory": 5,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3478244097203405,
+   "F": 0.9179389472829612
+  },
+  {
+   "i": 285,
+   "memory": 6,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.53480913256345,
+   "F": 0.4493228524850966
+  },
+  {
+   "i": 710,
+   "memory": 17,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.30227558464307247,
+   "F": 0.537337421721538
+  },
+  {
+   "i": 343,
+   "memory": 11,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9999554532885716,
+   "F": 0.6421651232962339
+  },
+  {
+   "i": 287,
+   "memory": 12,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 161,
+   "memory": 17,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.94157227001005,
+   "F": 0.3968843490334126
+  },
+  {
+   "i": 484,
+   "memory": 25,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.14446495559534697,
+   "F": 0.686084389860501
+  },
+  {
+   "i": 730,
+   "memory": 17,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9951486263762847,
+   "F": 0.17868408843227093
+  },
+  {
+   "i": 189,
+   "memory": 18,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.16708325880055463,
+   "F": 0.42020576448726643
+  },
+  {
+   "i": 492,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.043581451994609895,
+   "F": 0.6346510642945821
+  },
+  {
+   "i": 314,
+   "memory": 11,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4374589919495685,
+   "F": 0.38095802698224845
+  },
+  {
+   "i": 556,
+   "memory": 21,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.860399727710212,
+   "F": 0.29013304906083165
+  },
+  {
+   "i": 420,
+   "memory": 15,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9419863594249188,
+   "F": 1.0
+  },
+  {
+   "i": 646,
+   "memory": 26,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24048561868859777,
+   "F": 0.6321393219605763
+  },
+  {
+   "i": 213,
+   "memory": 17,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.791031890017223,
+   "F": 0.43462422560861647
+  },
+  {
+   "i": 422,
+   "memory": 12,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.7904928477455994,
+   "F": 0.40646114234031716
+  },
+  {
+   "i": 381,
+   "memory": 6,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.53480913256345,
+   "F": 0.3294399790672163
+  },
+  {
+   "i": 465,
+   "memory": 2,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6926625172140383,
+   "F": 0.30753355204154137
+  },
+  {
+   "i": 297,
+   "memory": 2,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.27756463280034005,
+   "F": 0.4004333822137982
+  },
+  {
+   "i": 469,
+   "memory": 5,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3478244097203405,
+   "F": 0.31829304938843594
+  },
+  {
+   "i": 452,
+   "memory": 23,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.41531873801896063,
+   "F": 0.667931431654163
+  },
+  {
+   "i": 194,
+   "memory": 18,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4078487842415233,
+   "F": 0.5844572121948199
+  },
+  {
+   "i": 26,
+   "memory": 6,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.53480913256345,
+   "F": 0.40146074598547604
+  },
+  {
+   "i": 627,
+   "memory": 10,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9999346133021971,
+   "F": 0.7119720575938702
+  },
+  {
+   "i": 143,
+   "memory": 15,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9917737320096693,
+   "F": 0.7010177883632831
+  },
+  {
+   "i": 476,
+   "memory": 8,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.15050752137834245,
+   "F": 0.2726181086770134
+  },
+  {
+   "i": 85,
+   "memory": 7,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6768316503704304,
+   "F": 0.5737630153600218
+  },
+  {
+   "i": 166,
+   "memory": 4,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3418544049552866,
+   "F": 0.2836899759720392
+  },
+  {
+   "i": 716,
+   "memory": 12,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6338196505909627,
+   "F": 0.5823906537256721
+  },
+  {
+   "i": 706,
+   "memory": 25,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.14446495559534697,
+   "F": 0.37338166500088626
+  },
+  {
+   "i": 220,
+   "memory": 13,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.45024590558481814,
+   "F": 0.33024647891787917
+  },
+  {
+   "i": 635,
+   "memory": 6,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.53480913256345,
+   "F": 0.30951700417301753
+  },
+  {
+   "i": 224,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.08459327882662286,
+   "F": 0.6130192919473102
+  },
+  {
+   "i": 714,
+   "memory": 18,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8564206126202827,
+   "F": 0.5707391048565327
+  },
+  {
+   "i": 332,
+   "memory": 11,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4374589919495685,
+   "F": 0.18099476575855883
+  },
+  {
+   "i": 375,
+   "memory": 12,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3017581195045768,
+   "F": 0.47938971403942066
+  },
+  {
+   "i": 447,
+   "memory": 20,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4506694614229929,
+   "F": 0.2796440784636186
+  },
+  {
+   "i": 362,
+   "memory": 25,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4441392208952336,
+   "F": 0.34059744108551604
+  },
+  {
+   "i": 80,
+   "memory": 10,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24860758738782315,
+   "F": 0.30463252697913995
+  },
+  {
+   "i": 326,
+   "memory": 18,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4078487842415233,
+   "F": 0.3913357750830421
+  },
+  {
+   "i": 239,
+   "memory": 23,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.41531873801896063,
+   "F": 0.33542731055022773
+  },
+  {
+   "i": 613,
+   "memory": 12,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8369089336318137,
+   "F": 0.48026467143639934
+  },
+  {
+   "i": 705,
+   "memory": 22,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5136949701665102,
+   "F": 0.5495089234272709
+  },
+  {
+   "i": 704,
+   "memory": 11,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4374589919495685,
+   "F": 0.5116459256550236
+  },
+  {
+   "i": 288,
+   "memory": 18,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.49496745506307094,
+   "F": 0.5028784849264004
+  },
+  {
+   "i": 583,
+   "memory": 26,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24048561868859777,
+   "F": 0.48140232602869143
+  },
+  {
+   "i": 582,
+   "memory": 23,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.846961804908384,
+   "F": 0.3725307928164953
+  },
+  {
+   "i": 455,
+   "memory": 9,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9998721452041175,
+   "F": 0.6986724823159327
+  },
+  {
+   "i": 229,
+   "memory": 3,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6509655959909244,
+   "F": 0.23672154081995558
+  },
+  {
+   "i": 78,
+   "memory": 25,
+   "small_ok": true,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.6625186455663822,
+   "F": 0.3495389395894554
+  },
+  {
+   "i": 233,
+   "memory": 22,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.14468943957317912,
+   "F": 0.3404311743370073
+  },
+  {
+   "i": 661,
+   "memory": 27,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 1.0,
+   "F": 0.4359481760434189
+  },
+  {
+   "i": 694,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.043581451994609895,
+   "F": 0.5920574744183797
+  },
+  {
+   "i": 253,
+   "memory": 26,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24048561868859777,
+   "F": 0.6847171198166541
+  },
+  {
+   "i": 593,
+   "memory": 24,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 23,
+   "memory": 3,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6509655959909244,
+   "F": 0.25023769608903507
+  },
+  {
+   "i": 81,
+   "memory": 22,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.699246631789383,
+   "F": 0.3660756193645622
+  },
+  {
+   "i": 638,
+   "memory": 7,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3877980344486601,
+   "F": 0.536891171536165
+  },
+  {
+   "i": 245,
+   "memory": 7,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3877980344486601,
+   "F": 0.4208893301688853
+  },
+  {
+   "i": 421,
+   "memory": 12,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9998745979690671,
+   "F": 0.6139317229200696
+  },
+  {
+   "i": 474,
+   "memory": 10,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24860758738782315,
+   "F": 0.2801359857838146
+  },
+  {
+   "i": 124,
+   "memory": 23,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9988331893429586,
+   "F": 0.7623332720623132
+  },
+  {
+   "i": 700,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 118,
+   "memory": 8,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5281610914795183,
+   "F": 0.2579504875218606
+  },
+  {
+   "i": 461,
+   "memory": 22,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.14468943957317912,
+   "F": 0.4349247310470623
+  },
+  {
+   "i": 35,
+   "memory": 1,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.08036068212177573,
+   "F": 0.6847655861626996
+  },
+  {
+   "i": 740,
+   "memory": 11,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4374589919495685,
+   "F": 0.5161002136001767
+  },
+  {
+   "i": 300,
+   "memory": 0,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.7524632661414528,
+   "F": 0.7040408779475625
+  },
+  {
+   "i": 522,
+   "memory": 8,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9996484150639207,
+   "F": 1.0
+  },
+  {
+   "i": 99,
+   "memory": 4,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 215,
+   "memory": 22,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.44472646967598445,
+   "F": 0.6483470242119956
+  },
+  {
+   "i": 596,
+   "memory": 23,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6416673842686345,
+   "F": 0.5550817299038848
+  },
+  {
+   "i": 212,
+   "memory": 13,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9571475361124697,
+   "F": 0.4630254410906126
+  },
+  {
+   "i": 411,
+   "memory": 19,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 34,
+   "memory": 26,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9990898196343199,
+   "F": 0.7545696536004839
+  },
+  {
+   "i": 214,
+   "memory": 2,
+   "small_ok": true,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.9995737385320673,
+   "F": 0.36547637114859255
+  },
+  {
+   "i": 296,
+   "memory": 9,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 516,
+   "memory": 22,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.2637987392924295,
+   "F": 0.5483435544271555
+  },
+  {
+   "i": 113,
+   "memory": 15,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4531219292002292,
+   "F": 0.33499090701820294
+  },
+  {
+   "i": 433,
+   "memory": 20,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6805756163851027,
+   "F": 0.659472294769874
+  },
+  {
+   "i": 544,
+   "memory": 22,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.14468943957317912,
+   "F": 0.3022086066188614
+  },
+  {
+   "i": 602,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.043581451994609895,
+   "F": 0.20582237012547186
+  },
+  {
+   "i": 62,
+   "memory": 24,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9978145179354027,
+   "F": 0.6947172836344458
+  },
+  {
+   "i": 130,
+   "memory": 25,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9876521345542987,
+   "F": 0.47623104004230576
+  },
+  {
+   "i": 656,
+   "memory": 11,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 165,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.043581451994609895,
+   "F": 0.5794037024136562
+  },
+  {
+   "i": 443,
+   "memory": 0,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5214777780950296,
+   "F": 0.2548127689250655
+  },
+  {
+   "i": 302,
+   "memory": 19,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4234855446288617,
+   "F": 0.5225819501936294
+  },
+  {
+   "i": 33,
+   "memory": 12,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 715,
+   "memory": 22,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8007791022293963,
+   "F": 0.7732099356939334
+  },
+  {
+   "i": 722,
+   "memory": 2,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.27756463280034005,
+   "F": 0.7897741176926599
+  },
+  {
+   "i": 181,
+   "memory": 23,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.41531873801896063,
+   "F": 0.18106876586874773
+  },
+  {
+   "i": 561,
+   "memory": 8,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.77023632083143,
+   "F": 0.3622232353303514
+  },
+  {
+   "i": 28,
+   "memory": 7,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6048860902075845,
+   "F": 0.6884279185175924
+  },
+  {
+   "i": 331,
+   "memory": 0,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 15,
+   "memory": 6,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.53480913256345,
+   "F": 0.32314822648363734
+  },
+  {
+   "i": 651,
+   "memory": 3,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.999516765430633,
+   "F": 0.6839492383689041
+  },
+  {
+   "i": 466,
+   "memory": 10,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4256561874831788,
+   "F": 0.32727934274164916
+  },
+  {
+   "i": 697,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 658,
+   "memory": 21,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5190933731940215,
+   "F": 0.6253766437563193
+  },
+  {
+   "i": 308,
+   "memory": 3,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.7786765308080561,
+   "F": 0.4028039170242421
+  },
+  {
+   "i": 631,
+   "memory": 1,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.08036068212177573,
+   "F": 0.25790166099370504
+  },
+  {
+   "i": 483,
+   "memory": 1,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.08036068212177573,
+   "F": 0.5468753072358334
+  },
+  {
+   "i": 734,
+   "memory": 13,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.45024590558481814,
+   "F": 0.3795708076970027
+  },
+  {
+   "i": 120,
+   "memory": 3,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.42361931367123196,
+   "F": 0.5538433684532252
+  },
+  {
+   "i": 693,
+   "memory": 13,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.45024590558481814,
+   "F": 0.626291154312694
+  },
+  {
+   "i": 267,
+   "memory": 23,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.41531873801896063,
+   "F": 0.46105915263582964
+  },
+  {
+   "i": 241,
+   "memory": 5,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9074450712969842,
+   "F": 0.2899045219830245
+  },
+  {
+   "i": 0,
+   "memory": 8,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.37463593577124654,
+   "F": 0.36424824814555823
+  },
+  {
+   "i": 445,
+   "memory": 0,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.7524632661414528,
+   "F": 0.5058463812403302
+  },
+  {
+   "i": 604,
+   "memory": 2,
+   "small_ok": true,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.27756463280034005,
+   "F": 0.3845481496607678
+  },
+  {
+   "i": 299,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.0296587584451487,
+   "F": 0.5493519921023294
+  },
+  {
+   "i": 61,
+   "memory": 2,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5990123618047839,
+   "F": 0.7180854010543033
+  },
+  {
+   "i": 73,
+   "memory": 1,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.15240943334815388,
+   "F": 0.4547200874711928
+  },
+  {
+   "i": 485,
+   "memory": 21,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5190933731940215,
+   "F": 0.8104275459946813
+  },
+  {
+   "i": 318,
+   "memory": 18,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.7482802127303705,
+   "F": 0.6374066440647471
+  },
+  {
+   "i": 712,
+   "memory": 2,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.27756463280034005,
+   "F": 1.0
+  },
+  {
+   "i": 76,
+   "memory": 3,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6509655959909244,
+   "F": 0.7134520933629949
+  },
+  {
+   "i": 387,
+   "memory": 25,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.14446495559534697,
+   "F": 0.6361419557235951
+  },
+  {
+   "i": 366,
+   "memory": 1,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.41890092220550856,
+   "F": 0.519442077448405
+  },
+  {
+   "i": 364,
+   "memory": 11,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4374589919495685,
+   "F": 0.2953640322779857
+  },
+  {
+   "i": 517,
+   "memory": 26,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24048561868859777,
+   "F": 0.5451586172320146
+  },
+  {
+   "i": 374,
+   "memory": 9,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8851103782556196,
+   "F": 0.690912311806793
+  },
+  {
+   "i": 436,
+   "memory": 23,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.41531873801896063,
+   "F": 0.4242788071884311
+  },
+  {
+   "i": 10,
+   "memory": 2,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 207,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.0296587584451487,
+   "F": 0.6495444268473781
+  },
+  {
+   "i": 310,
+   "memory": 5,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9994473152004458,
+   "F": 0.6507825773017436
+  },
+  {
+   "i": 222,
+   "memory": 17,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.791031890017223,
+   "F": 0.24231567358532308
+  },
+  {
+   "i": 109,
+   "memory": 1,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.08036068212177573,
+   "F": 0.33822796500677477
+  },
+  {
+   "i": 709,
+   "memory": 21,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.7500590116503043,
+   "F": 0.5814044548772692
+  },
+  {
+   "i": 284,
+   "memory": 10,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24860758738782315,
+   "F": 0.6027730272032508
+  },
+  {
+   "i": 738,
+   "memory": 25,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.361969426353437,
+   "F": 0.36834512117542445
+  },
+  {
+   "i": 532,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.08538047959418829,
+   "F": 0.4219292379172961
+  },
+  {
+   "i": 324,
+   "memory": 12,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3017581195045768,
+   "F": 0.3307117083065892
+  },
+  {
+   "i": 595,
+   "memory": 4,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3418544049552866,
+   "F": 0.22129764796806906
+  },
+  {
+   "i": 623,
+   "memory": 13,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.45024590558481814,
+   "F": 0.4271181794593059
+  },
+  {
+   "i": 732,
+   "memory": 22,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3624748674574244,
+   "F": 0.2602625553717599
+  },
+  {
+   "i": 25,
+   "memory": 7,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.2230017940226518,
+   "F": 0.6865386455588351
+  },
+  {
+   "i": 180,
+   "memory": 15,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6832374500872233,
+   "F": 0.44109982530430847
+  },
+  {
+   "i": 156,
+   "memory": 11,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4374589919495685,
+   "F": 0.5813050398869529
+  },
+  {
+   "i": 470,
+   "memory": 23,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.41531873801896063,
+   "F": 0.7813271335791419
+  },
+  {
+   "i": 437,
+   "memory": 8,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.15050752137834245,
+   "F": 0.2672519616896855
+  },
+  {
+   "i": 145,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.0296587584451487,
+   "F": 0.18268281846072837
+  },
+  {
+   "i": 404,
+   "memory": 23,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 223,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 292,
+   "memory": 21,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5190933731940215,
+   "F": 0.42106464925547316
+  },
+  {
+   "i": 322,
+   "memory": 26,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.634875078674216,
+   "F": 0.5462409275494102
+  },
+  {
+   "i": 620,
+   "memory": 3,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9953454255703021,
+   "F": 0.3854543373790671
+  },
+  {
+   "i": 373,
+   "memory": 11,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9999998352794535,
+   "F": 0.3618964641978235
+  },
+  {
+   "i": 351,
+   "memory": 8,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.15050752137834245,
+   "F": 0.31598301184631084
+  },
+  {
+   "i": 687,
+   "memory": 12,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3017581195045768,
+   "F": 0.5027646569636268
+  },
+  {
+   "i": 159,
+   "memory": 15,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6832374500872233,
+   "F": 0.21610793524989752
+  },
+  {
+   "i": 277,
+   "memory": 19,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4234855446288617,
+   "F": 0.25259129709510586
+  },
+  {
+   "i": 719,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.043581451994609895,
+   "F": 0.3280498530431927
+  },
+  {
+   "i": 589,
+   "memory": 6,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8716709621871749,
+   "F": 0.4007676215476676
+  },
+  {
+   "i": 676,
+   "memory": 10,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24860758738782315,
+   "F": 0.7891674583836159
+  },
+  {
+   "i": 407,
+   "memory": 26,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9328219094531272,
+   "F": 0.6010336767649042
+  },
+  {
+   "i": 598,
+   "memory": 12,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5002122787215242,
+   "F": 0.48959195832533287
+  },
+  {
+   "i": 236,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.12321891010973443,
+   "F": 0.17217313769061496
+  },
+  {
+   "i": 271,
+   "memory": 2,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 69,
+   "memory": 7,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.2230017940226518,
+   "F": 0.5701064357759219
+  },
+  {
+   "i": 479,
+   "memory": 24,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3550286276526652,
+   "F": 0.29069299163246437
+  },
+  {
+   "i": 265,
+   "memory": 18,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9962171340605973,
+   "F": 0.5568339158153314
+  },
+  {
+   "i": 725,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.0296587584451487,
+   "F": 0.19426039742838824
+  },
+  {
+   "i": 258,
+   "memory": 20,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8041787643777842,
+   "F": 0.37445258639363105
+  },
+  {
+   "i": 168,
+   "memory": 13,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.45024590558481814,
+   "F": 0.41596182038168866
+  },
+  {
+   "i": 566,
+   "memory": 18,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.16708325880055463,
+   "F": 0.24497519228491849
+  },
+  {
+   "i": 660,
+   "memory": 5,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.99663540250291,
+   "F": 0.38944774221959927
+  },
+  {
+   "i": 654,
+   "memory": 23,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.770516280858441,
+   "F": 0.7734115691393919
+  },
+  {
+   "i": 134,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 680,
+   "memory": 0,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9940260434597407,
+   "F": 0.2292089136452843
+  },
+  {
+   "i": 668,
+   "memory": 10,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 280,
+   "memory": 8,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.15050752137834245,
+   "F": 0.2039094152257093
+  },
+  {
+   "i": 244,
+   "memory": 20,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4506694614229929,
+   "F": 0.6265518643211763
+  },
+  {
+   "i": 290,
+   "memory": 12,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3017581195045768,
+   "F": 0.417405477436117
+  },
+  {
+   "i": 269,
+   "memory": 23,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9859463364076286,
+   "F": 0.7300027692309972
+  },
+  {
+   "i": 444,
+   "memory": 2,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.7603408853374182,
+   "F": 0.21901300080618968
+  },
+  {
+   "i": 66,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.043581451994609895,
+   "F": 0.5229745039877411
+  },
+  {
+   "i": 628,
+   "memory": 4,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5527376554192075,
+   "F": 0.45781008485070557
+  },
+  {
+   "i": 32,
+   "memory": 5,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3478244097203405,
+   "F": 0.29639639774642323
+  },
+  {
+   "i": 659,
+   "memory": 6,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.53480913256345,
+   "F": 0.38266715796238315
+  },
+  {
+   "i": 642,
+   "memory": 20,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4506694614229929,
+   "F": 0.3072817584327514
+  },
+  {
+   "i": 498,
+   "memory": 3,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.42361931367123196,
+   "F": 0.645790585209928
+  },
+  {
+   "i": 346,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.9132916144364541,
+   "F": 0.39508746263301114
+  },
+  {
+   "i": 718,
+   "memory": 20,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9996451894567031,
+   "F": 1.0
+  },
+  {
+   "i": 126,
+   "memory": 24,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 548,
+   "memory": 11,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4374589919495685,
+   "F": 0.589643850260924
+  },
+  {
+   "i": 519,
+   "memory": 0,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5214777780950296,
+   "F": 0.28306411237663714
+  },
+  {
+   "i": 176,
+   "memory": 11,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4374589919495685,
+   "F": 0.48261377987595944
+  },
+  {
+   "i": 640,
+   "memory": 14,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8675293080606875,
+   "F": 0.6583194090797547
+  },
+  {
+   "i": 4,
+   "memory": 21,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5190933731940215,
+   "F": 0.5575464935995598
+  },
+  {
+   "i": 186,
+   "memory": 3,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8993674228889916,
+   "F": 0.5410472674770374
+  },
+  {
+   "i": 19,
+   "memory": 18,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.49496745506307094,
+   "F": 0.45324569838630835
+  },
+  {
+   "i": 607,
+   "memory": 0,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 115,
+   "memory": 23,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9996220835262459,
+   "F": 0.609309560809984
+  },
+  {
+   "i": 405,
+   "memory": 1,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.08036068212177573,
+   "F": 0.34016059625833783
+  },
+  {
+   "i": 204,
+   "memory": 0,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 140,
+   "memory": 4,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.950093941219663,
+   "F": 0.49262981838331693
+  },
+  {
+   "i": 50,
+   "memory": 16,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8712542291856847,
+   "F": 0.703030709002655
+  },
+  {
+   "i": 380,
+   "memory": 8,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.15050752137834245,
+   "F": 0.5659734638490459
+  },
+  {
+   "i": 58,
+   "memory": 6,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9849408471670125,
+   "F": 0.41118316004450955
+  },
+  {
+   "i": 71,
+   "memory": 10,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24860758738782315,
+   "F": 0.2505677810187353
+  },
+  {
+   "i": 251,
+   "memory": 25,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.14446495559534697,
+   "F": 0.29741276466069777
+  },
+  {
+   "i": 226,
+   "memory": 7,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6048860902075845,
+   "F": 0.6929861928462882
+  },
+  {
+   "i": 692,
+   "memory": 10,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24860758738782315,
+   "F": 0.5448337092458942
+  },
+  {
+   "i": 508,
+   "memory": 1,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6082674768224553,
+   "F": 0.49194024100700157
+  },
+  {
+   "i": 149,
+   "memory": 12,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6338196505909627,
+   "F": 0.25555182474554294
+  },
+  {
+   "i": 535,
+   "memory": 9,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 487,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.043581451994609895,
+   "F": 0.43035474153575254
+  },
+  {
+   "i": 711,
+   "memory": 11,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9999554532885716,
+   "F": 0.6738454686248502
+  },
+  {
+   "i": 198,
+   "memory": 25,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8245869897022657,
+   "F": 0.2579156807635991
+  },
+  {
+   "i": 148,
+   "memory": 24,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.996586916662278,
+   "F": 1.0
+  },
+  {
+   "i": 462,
+   "memory": 1,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.08036068212177573,
+   "F": 0.24920586883148252
+  },
+  {
+   "i": 600,
+   "memory": 2,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.27756463280034005,
+   "F": 0.6700273216828856
+  },
+  {
+   "i": 378,
+   "memory": 17,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 678,
+   "memory": 1,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.15240943334815388,
+   "F": 0.6150230221546839
+  },
+  {
+   "i": 408,
+   "memory": 2,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.27756463280034005,
+   "F": 0.5820416825011694
+  },
+  {
+   "i": 414,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 655,
+   "memory": 26,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24048561868859777,
+   "F": 0.4116306576471688
+  },
+  {
+   "i": 386,
+   "memory": 9,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8358057833142144,
+   "F": 0.2242487373238581
+  },
+  {
+   "i": 206,
+   "memory": 5,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3478244097203405,
+   "F": 0.5592375559726819
+  },
+  {
+   "i": 696,
+   "memory": 15,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4531219292002292,
+   "F": 0.19476565843181157
+  },
+  {
+   "i": 141,
+   "memory": 21,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9938080015448642,
+   "F": 0.42468126987753985
+  },
+  {
+   "i": 601,
+   "memory": 22,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.14468943957317912,
+   "F": 0.535529553625204
+  },
+  {
+   "i": 43,
+   "memory": 4,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9872683176240036,
+   "F": 0.2885618666112104
+  },
+  {
+   "i": 240,
+   "memory": 23,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.770516280858441,
+   "F": 0.443277130308131
+  },
+  {
+   "i": 201,
+   "memory": 11,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4374589919495685,
+   "F": 0.14460139065146502
+  },
+  {
+   "i": 9,
+   "memory": 24,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 335,
+   "memory": 0,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 574,
+   "memory": 23,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.770516280858441,
+   "F": 0.4317268491176377
+  },
+  {
+   "i": 400,
+   "memory": 13,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9848003848052317,
+   "F": 0.7568261087286119
+  },
+  {
+   "i": 729,
+   "memory": 8,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.37463593577124654,
+   "F": 0.5049653592437063
+  },
+  {
+   "i": 147,
+   "memory": 5,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 105,
+   "memory": 24,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.569364842691988,
+   "F": 0.28974597267105107
+  },
+  {
+   "i": 588,
+   "memory": 17,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 580,
+   "memory": 20,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8041787643777842,
+   "F": 0.46083169135314406
+  },
+  {
+   "i": 94,
+   "memory": 19,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9280090380977385,
+   "F": 0.5287387347720661
+  },
+  {
+   "i": 160,
+   "memory": 11,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4374589919495685,
+   "F": 0.5288110988166767
+  },
+  {
+   "i": 397,
+   "memory": 21,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.7500590116503043,
+   "F": 0.6430922056072969
+  },
+  {
+   "i": 325,
+   "memory": 20,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4506694614229929,
+   "F": 0.543857812683974
+  },
+  {
+   "i": 163,
+   "memory": 9,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8358057833142144,
+   "F": 0.697028103244965
+  },
+  {
+   "i": 510,
+   "memory": 14,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9881765859519104,
+   "F": 0.32839792979972204
+  },
+  {
+   "i": 187,
+   "memory": 19,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8531549115468272,
+   "F": 0.7912011182593939
+  },
+  {
+   "i": 262,
+   "memory": 13,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.45024590558481814,
+   "F": 0.3952460030751896
+  },
+  {
+   "i": 261,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.20634284029715108,
+   "F": 0.4691554312392964
+  },
+  {
+   "i": 682,
+   "memory": 26,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9993446809426185,
+   "F": 0.4313015133862739
+  },
+  {
+   "i": 367,
+   "memory": 7,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3877980344486601,
+   "F": 0.29884604627732303
+  },
+  {
+   "i": 315,
+   "memory": 11,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4374589919495685,
+   "F": 0.19325739817157422
+  },
+  {
+   "i": 520,
+   "memory": 19,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9938998730488025,
+   "F": 0.24983068980732442
+  },
+  {
+   "i": 356,
+   "memory": 21,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 14,
+   "memory": 1,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.27547238232968346,
+   "F": 0.397843746448498
+  },
+  {
+   "i": 3,
+   "memory": 1,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3281130979638824,
+   "F": 0.8382221422285598
+  },
+  {
+   "i": 91,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.043581451994609895,
+   "F": 0.5487831972592428
+  },
+  {
+   "i": 49,
+   "memory": 7,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9960826147921295,
+   "F": 1.0
+  },
+  {
+   "i": 546,
+   "memory": 1,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.989331459690022,
+   "F": 0.6978609560119794
+  },
+  {
+   "i": 529,
+   "memory": 9,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4023313244856018,
+   "F": 0.7334409871505232
+  },
+  {
+   "i": 494,
+   "memory": 10,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24860758738782315,
+   "F": 0.17215043893802098
+  },
+  {
+   "i": 652,
+   "memory": 26,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24048561868859777,
+   "F": 0.6439552380419331
+  },
+  {
+   "i": 203,
+   "memory": 19,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4234855446288617,
+   "F": 0.3022827934080406
+  },
+  {
+   "i": 313,
+   "memory": 6,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.53480913256345,
+   "F": 0.6147874648398334
+  },
+  {
+   "i": 102,
+   "memory": 21,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5190933731940215,
+   "F": 0.26483217952734733
+  },
+  {
+   "i": 572,
+   "memory": 4,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9027269578968098,
+   "F": 0.5728182275713087
+  },
+  {
+   "i": 398,
+   "memory": 13,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9680933609151617,
+   "F": 0.570597774652817
+  },
+  {
+   "i": 626,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.0296587584451487,
+   "F": 0.43256972936581684
+  },
+  {
+   "i": 497,
+   "memory": 26,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 232,
+   "memory": 7,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6048860902075845,
+   "F": 0.44946626474410334
+  },
+  {
+   "i": 185,
+   "memory": 8,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9986957770983229,
+   "F": 0.21946474948918052
+  },
+  {
+   "i": 24,
+   "memory": 10,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6480870144952838,
+   "F": 0.5214826382375224
+  },
+  {
+   "i": 458,
+   "memory": 4,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3418544049552866,
+   "F": 0.4440952031035549
+  },
+  {
+   "i": 608,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.28599473117609264,
+   "F": 0.6574310714457896
+  },
+  {
+   "i": 219,
+   "memory": 11,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8644986539001049,
+   "F": 0.22196809907385495
+  },
+  {
+   "i": 403,
+   "memory": 19,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6506565737647907,
+   "F": 0.5282901475219459
+  },
+  {
+   "i": 392,
+   "memory": 1,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9892204323959467,
+   "F": 1.0
+  },
+  {
+   "i": 119,
+   "memory": 13,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.45024590558481814,
+   "F": 0.32194633800790723
+  },
+  {
+   "i": 429,
+   "memory": 25,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.361969426353437,
+   "F": 0.7250032377277014
+  },
+  {
+   "i": 249,
+   "memory": 20,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4506694614229929,
+   "F": 0.261049406586391
+  },
+  {
+   "i": 541,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.043581451994609895,
+   "F": 0.3697922273875352
+  },
+  {
+   "i": 60,
+   "memory": 0,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5214777780950296,
+   "F": 0.7988772438799039
+  },
+  {
+   "i": 495,
+   "memory": 21,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5190933731940215,
+   "F": 0.6845828808482293
+  },
+  {
+   "i": 289,
+   "memory": 17,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.837369049912723,
+   "F": 0.4704270454743834
+  },
+  {
+   "i": 390,
+   "memory": 18,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3004750212970118,
+   "F": 0.4904108460428713
+  },
+  {
+   "i": 90,
+   "memory": 23,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9959920398614778,
+   "F": 1.0
+  },
+  {
+   "i": 629,
+   "memory": 18,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 644,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.0296587584451487,
+   "F": 0.35943412695292265
+  },
+  {
+   "i": 742,
+   "memory": 1,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.08036068212177573,
+   "F": 0.32016107962975826
+  },
+  {
+   "i": 434,
+   "memory": 22,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9558883967635117,
+   "F": 0.6759606011401462
+  },
+  {
+   "i": 622,
+   "memory": 4,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 259,
+   "memory": 9,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.4023313244856018,
+   "F": 0.45071188693445785
+  },
+  {
+   "i": 609,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 345,
+   "memory": 24,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3550286276526652,
+   "F": 0.3990183860982454
+  },
+  {
+   "i": 496,
+   "memory": 17,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.30227558464307247,
+   "F": 0.19346782725793274
+  },
+  {
+   "i": 377,
+   "memory": 13,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.45024590558481814,
+   "F": 0.28318267942319125
+  },
+  {
+   "i": 524,
+   "memory": 16,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8712542291856847,
+   "F": 0.7069626529819258
+  },
+  {
+   "i": 138,
+   "memory": 21,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5190933731940215,
+   "F": 0.5289558881470632
+  },
+  {
+   "i": 442,
+   "memory": 6,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8716709621871749,
+   "F": 0.18382093444169423
+  },
+  {
+   "i": 254,
+   "memory": 26,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 435,
+   "memory": 9,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9997839202575857,
+   "F": 1.0
+  },
+  {
+   "i": 328,
+   "memory": 21,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.7500590116503043,
+   "F": 0.45374054197223823
+  },
+  {
+   "i": 337,
+   "memory": 4,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3418544049552866,
+   "F": 0.3452905934913046
+  },
+  {
+   "i": 117,
+   "memory": 0,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9904059340224485,
+   "F": 1.0
+  },
+  {
+   "i": 643,
+   "memory": 24,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3550286276526652,
+   "F": 0.42592471349686184
+  },
+  {
+   "i": 514,
+   "memory": 10,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24860758738782315,
+   "F": 0.6564616017243187
+  },
+  {
+   "i": 131,
+   "memory": 15,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4531219292002292,
+   "F": 0.20623417562421525
+  },
+  {
+   "i": 103,
+   "memory": 10,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4256561874831788,
+   "F": 0.31657435112398064
+  },
+  {
+   "i": 518,
+   "memory": 26,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.634875078674216,
+   "F": 0.6358082976877885
+  },
+  {
+   "i": 453,
+   "memory": 10,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5538283408013064,
+   "F": 0.4466434340117476
+  },
+  {
+   "i": 350,
+   "memory": 11,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6663615146408488,
+   "F": 0.19333212509935252
+  },
+  {
+   "i": 603,
+   "memory": 19,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 379,
+   "memory": 6,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.7648891642039223,
+   "F": 0.5091674917102637
+  },
+  {
+   "i": 568,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.0296587584451487,
+   "F": 0.33830079061311674
+  },
+  {
+   "i": 135,
+   "memory": 24,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3550286276526652,
+   "F": 0.6161995004248467
+  },
+  {
+   "i": 217,
+   "memory": 18,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.49496745506307094,
+   "F": 0.41089771149781956
+  },
+  {
+   "i": 154,
+   "memory": 3,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.42361931367123196,
+   "F": 0.512400690100697
+  },
+  {
+   "i": 486,
+   "memory": 3,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.7786765308080561,
+   "F": 0.8871050481954782
+  },
+  {
+   "i": 348,
+   "memory": 0,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5214777780950296,
+   "F": 0.8128356915298557
+  },
+  {
+   "i": 211,
+   "memory": 7,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.2230017940226518,
+   "F": 0.4178241073798801
+  },
+  {
+   "i": 591,
+   "memory": 7,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.2230017940226518,
+   "F": 0.3784558545096776
+  },
+  {
+   "i": 7,
+   "memory": 24,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 645,
+   "memory": 12,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9576606159862058,
+   "F": 0.41452646724238784
+  },
+  {
+   "i": 84,
+   "memory": 24,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9308866876043916,
+   "F": 1.0
+  },
+  {
+   "i": 139,
+   "memory": 6,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.53480913256345,
+   "F": 0.3353134496053264
+  },
+  {
+   "i": 525,
+   "memory": 5,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9979359190749406,
+   "F": 0.7690826171571538
+  },
+  {
+   "i": 231,
+   "memory": 3,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 100,
+   "memory": 5,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9993940474266121,
+   "F": 1.0
+  },
+  {
+   "i": 272,
+   "memory": 10,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5538283408013064,
+   "F": 0.6597523619962032
+  },
+  {
+   "i": 416,
+   "memory": 20,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8740142782940775,
+   "F": 0.6350750324505393
+  },
+  {
+   "i": 171,
+   "memory": 6,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8716709621871749,
+   "F": 0.2531302902319325
+  },
+  {
+   "i": 242,
+   "memory": 11,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4374589919495685,
+   "F": 0.6304839808750282
+  },
+  {
+   "i": 155,
+   "memory": 3,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.7786765308080561,
+   "F": 0.5601142043658306
+  },
+  {
+   "i": 323,
+   "memory": 14,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.043581451994609895,
+   "F": 0.35258899653765285
+  },
+  {
+   "i": 282,
+   "memory": 2,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.27756463280034005,
+   "F": 0.5034523625792728
+  },
+  {
+   "i": 132,
+   "memory": 8,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5281610914795183,
+   "F": 0.6451842150337622
+  },
+  {
+   "i": 473,
+   "memory": 25,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5130528920548525,
+   "F": 0.5050797456646192
+  },
+  {
+   "i": 389,
+   "memory": 20,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8041787643777842,
+   "F": 0.5074005649895952
+  },
+  {
+   "i": 383,
+   "memory": 11,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9996268510795885,
+   "F": 0.7276918809327613
+  },
+  {
+   "i": 690,
+   "memory": 3,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6509655959909244,
+   "F": 0.586821658053576
+  },
+  {
+   "i": 123,
+   "memory": 26,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8607642742328732,
+   "F": 0.3964160917639804
+  },
+  {
+   "i": 70,
+   "memory": 0,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5214777780950296,
+   "F": 0.2743383022938039
+  },
+  {
+   "i": 685,
+   "memory": 11,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4374589919495685,
+   "F": 0.788380857117969
+  },
+  {
+   "i": 360,
+   "memory": 20,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 295,
+   "memory": 6,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.53480913256345,
+   "F": 0.6788269365314038
+  },
+  {
+   "i": 354,
+   "memory": 3,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.999516765430633,
+   "F": 0.6573062564661921
+  },
+  {
+   "i": 370,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.0296587584451487,
+   "F": 0.2802190175888643
+  },
+  {
+   "i": 449,
+   "memory": 8,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.15050752137834245,
+   "F": 0.369713371902089
+  },
+  {
+   "i": 666,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.0296587584451487,
+   "F": 0.5172149991578493
+  },
+  {
+   "i": 11,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.0296587584451487,
+   "F": 0.2712143827109353
+  },
+  {
+   "i": 415,
+   "memory": 2,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.27756463280034005,
+   "F": 0.5635758738181615
+  },
+  {
+   "i": 506,
+   "memory": 25,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8179913329516639,
+   "F": 0.2630476689483667
+  },
+  {
+   "i": 169,
+   "memory": 7,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.2230017940226518,
+   "F": 0.5480006776353159
+  },
+  {
+   "i": 46,
+   "memory": 11,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4374589919495685,
+   "F": 0.3032206124968097
+  },
+  {
+   "i": 650,
+   "memory": 2,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 107,
+   "memory": 9,
+   "small_ok": true,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.4023313244856018,
+   "F": 0.419442948882567
+  },
+  {
+   "i": 338,
+   "memory": 20,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4506694614229929,
+   "F": 0.3469515456920301
+  },
+  {
+   "i": 125,
+   "memory": 9,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.9998721452041175,
+   "F": 0.5005162926345463
+  },
+  {
+   "i": 227,
+   "memory": 18,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 279,
+   "memory": 21,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5190933731940215,
+   "F": 0.7692890205637577
+  },
+  {
+   "i": 675,
+   "memory": 24,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 611,
+   "memory": 23,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9859463364076286,
+   "F": 0.4217959947150106
+  },
+  {
+   "i": 490,
+   "memory": 19,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 402,
+   "memory": 19,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6506565737647907,
+   "F": 0.6721642626516114
+  },
+  {
+   "i": 739,
+   "memory": 26,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.7058564270371873,
+   "F": 0.6885942884325954
+  },
+  {
+   "i": 88,
+   "memory": 9,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4023313244856018,
+   "F": 0.6540358055880454
+  },
+  {
+   "i": 728,
+   "memory": 4,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3418544049552866,
+   "F": 0.3892141513072239
+  },
+  {
+   "i": 573,
+   "memory": 8,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9996484150639207,
+   "F": 1.0
+  },
+  {
+   "i": 188,
+   "memory": 24,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.569364842691988,
+   "F": 0.2171023910637321
+  },
+  {
+   "i": 720,
+   "memory": 9,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 555,
+   "memory": 18,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.49496745506307094,
+   "F": 1.0
+  },
+  {
+   "i": 683,
+   "memory": 22,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.14468943957317912,
+   "F": 0.361270334195769
+  },
+  {
+   "i": 531,
+   "memory": 25,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.263410549609528,
+   "F": 0.6349253019678514
+  },
+  {
+   "i": 158,
+   "memory": 20,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4506694614229929,
+   "F": 0.6376801149946343
+  },
+  {
+   "i": 727,
+   "memory": 2,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.27756463280034005,
+   "F": 0.4817068062635225
+  },
+  {
+   "i": 641,
+   "memory": 13,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.45024590558481814,
+   "F": 0.4329845988290912
+  },
+  {
+   "i": 664,
+   "memory": 1,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.15240943334815388,
+   "F": 0.505193465423075
+  },
+  {
+   "i": 610,
+   "memory": 5,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8397561769751366,
+   "F": 0.7654230029017804
+  },
+  {
+   "i": 703,
+   "memory": 10,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24860758738782315,
+   "F": 0.26476058741170067
+  },
+  {
+   "i": 406,
+   "memory": 8,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.37463593577124654,
+   "F": 0.37832125393781907
+  },
+  {
+   "i": 112,
+   "memory": 19,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4234855446288617,
+   "F": 0.42760488690420784
+  },
+  {
+   "i": 173,
+   "memory": 26,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24048561868859777,
+   "F": 0.6970592842998008
+  },
+  {
+   "i": 708,
+   "memory": 9,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3133635023585391,
+   "F": 0.33993695378700317
+  },
+  {
+   "i": 417,
+   "memory": 4,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3418544049552866,
+   "F": 0.31040943191201353
+  },
+  {
+   "i": 385,
+   "memory": 12,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 440,
+   "memory": 13,
+   "small_ok": true,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.45024590558481814,
+   "F": 0.34770809647872203
+  },
+  {
+   "i": 121,
+   "memory": 1,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.27547238232968346,
+   "F": 0.42373342166750777
+  },
+  {
+   "i": 577,
+   "memory": 25,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.263410549609528,
+   "F": 0.18774833799245733
+  },
+  {
+   "i": 98,
+   "memory": 0,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9182507461857,
+   "F": 0.4703563348248738
+  },
+  {
+   "i": 477,
+   "memory": 9,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4023313244856018,
+   "F": 0.5357367867480483
+  },
+  {
+   "i": 368,
+   "memory": 9,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9997839202575857,
+   "F": 1.0
+  },
+  {
+   "i": 605,
+   "memory": 7,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.2230017940226518,
+   "F": 0.6186426344723481
+  },
+  {
+   "i": 534,
+   "memory": 26,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24048561868859777,
+   "F": 0.6410497345714605
+  },
+  {
+   "i": 86,
+   "memory": 24,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3550286276526652,
+   "F": 0.542925828747658
+  },
+  {
+   "i": 129,
+   "memory": 9,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4023313244856018,
+   "F": 0.4154381943465905
+  },
+  {
+   "i": 106,
+   "memory": 8,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.15050752137834245,
+   "F": 0.4741641006869243
+  },
+  {
+   "i": 64,
+   "memory": 19,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.7782684180333589,
+   "F": 0.549683526165504
+  },
+  {
+   "i": 423,
+   "memory": 2,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.7603408853374182,
+   "F": 0.47121399045327883
+  },
+  {
+   "i": 425,
+   "memory": 11,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6663615146408488,
+   "F": 0.4973552080909571
+  },
+  {
+   "i": 303,
+   "memory": 25,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.361969426353437,
+   "F": 0.5677103881261059
+  },
+  {
+   "i": 578,
+   "memory": 18,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9926655829077503,
+   "F": 0.7068557141725014
+  },
+  {
+   "i": 459,
+   "memory": 1,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.989331459690022,
+   "F": 0.7038456879868812
+  },
+  {
+   "i": 670,
+   "memory": 3,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9966724976642674,
+   "F": 0.8092580390736115
+  },
+  {
+   "i": 21,
+   "memory": 16,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.0296587584451487,
+   "F": 0.6742386313113156
+  },
+  {
+   "i": 450,
+   "memory": 0,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 110,
+   "memory": 10,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24860758738782315,
+   "F": 0.620255998200283
+  },
+  {
+   "i": 526,
+   "memory": 21,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.860399727710212,
+   "F": 0.5958509025334185
+  },
+  {
+   "i": 162,
+   "memory": 20,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6805756163851027,
+   "F": 0.32426514087002806
+  },
+  {
+   "i": 205,
+   "memory": 12,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.6338196505909627,
+   "F": 0.46172388106424006
+  },
+  {
+   "i": 562,
+   "memory": 22,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.14468943957317912,
+   "F": 0.5031628676861912
+  },
+  {
+   "i": 37,
+   "memory": 23,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9442191299048591,
+   "F": 0.18468176448080872
+  },
+  {
+   "i": 371,
+   "memory": 23,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9673546629556329,
+   "F": 0.7073212351185626
+  },
+  {
+   "i": 293,
+   "memory": 5,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5605192684409459,
+   "F": 0.47688168424546795
+  },
+  {
+   "i": 247,
+   "memory": 15,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.806458397285623,
+   "F": 0.45717518813447355
+  },
+  {
+   "i": 707,
+   "memory": 6,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.53480913256345,
+   "F": 0.5939343441858677
+  },
+  {
+   "i": 127,
+   "memory": 19,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 68,
+   "memory": 24,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.569364842691988,
+   "F": 0.1742105724000201
+  },
+  {
+   "i": 79,
+   "memory": 21,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": false,
+   "C": 0.7500590116503043,
+   "F": 0.4865396834330819
+  },
+  {
+   "i": 456,
+   "memory": 26,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24048561868859777,
+   "F": 0.48114891159340334
+  },
+  {
+   "i": 599,
+   "memory": 3,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.8993674228889916,
+   "F": 0.3184982759633915
+  },
+  {
+   "i": 542,
+   "memory": 13,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9928312095300116,
+   "F": 0.4241244712856603
+  },
+  {
+   "i": 684,
+   "memory": 20,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4506694614229929,
+   "F": 0.302165162297464
+  },
+  {
+   "i": 653,
+   "memory": 15,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4531219292002292,
+   "F": 0.20484588167273235
+  },
+  {
+   "i": 40,
+   "memory": 24,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9889209176588813,
+   "F": 0.7157771038687059
+  },
+  {
+   "i": 111,
+   "memory": 12,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.5002122787215242,
+   "F": 0.8490332327804971
+  },
+  {
+   "i": 438,
+   "memory": 22,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.14468943957317912,
+   "F": 0.4025044203056501
+  },
+  {
+   "i": 305,
+   "memory": 26,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.24048561868859777,
+   "F": 0.2649643980208174
+  },
+  {
+   "i": 52,
+   "memory": 24,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.3550286276526652,
+   "F": 0.6693170640404521
+  },
+  {
+   "i": 669,
+   "memory": 13,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.45024590558481814,
+   "F": 0.3504268917262494
+  },
+  {
+   "i": 199,
+   "memory": 2,
+   "small_ok": false,
+   "big_ok": false,
+   "forced": true,
+   "C": 0.0,
+   "F": 0.0
+  },
+  {
+   "i": 412,
+   "memory": 13,
+   "small_ok": true,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.9968527969240301,
+   "F": 0.7211341229499207
+  },
+  {
+   "i": 167,
+   "memory": 20,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.4506694614229929,
+   "F": 0.8299609468719994
+  },
+  {
+   "i": 20,
+   "memory": 16,
+   "small_ok": false,
+   "big_ok": true,
+   "forced": false,
+   "C": 0.05809839455680429,
+   "F": 0.429237317616672
+  }
+ ]
+}

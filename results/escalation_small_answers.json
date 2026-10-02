@@ -1,0 +1,4509 @@
+{
+ "model": [
+  "gemma-4-E2B-it-qat-UD-Q2_K_XL.gguf",
+  "0a5bbc20f91f92da96ab4870fa71b356c45b8500a7b8b9c3e0eb48359b72da28"
+ ],
+ "rows": [
+  {
+   "i": 104,
+   "linked": "/m/02fn5r",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.5025746714318953,
+   "raw": "1"
+  },
+  {
+   "i": 18,
+   "linked": "/m/01dbk6",
+   "chosen": "/people/person/religion",
+   "conf": 0.7305182149633752,
+   "raw": "10"
+  },
+  {
+   "i": 463,
+   "linked": "/m/0ddj0x",
+   "chosen": "/film/film/country",
+   "conf": 0.2550087697849622,
+   "raw": "The correct answer is **3**.\n\n"
+  },
+  {
+   "i": 480,
+   "linked": "/m/0645k5",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.4213555533750807,
+   "raw": "1"
+  },
+  {
+   "i": 418,
+   "linked": "/m/07ssc",
+   "chosen": "/base/aareas/schema/administrative_area/administrative_area_type",
+   "conf": 0.22995486320519376,
+   "raw": "1"
+  },
+  {
+   "i": 344,
+   "linked": "/m/011ysn",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "conf": 0.6118680867354138,
+   "raw": "1"
+  },
+  {
+   "i": 539,
+   "linked": "/m/0241wg",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.5262251445369228,
+   "raw": "1"
+  },
+  {
+   "i": 329,
+   "linked": "/m/09sh8k",
+   "chosen": "/common/topic/webpage./common/webpage/category",
+   "conf": 0.39973264400224073,
+   "raw": "1"
+  },
+  {
+   "i": 361,
+   "linked": "/m/01cl2y",
+   "chosen": "/music/record_label/artist",
+   "conf": 0.8008797142792232,
+   "raw": "2"
+  },
+  {
+   "i": 554,
+   "linked": "/m/0405l",
+   "chosen": "/people/person/nationality",
+   "conf": 0.5382108244413207,
+   "raw": "6"
+  },
+  {
+   "i": 150,
+   "linked": "/m/01gwk3",
+   "chosen": "/film/film/country",
+   "conf": 0.29267575850777927,
+   "raw": "1"
+  },
+  {
+   "i": 146,
+   "linked": "/m/01n7q",
+   "chosen": "/base/aareas/schema/administrative_area/administrative_parent",
+   "conf": 0.4997518668972425,
+   "raw": "1"
+  },
+  {
+   "i": 218,
+   "linked": null,
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 266,
+   "linked": "/m/0l14md",
+   "chosen": "/music/performance_role/regular_performances./music/group_membership/role",
+   "conf": 0.39200263352476583,
+   "raw": "4"
+  },
+  {
+   "i": 590,
+   "linked": "/m/012s1d",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.3223428835170904,
+   "raw": "1"
+  },
+  {
+   "i": 432,
+   "linked": "/m/02qhm3",
+   "chosen": "/people/deceased_person/place_of_death",
+   "conf": 0.4913756490670656,
+   "raw": "4"
+  },
+  {
+   "i": 2,
+   "linked": "/m/014z8v",
+   "chosen": "/people/person/religion",
+   "conf": 0.6273672524139086,
+   "raw": "11"
+  },
+  {
+   "i": 736,
+   "linked": "/m/03s5lz",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "conf": 0.5583164203288675,
+   "raw": "1"
+  },
+  {
+   "i": 559,
+   "linked": "/m/05sb1",
+   "chosen": "/location/country/official_language",
+   "conf": 0.6313095096321478,
+   "raw": "3"
+  },
+  {
+   "i": 621,
+   "linked": "/m/01c6zg",
+   "chosen": "/location/location/time_zones",
+   "conf": 0.5708411360616324,
+   "raw": "6"
+  },
+  {
+   "i": 365,
+   "linked": "/m/0g9yrw",
+   "chosen": "/film/film/country",
+   "conf": 0.21503473318043653,
+   "raw": "2"
+  },
+  {
+   "i": 252,
+   "linked": "/m/0432_5",
+   "chosen": null,
+   "conf": 0.18774912134120103,
+   "raw": "The question asks to identify the correct film"
+  },
+  {
+   "i": 142,
+   "linked": "/m/0dj0x",
+   "chosen": "/location/administrative_division/country",
+   "conf": 0.6526187696894911,
+   "raw": "3"
+  },
+  {
+   "i": 391,
+   "linked": "/m/024qqx",
+   "chosen": "/media_common/netflix_genre/titles",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 83,
+   "linked": "/m/0gy0l_",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.5591640611937417,
+   "raw": "1"
+  },
+  {
+   "i": 426,
+   "linked": "/m/03hxsv",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.5142849810550659,
+   "raw": "1"
+  },
+  {
+   "i": 281,
+   "linked": "/m/0h21v2",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.38828035473669026,
+   "raw": "1"
+  },
+  {
+   "i": 428,
+   "linked": "/m/01vfqh",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.5197799735623069,
+   "raw": "1"
+  },
+  {
+   "i": 316,
+   "linked": "/m/01yz0x",
+   "chosen": "/award/award_category/winners./award/award_honor/award_winner",
+   "conf": 0.3987415963929843,
+   "raw": "2"
+  },
+  {
+   "i": 347,
+   "linked": "/m/039c26",
+   "chosen": "/tv/tv_program/program_creator",
+   "conf": 0.19384853595767976,
+   "raw": "6"
+  },
+  {
+   "i": 13,
+   "linked": "/m/0dd6bf",
+   "chosen": "/film/film/country",
+   "conf": 0.33897276693741124,
+   "raw": "1"
+  },
+  {
+   "i": 157,
+   "linked": "/m/0180mw",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.4688733329467657,
+   "raw": "1"
+  },
+  {
+   "i": 12,
+   "linked": "/m/03m6t5",
+   "chosen": "/base/americancomedy/celebrity_impressionist/celebrities_impersonated",
+   "conf": 0.2687233233083275,
+   "raw": "1"
+  },
+  {
+   "i": 210,
+   "linked": "/m/0xnvg",
+   "chosen": "/people/ethnicity/languages_spoken",
+   "conf": 0.4912083829385076,
+   "raw": "3"
+  },
+  {
+   "i": 528,
+   "linked": "/m/05w3f",
+   "chosen": "/music/genre/artists",
+   "conf": 0.6893706926696228,
+   "raw": "1"
+  },
+  {
+   "i": 576,
+   "linked": "/m/05z96",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 634,
+   "linked": "/m/07f_t4",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.5058610950417258,
+   "raw": "1"
+  },
+  {
+   "i": 255,
+   "linked": "/m/05rfst",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.49178084353933266,
+   "raw": "1"
+  },
+  {
+   "i": 619,
+   "linked": "/m/04rlf",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 96,
+   "linked": "/m/06dn58",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.17936186284873556,
+   "raw": "1"
+  },
+  {
+   "i": 278,
+   "linked": null,
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 431,
+   "linked": "/m/01gglm",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "conf": 0.3484153721413215,
+   "raw": "1"
+  },
+  {
+   "i": 689,
+   "linked": "/m/01jq34",
+   "chosen": "/award/award_winner/awards_won./award/award_honor/award_winner",
+   "conf": 0.2686260847208902,
+   "raw": "1"
+  },
+  {
+   "i": 341,
+   "linked": "/m/0266s9",
+   "chosen": "/tv/tv_program/genre",
+   "conf": 0.6913132690428991,
+   "raw": "4"
+  },
+  {
+   "i": 502,
+   "linked": "/m/016tvq",
+   "chosen": "/tv/tv_program/program_creator",
+   "conf": 0.7317880958804596,
+   "raw": "5"
+  },
+  {
+   "i": 330,
+   "linked": null,
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 230,
+   "linked": "/m/01771z",
+   "chosen": "/film/film/written_by",
+   "conf": 0.27245693073237137,
+   "raw": "9"
+  },
+  {
+   "i": 304,
+   "linked": "/m/04t36",
+   "chosen": "/music/genre/artists",
+   "conf": 0.5066172001191062,
+   "raw": "2"
+  },
+  {
+   "i": 45,
+   "linked": "/m/03wxvk",
+   "chosen": "/location/administrative_division/country",
+   "conf": 0.6311506600706843,
+   "raw": "3"
+  },
+  {
+   "i": 352,
+   "linked": "/m/05k4my",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.4169857011068191,
+   "raw": "1"
+  },
+  {
+   "i": 513,
+   "linked": "/m/02z3r8t",
+   "chosen": "/film/film/written_by",
+   "conf": 0.6918892936912389,
+   "raw": "11"
+  },
+  {
+   "i": 177,
+   "linked": "/m/0dpl44",
+   "chosen": "/film/film/featured_film_locations",
+   "conf": 0.21142128878077848,
+   "raw": "4"
+  },
+  {
+   "i": 336,
+   "linked": "/m/05r6t",
+   "chosen": "/music/genre/artists",
+   "conf": 0.6705827123691951,
+   "raw": "2"
+  },
+  {
+   "i": 695,
+   "linked": "/m/01cdt5",
+   "chosen": "/medicine/symptom/symptom_of",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 648,
+   "linked": "/m/017wh",
+   "chosen": "/location/administrative_division/first_level_division_of",
+   "conf": 0.6903806357473357,
+   "raw": "5"
+  },
+  {
+   "i": 95,
+   "linked": "/m/0fqt1ns",
+   "chosen": "/film/film/country",
+   "conf": 0.4906054153663536,
+   "raw": "1"
+  },
+  {
+   "i": 311,
+   "linked": "/m/0t_4_",
+   "chosen": "/location/hud_county_place/county",
+   "conf": 0.429322113149623,
+   "raw": "2"
+  },
+  {
+   "i": 200,
+   "linked": "/m/034r25",
+   "chosen": "/film/film/country",
+   "conf": 0.5053670902231007,
+   "raw": "1"
+  },
+  {
+   "i": 6,
+   "linked": "/m/0dl5d",
+   "chosen": "/music/genre/artists",
+   "conf": 0.6559786836033531,
+   "raw": "1"
+  },
+  {
+   "i": 273,
+   "linked": "/m/021b_",
+   "chosen": "/people/person/religion",
+   "conf": 0.7927107806209774,
+   "raw": "8"
+  },
+  {
+   "i": 723,
+   "linked": "/m/0dryh9k",
+   "chosen": "/people/ethnicity/languages_spoken",
+   "conf": 0.585157319562594,
+   "raw": "1"
+  },
+  {
+   "i": 41,
+   "linked": null,
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 475,
+   "linked": "/m/021_z5",
+   "chosen": "/music/genre/artists",
+   "conf": 0.752890282703456,
+   "raw": "1"
+  },
+  {
+   "i": 208,
+   "linked": "/m/0ndwt2w",
+   "chosen": "/film/film/costume_design_by",
+   "conf": 0.4851994116977309,
+   "raw": "1"
+  },
+  {
+   "i": 268,
+   "linked": "/m/07cdz",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.6378152312198518,
+   "raw": "1"
+  },
+  {
+   "i": 92,
+   "linked": "/m/02scbv",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.6125929959386317,
+   "raw": "1"
+  },
+  {
+   "i": 116,
+   "linked": "/m/01jtp7",
+   "chosen": "/education/educational_institution/students_graduates./education/education/major_field_of_study",
+   "conf": 0.20564899863561065,
+   "raw": "3"
+  },
+  {
+   "i": 735,
+   "linked": "/m/06n90",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 44,
+   "linked": "/m/0cx7f",
+   "chosen": "/music/genre/artists",
+   "conf": 0.685481838862859,
+   "raw": "1"
+  },
+  {
+   "i": 276,
+   "linked": "/m/053x8hr",
+   "chosen": "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor",
+   "conf": 0.3465276596095786,
+   "raw": "4"
+  },
+  {
+   "i": 543,
+   "linked": "/m/01clyr",
+   "chosen": "/music/record_label/artist",
+   "conf": 0.8335288167657048,
+   "raw": "2"
+  },
+  {
+   "i": 639,
+   "linked": "/m/01qvz8",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.2613912602540092,
+   "raw": "1"
+  },
+  {
+   "i": 464,
+   "linked": "/m/01s7w3",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.6606631314451213,
+   "raw": "1"
+  },
+  {
+   "i": 688,
+   "linked": "/m/016cjb",
+   "chosen": "/music/genre/artists",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 388,
+   "linked": "/m/07s9rl0",
+   "chosen": "/media_common/netflix_genre/titles",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 570,
+   "linked": "/m/01srq2",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.6074346276613097,
+   "raw": "1"
+  },
+  {
+   "i": 5,
+   "linked": "/m/0ckd1",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 291,
+   "linked": "/m/0660b9b",
+   "chosen": "/film/film/cinematography",
+   "conf": 0.516582909922671,
+   "raw": "1"
+  },
+  {
+   "i": 741,
+   "linked": "/m/0jlv5",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.32918841822633393,
+   "raw": "1"
+  },
+  {
+   "i": 538,
+   "linked": "/m/02q_cc",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.2935900018873514,
+   "raw": "1"
+  },
+  {
+   "i": 662,
+   "linked": "/m/03rz2b",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "conf": 0.5914328645764567,
+   "raw": "1"
+  },
+  {
+   "i": 369,
+   "linked": "/m/07ldhs",
+   "chosen": "/people/person/religion",
+   "conf": 0.6564073527713228,
+   "raw": "16"
+  },
+  {
+   "i": 726,
+   "linked": "/m/036jv",
+   "chosen": "/music/genre/artists",
+   "conf": 0.815926079568317,
+   "raw": "1"
+  },
+  {
+   "i": 441,
+   "linked": "/m/03f4k",
+   "chosen": "/people/person/profession",
+   "conf": 0.5444983172234678,
+   "raw": "7"
+  },
+  {
+   "i": 667,
+   "linked": "/m/024lt6",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.23800918254310652,
+   "raw": "1"
+  },
+  {
+   "i": 454,
+   "linked": null,
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 612,
+   "linked": "/m/01k5y0",
+   "chosen": "/film/film/written_by",
+   "conf": 0.5913351889469344,
+   "raw": "10"
+  },
+  {
+   "i": 637,
+   "linked": "/m/02nf2c",
+   "chosen": "/tv/tv_program/genre",
+   "conf": 0.4074512428239188,
+   "raw": "4"
+  },
+  {
+   "i": 671,
+   "linked": "/m/027jk",
+   "chosen": "/base/aareas/schema/administrative_area/administrative_area_type",
+   "conf": 0.2926389871065488,
+   "raw": "1"
+  },
+  {
+   "i": 286,
+   "linked": "/m/01c6l",
+   "chosen": "/film/director/film",
+   "conf": 0.3310761859126665,
+   "raw": "5"
+  },
+  {
+   "i": 256,
+   "linked": "/m/0d66j2",
+   "chosen": "/tv/tv_program/genre",
+   "conf": 0.4071134919567451,
+   "raw": "4"
+  },
+  {
+   "i": 342,
+   "linked": null,
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 327,
+   "linked": "/m/0mhfr",
+   "chosen": "/music/genre/artists",
+   "conf": 0.679391261325094,
+   "raw": "1"
+  },
+  {
+   "i": 551,
+   "linked": "/m/02w1b8",
+   "chosen": "/film/film_subject/films",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 698,
+   "linked": "/m/03qjg",
+   "chosen": "/music/instrument/instrumentalists",
+   "conf": 0.3648130818623959,
+   "raw": "1"
+  },
+  {
+   "i": 306,
+   "linked": "/m/0dx97",
+   "chosen": "/people/deceased_person/place_of_death",
+   "conf": 0.7294419902448446,
+   "raw": "2"
+  },
+  {
+   "i": 47,
+   "linked": "/m/0dcsx",
+   "chosen": "/medicine/disease/notable_people_with_this_condition",
+   "conf": 0.79812842811549,
+   "raw": "1"
+  },
+  {
+   "i": 550,
+   "linked": "/m/0jqn5",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.5099112448677923,
+   "raw": "1"
+  },
+  {
+   "i": 16,
+   "linked": "/m/03cwwl",
+   "chosen": "/film/film/country",
+   "conf": 0.28450542708872295,
+   "raw": "1"
+  },
+  {
+   "i": 39,
+   "linked": "/m/05xpms",
+   "chosen": "/people/person/place_of_birth",
+   "conf": 0.24305745083975527,
+   "raw": "8"
+  },
+  {
+   "i": 501,
+   "linked": "/m/0dzf_",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.5446131213466296,
+   "raw": "1"
+  },
+  {
+   "i": 358,
+   "linked": "/m/049nq",
+   "chosen": "/base/aareas/schema/administrative_area/administrative_parent",
+   "conf": 0.3301006116728055,
+   "raw": "1"
+  },
+  {
+   "i": 665,
+   "linked": "/m/0lk8j",
+   "chosen": "/olympics/olympic_games/sports",
+   "conf": 0.6281578480151314,
+   "raw": "3"
+  },
+  {
+   "i": 172,
+   "linked": "/m/0gyv0b4",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.6466471597626813,
+   "raw": "1"
+  },
+  {
+   "i": 248,
+   "linked": "/m/08l_c1",
+   "chosen": "/education/educational_institution/campuses",
+   "conf": 0.29502244515787085,
+   "raw": "2"
+  },
+  {
+   "i": 57,
+   "linked": "/m/03k8th",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "conf": 0.4050978803638039,
+   "raw": "1"
+  },
+  {
+   "i": 372,
+   "linked": "/m/01k1k4",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.6486545140554719,
+   "raw": "1"
+  },
+  {
+   "i": 673,
+   "linked": "/m/0gk4g",
+   "chosen": "/medicine/disease/risk_factors",
+   "conf": 0.6299455236711096,
+   "raw": "1"
+  },
+  {
+   "i": 557,
+   "linked": "/m/0b1hw",
+   "chosen": "/influence/influence_node/influenced_by",
+   "conf": 0.7356495183838673,
+   "raw": "3"
+  },
+  {
+   "i": 63,
+   "linked": "/m/05ch98",
+   "chosen": "/film/film/country",
+   "conf": 0.3594746633395851,
+   "raw": "1"
+  },
+  {
+   "i": 552,
+   "linked": "/m/01vtqml",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.5230411845250453,
+   "raw": "1"
+  },
+  {
+   "i": 30,
+   "linked": "/m/03jsvl",
+   "chosen": "/music/genre/artists",
+   "conf": 0.7040235469849204,
+   "raw": "1"
+  },
+  {
+   "i": 190,
+   "linked": "/m/0glt670",
+   "chosen": "/music/genre/artists",
+   "conf": 0.727252723491321,
+   "raw": "1"
+  },
+  {
+   "i": 48,
+   "linked": null,
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 527,
+   "linked": "/m/0295sy",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "conf": 0.385749792495235,
+   "raw": "1"
+  },
+  {
+   "i": 460,
+   "linked": "/m/01kff7",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.606447696444978,
+   "raw": "1"
+  },
+  {
+   "i": 333,
+   "linked": "/m/040nwr",
+   "chosen": "/people/person/languages",
+   "conf": 0.1807687662193382,
+   "raw": "4"
+  },
+  {
+   "i": 401,
+   "linked": "/m/017yfz",
+   "chosen": "/people/deceased_person/place_of_death",
+   "conf": 0.7393819681275751,
+   "raw": "3"
+  },
+  {
+   "i": 633,
+   "linked": "/m/031hcx",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.3822103436938327,
+   "raw": "1"
+  },
+  {
+   "i": 657,
+   "linked": "/m/0gwlfnb",
+   "chosen": "/film/film/release_date_s./film/film_regional_release_date/film_release_distribution_medium",
+   "conf": 0.22499860612940148,
+   "raw": "6"
+  },
+  {
+   "i": 235,
+   "linked": "/m/091xrc",
+   "chosen": "/film/film/music",
+   "conf": 0.17064067118424567,
+   "raw": "6"
+  },
+  {
+   "i": 413,
+   "linked": "/m/02bqxb",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.5824653960152049,
+   "raw": "1"
+  },
+  {
+   "i": 75,
+   "linked": null,
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 537,
+   "linked": "/m/05gg4",
+   "chosen": "/american_football/football_team/current_roster./sports/sports_team_roster/position",
+   "conf": 0.4568177565198255,
+   "raw": "1"
+  },
+  {
+   "i": 184,
+   "linked": "/m/0f4_2k",
+   "chosen": "/common/topic/webpage./common/webpage/category",
+   "conf": 0.24581077769439402,
+   "raw": "1"
+  },
+  {
+   "i": 234,
+   "linked": "/m/0s69k",
+   "chosen": "/location/location/time_zones",
+   "conf": 0.8205677919562614,
+   "raw": "5"
+  },
+  {
+   "i": 500,
+   "linked": "/m/09yxcz",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.2599811492577146,
+   "raw": "1"
+  },
+  {
+   "i": 321,
+   "linked": "/m/037q2p",
+   "chosen": "/education/educational_institution/colors",
+   "conf": 0.3194685411584509,
+   "raw": "4"
+  },
+  {
+   "i": 560,
+   "linked": "/m/018s6c",
+   "chosen": "/people/ethnicity/languages_spoken",
+   "conf": 0.8726402573979465,
+   "raw": "1"
+  },
+  {
+   "i": 38,
+   "linked": "/m/0gwjw0c",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.5095427708085768,
+   "raw": "1"
+  },
+  {
+   "i": 597,
+   "linked": "/m/015fs3",
+   "chosen": "/common/topic/webpage./common/webpage/category",
+   "conf": 0.3301110792205657,
+   "raw": "1"
+  },
+  {
+   "i": 504,
+   "linked": "/m/052bw",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 363,
+   "linked": "/m/0bt9lr",
+   "chosen": "/film/film_subject/films",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 275,
+   "linked": "/m/07c52",
+   "chosen": "/media_common/netflix_genre/titles",
+   "conf": 0.5993920128647418,
+   "raw": "3"
+  },
+  {
+   "i": 536,
+   "linked": "/m/0755wz",
+   "chosen": "/people/person/place_of_birth",
+   "conf": 0.17757665496737912,
+   "raw": "8"
+  },
+  {
+   "i": 42,
+   "linked": "/m/05zlld0",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 491,
+   "linked": "/m/068p2",
+   "chosen": "/sports/sports_team_location/teams",
+   "conf": 0.7087585873607569,
+   "raw": "10"
+  },
+  {
+   "i": 674,
+   "linked": "/m/02ln1",
+   "chosen": "/people/deceased_person/place_of_death",
+   "conf": 0.6650106329536412,
+   "raw": "2"
+  },
+  {
+   "i": 393,
+   "linked": "/m/01my_c",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award_nominee",
+   "conf": 0.35192039960013227,
+   "raw": "1"
+  },
+  {
+   "i": 468,
+   "linked": "/m/016wzw",
+   "chosen": "/base/aareas/schema/administrative_area/administrative_area_type",
+   "conf": 0.24371685182796363,
+   "raw": "1"
+  },
+  {
+   "i": 274,
+   "linked": "/m/0qcr0",
+   "chosen": "/medicine/disease/risk_factors",
+   "conf": 0.6494247864868303,
+   "raw": "1"
+  },
+  {
+   "i": 649,
+   "linked": "/m/012jfb",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.41601160822022626,
+   "raw": "1"
+  },
+  {
+   "i": 558,
+   "linked": "/m/047d21r",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.5624794324497177,
+   "raw": "1"
+  },
+  {
+   "i": 175,
+   "linked": "/m/0h3lt",
+   "chosen": "/location/location/time_zones",
+   "conf": 0.656601480234815,
+   "raw": "5"
+  },
+  {
+   "i": 424,
+   "linked": "/m/0gg8l",
+   "chosen": "/music/genre/artists",
+   "conf": 0.7266079099379873,
+   "raw": "1"
+  },
+  {
+   "i": 606,
+   "linked": "/m/0hvvf",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.4107806347388754,
+   "raw": "1"
+  },
+  {
+   "i": 478,
+   "linked": "/m/0gj9tn5",
+   "chosen": "/film/film/country",
+   "conf": 0.3860756184933386,
+   "raw": "1"
+  },
+  {
+   "i": 72,
+   "linked": "/m/0h14ln",
+   "chosen": "/film/film/genre",
+   "conf": 0.22104026901685975,
+   "raw": "4"
+  },
+  {
+   "i": 355,
+   "linked": "/m/05bt6j",
+   "chosen": "/music/genre/artists",
+   "conf": 0.7553023734755475,
+   "raw": "1"
+  },
+  {
+   "i": 523,
+   "linked": "/m/037q2p",
+   "chosen": "/education/educational_institution/school_type",
+   "conf": 0.24318639349703203,
+   "raw": "5"
+  },
+  {
+   "i": 359,
+   "linked": "/m/0mj0c",
+   "chosen": "/influence/influence_node/influenced_by",
+   "conf": 0.2706310112165919,
+   "raw": "1"
+  },
+  {
+   "i": 575,
+   "linked": "/m/01t8sr",
+   "chosen": "/education/educational_institution/campuses",
+   "conf": 0.23068217487589315,
+   "raw": "2"
+  },
+  {
+   "i": 246,
+   "linked": "/m/01y9r2",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.4859529320134572,
+   "raw": "1"
+  },
+  {
+   "i": 320,
+   "linked": "/m/01ynzf",
+   "chosen": "/people/deceased_person/place_of_burial",
+   "conf": 0.35610319429717535,
+   "raw": "5"
+  },
+  {
+   "i": 724,
+   "linked": "/m/018_q8",
+   "chosen": "/business/business_operation/industry",
+   "conf": 0.2272054301787565,
+   "raw": "4"
+  },
+  {
+   "i": 144,
+   "linked": "/m/05k7sb",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 530,
+   "linked": "/m/0739y",
+   "chosen": "/people/person/nationality",
+   "conf": 0.5137008375507535,
+   "raw": "3"
+  },
+  {
+   "i": 77,
+   "linked": "/m/0yyg4",
+   "chosen": "/film/film/genre",
+   "conf": 0.19174520532048026,
+   "raw": "6"
+  },
+  {
+   "i": 565,
+   "linked": "/m/03k9fj",
+   "chosen": "/media_common/netflix_genre/titles",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 301,
+   "linked": "/m/0721cy",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.4119485834991297,
+   "raw": "1"
+  },
+  {
+   "i": 87,
+   "linked": "/m/0fd3y",
+   "chosen": "/music/genre/parent_genre",
+   "conf": 0.8440261495220792,
+   "raw": "2"
+  },
+  {
+   "i": 701,
+   "linked": "/m/07c6l",
+   "chosen": "/music/performance_role/regular_performances./music/group_membership/role",
+   "conf": 0.44935785756840263,
+   "raw": "4"
+  },
+  {
+   "i": 307,
+   "linked": "/m/0k2sk",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.517006271251261,
+   "raw": "1"
+  },
+  {
+   "i": 679,
+   "linked": "/m/01l_pn",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.6998193856697323,
+   "raw": "1"
+  },
+  {
+   "i": 581,
+   "linked": "/m/021j72",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.18956842595330725,
+   "raw": "The correct answer is **1**.\n\n"
+  },
+  {
+   "i": 630,
+   "linked": "/m/0k6yt1",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 101,
+   "linked": "/m/02vxn",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 283,
+   "linked": "/m/042l3v",
+   "chosen": null,
+   "conf": 0.2012460201523932,
+   "raw": "The question asks for the nationality of Herbert"
+  },
+  {
+   "i": 410,
+   "linked": "/m/0_ytw",
+   "chosen": "/location/hud_county_place/place",
+   "conf": 0.7689289509063056,
+   "raw": "3"
+  },
+  {
+   "i": 228,
+   "linked": "/m/01znbj",
+   "chosen": "/music/record_label/artist",
+   "conf": 0.7679799721402389,
+   "raw": "2"
+  },
+  {
+   "i": 419,
+   "linked": "/m/0dbdy",
+   "chosen": "/location/administrative_division/country",
+   "conf": 0.5651824336564262,
+   "raw": "2"
+  },
+  {
+   "i": 563,
+   "linked": "/m/02c6pq",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.24306411511350381,
+   "raw": "1"
+  },
+  {
+   "i": 587,
+   "linked": "/m/0f3kl",
+   "chosen": "/medicine/symptom/symptom_of",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 192,
+   "linked": "/m/02nt75",
+   "chosen": "/soccer/football_team/current_roster./soccer/football_roster_position/position",
+   "conf": 0.4943610434742535,
+   "raw": "1"
+  },
+  {
+   "i": 511,
+   "linked": "/m/072192",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.6098499349821286,
+   "raw": "1"
+  },
+  {
+   "i": 221,
+   "linked": "/m/0h96g",
+   "chosen": "/people/person/place_of_birth",
+   "conf": 0.16290076658203917,
+   "raw": "7"
+  },
+  {
+   "i": 178,
+   "linked": "/m/01fjw0",
+   "chosen": "/location/administrative_division/country",
+   "conf": 0.6523562146267129,
+   "raw": "1"
+  },
+  {
+   "i": 717,
+   "linked": "/m/047gn4y",
+   "chosen": "/film/film/cinematography",
+   "conf": 0.5491911119904289,
+   "raw": "1"
+  },
+  {
+   "i": 663,
+   "linked": null,
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 395,
+   "linked": "/m/0hv81",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.6247537661725512,
+   "raw": "1"
+  },
+  {
+   "i": 209,
+   "linked": "/m/032j_n",
+   "chosen": "/organization/organization/place_founded",
+   "conf": 0.35987422973040323,
+   "raw": "6"
+  },
+  {
+   "i": 339,
+   "linked": "/m/0jdr0",
+   "chosen": "/film/film/written_by",
+   "conf": 0.3303247920451459,
+   "raw": "10"
+  },
+  {
+   "i": 647,
+   "linked": "/m/04093",
+   "chosen": "/people/person/place_of_birth",
+   "conf": 0.8555381268169933,
+   "raw": "3"
+  },
+  {
+   "i": 579,
+   "linked": "/m/09ld6g",
+   "chosen": "/people/person/languages",
+   "conf": 0.41085575985056183,
+   "raw": "2"
+  },
+  {
+   "i": 334,
+   "linked": "/m/05148p4",
+   "chosen": "/music/performance_role/guest_performances./music/recording_contribution/performance_role",
+   "conf": 0.3577591331745814,
+   "raw": "3"
+  },
+  {
+   "i": 721,
+   "linked": "/m/027pfb2",
+   "chosen": "/tv/tv_program/genre",
+   "conf": 0.23159500575390787,
+   "raw": "4"
+  },
+  {
+   "i": 183,
+   "linked": "/m/02_1q9",
+   "chosen": "/tv/tv_program/languages",
+   "conf": 0.3619988964234469,
+   "raw": "3"
+  },
+  {
+   "i": 446,
+   "linked": "/m/02q87z6",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.4681387065739179,
+   "raw": "1"
+  },
+  {
+   "i": 237,
+   "linked": "/m/0342h",
+   "chosen": "/music/performance_role/guest_performances./music/recording_contribution/performance_role",
+   "conf": 0.2716935022536531,
+   "raw": "4"
+  },
+  {
+   "i": 1,
+   "linked": "/m/08phg9",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.42587711536057254,
+   "raw": "1"
+  },
+  {
+   "i": 567,
+   "linked": "/m/0kz2w",
+   "chosen": "/education/educational_institution/school_type",
+   "conf": 0.4666463416396975,
+   "raw": "5"
+  },
+  {
+   "i": 195,
+   "linked": "/m/01g5v",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 585,
+   "linked": "/m/051zy_b",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.49542287751559444,
+   "raw": "1"
+  },
+  {
+   "i": 216,
+   "linked": "/m/0h2zvzr",
+   "chosen": null,
+   "conf": 0.21794070003490987,
+   "raw": "The question asks for the European country where"
+  },
+  {
+   "i": 312,
+   "linked": "/m/0m_w6",
+   "chosen": "/location/administrative_division/country",
+   "conf": 0.448099337585714,
+   "raw": "2"
+  },
+  {
+   "i": 238,
+   "linked": "/m/02x02kb",
+   "chosen": "/people/person/languages",
+   "conf": 0.2233527999555726,
+   "raw": "4"
+  },
+  {
+   "i": 133,
+   "linked": "/m/016clz",
+   "chosen": "/music/genre/artists",
+   "conf": 0.7248009400665049,
+   "raw": "1"
+  },
+  {
+   "i": 55,
+   "linked": "/m/05cv8",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.25650034559358514,
+   "raw": "1"
+  },
+  {
+   "i": 74,
+   "linked": "/m/0gd_s",
+   "chosen": "/influence/influence_node/influenced_by",
+   "conf": 0.4341159438692295,
+   "raw": "2"
+  },
+  {
+   "i": 545,
+   "linked": "/m/07ghq",
+   "chosen": "/film/film/written_by",
+   "conf": 0.6518732859128882,
+   "raw": "10"
+  },
+  {
+   "i": 632,
+   "linked": "/m/0bw20",
+   "chosen": "/film/film/country",
+   "conf": 0.5999612282497823,
+   "raw": "1"
+  },
+  {
+   "i": 384,
+   "linked": null,
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 540,
+   "linked": "/m/050l8",
+   "chosen": "/base/aareas/schema/administrative_area/administrative_parent",
+   "conf": 0.4648695072684609,
+   "raw": "1"
+  },
+  {
+   "i": 114,
+   "linked": "/m/01x4r3",
+   "chosen": "/influence/influence_node/influenced_by",
+   "conf": 0.46213798080140533,
+   "raw": "4"
+  },
+  {
+   "i": 382,
+   "linked": "/m/0xhtw",
+   "chosen": "/music/genre/artists",
+   "conf": 0.793566701758329,
+   "raw": "1"
+  },
+  {
+   "i": 625,
+   "linked": "/m/0yyn5",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "conf": 0.5028901149315433,
+   "raw": "1"
+  },
+  {
+   "i": 471,
+   "linked": "/m/05fhy",
+   "chosen": "/base/aareas/schema/administrative_area/capital",
+   "conf": 0.47506808575058573,
+   "raw": "1"
+  },
+  {
+   "i": 467,
+   "linked": "/m/017_qw",
+   "chosen": "/music/genre/artists",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 584,
+   "linked": "/m/03shpq",
+   "chosen": "/film/film/cinematography",
+   "conf": 0.40754159671072127,
+   "raw": "1"
+  },
+  {
+   "i": 481,
+   "linked": "/m/048htn",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.3126289659177448,
+   "raw": "1"
+  },
+  {
+   "i": 618,
+   "linked": "/m/064177",
+   "chosen": "/people/deceased_person/place_of_death",
+   "conf": 0.7667035405321699,
+   "raw": "3"
+  },
+  {
+   "i": 737,
+   "linked": "/m/0drnwh",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.6690777005221988,
+   "raw": "1"
+  },
+  {
+   "i": 399,
+   "linked": "/m/06by7",
+   "chosen": "/music/genre/artists",
+   "conf": 0.6867096343356306,
+   "raw": "2"
+  },
+  {
+   "i": 615,
+   "linked": "/m/0821j",
+   "chosen": "/influence/influence_node/influenced_by",
+   "conf": 0.5035622642324655,
+   "raw": "3"
+  },
+  {
+   "i": 677,
+   "linked": "/m/084x96",
+   "chosen": "/people/person/place_of_birth",
+   "conf": 0.9179389472829612,
+   "raw": "4"
+  },
+  {
+   "i": 285,
+   "linked": "/m/09qh1",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.4493228524850966,
+   "raw": "1"
+  },
+  {
+   "i": 710,
+   "linked": "/m/05bcl",
+   "chosen": "/location/administrative_division/country",
+   "conf": 0.537337421721538,
+   "raw": "1"
+  },
+  {
+   "i": 343,
+   "linked": "/m/015_1q",
+   "chosen": "/music/record_label/artist",
+   "conf": 0.6421651232962339,
+   "raw": "1"
+  },
+  {
+   "i": 287,
+   "linked": "/m/063zky",
+   "chosen": null,
+   "conf": 0.22069493176227087,
+   "raw": "The question asks to identify the relationship between"
+  },
+  {
+   "i": 161,
+   "linked": "/m/0ywrc",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.3968843490334126,
+   "raw": "1"
+  },
+  {
+   "i": 484,
+   "linked": "/m/01fmys",
+   "chosen": "/film/film/written_by",
+   "conf": 0.686084389860501,
+   "raw": "11"
+  },
+  {
+   "i": 730,
+   "linked": "/m/02r8hh_",
+   "chosen": "/film/film/release_date_s./film/film_regional_release_date/film_release_region",
+   "conf": 0.17868408843227093,
+   "raw": "9"
+  },
+  {
+   "i": 189,
+   "linked": "/m/01l69g",
+   "chosen": "/base/aareas/schema/administrative_area/capital",
+   "conf": 0.42020576448726643,
+   "raw": "2"
+  },
+  {
+   "i": 492,
+   "linked": "/m/03b12",
+   "chosen": "/location/location/time_zones",
+   "conf": 0.6346510642945821,
+   "raw": "4"
+  },
+  {
+   "i": 314,
+   "linked": "/m/07q1m",
+   "chosen": "/film/film/release_date_s./film/film_regional_release_date/film_release_distribution_medium",
+   "conf": 0.38095802698224845,
+   "raw": "10"
+  },
+  {
+   "i": 556,
+   "linked": "/m/059_w",
+   "chosen": "/people/ethnicity/languages_spoken",
+   "conf": 0.29013304906083165,
+   "raw": "3"
+  },
+  {
+   "i": 420,
+   "linked": "/m/0880p",
+   "chosen": "/language/human_language/countries_spoken_in",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 646,
+   "linked": "/m/0ldd",
+   "chosen": "/people/person/nationality",
+   "conf": 0.6321393219605763,
+   "raw": "5"
+  },
+  {
+   "i": 213,
+   "linked": "/m/0k2sk",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.43462422560861647,
+   "raw": "1"
+  },
+  {
+   "i": 422,
+   "linked": "/m/0c5dd",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.40646114234031716,
+   "raw": "1"
+  },
+  {
+   "i": 381,
+   "linked": "/m/04llb",
+   "chosen": "/base/biblioness/bibs_location/country",
+   "conf": 0.3294399790672163,
+   "raw": "1"
+  },
+  {
+   "i": 465,
+   "linked": "/m/01r97z",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.30753355204154137,
+   "raw": "1"
+  },
+  {
+   "i": 297,
+   "linked": "/m/033dbw",
+   "chosen": "/film/film/cinematography",
+   "conf": 0.4004333822137982,
+   "raw": "1"
+  },
+  {
+   "i": 469,
+   "linked": "/m/023p7l",
+   "chosen": "/film/film/release_date_s./film/film_regional_release_date/film_release_distribution_medium",
+   "conf": 0.31829304938843594,
+   "raw": "6"
+  },
+  {
+   "i": 452,
+   "linked": "/m/02mt51",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.667931431654163,
+   "raw": "1"
+  },
+  {
+   "i": 194,
+   "linked": "/m/04mvk7",
+   "chosen": "/soccer/football_team/current_roster./soccer/football_roster_position/position",
+   "conf": 0.5844572121948199,
+   "raw": "1"
+  },
+  {
+   "i": 26,
+   "linked": "/m/050ks",
+   "chosen": "/base/aareas/schema/administrative_area/administrative_parent",
+   "conf": 0.40146074598547604,
+   "raw": "1"
+  },
+  {
+   "i": 627,
+   "linked": "/m/06by7",
+   "chosen": "/music/genre/artists",
+   "conf": 0.7119720575938702,
+   "raw": "2"
+  },
+  {
+   "i": 143,
+   "linked": "/m/07gxw",
+   "chosen": "/music/genre/artists",
+   "conf": 0.7010177883632831,
+   "raw": "1"
+  },
+  {
+   "i": 476,
+   "linked": "/m/01vvzb1",
+   "chosen": "/people/person/place_of_birth",
+   "conf": 0.2726181086770134,
+   "raw": "8"
+  },
+  {
+   "i": 85,
+   "linked": "/m/02lf1j",
+   "chosen": "/people/person/profession",
+   "conf": 0.5737630153600218,
+   "raw": "7"
+  },
+  {
+   "i": 166,
+   "linked": "/m/016lh0",
+   "chosen": "/base/schemastaging/person_extra/net_worth./measurement_unit/dated_money_value/currency",
+   "conf": 0.2836899759720392,
+   "raw": "1"
+  },
+  {
+   "i": 716,
+   "linked": "/m/06cs95",
+   "chosen": "/tv/tv_program/genre",
+   "conf": 0.5823906537256721,
+   "raw": "3"
+  },
+  {
+   "i": 706,
+   "linked": "/m/01q2nx",
+   "chosen": "/film/film/estimated_budget./measurement_unit/dated_money_value/currency",
+   "conf": 0.37338166500088626,
+   "raw": "1"
+  },
+  {
+   "i": 220,
+   "linked": "/m/03rz4",
+   "chosen": "/base/popstra/location/vacationers./base/popstra/vacation_choice/vacationer",
+   "conf": 0.33024647891787917,
+   "raw": "1"
+  },
+  {
+   "i": 635,
+   "linked": "/m/0298n7",
+   "chosen": "/film/film/country",
+   "conf": 0.30951700417301753,
+   "raw": "1"
+  },
+  {
+   "i": 224,
+   "linked": "/m/01lxd4",
+   "chosen": "/music/genre/parent_genre",
+   "conf": 0.6130192919473102,
+   "raw": "2"
+  },
+  {
+   "i": 714,
+   "linked": "/m/04xrx",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.5707391048565327,
+   "raw": "1"
+  },
+  {
+   "i": 332,
+   "linked": "/m/06znpjr",
+   "chosen": "/film/film/language",
+   "conf": 0.18099476575855883,
+   "raw": "The correct answer is **3**.\n\n"
+  },
+  {
+   "i": 375,
+   "linked": "/m/0t0n5",
+   "chosen": "/location/hud_county_place/county",
+   "conf": 0.47938971403942066,
+   "raw": "1"
+  },
+  {
+   "i": 447,
+   "linked": "/m/015y3j",
+   "chosen": "/business/business_operation/assets./measurement_unit/dated_money_value/currency",
+   "conf": 0.2796440784636186,
+   "raw": "1"
+  },
+  {
+   "i": 362,
+   "linked": "/m/03ydlnj",
+   "chosen": "/film/film/country",
+   "conf": 0.34059744108551604,
+   "raw": "1"
+  },
+  {
+   "i": 80,
+   "linked": "/m/01_1pv",
+   "chosen": "/film/film/country",
+   "conf": 0.30463252697913995,
+   "raw": "1"
+  },
+  {
+   "i": 326,
+   "linked": "/m/03y_f8",
+   "chosen": "/soccer/football_team/current_roster./sports/sports_team_roster/position",
+   "conf": 0.3913357750830421,
+   "raw": "3"
+  },
+  {
+   "i": 239,
+   "linked": "/m/039cpd",
+   "chosen": "/organization/organization/child./organization/organization_relationship/child",
+   "conf": 0.33542731055022773,
+   "raw": "4"
+  },
+  {
+   "i": 613,
+   "linked": "/m/07rd7",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.48026467143639934,
+   "raw": "1"
+  },
+  {
+   "i": 705,
+   "linked": "/m/07gghl",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.5495089234272709,
+   "raw": "1"
+  },
+  {
+   "i": 704,
+   "linked": "/m/07q1m",
+   "chosen": "/film/film/release_date_s./film/film_regional_release_date/film_release_distribution_medium",
+   "conf": 0.5116459256550236,
+   "raw": "10"
+  },
+  {
+   "i": 288,
+   "linked": "/m/034qmv",
+   "chosen": "/film/film/country",
+   "conf": 0.5028784849264004,
+   "raw": "1"
+  },
+  {
+   "i": 583,
+   "linked": "/m/02w7gg",
+   "chosen": "/people/ethnicity/languages_spoken",
+   "conf": 0.48140232602869143,
+   "raw": "2"
+  },
+  {
+   "i": 582,
+   "linked": "/m/02sqkh",
+   "chosen": "/tv/tv_program/genre",
+   "conf": 0.3725307928164953,
+   "raw": "3"
+  },
+  {
+   "i": 455,
+   "linked": "/m/01lyv",
+   "chosen": "/music/genre/artists",
+   "conf": 0.6986724823159327,
+   "raw": "1"
+  },
+  {
+   "i": 229,
+   "linked": "/m/06czyr",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.23672154081995558,
+   "raw": "1"
+  },
+  {
+   "i": 78,
+   "linked": "/m/0kbvv",
+   "chosen": "/olympics/olympic_games/sports",
+   "conf": 0.3495389395894554,
+   "raw": "3"
+  },
+  {
+   "i": 233,
+   "linked": "/m/06wbm8q",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.3404311743370073,
+   "raw": "1"
+  },
+  {
+   "i": 661,
+   "linked": "/m/05f7w84",
+   "chosen": "/tv/tv_program/genre",
+   "conf": 0.4359481760434189,
+   "raw": "3"
+  },
+  {
+   "i": 694,
+   "linked": "/m/01k7b0",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.5920574744183797,
+   "raw": "1"
+  },
+  {
+   "i": 253,
+   "linked": "/m/01hdht",
+   "chosen": "/people/deceased_person/place_of_death",
+   "conf": 0.6847171198166541,
+   "raw": "3"
+  },
+  {
+   "i": 593,
+   "linked": "/m/0gvrws1",
+   "chosen": null,
+   "conf": 0.2390435733476831,
+   "raw": "The question asks to identify which country released"
+  },
+  {
+   "i": 23,
+   "linked": "/m/02183k",
+   "chosen": "/education/educational_institution/colors",
+   "conf": 0.25023769608903507,
+   "raw": "3"
+  },
+  {
+   "i": 81,
+   "linked": "/m/0167xy",
+   "chosen": "/influence/influence_node/influenced_by",
+   "conf": 0.3660756193645622,
+   "raw": "2"
+  },
+  {
+   "i": 638,
+   "linked": "/m/027rpym",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.536891171536165,
+   "raw": "1"
+  },
+  {
+   "i": 245,
+   "linked": "/m/05lbzg",
+   "chosen": "/base/culturalevent/event/entity_involved",
+   "conf": 0.4208893301688853,
+   "raw": "1"
+  },
+  {
+   "i": 421,
+   "linked": "/m/016clz",
+   "chosen": "/music/genre/artists",
+   "conf": 0.6139317229200696,
+   "raw": "1"
+  },
+  {
+   "i": 474,
+   "linked": "/m/02ntb8",
+   "chosen": "/film/film/executive_produced_by",
+   "conf": 0.2801359857838146,
+   "raw": "5"
+  },
+  {
+   "i": 124,
+   "linked": "/m/09nwwf",
+   "chosen": "/music/genre/artists",
+   "conf": 0.7623332720623132,
+   "raw": "1"
+  },
+  {
+   "i": 700,
+   "linked": null,
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 118,
+   "linked": "/m/0828jw",
+   "chosen": "/tv/tv_program/genre",
+   "conf": 0.2579504875218606,
+   "raw": "5"
+  },
+  {
+   "i": 461,
+   "linked": "/m/05dy7p",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "conf": 0.4349247310470623,
+   "raw": "1"
+  },
+  {
+   "i": 35,
+   "linked": "/m/01k60v",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "conf": 0.6847655861626996,
+   "raw": "1"
+  },
+  {
+   "i": 740,
+   "linked": "/m/0234j5",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "conf": 0.5161002136001767,
+   "raw": "1"
+  },
+  {
+   "i": 300,
+   "linked": "/m/0ql7q",
+   "chosen": "/time/event/locations",
+   "conf": 0.7040408779475625,
+   "raw": "3"
+  },
+  {
+   "i": 522,
+   "linked": "/m/07s9rl0",
+   "chosen": "/media_common/netflix_genre/titles",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 99,
+   "linked": null,
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 215,
+   "linked": "/m/02qcqkl",
+   "chosen": "/music/genre/artists",
+   "conf": 0.6483470242119956,
+   "raw": "1"
+  },
+  {
+   "i": 596,
+   "linked": "/m/0d7wh",
+   "chosen": "/people/ethnicity/languages_spoken",
+   "conf": 0.5550817299038848,
+   "raw": "1"
+  },
+  {
+   "i": 212,
+   "linked": "/m/01g1lp",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.4630254410906126,
+   "raw": "1"
+  },
+  {
+   "i": 411,
+   "linked": "/m/01n7q",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 34,
+   "linked": "/m/0glt670",
+   "chosen": "/music/genre/artists",
+   "conf": 0.7545696536004839,
+   "raw": "1"
+  },
+  {
+   "i": 214,
+   "linked": "/m/07c52",
+   "chosen": "/media_common/netflix_genre/titles",
+   "conf": 0.36547637114859255,
+   "raw": "3"
+  },
+  {
+   "i": 296,
+   "linked": null,
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 516,
+   "linked": "/m/050gkf",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.5483435544271555,
+   "raw": "1"
+  },
+  {
+   "i": 113,
+   "linked": "/m/02p5hf",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.33499090701820294,
+   "raw": "1"
+  },
+  {
+   "i": 433,
+   "linked": "/m/08fn5b",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.659472294769874,
+   "raw": "1"
+  },
+  {
+   "i": 544,
+   "linked": "/m/02ylg6",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.3022086066188614,
+   "raw": "1"
+  },
+  {
+   "i": 602,
+   "linked": "/m/030s5g",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.20582237012547186,
+   "raw": "1"
+  },
+  {
+   "i": 62,
+   "linked": "/m/01243b",
+   "chosen": "/music/genre/artists",
+   "conf": 0.6947172836344458,
+   "raw": "1"
+  },
+  {
+   "i": 130,
+   "linked": "/m/04t36",
+   "chosen": "/media_common/netflix_genre/titles",
+   "conf": 0.47623104004230576,
+   "raw": "1"
+  },
+  {
+   "i": 656,
+   "linked": "/m/0ckd1",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 165,
+   "linked": "/m/0466s8n",
+   "chosen": "/film/film/estimated_budget./measurement_unit/dated_money_value/currency",
+   "conf": 0.5794037024136562,
+   "raw": "1"
+  },
+  {
+   "i": 443,
+   "linked": "/m/01tvz5j",
+   "chosen": "/people/person/place_of_birth",
+   "conf": 0.2548127689250655,
+   "raw": "9"
+  },
+  {
+   "i": 302,
+   "linked": "/m/0g5rg",
+   "chosen": "/location/location/time_zones",
+   "conf": 0.5225819501936294,
+   "raw": "5"
+  },
+  {
+   "i": 33,
+   "linked": null,
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 715,
+   "linked": "/m/016r9z",
+   "chosen": "/olympics/olympic_games/sports",
+   "conf": 0.7732099356939334,
+   "raw": "3"
+  },
+  {
+   "i": 722,
+   "linked": "/m/0155j3",
+   "chosen": "/location/administrative_division/country",
+   "conf": 0.7897741176926599,
+   "raw": "1"
+  },
+  {
+   "i": 181,
+   "linked": "/m/0pd4f",
+   "chosen": "/film/film/written_by",
+   "conf": 0.18106876586874773,
+   "raw": "The correct answer is **9**.\n\n"
+  },
+  {
+   "i": 561,
+   "linked": "/m/01cgz",
+   "chosen": "/film/film_subject/films",
+   "conf": 0.3622232353303514,
+   "raw": "1"
+  },
+  {
+   "i": 28,
+   "linked": "/m/0drnwh",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.6884279185175924,
+   "raw": "1"
+  },
+  {
+   "i": 331,
+   "linked": "/m/02vxn",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 15,
+   "linked": "/m/01svry",
+   "chosen": "/film/film/estimated_budget./measurement_unit/dated_money_value/currency",
+   "conf": 0.32314822648363734,
+   "raw": "1"
+  },
+  {
+   "i": 651,
+   "linked": "/m/0lgxj",
+   "chosen": "/olympics/olympic_games/participating_countries",
+   "conf": 0.6839492383689041,
+   "raw": "2"
+  },
+  {
+   "i": 466,
+   "linked": "/m/03f5vvx",
+   "chosen": "/influence/influence_node/influenced_by",
+   "conf": 0.32727934274164916,
+   "raw": "4"
+  },
+  {
+   "i": 697,
+   "linked": "/m/0qcrj",
+   "chosen": null,
+   "conf": 0.19138986746089892,
+   "raw": "The question asks to identify the state where"
+  },
+  {
+   "i": 658,
+   "linked": "/m/02bqxb",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.6253766437563193,
+   "raw": "1"
+  },
+  {
+   "i": 308,
+   "linked": "/m/0jm74",
+   "chosen": "/sports/professional_sports_team/draft_picks./sports/sports_league_draft_pick/draft",
+   "conf": 0.4028039170242421,
+   "raw": "1"
+  },
+  {
+   "i": 631,
+   "linked": "/m/06ncr",
+   "chosen": "/music/instrument/family",
+   "conf": 0.25790166099370504,
+   "raw": "1"
+  },
+  {
+   "i": 483,
+   "linked": "/m/0byq0v",
+   "chosen": "/sports/sports_team/colors",
+   "conf": 0.5468753072358334,
+   "raw": "3"
+  },
+  {
+   "i": 734,
+   "linked": "/m/02q52q",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "conf": 0.3795708076970027,
+   "raw": "1"
+  },
+  {
+   "i": 120,
+   "linked": "/m/032zq6",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.5538433684532252,
+   "raw": "1"
+  },
+  {
+   "i": 693,
+   "linked": "/m/0d6b7",
+   "chosen": "/film/film/written_by",
+   "conf": 0.626291154312694,
+   "raw": "10"
+  },
+  {
+   "i": 267,
+   "linked": "/m/0df2zx",
+   "chosen": "/common/topic/webpage./common/webpage/category",
+   "conf": 0.46105915263582964,
+   "raw": "1"
+  },
+  {
+   "i": 241,
+   "linked": "/m/047qxs",
+   "chosen": "/film/film/genre",
+   "conf": 0.2899045219830245,
+   "raw": "6"
+  },
+  {
+   "i": 0,
+   "linked": "/m/02ppg1r",
+   "chosen": "/tv/tv_program/genre",
+   "conf": 0.36424824814555823,
+   "raw": "6"
+  },
+  {
+   "i": 445,
+   "linked": "/m/0_7w6",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.5058463812403302,
+   "raw": "1"
+  },
+  {
+   "i": 604,
+   "linked": "/m/0gyy53",
+   "chosen": "/film/film/costume_design_by",
+   "conf": 0.3845481496607678,
+   "raw": "1"
+  },
+  {
+   "i": 299,
+   "linked": "/m/0b90_r",
+   "chosen": "/base/aareas/schema/administrative_area/administrative_area_type",
+   "conf": 0.5493519921023294,
+   "raw": "1"
+  },
+  {
+   "i": 61,
+   "linked": "/m/0jnpv",
+   "chosen": "/ice_hockey/hockey_team/current_roster./sports/sports_team_roster/position",
+   "conf": 0.7180854010543033,
+   "raw": "1"
+  },
+  {
+   "i": 73,
+   "linked": "/m/011wtv",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.4547200874711928,
+   "raw": "1"
+  },
+  {
+   "i": 485,
+   "linked": "/m/01s7w3",
+   "chosen": "/film/film/written_by",
+   "conf": 0.8104275459946813,
+   "raw": "13"
+  },
+  {
+   "i": 318,
+   "linked": "/m/04jwly",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.6374066440647471,
+   "raw": "1"
+  },
+  {
+   "i": 712,
+   "linked": "/m/03vw9m",
+   "chosen": "/music/genre/artists",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 76,
+   "linked": "/m/0bn3jg",
+   "chosen": "/people/person/nationality",
+   "conf": 0.7134520933629949,
+   "raw": "3"
+  },
+  {
+   "i": 387,
+   "linked": "/m/02jkkv",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.6361419557235951,
+   "raw": "1"
+  },
+  {
+   "i": 366,
+   "linked": "/m/05nlzq",
+   "chosen": "/tv/tv_program/genre",
+   "conf": 0.519442077448405,
+   "raw": "2"
+  },
+  {
+   "i": 364,
+   "linked": "/m/035xwd",
+   "chosen": "/film/film/written_by",
+   "conf": 0.2953640322779857,
+   "raw": "10"
+  },
+  {
+   "i": 517,
+   "linked": "/m/01qhm_",
+   "chosen": "/people/ethnicity/geographic_distribution",
+   "conf": 0.5451586172320146,
+   "raw": "1"
+  },
+  {
+   "i": 374,
+   "linked": "/m/01r2l",
+   "chosen": "/language/human_language/countries_spoken_in",
+   "conf": 0.690912311806793,
+   "raw": "3"
+  },
+  {
+   "i": 436,
+   "linked": "/m/01gpzx",
+   "chosen": "/location/administrative_division/country",
+   "conf": 0.4242788071884311,
+   "raw": "2"
+  },
+  {
+   "i": 10,
+   "linked": "/m/05k7sb",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 207,
+   "linked": "/m/065zlr",
+   "chosen": "/film/film/country",
+   "conf": 0.6495444268473781,
+   "raw": "1"
+  },
+  {
+   "i": 310,
+   "linked": "/m/016jny",
+   "chosen": "/music/genre/artists",
+   "conf": 0.6507825773017436,
+   "raw": "1"
+  },
+  {
+   "i": 222,
+   "linked": "/m/049mql",
+   "chosen": "/film/film/country",
+   "conf": 0.24231567358532308,
+   "raw": "1"
+  },
+  {
+   "i": 109,
+   "linked": "/m/0lhn5",
+   "chosen": "/location/hud_county_place/place",
+   "conf": 0.33822796500677477,
+   "raw": "3"
+  },
+  {
+   "i": 709,
+   "linked": "/m/019vv1",
+   "chosen": "/education/educational_institution/school_type",
+   "conf": 0.5814044548772692,
+   "raw": "3"
+  },
+  {
+   "i": 284,
+   "linked": "/m/08m4c8",
+   "chosen": "/people/person/place_of_birth",
+   "conf": 0.6027730272032508,
+   "raw": "8"
+  },
+  {
+   "i": 738,
+   "linked": "/m/0b2v79",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.36834512117542445,
+   "raw": "1"
+  },
+  {
+   "i": 532,
+   "linked": "/m/01fxg8",
+   "chosen": "/education/educational_institution/school_type",
+   "conf": 0.4219292379172961,
+   "raw": "3"
+  },
+  {
+   "i": 324,
+   "linked": "/m/03np_7",
+   "chosen": "/common/topic/webpage./common/webpage/category",
+   "conf": 0.3307117083065892,
+   "raw": "1"
+  },
+  {
+   "i": 595,
+   "linked": "/m/0gvvf4j",
+   "chosen": "/film/film/country",
+   "conf": 0.22129764796806906,
+   "raw": "1"
+  },
+  {
+   "i": 623,
+   "linked": "/m/07jnt",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.4271181794593059,
+   "raw": "1"
+  },
+  {
+   "i": 732,
+   "linked": "/m/0dh8v4",
+   "chosen": "/film/film/language",
+   "conf": 0.2602625553717599,
+   "raw": "4"
+  },
+  {
+   "i": 25,
+   "linked": "/m/02qlg7s",
+   "chosen": "/people/person/place_of_birth",
+   "conf": 0.6865386455588351,
+   "raw": "7"
+  },
+  {
+   "i": 180,
+   "linked": "/m/08hsww",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.44109982530430847,
+   "raw": "1"
+  },
+  {
+   "i": 156,
+   "linked": "/m/03y2kr",
+   "chosen": "/people/person/nationality",
+   "conf": 0.5813050398869529,
+   "raw": "4"
+  },
+  {
+   "i": 470,
+   "linked": "/m/01xdxy",
+   "chosen": "/film/film/prequel",
+   "conf": 0.7813271335791419,
+   "raw": "11"
+  },
+  {
+   "i": 437,
+   "linked": "/m/02mzg9",
+   "chosen": "/common/topic/webpage./common/webpage/category",
+   "conf": 0.2672519616896855,
+   "raw": "1"
+  },
+  {
+   "i": 145,
+   "linked": "/m/025twgf",
+   "chosen": "/film/film/story_by",
+   "conf": 0.18268281846072837,
+   "raw": "The correct answer is **9**.\n\n"
+  },
+  {
+   "i": 404,
+   "linked": null,
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 223,
+   "linked": "/m/01n7q",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 292,
+   "linked": "/m/081yw",
+   "chosen": "/base/aareas/schema/administrative_area/administrative_parent",
+   "conf": 0.42106464925547316,
+   "raw": "1"
+  },
+  {
+   "i": 322,
+   "linked": "/m/01cssf",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.5462409275494102,
+   "raw": "1"
+  },
+  {
+   "i": 620,
+   "linked": "/m/0nbjq",
+   "chosen": "/olympics/olympic_games/sports",
+   "conf": 0.3854543373790671,
+   "raw": "4"
+  },
+  {
+   "i": 373,
+   "linked": "/m/0r7fy",
+   "chosen": "/location/hud_county_place/place",
+   "conf": 0.3618964641978235,
+   "raw": "4"
+  },
+  {
+   "i": 351,
+   "linked": "/m/04dsnp",
+   "chosen": "/film/film/country",
+   "conf": 0.31598301184631084,
+   "raw": "1"
+  },
+  {
+   "i": 687,
+   "linked": "/m/05tbn",
+   "chosen": "/base/aareas/schema/administrative_area/administrative_parent",
+   "conf": 0.5027646569636268,
+   "raw": "1"
+  },
+  {
+   "i": 159,
+   "linked": "/m/04ltlj",
+   "chosen": "/film/film/country",
+   "conf": 0.21610793524989752,
+   "raw": "The correct answer is **1**.\n\n"
+  },
+  {
+   "i": 277,
+   "linked": "/m/08jtv5",
+   "chosen": "/people/person/nationality",
+   "conf": 0.25259129709510586,
+   "raw": "2"
+  },
+  {
+   "i": 719,
+   "linked": "/m/07ssc",
+   "chosen": "/base/aareas/schema/administrative_area/administrative_area_type",
+   "conf": 0.3280498530431927,
+   "raw": "1"
+  },
+  {
+   "i": 589,
+   "linked": "/m/03w6sj",
+   "chosen": "/base/culturalevent/event/entity_involved",
+   "conf": 0.4007676215476676,
+   "raw": "1"
+  },
+  {
+   "i": 676,
+   "linked": "/m/01pg1d",
+   "chosen": "/people/person/place_of_birth",
+   "conf": 0.7891674583836159,
+   "raw": "6"
+  },
+  {
+   "i": 407,
+   "linked": "/m/07d2d",
+   "chosen": "/music/genre/artists",
+   "conf": 0.6010336767649042,
+   "raw": "1"
+  },
+  {
+   "i": 598,
+   "linked": "/m/04v7k2",
+   "chosen": "/people/person/religion",
+   "conf": 0.48959195832533287,
+   "raw": "9"
+  },
+  {
+   "i": 236,
+   "linked": "/m/050t68",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.17217313769061496,
+   "raw": "1"
+  },
+  {
+   "i": 271,
+   "linked": "/m/02vxn",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 69,
+   "linked": "/m/03rjj",
+   "chosen": "/base/aareas/schema/administrative_area/administrative_area_type",
+   "conf": 0.5701064357759219,
+   "raw": "1"
+  },
+  {
+   "i": 479,
+   "linked": "/m/02grjf",
+   "chosen": "/business/business_operation/assets./measurement_unit/dated_money_value/currency",
+   "conf": 0.29069299163246437,
+   "raw": "1"
+  },
+  {
+   "i": 265,
+   "linked": "/m/03rhqg",
+   "chosen": "/music/record_label/artist",
+   "conf": 0.5568339158153314,
+   "raw": "1"
+  },
+  {
+   "i": 725,
+   "linked": "/m/0dmn0x",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.19426039742838824,
+   "raw": "1"
+  },
+  {
+   "i": 258,
+   "linked": "/m/05q_dw",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "conf": 0.37445258639363105,
+   "raw": "1"
+  },
+  {
+   "i": 168,
+   "linked": "/m/09ps01",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "conf": 0.41596182038168866,
+   "raw": "1"
+  },
+  {
+   "i": 566,
+   "linked": "/m/03vyw8",
+   "chosen": "/film/film/country",
+   "conf": 0.24497519228491849,
+   "raw": "3"
+  },
+  {
+   "i": 660,
+   "linked": "/m/02k6hp",
+   "chosen": "/people/cause_of_death/people",
+   "conf": 0.38944774221959927,
+   "raw": "3"
+  },
+  {
+   "i": 654,
+   "linked": "/m/01cx_",
+   "chosen": "/sports/sports_team_location/teams",
+   "conf": 0.7734115691393919,
+   "raw": "13"
+  },
+  {
+   "i": 134,
+   "linked": "/m/01vj9c",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 680,
+   "linked": "/m/0d1qmz",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.2292089136452843,
+   "raw": "1"
+  },
+  {
+   "i": 668,
+   "linked": "/m/0tbql",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 280,
+   "linked": "/m/0c11mj",
+   "chosen": "/people/person/place_of_birth",
+   "conf": 0.2039094152257093,
+   "raw": "3"
+  },
+  {
+   "i": 244,
+   "linked": "/m/0c3z0",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.6265518643211763,
+   "raw": "1"
+  },
+  {
+   "i": 290,
+   "linked": "/m/01jp4s",
+   "chosen": "/base/biblioness/bibs_location/country",
+   "conf": 0.417405477436117,
+   "raw": "1"
+  },
+  {
+   "i": 269,
+   "linked": "/m/0127s7",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.7300027692309972,
+   "raw": "1"
+  },
+  {
+   "i": 444,
+   "linked": "/m/02645b",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.21901300080618968,
+   "raw": "1"
+  },
+  {
+   "i": 66,
+   "linked": "/m/0cz_ym",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.5229745039877411,
+   "raw": "1"
+  },
+  {
+   "i": 628,
+   "linked": "/m/01sxly",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.45781008485070557,
+   "raw": "1"
+  },
+  {
+   "i": 32,
+   "linked": "/m/01pcj4",
+   "chosen": "/business/business_operation/assets./measurement_unit/dated_money_value/currency",
+   "conf": 0.29639639774642323,
+   "raw": "1"
+  },
+  {
+   "i": 659,
+   "linked": "/m/07tj4c",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.38266715796238315,
+   "raw": "1"
+  },
+  {
+   "i": 642,
+   "linked": "/m/09889g",
+   "chosen": "/base/eating/practicer_of_diet/diet",
+   "conf": 0.3072817584327514,
+   "raw": "4"
+  },
+  {
+   "i": 498,
+   "linked": "/m/016z68",
+   "chosen": "/people/person/religion",
+   "conf": 0.645790585209928,
+   "raw": "7"
+  },
+  {
+   "i": 346,
+   "linked": "/m/0l14md",
+   "chosen": "/music/performance_role/regular_performances./music/group_membership/role",
+   "conf": 0.39508746263301114,
+   "raw": "4"
+  },
+  {
+   "i": 718,
+   "linked": "/m/03gfvsz",
+   "chosen": "/broadcast/content/artist",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 126,
+   "linked": "/m/07tf8",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 548,
+   "linked": "/m/0d_w7",
+   "chosen": "/people/person/religion",
+   "conf": 0.589643850260924,
+   "raw": "9"
+  },
+  {
+   "i": 519,
+   "linked": "/m/0gf14",
+   "chosen": "/education/educational_institution/campuses",
+   "conf": 0.28306411237663714,
+   "raw": "2"
+  },
+  {
+   "i": 176,
+   "linked": "/m/0mpbx",
+   "chosen": "/base/aareas/schema/administrative_area/administrative_parent",
+   "conf": 0.48261377987595944,
+   "raw": "1"
+  },
+  {
+   "i": 640,
+   "linked": "/m/05r6t",
+   "chosen": "/music/genre/artists",
+   "conf": 0.6583194090797547,
+   "raw": "2"
+  },
+  {
+   "i": 4,
+   "linked": "/m/04b_46",
+   "chosen": "/education/educational_institution/school_type",
+   "conf": 0.5575464935995598,
+   "raw": "1"
+  },
+  {
+   "i": 186,
+   "linked": "/m/03bw6",
+   "chosen": "/film/director/film",
+   "conf": 0.5410472674770374,
+   "raw": "3"
+  },
+  {
+   "i": 19,
+   "linked": "/m/034qmv",
+   "chosen": "/film/film/country",
+   "conf": 0.45324569838630835,
+   "raw": "1"
+  },
+  {
+   "i": 607,
+   "linked": "/m/02vxn",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 115,
+   "linked": "/m/0m0jc",
+   "chosen": "/music/genre/artists",
+   "conf": 0.609309560809984,
+   "raw": "1"
+  },
+  {
+   "i": 405,
+   "linked": "/m/06bnz",
+   "chosen": "/base/aareas/schema/administrative_area/administrative_area_type",
+   "conf": 0.34016059625833783,
+   "raw": "1"
+  },
+  {
+   "i": 204,
+   "linked": "/m/02vxn",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 140,
+   "linked": "/m/0jqn5",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.49262981838331693,
+   "raw": "1"
+  },
+  {
+   "i": 50,
+   "linked": "/m/025sc50",
+   "chosen": "/music/genre/artists",
+   "conf": 0.703030709002655,
+   "raw": "1"
+  },
+  {
+   "i": 380,
+   "linked": "/m/06mxs",
+   "chosen": "/location/location/time_zones",
+   "conf": 0.5659734638490459,
+   "raw": "4"
+  },
+  {
+   "i": 58,
+   "linked": "/m/058vp",
+   "chosen": "/influence/influence_node/influenced_by",
+   "conf": 0.41118316004450955,
+   "raw": "1"
+  },
+  {
+   "i": 71,
+   "linked": "/m/01pvxl",
+   "chosen": "/film/film/release_date_s./film/film_regional_release_date/film_release_region",
+   "conf": 0.2505677810187353,
+   "raw": "7"
+  },
+  {
+   "i": 251,
+   "linked": "/m/02h7qr",
+   "chosen": "/common/topic/webpage./common/webpage/category",
+   "conf": 0.29741276466069777,
+   "raw": "1"
+  },
+  {
+   "i": 226,
+   "linked": "/m/03f5spx",
+   "chosen": "/people/person/profession",
+   "conf": 0.6929861928462882,
+   "raw": "12"
+  },
+  {
+   "i": 692,
+   "linked": "/m/029k4p",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.5448337092458942,
+   "raw": "1"
+  },
+  {
+   "i": 508,
+   "linked": "/m/016_nr",
+   "chosen": "/music/genre/artists",
+   "conf": 0.49194024100700157,
+   "raw": "1"
+  },
+  {
+   "i": 149,
+   "linked": "/m/0kvqv",
+   "chosen": "/film/director/film",
+   "conf": 0.25555182474554294,
+   "raw": "5"
+  },
+  {
+   "i": 535,
+   "linked": null,
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 487,
+   "linked": "/m/03cmsqb",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.43035474153575254,
+   "raw": "1"
+  },
+  {
+   "i": 711,
+   "linked": "/m/015_1q",
+   "chosen": "/music/record_label/artist",
+   "conf": 0.6738454686248502,
+   "raw": "1"
+  },
+  {
+   "i": 198,
+   "linked": "/m/01z3bz",
+   "chosen": "/education/educational_institution_campus/educational_institution",
+   "conf": 0.2579156807635991,
+   "raw": "4"
+  },
+  {
+   "i": 148,
+   "linked": "/m/02knxx",
+   "chosen": "/people/cause_of_death/people",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 462,
+   "linked": "/m/02lp3c",
+   "chosen": "/people/person/nationality",
+   "conf": 0.24920586883148252,
+   "raw": "6"
+  },
+  {
+   "i": 600,
+   "linked": "/m/09ntbc",
+   "chosen": "/people/person/place_of_birth",
+   "conf": 0.6700273216828856,
+   "raw": "3"
+  },
+  {
+   "i": 378,
+   "linked": "/m/01lyv",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 678,
+   "linked": "/m/0122wc",
+   "chosen": "/sports/sports_team/colors",
+   "conf": 0.6150230221546839,
+   "raw": "3"
+  },
+  {
+   "i": 408,
+   "linked": "/m/0161c",
+   "chosen": "/location/country/official_language",
+   "conf": 0.5820416825011694,
+   "raw": "3"
+  },
+  {
+   "i": 414,
+   "linked": "/m/0bcndz",
+   "chosen": null,
+   "conf": 0.2332372539507772,
+   "raw": "The question asks for the film art director"
+  },
+  {
+   "i": 655,
+   "linked": "/m/026ck",
+   "chosen": "/people/person/gender",
+   "conf": 0.4116306576471688,
+   "raw": "4"
+  },
+  {
+   "i": 386,
+   "linked": "/m/018p4y",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.2242487373238581,
+   "raw": "1"
+  },
+  {
+   "i": 206,
+   "linked": "/m/02p72j",
+   "chosen": "/education/educational_institution/school_type",
+   "conf": 0.5592375559726819,
+   "raw": "4"
+  },
+  {
+   "i": 696,
+   "linked": "/m/02tf1y",
+   "chosen": "/people/person/nationality",
+   "conf": 0.19476565843181157,
+   "raw": "6"
+  },
+  {
+   "i": 141,
+   "linked": "/m/084w8",
+   "chosen": "/influence/influence_node/influenced_by",
+   "conf": 0.42468126987753985,
+   "raw": "2"
+  },
+  {
+   "i": 601,
+   "linked": "/m/084qpk",
+   "chosen": "/common/topic/webpage./common/webpage/category",
+   "conf": 0.535529553625204,
+   "raw": "1"
+  },
+  {
+   "i": 43,
+   "linked": "/m/09gdm7q",
+   "chosen": "/film/film/release_date_s./film/film_regional_release_date/film_release_region",
+   "conf": 0.2885618666112104,
+   "raw": "10"
+  },
+  {
+   "i": 240,
+   "linked": "/m/01w8sf",
+   "chosen": "/people/person/profession",
+   "conf": 0.443277130308131,
+   "raw": "7"
+  },
+  {
+   "i": 201,
+   "linked": "/m/02bj22",
+   "chosen": "/film/film/distributors./film/film_film_distributor_relationship/film_distribution_medium",
+   "conf": 0.14460139065146502,
+   "raw": "3"
+  },
+  {
+   "i": 9,
+   "linked": "/m/0gtvpkw",
+   "chosen": null,
+   "conf": 0.2474702701792007,
+   "raw": "The question is a riddle or a word"
+  },
+  {
+   "i": 335,
+   "linked": "/m/02vxn",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 574,
+   "linked": "/m/0yx_w",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.4317268491176377,
+   "raw": "1"
+  },
+  {
+   "i": 400,
+   "linked": "/m/06wcbk7",
+   "chosen": "/music/record_label/artist",
+   "conf": 0.7568261087286119,
+   "raw": "2"
+  },
+  {
+   "i": 729,
+   "linked": "/m/02rjv2w",
+   "chosen": "/film/film/featured_film_locations",
+   "conf": 0.5049653592437063,
+   "raw": "5"
+  },
+  {
+   "i": 147,
+   "linked": "/m/01cm8w",
+   "chosen": null,
+   "conf": 0.1739667248764434,
+   "raw": "The question asks to identify the city where"
+  },
+  {
+   "i": 105,
+   "linked": "/m/063hp4",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "conf": 0.28974597267105107,
+   "raw": "1"
+  },
+  {
+   "i": 588,
+   "linked": "/m/01lyv",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 580,
+   "linked": "/m/045xh",
+   "chosen": "/award/award_category/disciplines_or_subjects",
+   "conf": 0.46083169135314406,
+   "raw": "1"
+  },
+  {
+   "i": 94,
+   "linked": "/m/01y665",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.5287387347720661,
+   "raw": "1"
+  },
+  {
+   "i": 160,
+   "linked": "/m/0g8bw",
+   "chosen": "/location/country/form_of_government",
+   "conf": 0.5288110988166767,
+   "raw": "2"
+  },
+  {
+   "i": 397,
+   "linked": "/m/019c57",
+   "chosen": "/education/educational_institution/colors",
+   "conf": 0.6430922056072969,
+   "raw": "3"
+  },
+  {
+   "i": 325,
+   "linked": "/m/08b0cj",
+   "chosen": "/people/person/religion",
+   "conf": 0.543857812683974,
+   "raw": "4"
+  },
+  {
+   "i": 163,
+   "linked": "/m/04hs7d",
+   "chosen": "/tv/tv_program/genre",
+   "conf": 0.697028103244965,
+   "raw": "2"
+  },
+  {
+   "i": 510,
+   "linked": "/m/0342h",
+   "chosen": "/music/instrument/instrumentalists",
+   "conf": 0.32839792979972204,
+   "raw": "3"
+  },
+  {
+   "i": 187,
+   "linked": "/m/0177s6",
+   "chosen": "/people/person/profession",
+   "conf": 0.7912011182593939,
+   "raw": "5"
+  },
+  {
+   "i": 262,
+   "linked": "/m/0410cp",
+   "chosen": "/people/person/religion",
+   "conf": 0.3952460030751896,
+   "raw": "9"
+  },
+  {
+   "i": 261,
+   "linked": "/m/0124ld",
+   "chosen": "/olympics/olympic_games/sports",
+   "conf": 0.4691554312392964,
+   "raw": "3"
+  },
+  {
+   "i": 682,
+   "linked": "/m/02w7gg",
+   "chosen": "/people/ethnicity/people",
+   "conf": 0.4313015133862739,
+   "raw": "3"
+  },
+  {
+   "i": 367,
+   "linked": "/m/01hvjx",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "conf": 0.29884604627732303,
+   "raw": "1"
+  },
+  {
+   "i": 315,
+   "linked": "/m/0p2rj",
+   "chosen": "/base/aareas/schema/administrative_area/administrative_parent",
+   "conf": 0.19325739817157422,
+   "raw": "1"
+  },
+  {
+   "i": 520,
+   "linked": "/m/03gvt",
+   "chosen": "/music/performance_role/regular_performances./music/group_membership/role",
+   "conf": 0.24983068980732442,
+   "raw": "4"
+  },
+  {
+   "i": 356,
+   "linked": null,
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 14,
+   "linked": "/m/01vh096",
+   "chosen": "/influence/influence_node/influenced_by",
+   "conf": 0.397843746448498,
+   "raw": "1"
+  },
+  {
+   "i": 3,
+   "linked": "/m/048z7l",
+   "chosen": "/people/ethnicity/languages_spoken",
+   "conf": 0.8382221422285598,
+   "raw": "1"
+  },
+  {
+   "i": 91,
+   "linked": "/m/01l2b3",
+   "chosen": "/common/topic/webpage./common/webpage/category",
+   "conf": 0.5487831972592428,
+   "raw": "1"
+  },
+  {
+   "i": 49,
+   "linked": "/m/02w4v",
+   "chosen": "/music/genre/artists",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 546,
+   "linked": "/m/05bt6j",
+   "chosen": "/music/genre/artists",
+   "conf": 0.6978609560119794,
+   "raw": "1"
+  },
+  {
+   "i": 529,
+   "linked": "/m/03w1v2",
+   "chosen": "/people/person/religion",
+   "conf": 0.7334409871505232,
+   "raw": "11"
+  },
+  {
+   "i": 494,
+   "linked": "/m/020hyj",
+   "chosen": "/people/person/place_of_birth",
+   "conf": 0.17215043893802098,
+   "raw": "8"
+  },
+  {
+   "i": 652,
+   "linked": "/m/01337_",
+   "chosen": "/people/deceased_person/place_of_burial",
+   "conf": 0.6439552380419331,
+   "raw": "3"
+  },
+  {
+   "i": 203,
+   "linked": "/m/016ywb",
+   "chosen": "/film/film/written_by",
+   "conf": 0.3022827934080406,
+   "raw": "9"
+  },
+  {
+   "i": 313,
+   "linked": "/m/011k11",
+   "chosen": "/organization/organization/place_founded",
+   "conf": 0.6147874648398334,
+   "raw": "2"
+  },
+  {
+   "i": 102,
+   "linked": "/m/07bty",
+   "chosen": "/people/person/gender",
+   "conf": 0.26483217952734733,
+   "raw": "4"
+  },
+  {
+   "i": 572,
+   "linked": "/m/01pcq3",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.5728182275713087,
+   "raw": "1"
+  },
+  {
+   "i": 398,
+   "linked": "/m/06t8b",
+   "chosen": "/film/director/film",
+   "conf": 0.570597774652817,
+   "raw": "4"
+  },
+  {
+   "i": 626,
+   "linked": "/m/07srw",
+   "chosen": "/base/aareas/schema/administrative_area/administrative_parent",
+   "conf": 0.43256972936581684,
+   "raw": "1"
+  },
+  {
+   "i": 497,
+   "linked": null,
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 232,
+   "linked": "/m/03cd0x",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.44946626474410334,
+   "raw": "1"
+  },
+  {
+   "i": 185,
+   "linked": "/m/01k3s2",
+   "chosen": "/education/educational_institution/campuses",
+   "conf": 0.21946474948918052,
+   "raw": "2"
+  },
+  {
+   "i": 24,
+   "linked": "/m/02lf70",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.5214826382375224,
+   "raw": "1"
+  },
+  {
+   "i": 458,
+   "linked": "/m/02r79_h",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.4440952031035549,
+   "raw": "1"
+  },
+  {
+   "i": 608,
+   "linked": "/m/015l4k",
+   "chosen": "/olympics/olympic_games/sports",
+   "conf": 0.6574310714457896,
+   "raw": "2"
+  },
+  {
+   "i": 219,
+   "linked": "/m/0by1wkq",
+   "chosen": "/film/film/genre",
+   "conf": 0.22196809907385495,
+   "raw": "4"
+  },
+  {
+   "i": 403,
+   "linked": "/m/016fyc",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.5282901475219459,
+   "raw": "1"
+  },
+  {
+   "i": 392,
+   "linked": "/m/01jfsb",
+   "chosen": "/media_common/netflix_genre/titles",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 119,
+   "linked": "/m/017y26",
+   "chosen": "/education/educational_institution_campus/educational_institution",
+   "conf": 0.32194633800790723,
+   "raw": "4"
+  },
+  {
+   "i": 429,
+   "linked": "/m/0ds35l9",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.7250032377277014,
+   "raw": "1"
+  },
+  {
+   "i": 249,
+   "linked": "/m/0dq626",
+   "chosen": "/film/film/country",
+   "conf": 0.261049406586391,
+   "raw": "1"
+  },
+  {
+   "i": 541,
+   "linked": "/m/0bx_hnp",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "conf": 0.3697922273875352,
+   "raw": "1"
+  },
+  {
+   "i": 60,
+   "linked": "/m/02w70",
+   "chosen": "/location/location/time_zones",
+   "conf": 0.7988772438799039,
+   "raw": "4"
+  },
+  {
+   "i": 495,
+   "linked": "/m/07bty",
+   "chosen": "/organization/organization_founder/organizations_founded",
+   "conf": 0.6845828808482293,
+   "raw": "2"
+  },
+  {
+   "i": 289,
+   "linked": "/m/01g23m",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.4704270454743834,
+   "raw": "1"
+  },
+  {
+   "i": 390,
+   "linked": "/m/02_kd",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.4904108460428713,
+   "raw": "1"
+  },
+  {
+   "i": 90,
+   "linked": "/m/06ch55",
+   "chosen": "/music/instrument/instrumentalists",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 629,
+   "linked": "/m/026t6",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 644,
+   "linked": "/m/02z3r8t",
+   "chosen": "/film/film/country",
+   "conf": 0.35943412695292265,
+   "raw": "1"
+  },
+  {
+   "i": 742,
+   "linked": "/m/060__7",
+   "chosen": "/film/film/country",
+   "conf": 0.32016107962975826,
+   "raw": "1"
+  },
+  {
+   "i": 434,
+   "linked": "/m/026z9",
+   "chosen": "/music/genre/artists",
+   "conf": 0.6759606011401462,
+   "raw": "2"
+  },
+  {
+   "i": 622,
+   "linked": null,
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 259,
+   "linked": "/m/030qb3t",
+   "chosen": "/base/biblioness/bibs_location/country",
+   "conf": 0.45071188693445785,
+   "raw": "1"
+  },
+  {
+   "i": 609,
+   "linked": "/m/05zlld0",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 345,
+   "linked": "/m/01vw8k",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "conf": 0.3990183860982454,
+   "raw": "1"
+  },
+  {
+   "i": 496,
+   "linked": "/m/040rjq",
+   "chosen": "/people/person/place_of_birth",
+   "conf": 0.19346782725793274,
+   "raw": "8"
+  },
+  {
+   "i": 377,
+   "linked": "/m/02z44tp",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "conf": 0.28318267942319125,
+   "raw": "1"
+  },
+  {
+   "i": 524,
+   "linked": "/m/025sc50",
+   "chosen": "/music/genre/artists",
+   "conf": 0.7069626529819258,
+   "raw": "1"
+  },
+  {
+   "i": 138,
+   "linked": "/m/09x8ms",
+   "chosen": "/people/deceased_person/place_of_burial",
+   "conf": 0.5289558881470632,
+   "raw": "2"
+  },
+  {
+   "i": 442,
+   "linked": "/m/0330r",
+   "chosen": "/tv/tv_program/genre",
+   "conf": 0.18382093444169423,
+   "raw": "4"
+  },
+  {
+   "i": 254,
+   "linked": null,
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 435,
+   "linked": "/m/0ggx5q",
+   "chosen": "/music/genre/artists",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 328,
+   "linked": "/m/0bpm4yw",
+   "chosen": "/film/film/country",
+   "conf": 0.45374054197223823,
+   "raw": "1"
+  },
+  {
+   "i": 337,
+   "linked": "/m/01jnc_",
+   "chosen": "/film/film/country",
+   "conf": 0.3452905934913046,
+   "raw": "1"
+  },
+  {
+   "i": 117,
+   "linked": "/m/04psf",
+   "chosen": "/people/cause_of_death/people",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 643,
+   "linked": "/m/0488g",
+   "chosen": "/base/aareas/schema/administrative_area/administrative_parent",
+   "conf": 0.42592471349686184,
+   "raw": "1"
+  },
+  {
+   "i": 514,
+   "linked": "/m/020bv3",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.6564616017243187,
+   "raw": "1"
+  },
+  {
+   "i": 131,
+   "linked": "/m/0n0bp",
+   "chosen": "/film/film/produced_by",
+   "conf": 0.20623417562421525,
+   "raw": "6"
+  },
+  {
+   "i": 103,
+   "linked": "/m/01hmk9",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.31657435112398064,
+   "raw": "1"
+  },
+  {
+   "i": 518,
+   "linked": "/m/01cssf",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.6358082976877885,
+   "raw": "1"
+  },
+  {
+   "i": 453,
+   "linked": "/m/02ntb8",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.4466434340117476,
+   "raw": "1"
+  },
+  {
+   "i": 350,
+   "linked": "/m/03f22dp",
+   "chosen": "/people/person/profession",
+   "conf": 0.19333212509935252,
+   "raw": "4"
+  },
+  {
+   "i": 603,
+   "linked": null,
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 379,
+   "linked": "/m/01f8hf",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.5091674917102637,
+   "raw": "1"
+  },
+  {
+   "i": 568,
+   "linked": "/m/0cp0ph6",
+   "chosen": "/film/film/country",
+   "conf": 0.33830079061311674,
+   "raw": "1"
+  },
+  {
+   "i": 135,
+   "linked": "/m/01pq4w",
+   "chosen": "/award/ranked_item/appears_in_ranked_lists./award/ranking/list",
+   "conf": 0.6161995004248467,
+   "raw": "1"
+  },
+  {
+   "i": 217,
+   "linked": "/m/06zn2v2",
+   "chosen": "/film/film/country",
+   "conf": 0.41089771149781956,
+   "raw": "1"
+  },
+  {
+   "i": 154,
+   "linked": "/m/04rrd",
+   "chosen": "/base/aareas/schema/administrative_area/administrative_parent",
+   "conf": 0.512400690100697,
+   "raw": "1"
+  },
+  {
+   "i": 486,
+   "linked": "/m/099p5",
+   "chosen": "/people/person/religion",
+   "conf": 0.8871050481954782,
+   "raw": "7"
+  },
+  {
+   "i": 348,
+   "linked": "/m/021j38",
+   "chosen": "/location/administrative_division/country",
+   "conf": 0.8128356915298557,
+   "raw": "2"
+  },
+  {
+   "i": 211,
+   "linked": "/m/0ckrgs",
+   "chosen": "/film/film/language",
+   "conf": 0.4178241073798801,
+   "raw": "4"
+  },
+  {
+   "i": 591,
+   "linked": "/m/02k1pr",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.3784558545096776,
+   "raw": "1"
+  },
+  {
+   "i": 7,
+   "linked": "/m/0crs0b8",
+   "chosen": null,
+   "conf": 0.2772488570853128,
+   "raw": "The question asks for the country of origin"
+  },
+  {
+   "i": 645,
+   "linked": "/m/011yhm",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.41452646724238784,
+   "raw": "1"
+  },
+  {
+   "i": 84,
+   "linked": "/m/025g__",
+   "chosen": "/music/genre/artists",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 139,
+   "linked": "/m/03ywyk",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.3353134496053264,
+   "raw": "1"
+  },
+  {
+   "i": 525,
+   "linked": "/m/01cszh",
+   "chosen": "/music/record_label/artist",
+   "conf": 0.7690826171571538,
+   "raw": "2"
+  },
+  {
+   "i": 231,
+   "linked": null,
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 100,
+   "linked": "/m/03mqtr",
+   "chosen": "/media_common/netflix_genre/titles",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 272,
+   "linked": "/m/0dwl2",
+   "chosen": "/business/business_operation/industry",
+   "conf": 0.6597523619962032,
+   "raw": "1"
+  },
+  {
+   "i": 416,
+   "linked": "/m/0fpzt5",
+   "chosen": "/people/person/profession",
+   "conf": 0.6350750324505393,
+   "raw": "5"
+  },
+  {
+   "i": 171,
+   "linked": "/m/0330r",
+   "chosen": "/tv/tv_program/genre",
+   "conf": 0.2531302902319325,
+   "raw": "4"
+  },
+  {
+   "i": 242,
+   "linked": "/m/0rrhp",
+   "chosen": "/location/hud_county_place/county",
+   "conf": 0.6304839808750282,
+   "raw": "2"
+  },
+  {
+   "i": 155,
+   "linked": "/m/01sxd1",
+   "chosen": "/people/person/profession",
+   "conf": 0.5601142043658306,
+   "raw": "4"
+  },
+  {
+   "i": 323,
+   "linked": "/m/0d8h4",
+   "chosen": "/location/administrative_division/country",
+   "conf": 0.35258899653765285,
+   "raw": "2"
+  },
+  {
+   "i": 282,
+   "linked": "/m/03phtz",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "conf": 0.5034523625792728,
+   "raw": "1"
+  },
+  {
+   "i": 132,
+   "linked": "/m/011yth",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.6451842150337622,
+   "raw": "1"
+  },
+  {
+   "i": 473,
+   "linked": "/m/09r94m",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.5050797456646192,
+   "raw": "1"
+  },
+  {
+   "i": 389,
+   "linked": "/m/05q_dw",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "conf": 0.5074005649895952,
+   "raw": "1"
+  },
+  {
+   "i": 383,
+   "linked": "/m/0y3_8",
+   "chosen": "/music/genre/artists",
+   "conf": 0.7276918809327613,
+   "raw": "1"
+  },
+  {
+   "i": 690,
+   "linked": "/m/04wqsm",
+   "chosen": "/soccer/football_team/current_roster./soccer/football_roster_position/position",
+   "conf": 0.586821658053576,
+   "raw": "1"
+  },
+  {
+   "i": 123,
+   "linked": "/m/0mb0",
+   "chosen": "/influence/influence_node/influenced_by",
+   "conf": 0.3964160917639804,
+   "raw": "3"
+  },
+  {
+   "i": 70,
+   "linked": "/m/014z8v",
+   "chosen": "/people/person/employment_history./business/employment_tenure/company",
+   "conf": 0.2743383022938039,
+   "raw": "6"
+  },
+  {
+   "i": 685,
+   "linked": "/m/0n00",
+   "chosen": "/people/person/religion",
+   "conf": 0.788380857117969,
+   "raw": "7"
+  },
+  {
+   "i": 360,
+   "linked": null,
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 295,
+   "linked": "/m/04p3w",
+   "chosen": "/medicine/disease/risk_factors",
+   "conf": 0.6788269365314038,
+   "raw": "1"
+  },
+  {
+   "i": 354,
+   "linked": "/m/0lgxj",
+   "chosen": "/olympics/olympic_games/participating_countries",
+   "conf": 0.6573062564661921,
+   "raw": "2"
+  },
+  {
+   "i": 370,
+   "linked": "/m/03y_46",
+   "chosen": "/people/person/nationality",
+   "conf": 0.2802190175888643,
+   "raw": "7"
+  },
+  {
+   "i": 449,
+   "linked": "/m/0yb_4",
+   "chosen": "/location/hud_county_place/county",
+   "conf": 0.369713371902089,
+   "raw": "1"
+  },
+  {
+   "i": 666,
+   "linked": "/m/07srw",
+   "chosen": "/base/aareas/schema/administrative_area/administrative_parent",
+   "conf": 0.5172149991578493,
+   "raw": "1"
+  },
+  {
+   "i": 11,
+   "linked": "/m/065zlr",
+   "chosen": "/film/film/country",
+   "conf": 0.2712143827109353,
+   "raw": "1"
+  },
+  {
+   "i": 415,
+   "linked": "/m/07wlf",
+   "chosen": "/award/ranked_item/appears_in_ranked_lists./award/ranking/list",
+   "conf": 0.5635758738181615,
+   "raw": "1"
+  },
+  {
+   "i": 506,
+   "linked": "/m/05r5c",
+   "chosen": "/music/performance_role/guest_performances./music/recording_contribution/performance_role",
+   "conf": 0.2630476689483667,
+   "raw": "4"
+  },
+  {
+   "i": 169,
+   "linked": "/m/06fc0b",
+   "chosen": "/people/person/profession",
+   "conf": 0.5480006776353159,
+   "raw": "10"
+  },
+  {
+   "i": 46,
+   "linked": "/m/0r5y9",
+   "chosen": "/base/biblioness/bibs_location/country",
+   "conf": 0.3032206124968097,
+   "raw": "1"
+  },
+  {
+   "i": 650,
+   "linked": "/m/0180mw",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 107,
+   "linked": "/m/03vfr_",
+   "chosen": "/film/film/country",
+   "conf": 0.419442948882567,
+   "raw": "1"
+  },
+  {
+   "i": 338,
+   "linked": "/m/033q4k",
+   "chosen": "/common/topic/webpage./common/webpage/category",
+   "conf": 0.3469515456920301,
+   "raw": "1"
+  },
+  {
+   "i": 125,
+   "linked": "/m/01lyv",
+   "chosen": "/music/genre/artists",
+   "conf": 0.5005162926345463,
+   "raw": "1"
+  },
+  {
+   "i": 227,
+   "linked": "/m/026t6",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 279,
+   "linked": "/m/0m123",
+   "chosen": "/tv/tv_program/genre",
+   "conf": 0.7692890205637577,
+   "raw": "4"
+  },
+  {
+   "i": 675,
+   "linked": "/m/03nqnnk",
+   "chosen": null,
+   "conf": 0.2172262910609821,
+   "raw": "The question asks for the country where Debra"
+  },
+  {
+   "i": 611,
+   "linked": "/m/0lx2l",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.4217959947150106,
+   "raw": "1"
+  },
+  {
+   "i": 490,
+   "linked": "/m/05kkh",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 402,
+   "linked": "/m/05t54s",
+   "chosen": "/film/film/country",
+   "conf": 0.6721642626516114,
+   "raw": "1"
+  },
+  {
+   "i": 739,
+   "linked": "/m/017gm7",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.6885942884325954,
+   "raw": "1"
+  },
+  {
+   "i": 88,
+   "linked": "/m/033g4d",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "conf": 0.6540358055880454,
+   "raw": "1"
+  },
+  {
+   "i": 728,
+   "linked": "/m/0g3zrd",
+   "chosen": "/film/film/costume_design_by",
+   "conf": 0.3892141513072239,
+   "raw": "1"
+  },
+  {
+   "i": 573,
+   "linked": "/m/07s9rl0",
+   "chosen": "/media_common/netflix_genre/titles",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 188,
+   "linked": "/m/0hnp7",
+   "chosen": "/people/deceased_person/place_of_burial",
+   "conf": 0.2171023910637321,
+   "raw": "3"
+  },
+  {
+   "i": 720,
+   "linked": "/m/01m9f1",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 555,
+   "linked": "/m/052smk",
+   "chosen": "/music/genre/artists",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 683,
+   "linked": "/m/04x1_w",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.361270334195769,
+   "raw": "1"
+  },
+  {
+   "i": 531,
+   "linked": "/m/0ds33",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.6349253019678514,
+   "raw": "1"
+  },
+  {
+   "i": 158,
+   "linked": "/m/026wlxw",
+   "chosen": "/common/topic/webpage./common/webpage/category",
+   "conf": 0.6376801149946343,
+   "raw": "1"
+  },
+  {
+   "i": 727,
+   "linked": "/m/06qd3",
+   "chosen": "/base/aareas/schema/administrative_area/administrative_area_type",
+   "conf": 0.4817068062635225,
+   "raw": "1"
+  },
+  {
+   "i": 641,
+   "linked": "/m/0m63c",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.4329845988290912,
+   "raw": "1"
+  },
+  {
+   "i": 664,
+   "linked": "/m/06q5t7",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.505193465423075,
+   "raw": "1"
+  },
+  {
+   "i": 610,
+   "linked": "/m/02rhwjr",
+   "chosen": "/tv/tv_program/genre",
+   "conf": 0.7654230029017804,
+   "raw": "2"
+  },
+  {
+   "i": 703,
+   "linked": "/m/06nns1",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.26476058741170067,
+   "raw": "1"
+  },
+  {
+   "i": 406,
+   "linked": "/m/02bn75",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.37832125393781907,
+   "raw": "1"
+  },
+  {
+   "i": 112,
+   "linked": "/m/076zy_g",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "conf": 0.42760488690420784,
+   "raw": "1"
+  },
+  {
+   "i": 173,
+   "linked": "/m/0n6ds",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.6970592842998008,
+   "raw": "1"
+  },
+  {
+   "i": 708,
+   "linked": "/m/0fw2f",
+   "chosen": "/location/hud_county_place/county",
+   "conf": 0.33993695378700317,
+   "raw": "3"
+  },
+  {
+   "i": 417,
+   "linked": "/m/0mvsg",
+   "chosen": "/location/location/time_zones",
+   "conf": 0.31040943191201353,
+   "raw": "3"
+  },
+  {
+   "i": 385,
+   "linked": "/m/07tf8",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 440,
+   "linked": "/m/03tn80",
+   "chosen": "/film/film/country",
+   "conf": 0.34770809647872203,
+   "raw": "1"
+  },
+  {
+   "i": 121,
+   "linked": "/m/0j_c",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.42373342166750777,
+   "raw": "1"
+  },
+  {
+   "i": 577,
+   "linked": "/m/0ck91",
+   "chosen": "/people/person/languages",
+   "conf": 0.18774833799245733,
+   "raw": "4"
+  },
+  {
+   "i": 98,
+   "linked": "/m/0ql7q",
+   "chosen": "/military/military_conflict/combatants./military/military_combatant_group/combatants",
+   "conf": 0.4703563348248738,
+   "raw": "2"
+  },
+  {
+   "i": 477,
+   "linked": "/m/08lpkq",
+   "chosen": "/music/genre/parent_genre",
+   "conf": 0.5357367867480483,
+   "raw": "2"
+  },
+  {
+   "i": 368,
+   "linked": "/m/0ggx5q",
+   "chosen": "/music/genre/artists",
+   "conf": 1.0,
+   "raw": null
+  },
+  {
+   "i": 605,
+   "linked": "/m/0dnvn3",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.6186426344723481,
+   "raw": "1"
+  },
+  {
+   "i": 534,
+   "linked": "/m/0df4y",
+   "chosen": "/base/aareas/schema/administrative_area/administrative_parent",
+   "conf": 0.6410497345714605,
+   "raw": "1"
+  },
+  {
+   "i": 86,
+   "linked": "/m/01y8zd",
+   "chosen": "/award/ranked_item/appears_in_ranked_lists./award/ranking/list",
+   "conf": 0.542925828747658,
+   "raw": "1"
+  },
+  {
+   "i": 129,
+   "linked": "/m/02g8h",
+   "chosen": "/people/person/place_of_birth",
+   "conf": 0.4154381943465905,
+   "raw": "9"
+  },
+  {
+   "i": 106,
+   "linked": "/m/01kmd4",
+   "chosen": "/people/person/gender",
+   "conf": 0.4741641006869243,
+   "raw": "3"
+  },
+  {
+   "i": 64,
+   "linked": "/m/0cbkc",
+   "chosen": "/award/award_nominee/award_nominations./award/award_nomination/award",
+   "conf": 0.549683526165504,
+   "raw": "1"
+  },
+  {
+   "i": 423,
+   "linked": "/m/0bmch_x",
+   "chosen": "/film/film/country",
+   "conf": 0.47121399045327883,
+   "raw": "1"
+  },
+  {
+   "i": 425,
+   "linked": "/m/084302",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "conf": 0.4973552080909571,
+   "raw": "1"
+  },
+  {
+   "i": 303,
+   "linked": "/m/06x68",
+   "chosen": "/sports/sports_team/colors",
+   "conf": 0.5677103881261059,
+   "raw": "4"
+  },
+  {
+   "i": 578,
+   "linked": "/m/05w3f",
+   "chosen": "/music/genre/artists",
+   "conf": 0.7068557141725014,
+   "raw": "1"
+  },
+  {
+   "i": 459,
+   "linked": "/m/05bt6j",
+   "chosen": "/music/genre/artists",
+   "conf": 0.7038456879868812,
+   "raw": "1"
+  },
+  {
+   "i": 670,
+   "linked": "/m/0h99n",
+   "chosen": "/medicine/disease/notable_people_with_this_condition",
+   "conf": 0.8092580390736115,
+   "raw": "1"
+  },
+  {
+   "i": 21,
+   "linked": "/m/0qpn9",
+   "chosen": "/location/location/time_zones",
+   "conf": 0.6742386313113156,
+   "raw": "4"
+  },
+  {
+   "i": 450,
+   "linked": "/m/043c4j",
+   "chosen": null,
+   "conf": 0.22262094205715383,
+   "raw": "The question asks for the country of origin"
+  },
+  {
+   "i": 110,
+   "linked": "/m/09_2gj",
+   "chosen": "/people/deceased_person/place_of_death",
+   "conf": 0.620255998200283,
+   "raw": "1"
+  },
+  {
+   "i": 526,
+   "linked": "/m/013b6_",
+   "chosen": "/people/ethnicity/geographic_distribution",
+   "conf": 0.5958509025334185,
+   "raw": "1"
+  },
+  {
+   "i": 162,
+   "linked": "/m/03cdg",
+   "chosen": "/influence/influence_node/peers./influence/peer_relationship/peers",
+   "conf": 0.32426514087002806,
+   "raw": "3"
+  },
+  {
+   "i": 205,
+   "linked": "/m/01vfqh",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.46172388106424006,
+   "raw": "1"
+  },
+  {
+   "i": 562,
+   "linked": "/m/078sj4",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.5031628676861912,
+   "raw": "1"
+  },
+  {
+   "i": 37,
+   "linked": "/m/0cvkv5",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.18468176448080872,
+   "raw": "1"
+  },
+  {
+   "i": 371,
+   "linked": "/m/02pl5bx",
+   "chosen": "/music/genre/artists",
+   "conf": 0.7073212351185626,
+   "raw": "1"
+  },
+  {
+   "i": 293,
+   "linked": "/m/011ypx",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.47688168424546795,
+   "raw": "1"
+  },
+  {
+   "i": 247,
+   "linked": "/m/012mrr",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.45717518813447355,
+   "raw": "1"
+  },
+  {
+   "i": 707,
+   "linked": "/m/05k2xy",
+   "chosen": "/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for",
+   "conf": 0.5939343441858677,
+   "raw": "1"
+  },
+  {
+   "i": 127,
+   "linked": "/m/02x8m",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 68,
+   "linked": "/m/05yzt_",
+   "chosen": "/people/person/profession",
+   "conf": 0.1742105724000201,
+   "raw": "8"
+  },
+  {
+   "i": 79,
+   "linked": "/m/09z2b7",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.4865396834330819,
+   "raw": "1"
+  },
+  {
+   "i": 456,
+   "linked": "/m/02w7gg",
+   "chosen": "/people/ethnicity/languages_spoken",
+   "conf": 0.48114891159340334,
+   "raw": "2"
+  },
+  {
+   "i": 599,
+   "linked": "/m/053x8hr",
+   "chosen": "/tv/tv_program/genre",
+   "conf": 0.3184982759633915,
+   "raw": "1"
+  },
+  {
+   "i": 542,
+   "linked": "/m/01w1sx",
+   "chosen": "/film/film_subject/films",
+   "conf": 0.4241244712856603,
+   "raw": "1"
+  },
+  {
+   "i": 684,
+   "linked": "/m/03pc89",
+   "chosen": "/film/film/music",
+   "conf": 0.302165162297464,
+   "raw": "6"
+  },
+  {
+   "i": 653,
+   "linked": "/m/03h_yfh",
+   "chosen": "/people/deceased_person/place_of_death",
+   "conf": 0.20484588167273235,
+   "raw": "4"
+  },
+  {
+   "i": 40,
+   "linked": "/m/0dls3",
+   "chosen": "/music/genre/artists",
+   "conf": 0.7157771038687059,
+   "raw": "1"
+  },
+  {
+   "i": 111,
+   "linked": "/m/04dbw3",
+   "chosen": "/people/ethnicity/languages_spoken",
+   "conf": 0.8490332327804971,
+   "raw": "1"
+  },
+  {
+   "i": 438,
+   "linked": "/m/01npcx",
+   "chosen": "/film/film/costume_design_by",
+   "conf": 0.4025044203056501,
+   "raw": "1"
+  },
+  {
+   "i": 305,
+   "linked": "/m/025ts_z",
+   "chosen": "/common/topic/webpage./common/webpage/category",
+   "conf": 0.2649643980208174,
+   "raw": "1"
+  },
+  {
+   "i": 52,
+   "linked": "/m/07l450",
+   "chosen": "/film/film/written_by",
+   "conf": 0.6693170640404521,
+   "raw": "10"
+  },
+  {
+   "i": 669,
+   "linked": "/m/01k5y0",
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award",
+   "conf": 0.3504268917262494,
+   "raw": "1"
+  },
+  {
+   "i": 199,
+   "linked": "/m/02vxn",
+   "chosen": null,
+   "conf": null,
+   "raw": null
+  },
+  {
+   "i": 412,
+   "linked": "/m/0cjf0",
+   "chosen": "/medicine/symptom/symptom_of",
+   "conf": 0.7211341229499207,
+   "raw": "1"
+  },
+  {
+   "i": 167,
+   "linked": "/m/0cfgd",
+   "chosen": "/music/artist/origin",
+   "conf": 0.8299609468719994,
+   "raw": "2"
+  },
+  {
+   "i": 20,
+   "linked": "/m/03b1sb",
+   "chosen": "/film/film/release_date_s./film/film_regional_release_date/film_release_region",
+   "conf": 0.429237317616672,
+   "raw": "8"
+  }
+ ]
+}
