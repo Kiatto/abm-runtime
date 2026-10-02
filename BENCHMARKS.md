@@ -1,9 +1,9 @@
 # ABM benchmarks
 
 Every number on this page comes from a committed result file, which a committed
-script produced. Eleven of the tests were **preregistered**: their predictions
+script produced. Twelve of the tests were **preregistered**: their predictions
 and pass criteria were committed before any data was looked at
-(`docs/preregistration/`). Two of the eleven failed. They are kept below with
+(`docs/preregistration/`). Two of the twelve failed. The paper (v1.10) reports the first eleven; test 12 came after it. They are kept below with
 their causes.
 
 What is measured is not task accuracy against other systems. It is how well the
@@ -35,7 +35,7 @@ facts independent over GF(2). Where those fail, so does the model. See
 
 ---
 
-## The eleven preregistered tests
+## The twelve preregistered tests
 
 The paper's tally (eight supported, one in part, two failed) goes by primary hypothesis. Test 2's primary H1 was supported, and a secondary one was in part. Test 11's primary, end-to-end, was in part.
 
