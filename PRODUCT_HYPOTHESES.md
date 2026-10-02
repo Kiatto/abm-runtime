@@ -168,6 +168,29 @@ Tutte presuppongono H0. Nessuna ha senso se H0 cade.
 
 ---
 
+## H6 · Il contratto come criterio di escalation verso un LLM più grande
+
+> **Ipotesi:** in un sistema che risponde con la memoria ABM e, quando serve,
+> passa la domanda a un modello più grande (più costoso), decidere *per domanda*
+> con la previsione di `abm.exact` dà più accuratezza, a parità di quota di
+> domande passate al modello grande, che deciderlo a caso o con la confidenza
+> del modello piccolo.
+
+- **Stato:** non verificata. Proposta da kiatto il 2026-10-02.
+- **Evidenza:** nessuna. Contro: nel test 11 gli errori end-to-end vengono
+  soprattutto dal front-end (0.36), non dalla memoria (0.807), e il contratto
+  prevede la memoria. Se vale anche qui, il contratto ha poco da decidere.
+- **Si verifica quando:** un test preregistrato (`docs/preregistration/escalation.md`)
+  misura le curve accuratezza/quota di escalation dei tre criteri sulle stesse
+  domande. È una verifica tecnica, non di utenti: non conta come evidenza per H0.
+- **Si costruisce quando:** il test la sostiene **e** un utente esterno chiede di
+  combinare la memoria con un LLM. Non si costruisce un router prima di entrambe.
+- **Si abbandona quando:** a parità di quota di escalation il contratto non
+  batte la scelta a caso, oppure è peggio della confidenza del modello piccolo e
+  non le aggiunge nulla (H1, H2, H3 di `escalation.md`). In quel caso il
+  contratto non serve a instradare, e va detto nel paper.
+- **Non è:** un nostro modello linguistico. Si usano modelli esistenti e gratuiti.
+
 ## Ipotesi già risolte
 
 Registrate per non riproporle.
