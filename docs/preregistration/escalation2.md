@@ -120,7 +120,7 @@ Gemma.
 
 **Difetto del disegno, non previsto.** Al 90% di copertura si escludono 64 domande
 e le forzate sono 68: le escluse sono tutte forzate con ogni indice, e i tre
-indici coincidono per costruzione. Quel punto non può distinguere nulla e dimezza
+indici coincidono per costruzione. Quel punto non può distinguere nulla e riduce di un terzo
 le differenze medie di H3 e H4. Non ricalcolo: le medie sulle sole coperture 50% e
 70% sarebbero un'analisi dopo aver visto i dati.
 
