@@ -81,3 +81,58 @@ osservata separa le risposte vere dagli alias meglio della previsione media.
 - Coperture e quote sono poche e fisse; 28 cluster.
 - ZF combina per ranghi, senza pesi stimati: una combinazione appresa potrebbe fare
   meglio, ma andrebbe stimata su dati separati.
+
+---
+
+## Esito — 2026-10-04, eseguito alle 9:20 dopo il commit `cf65a56`
+
+Ipotesi e criteri **non modificati**. Risultati:
+[`results/escalation2_prereg_results.json`](../../results/escalation2_prereg_results.json).
+
+Accuratezza dei percorsi da soli, stessa memoria: **piccolo 0.364**, **grande
+0.695**. Il grande ha ragione dove il piccolo sbaglia in 225 domande, il contrario
+in 12: anche a parità di memoria il front-end di Qwen è molto migliore di quello di
+Gemma.
+
+**A — instradamento** (accuratezza del sistema)
+
+| quota | F | E | R |
+|---|---|---|---|
+| 20% | 0.420 | 0.415 | 0.413 |
+| 30% | 0.462 | 0.462 | 0.448 |
+| 40% | 0.502 | 0.518 | 0.483 |
+| 50% | 0.547 | 0.575 | 0.519 |
+
+**B — indice di confidenza** (accuratezza delle risposte date)
+
+| copertura | F | CF | ZF |
+|---|---|---|---|
+| 50% | 0.491 | 0.503 | 0.531 |
+| 70% | 0.436 | 0.458 | 0.458 |
+| 90% | 0.404 | 0.404 | 0.404 |
+
+| ipotesi | stima (punti) | 95%, cluster | esito |
+|---|---|---|---|
+| **H1** — E contro F | +1.0 | [0.0, +2.0] | **sostenuta in parte**: il limite inferiore è 0, non sopra |
+| **H2** — E contro R | +2.7 | [+1.5, +3.8] | **sostenuta** |
+| **H3** — ZF contro CF | +0.9 | [−0.3, +2.1] | **sostenuta in parte** |
+| **H4** — CF contro F | +1.2 | [−0.2, +2.5] | **sostenuta in parte** |
+
+**Difetto del disegno, non previsto.** Al 90% di copertura si escludono 64 domande
+e le forzate sono 68: le escluse sono tutte forzate con ogni indice, e i tre
+indici coincidono per costruzione. Quel punto non può distinguere nulla e dimezza
+le differenze medie di H3 e H4. Non ricalcolo: le medie sulle sole coperture 50% e
+70% sarebbero un'analisi dopo aver visto i dati.
+
+### Cosa dice, e cosa no
+
+- Il criterio di valore E instrada meglio del caso, e meglio della sola confidenza
+  alle quote alte (+1.6 e +2.8 punti al 40% e 50%), non a quelle basse. In media il
+  vantaggio sulla confidenza non esce dal rumore.
+- Il margine osservato e il contratto spostano l'accuratezza delle risposte date
+  nella direzione prevista (al 50% di copertura: 0.491 → 0.503 → 0.531), ma con 28
+  cluster e un punto di copertura inutile nessuno dei due esce dal rumore.
+- Il limite vero è il front-end piccolo: Gemma sceglie la relazione giusta solo nel
+  41% dei casi, e la confidenza del suo primo token ne coglie poco. Gli indici
+  della memoria possono migliorare solo la parte d'errore che è della memoria, il
+  20% a D = 16 384.
