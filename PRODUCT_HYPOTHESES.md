@@ -180,8 +180,13 @@ Tutte presuppongono H0. Nessuna ha senso se H0 cade.
   (preregistrazione 12, `escalation.md`) la sostiene in parte: il contratto ordina
   le domande meglio del caso (+4.8 punti) e della confidenza del modello piccolo
   (+1.9), ma lì il percorso grande vinceva quasi sempre (0.87 contro 0.26), quindi
-  non mostra che instradare convenga. Trigger di costruzione non scattato: serve
-  ancora un utente esterno.
+  non mostra che instradare convenga. Le preregistrazioni 13 e 14 (stessa memoria
+  per i due percorsi) confermano un segnale reale ma piccolo: instradare con
+  p̂_mem × (1 − confidenza) batte il caso (+2.7, +3.4) e la sola confidenza solo
+  alle quote alte; come indice per rispondere o astenersi regge il margine di
+  Hamming osservato (+2.6 [0.9, 4.1]), non la previsione. Il grosso dell'errore è
+  del front-end piccolo. Trigger di costruzione non scattato: serve ancora un
+  utente esterno.
 - **Evidenza:** nessuna. Contro: nel test 11 gli errori end-to-end vengono
   soprattutto dal front-end (0.36), non dalla memoria (0.807), e il contratto
   prevede la memoria. Se vale anche qui, il contratto ha poco da decidere.

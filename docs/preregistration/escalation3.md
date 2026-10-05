@@ -71,3 +71,60 @@ escono dal rumore.
   state analizzate con indici diversi.
 - Stessi limiti della 13: il grande è un modello da 4 miliardi; il costo è la quota
   di chiamate; 28 cluster.
+
+---
+
+## Esito — 2026-10-05, eseguito dopo il commit `e5fb119`
+
+Ipotesi e criteri **non modificati**. Risultati:
+[`results/escalation3_prereg_results.json`](../../results/escalation3_prereg_results.json);
+risposte in `results/escalation3_small_answers.json` e `escalation3_big_answers.json`.
+
+**Non determinismo.** Le scelte non sono del tutto deterministiche, come i test
+12 e 13 avevano dato per scontato: sulle 643 domande comuni Gemma coincide con la
+preregistrazione 12 in 641 casi, Qwen in 637 (temperatura 0, stessa GPU; cause
+probabili l'ordine delle somme in virgola mobile e la cache del prompt). Le
+differenze sono lo 0.3% e l'1%.
+
+743 domande, 85 forzate (70 senza collegamento, 15 risposte illeggibili).
+Piccolo da solo **0.354**, grande da solo **0.681**.
+
+**B — indice per rispondere o astenersi** (accuratezza delle risposte date)
+
+| copertura delle non forzate | F1 | FM | CFM | ZFM |
+|---|---|---|---|---|
+| 50% | 0.517 | 0.550 | 0.544 | 0.581 |
+| 70% | 0.447 | 0.447 | 0.466 | 0.475 |
+| 90% | 0.405 | 0.410 | 0.417 | 0.429 |
+
+**A — instradamento** (accuratezza del sistema)
+
+| quota | FM | EM | R |
+|---|---|---|---|
+| 20% | 0.404 | 0.396 | 0.399 |
+| 30% | 0.444 | 0.455 | 0.434 |
+| 40% | 0.497 | 0.518 | 0.469 |
+| 50% | 0.548 | 0.576 | 0.505 |
+
+| ipotesi | stima (punti) | 95%, cluster | esito |
+|---|---|---|---|
+| **H1** — FM contro F1 | +1.3 | [−0.6, +2.9] | **sostenuta in parte** |
+| **H2** — CFM contro FM | +0.7 | [−0.4, +2.2] | **sostenuta in parte** |
+| **H3** — ZFM contro FM | +2.6 | [+0.9, +4.1] | **sostenuta** |
+| **H4** — EM contro FM | +1.3 | [−0.1, +2.4] | **sostenuta in parte** |
+| **H5** — EM contro R | +3.4 | [+2.4, +4.5] | **sostenuta** |
+
+### Cosa dice, e cosa no
+
+- La previsione su H1 era sbagliata: la confidenza esatta sulle opzioni migliora
+  quella del primo token solo a copertura 50% (+3.3 punti) e in media non esce dal
+  rumore. Il front-end piccolo resta poco calibrato anche misurato bene.
+- **Il segnale che regge è il margine osservato della memoria** (H3): aggiunto alla
+  confidenza esatta, alza l'accuratezza delle risposte date di 2.6 punti in media,
+  da 0.550 a 0.581 a copertura 50%. Il contratto (la previsione, non l'osservazione)
+  aggiunge meno e non esce dal rumore (H2).
+- Per instradare, il valore EM batte il caso in modo netto (H5), e batte la sola
+  confidenza alle quote alte (+2.1 e +2.8 punti al 40% e 50%), non a quelle basse;
+  in media resta al limite (H4).
+- In tre test (12–14) lo stesso quadro: il contratto e la memoria danno un segnale
+  reale ma piccolo, perché la maggior parte dell'errore è del front-end piccolo.
