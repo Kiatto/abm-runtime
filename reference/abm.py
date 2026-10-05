@@ -8,10 +8,12 @@ deterministic, < 500 lines. Applications live elsewhere.
 Mapping to the formalism:
     bind, permute, bundle, cleanup   →  operators (Def. 2.1, axioms A1-A3)
     phi                              →  memory potential (Def. 0.1)
-    confidence                       →  calibrated confidence (Law I)
+    margin_z, confidence             →  observed margin of an answer, and its
+                                        logistic (not calibrated)
     z_gumbel, predicted_accuracy,
     capacity                         →  capacity law (Law IV, Gumbel form)
     Memory.query                     →  elementary query (Def. 3.2)
+    Memory.query_z                   →  the same, with the observed margin z
     Memory.chain                     →  hop composition (Theorem 3.4: p^h)
     Memory.member                    →  algebraic truth oracle (Prop. 3.7)
     Memory.compile_pairs             →  sleep-time compilation (Calculus §5.2)
@@ -85,11 +87,23 @@ def phi(x: np.ndarray, y: np.ndarray) -> float:
     return (d / 2 - hamming(x, y)) / sqrt(d)
 
 
+def margin_z(dist: float, dim: int) -> float:
+    """Observed margin of one answer: the z-score of its Hamming distance
+    against the null Binomial(D, 1/2), (D/2 - d) / (sqrt(D)/2).
+
+    A per-answer signal, observed rather than predicted. In preregistered test 14
+    (docs/preregistration/escalation3.md) it raised the accuracy of the answers
+    given, as a confidence index, by 2.6 points [0.9, 4.1] over the front-end's
+    own confidence."""
+    return float((dim / 2.0 - dist) / (sqrt(dim) / 2.0))
+
+
 def confidence(dist: float, dim: int, temperature: float = 8.0) -> float:
-    """Calibrated confidence: logistic in the Hamming-null z-score.
-    0.5 = indistinguishable from noise."""
-    z = (dim / 2.0 - dist) / (sqrt(dim) / 2.0)
-    return float(1.0 / (1.0 + np.exp(-z / temperature)))
+    """Logistic of the observed margin z (margin_z): 0.5 means indistinguishable
+    from noise. It orders answers exactly as z does, but it is NOT calibrated:
+    the temperature is a fixed choice, not fitted, so the value is not a
+    probability of being right."""
+    return float(1.0 / (1.0 + np.exp(-margin_z(dist, dim) / temperature)))
 
 
 def z_gumbel(m: int) -> float:
@@ -201,12 +215,23 @@ class Memory:
     def query(self, s: str, r: str,
               subset: Optional[Sequence[str]] = None) -> Tuple[str, float]:
         """Elementary query: cleanup(T xor key). Returns (object name,
-        calibrated confidence)."""
+        confidence), the confidence a logistic of the observed margin (see
+        `confidence`; use `query_z` for the margin itself)."""
         if self._trace is None:
             raise ValueError("query on an empty memory: store at least one fact first")
         noisy = bind(self._trace, self.key(s, r))
         name, dist = self.items.cleanup(noisy, subset)
         return name, confidence(dist, self.dim)
+
+    def query_z(self, s: str, r: str,
+                subset: Optional[Sequence[str]] = None) -> Tuple[str, float]:
+        """Like `query`, but returns the observed margin z (margin_z) of the
+        answer: higher means further from noise. Use it to rank answers, for
+        example to decide which to give and which to abstain on."""
+        if self._trace is None:
+            raise ValueError("query on an empty memory: store at least one fact first")
+        name, dist = self.items.cleanup(bind(self._trace, self.key(s, r)), subset)
+        return name, margin_z(dist, self.dim)
 
     def chain(self, start: str, relations: Sequence[str]) -> Tuple[str, float]:
         """Multi-hop with cleanup per hop. Theorem 3.4: success = p^h;

@@ -197,3 +197,39 @@ class TestInspector:
         facts = [(f"s{i}", f"r{i % 11}", f"o{i}") for i in range(120)]
         measured = np.mean([m.query(x, r)[0] == o for x, r, o in facts])
         assert abs(s["expected_accuracy"] - measured) < 0.12
+
+
+class TestObservedMargin:
+    """margin_z and Memory.query_z: the per-answer signal of preregistration 14."""
+
+    def test_margin_z_formula(self):
+        from abm import margin_z, confidence
+        assert margin_z(512, 1024) == 0.0
+        assert abs(margin_z(512 - 16, 1024) - 1.0) < 1e-12
+        assert confidence(512, 1024) == 0.5
+
+    def test_query_z_matches_query(self):
+        from abm import Memory, confidence
+        m = Memory(1024)
+        for i in range(20):
+            m.store(f"s{i}", f"r{i % 3}", f"o{i}")
+        for i in range(20):
+            a, c = m.query(f"s{i}", f"r{i % 3}")
+            b, z = m.query_z(f"s{i}", f"r{i % 3}")
+            assert a == b
+            assert abs(confidence(m.dim / 2 - z * (m.dim ** 0.5) / 2, m.dim) - c) < 1e-12
+
+    def test_query_z_separates_stored_from_noise(self):
+        from abm import Memory
+        m = Memory(2048)
+        for i in range(30):
+            m.store(f"s{i}", f"r{i % 5}", f"o{i}")
+        stored = [m.query_z(f"s{i}", f"r{i % 5}")[1] for i in range(30)]
+        unseen = [m.query_z(f"s{i}", "never_stored")[1] for i in range(30)]
+        assert min(stored) > max(unseen)
+
+    def test_query_z_empty_memory(self):
+        import pytest
+        from abm import Memory
+        with pytest.raises(ValueError):
+            Memory(256).query_z("a", "r")

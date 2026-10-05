@@ -89,6 +89,14 @@ PREREGS = {
     # Fig. 3: solo la parte "proofwriter" di seed10_results.json (law4 è il target seed10)
     "proofwriter_seeds": ("proofwriter_seeds.py", [], "seed10_proofwriter_check.json",
                           "seed10_results.json", ("proofwriter",), "~1 min"),
+    # test 12–14: solo l'analisi, dalle risposte dei modelli committate (gli LLM
+    # non vengono interrogati; le loro scelte sono in results/escalation*_answers.json)
+    "escalation": ("escalation_prereg.py", ["--stage", "analyze"], "escalation_prereg_results.json",
+                   "escalation_prereg_results.json", None, "~1 min"),
+    "escalation2": ("escalation2_prereg.py", [], "escalation2_prereg_results.json",
+                    "escalation2_prereg_results.json", None, "~1 min"),
+    "escalation3": ("escalation3_prereg.py", ["--stage", "analyze"], "escalation3_prereg_results.json",
+                    "escalation3_prereg_results.json", None, "~2 min"),
 }
 
 # i dati che ogni harness legge: si scaricano solo quelli dei target scelti
@@ -98,6 +106,8 @@ NEEDS = {
     "sizing": {FB, WN},
     "human_questions": {FB, "fb15k_mid2name.txt", "SimpleQuestions_v2.tgz"},
     "proofwriter": {PW}, "proofwriter_seeds": {PW},
+    **{k: {FB, "fb15k_mid2name.txt", "SimpleQuestions_v2.tgz"}
+       for k in ("escalation", "escalation2", "escalation3")},
 }
 
 
@@ -112,6 +122,7 @@ COMMITS = {
     # seed10_results.json (13538cc) non ha un commit che lo scriva: lo script è
     # posteriore e gira sul codice di ca77196, dove proofwriter_eval legge data/
     "proofwriter_seeds": "ca77196",
+    "escalation": "f447da8", "escalation2": "b46c28e", "escalation3": "5c9ba4b",
 }
 # harness copiati dal codice attuale sull'albero di quel commit: human_questions
 # per --memory-only (la pipeline è la stessa, il modello resta quello del commit);
