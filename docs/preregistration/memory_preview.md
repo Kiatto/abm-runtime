@@ -62,3 +62,34 @@ diverso (un luogo, una persona, una data, un genere).
 - Se la memoria sbaglia la risposta di una relazione, l'anteprima mostra un nome
   sbagliato; l'effetto netto è quello misurato.
 - Un solo modello piccolo, un solo grafo.
+
+---
+
+## Esito — 2026-10-05, eseguito dopo il commit `fec8212`
+
+Ipotesi e criteri **non modificati**. Risultati:
+[`results/memory_preview_prereg_results.json`](../../results/memory_preview_prereg_results.json);
+risposte in `results/memory_preview_small_answers.json`. Con l'anteprima Gemma
+cambia scelta in 186 domande su 743.
+
+| | senza anteprima | con anteprima | differenza | 95%, cluster | esito |
+|---|---|---|---|---|---|
+| **H1** — relazione giusta | 0.402 | 0.400 | −0.3 | [−2.6, +2.0] | **falsificata** (stima ≤ 0) |
+| **H2** — risposta giusta | 0.354 | 0.382 | **+2.8** | **[+1.0, +4.6]** | **sostenuta** |
+
+La previsione (5–10 punti in più sulla relazione) era sbagliata.
+
+### Da dove viene il guadagno (esplorativo, non preregistrato)
+
+Domanda per domanda (stesso file):
+
+- relazione giusta solo con l'anteprima: 64 domande; in 54 la risposta è giusta;
+- relazione giusta solo senza: 66 domande; in 20 la memoria sbagliava comunque, e
+  la perdita non costa nulla;
+- in 9 domande la risposta diventa giusta con una relazione diversa da quella della
+  domanda, che porta allo stesso oggetto.
+
+Vedendo la risposta, il modello non sceglie più spesso la relazione giusta: sposta
+le sue scelte verso le opzioni in cui la memoria restituisce una risposta plausibile,
+ed evita quelle in cui la memoria sbaglierebbe. Il guadagno è nell'accoppiamento fra
+front-end e memoria, non nel front-end da solo.

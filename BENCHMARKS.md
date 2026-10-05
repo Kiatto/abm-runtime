@@ -1,10 +1,10 @@
 # ABM benchmarks
 
 Every number on this page comes from a committed result file, which a committed
-script produced. Fourteen of the tests were **preregistered**: their predictions
+script produced. Fifteen of the tests were **preregistered**: their predictions
 and pass criteria were committed before any data was looked at
-(`docs/preregistration/`). Two of the fourteen failed; they are kept below with
-their causes. The paper (v1.11) reports all fourteen.
+(`docs/preregistration/`). Three of the fifteen failed; they are kept below with
+their causes. The paper (v1.11) reports the first fourteen; test 15 came after it.
 
 What is measured is not task accuracy against other systems. It is how well the
 model **predicts, in advance, the accuracy of the memory**: predicted minus
@@ -35,7 +35,7 @@ facts independent over GF(2). Where those fail, so does the model. See
 
 ---
 
-## The fourteen preregistered tests
+## The fifteen preregistered tests
 
 The paper's tally (eight supported, one in part, two failed) goes by primary hypothesis. Test 2's primary H1 was supported, and a secondary one was in part. Test 11's primary, end-to-end, was in part.
 
@@ -55,6 +55,7 @@ The paper's tally (eight supported, one in part, two failed) goes by primary hyp
 | 12 | `escalation.md` | the contract as the criterion for escalating questions to a larger LLM (Qwen3-4B + exact store) | H1–H3 supported: +4.8 points over random, +1.9 over the small model's confidence; but the large path won almost always (0.87 vs 0.26), so routing itself did not pay | `escalation_prereg_results.json` | `escalation` |
 | 13 | `escalation2.md` | the same, with one memory (D = 16 384) for both paths | routing by p̂_mem × (1 − confidence) beats random (+2.7); over confidence alone, and as a confidence index, in part | `escalation2_prereg_results.json` | `escalation2` |
 | 14 | `escalation3.md` | exact option-level confidence, 743 questions, corrected coverages | the observed Hamming margin raises the confidence index (+2.6 [0.9, 4.1]); exact confidence over first-token, and the contract over it, in part; routing beats random (+3.4) | `escalation3_prereg_results.json` | `escalation3` |
+| 15 | `memory_preview.md` | the small front-end sees the memory's answer for each candidate relation | relation accuracy **falsified** (−0.3); answer accuracy **supported** (+2.8 [1.0, 4.6]): choices move toward options where the memory answers plausibly | `memory_preview_prereg_results.json` | — |
 
 Result files are in `results/`, harnesses in `examples/<file stem>_prereg.py`.
 Summary errors with confidence intervals: `results/prereg_summary_results.json`,
