@@ -74,3 +74,45 @@ misura.
   hanno alias e gemelli.
 - Il Bloom risponde solo all'appartenenza; ABM risponde anche a (s, r) → o. Il
   confronto B è sulla sola appartenenza.
+
+---
+
+## Esito — 2026-10-05, eseguito dopo il commit `256b056`
+
+Ipotesi e criteri **non modificati**. Risultati:
+[`results/equal_bits_prereg_results.json`](../../results/equal_bits_prereg_results.json).
+
+| D | N | ABM misurato | previsto | store esatto ideale | member: falsi neg. / pos. | Bloom: falsi neg. / pos. | D / minimo di Fano |
+|---|---|---|---|---|---|---|---|
+| 2048 | 50 | 0.993 | 0.990 | 1.000 | 0.013 / 0.000 | 0 / 0.000 | 6.3 |
+| | 100 | 0.763 | 0.783 | 1.000 | 0.290 / 0.002 | 0 / 0.000 | 4.1 |
+| | 150 | 0.507 | 0.522 | 0.620 | 0.504 / 0.001 | 0 / 0.001 | 4.3 |
+| | 200 | 0.328 | 0.346 | 0.465 | 0.670 / 0.002 | 0 / 0.006 | 5.3 |
+| | 300 | 0.160 | 0.170 | 0.283 | 0.820 / 0.001 | 0 / 0.040 | 8.1 |
+| | 400 | 0.095 | 0.096 | 0.212 | 0.879 / 0.001 | 0 / 0.084 | 11.0 |
+| | 600 | 0.043 | 0.042 | 0.130 | 0.934 / 0.002 | 0 / 0.211 | 18.3 |
+| 8192 | 200 | 0.987 | 0.976 | 1.000 | 0.010 / 0.003 | 0 / 0.000 | 4.9 |
+| | 400 | 0.660 | 0.658 | 0.853 | 0.261 / 0.001 | 0 / 0.000 | 3.8 |
+| | 600 | 0.363 | 0.372 | 0.525 | 0.531 / 0.002 | 0 / 0.002 | 4.9 |
+| | 800 | 0.225 | 0.218 | 0.394 | 0.677 / 0.001 | 0 / 0.007 | 6.3 |
+| | 1200 | 0.097 | 0.091 | 0.243 | 0.817 / 0.001 | 0 / 0.034 | 10.8 |
+| | 1600 | 0.046 | 0.047 | 0.182 | 0.884 / 0.003 | 0 / 0.091 | 19.2 |
+| | 2400 | 0.015 | 0.018 | 0.114 | 0.933 / 0.003 | 0 / 0.191 | 46.2 |
+
+| ipotesi | risultato | esito |
+|---|---|---|
+| **H1** — ABM < store esatto in ogni cella | 14 su 14 | **sostenuta** |
+| **H2** — errore del modello esatto | 0.99 punti (D = 2048), 0.54 (D = 8192) | **sostenuta** |
+| **H3** — Bloom con meno errori di ABM | in ogni cella | **sostenuta** |
+
+### Cosa dice
+
+- A pari bit ABM non conviene mai, né per rispondere a (s, r) → o né per
+  l'appartenenza: lo store esatto idealizzato vince in ogni cella, anche sovraccarico,
+  e il Bloom vince in ogni cella. Usa da 3.8 a 46 volte i bit del minimo di Fano.
+- `Memory.member` con z ≥ 3 ha pochissimi falsi positivi ma, sopra un carico basso,
+  perde la maggior parte dei fatti memorizzati: è uno strumento per memorie poco
+  cariche, non un sostituto del Bloom.
+- Il modello esatto ha previsto tutto questo, anche il risultato sfavorevole, entro un
+  punto. Quello che ABM offre non è la densità: è un'accuratezza calcolabile prima,
+  e l'algebra (composizione, legame), che questo test non misura.

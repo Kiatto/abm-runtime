@@ -57,6 +57,7 @@ The paper's tally (eight supported, one in part, two failed) goes by primary hyp
 | 14 | `escalation3.md` | exact option-level confidence, 743 questions, corrected coverages | the observed Hamming margin raises the confidence index (+2.6 [0.9, 4.1]); exact confidence over first-token, and the contract over it, in part; routing beats random (+3.4) | `escalation3_prereg_results.json` | `escalation3` |
 | 15 | `memory_preview.md` | the small front-end sees the memory's answer for each candidate relation | relation accuracy **falsified** (−0.3); answer accuracy **supported** (+2.8 [1.0, 4.6]): choices move toward options where the memory answers plausibly | `memory_preview_prereg_results.json` | — |
 | 16 | `shortlist.md` | an embedding shortlist (bge-small, k = 3 chosen on the audit split) cuts the small front-end's options | relation +26.0 [21.7, 30.3], answer +19.9 [15.9, 24.1]: **supported**; embedding top-1 alone did better still (0.647 answers), not a hypothesis | `shortlist_prereg_results.json` | — |
+| 18 | `equal_bits.md` | ABM against an ideal exact store and a Bloom filter with the same number of bits | the exact store wins in 14/14 cells, the Bloom filter in every cell, as the exact model predicted (within 1 point): ABM uses 3.8–46× the Fano minimum | `equal_bits_prereg_results.json` | — |
 
 Result files are in `results/`, harnesses in `examples/<file stem>_prereg.py`.
 Summary errors with confidence intervals: `results/prereg_summary_results.json`,
