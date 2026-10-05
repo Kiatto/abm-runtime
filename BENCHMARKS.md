@@ -1,10 +1,10 @@
 # ABM benchmarks
 
 Every number on this page comes from a committed result file, which a committed
-script produced. Fifteen of the tests were **preregistered**: their predictions
+script produced. Sixteen of the tests were **preregistered**: their predictions
 and pass criteria were committed before any data was looked at
-(`docs/preregistration/`). Three of the fifteen failed; they are kept below with
-their causes. The paper (v1.11) reports the first fourteen; test 15 came after it.
+(`docs/preregistration/`). Three of the sixteen failed; they are kept below with
+their causes. The paper (v1.11) reports the first fourteen; tests 15–16 came after it.
 
 What is measured is not task accuracy against other systems. It is how well the
 model **predicts, in advance, the accuracy of the memory**: predicted minus
@@ -35,7 +35,7 @@ facts independent over GF(2). Where those fail, so does the model. See
 
 ---
 
-## The fifteen preregistered tests
+## The sixteen preregistered tests
 
 The paper's tally (eight supported, one in part, two failed) goes by primary hypothesis. Test 2's primary H1 was supported, and a secondary one was in part. Test 11's primary, end-to-end, was in part.
 
@@ -56,6 +56,7 @@ The paper's tally (eight supported, one in part, two failed) goes by primary hyp
 | 13 | `escalation2.md` | the same, with one memory (D = 16 384) for both paths | routing by p̂_mem × (1 − confidence) beats random (+2.7); over confidence alone, and as a confidence index, in part | `escalation2_prereg_results.json` | `escalation2` |
 | 14 | `escalation3.md` | exact option-level confidence, 743 questions, corrected coverages | the observed Hamming margin raises the confidence index (+2.6 [0.9, 4.1]); exact confidence over first-token, and the contract over it, in part; routing beats random (+3.4) | `escalation3_prereg_results.json` | `escalation3` |
 | 15 | `memory_preview.md` | the small front-end sees the memory's answer for each candidate relation | relation accuracy **falsified** (−0.3); answer accuracy **supported** (+2.8 [1.0, 4.6]): choices move toward options where the memory answers plausibly | `memory_preview_prereg_results.json` | — |
+| 16 | `shortlist.md` | an embedding shortlist (bge-small, k = 3 chosen on the audit split) cuts the small front-end's options | relation +26.0 [21.7, 30.3], answer +19.9 [15.9, 24.1]: **supported**; embedding top-1 alone did better still (0.647 answers), not a hypothesis | `shortlist_prereg_results.json` | — |
 
 Result files are in `results/`, harnesses in `examples/<file stem>_prereg.py`.
 Summary errors with confidence intervals: `results/prereg_summary_results.json`,

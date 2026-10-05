@@ -72,3 +72,43 @@ domanda è persa.
 - Il testo della relazione è il solo percorso Freebase; descrizioni migliori
   potrebbero aumentare il richiamo.
 - La baseline viene da un'esecuzione precedente (non determinismo ≈ 0.3%).
+
+---
+
+## Esito — 2026-10-05, eseguito dopo il commit `6578f87`
+
+Ipotesi e criteri **non modificati**. Risultati:
+[`results/shortlist_prereg_results.json`](../../results/shortlist_prereg_results.json);
+k scelto sull'audit in `results/shortlist_k.json`, risposte in
+`results/shortlist_small_answers.json`.
+
+**k = 3**: sull'audit, con le 3 relazioni più simili quella giusta era dentro nel
+91.7% delle 84 domande valide (k = 5: 96.4%). Sul test il richiamo è stato **97.5%**.
+
+| 643 domande di test | relazione giusta | risposta giusta |
+|---|---|---|
+| tutte le opzioni, con anteprima (preregistrazione 15) | 0.409 | 0.393 |
+| shortlist di 3 + Gemma, con anteprima | **0.669** | **0.593** |
+| solo l'embedding, la prima della classifica (riportato, non un'ipotesi) | 0.796 | 0.647 |
+
+| ipotesi | stima (punti) | 95%, cluster | esito |
+|---|---|---|---|
+| **H1** — relazione giusta | +26.0 | [+21.7, +30.3] | **sostenuta** |
+| **H2** — risposta giusta | +19.9 | [+15.9, +24.1] | **sostenuta** |
+
+La previsione era +8–15 punti sulla relazione: l'effetto è quasi il doppio.
+
+### Cosa dice, e cosa no
+
+- Il collo di bottiglia del front-end era il numero di opzioni, e ridurle con un
+  modello di embedding da 33 milioni di parametri rende la pipeline piccola molto
+  più forte: la risposta giusta passa da 0.39 a 0.59.
+- **Il solo embedding fa meglio di Gemma sulla sua shortlist** (0.647 contro 0.593
+  di risposte giuste), ed è vicino a Qwen3-4B con la stessa memoria (0.681 nella
+  preregistrazione 14, su 743 domande). Non era un'ipotesi: va confermato con un
+  test preregistrato, su domande nuove.
+- Cautela, dichiarata ora: in SimpleQuestions le domande sono state scritte da
+  persone che vedevano la tripla, quindi le loro parole somigliano al nome della
+  relazione. Su domande naturali il vantaggio dell'embedding può essere minore.
+- La diagnosi che ha motivato il test è stata fatta su dati che comprendono queste
+  643 domande; il richiamo e k, però, vengono da regole fissate prima e dall'audit.

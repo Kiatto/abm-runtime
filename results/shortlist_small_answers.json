@@ -1,0 +1,8025 @@
+{
+ "k": 3,
+ "rows": [
+  {
+   "i": 104,
+   "linked": "/m/02fn5r",
+   "k": 15,
+   "shortlist": [
+    "/music/artist/origin",
+    "/people/person/nationality",
+    "/people/person/places_lived./people/place_lived/location"
+   ],
+   "chosen": "/people/person/places_lived./people/place_lived/location",
+   "raw": "3",
+   "embed_top1": "/music/artist/origin"
+  },
+  {
+   "i": 18,
+   "linked": "/m/01dbk6",
+   "k": 11,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/people/person/religion"
+   ],
+   "chosen": "/people/person/religion",
+   "raw": "3",
+   "embed_top1": "/people/person/religion"
+  },
+  {
+   "i": 463,
+   "linked": "/m/0ddj0x",
+   "k": 10,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_region",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 480,
+   "linked": "/m/0645k5",
+   "k": 15,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/featured_film_locations",
+   "raw": "2",
+   "embed_top1": "/film/film/featured_film_locations"
+  },
+  {
+   "i": 418,
+   "linked": "/m/07ssc",
+   "k": 22,
+   "shortlist": [
+    "/base/aareas/schema/administrative_area/administrative_area_type",
+    "/location/country/second_level_divisions",
+    "/sports/sports_team_location/teams"
+   ],
+   "chosen": "/location/country/second_level_divisions",
+   "raw": "2",
+   "embed_top1": "/location/country/second_level_divisions"
+  },
+  {
+   "i": 344,
+   "linked": "/m/011ysn",
+   "k": 11,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "2",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 539,
+   "linked": "/m/0241wg",
+   "k": 11,
+   "shortlist": [
+    "/people/person/languages",
+    "/people/person/place_of_birth",
+    "/people/person/religion"
+   ],
+   "chosen": "/people/person/languages",
+   "raw": "1",
+   "embed_top1": "/people/person/languages"
+  },
+  {
+   "i": 329,
+   "linked": "/m/09sh8k",
+   "k": 14,
+   "shortlist": [
+    "/film/film/featured_film_locations",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_region",
+    "/film/film/story_by"
+   ],
+   "chosen": "/film/film/featured_film_locations",
+   "raw": "1",
+   "embed_top1": "/film/film/featured_film_locations"
+  },
+  {
+   "i": 361,
+   "linked": "/m/01cl2y",
+   "k": 2,
+   "shortlist": [
+    "/common/topic/webpage./common/webpage/category",
+    "/music/record_label/artist"
+   ],
+   "chosen": "/music/record_label/artist",
+   "raw": "2",
+   "embed_top1": "/music/record_label/artist"
+  },
+  {
+   "i": 554,
+   "linked": "/m/0405l",
+   "k": 9,
+   "shortlist": [
+    "/people/person/languages",
+    "/people/person/nationality",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/languages",
+   "raw": "1",
+   "embed_top1": "/people/person/nationality"
+  },
+  {
+   "i": 150,
+   "linked": "/m/01gwk3",
+   "k": 15,
+   "shortlist": [
+    "/film/film/featured_film_locations",
+    "/film/film/music",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/music",
+   "raw": "2",
+   "embed_top1": "/film/film/music"
+  },
+  {
+   "i": 146,
+   "linked": "/m/01n7q",
+   "k": 11,
+   "shortlist": [
+    "/base/aareas/schema/administrative_area/administrative_parent",
+    "/location/location/adjoin_s./location/adjoining_relationship/adjoins",
+    "/location/location/contains"
+   ],
+   "chosen": "/location/location/contains",
+   "raw": "3",
+   "embed_top1": "/location/location/contains"
+  },
+  {
+   "i": 218,
+   "linked": null,
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 266,
+   "linked": "/m/0l14md",
+   "k": 5,
+   "shortlist": [
+    "/music/instrument/instrumentalists",
+    "/music/performance_role/guest_performances./music/recording_contribution/performance_role",
+    "/music/performance_role/track_performances./music/track_contribution/role"
+   ],
+   "chosen": "/music/performance_role/track_performances./music/track_contribution/role",
+   "raw": "3",
+   "embed_top1": "/music/instrument/instrumentalists"
+  },
+  {
+   "i": 590,
+   "linked": "/m/012s1d",
+   "k": 13,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_region"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 432,
+   "linked": "/m/02qhm3",
+   "k": 9,
+   "shortlist": [
+    "/people/deceased_person/place_of_death",
+    "/people/person/place_of_birth",
+    "/people/person/places_lived./people/place_lived/location"
+   ],
+   "chosen": "/people/deceased_person/place_of_death",
+   "raw": "1",
+   "embed_top1": "/people/deceased_person/place_of_death"
+  },
+  {
+   "i": 2,
+   "linked": "/m/014z8v",
+   "k": 12,
+   "shortlist": [
+    "/people/person/places_lived./people/place_lived/location",
+    "/people/person/religion",
+    "/people/person/spouse_s./people/marriage/type_of_union"
+   ],
+   "chosen": "/people/person/religion",
+   "raw": "2",
+   "embed_top1": "/people/person/religion"
+  },
+  {
+   "i": 736,
+   "linked": "/m/03s5lz",
+   "k": 14,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/estimated_budget./measurement_unit/dated_money_value/currency",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 559,
+   "linked": "/m/05sb1",
+   "k": 14,
+   "shortlist": [
+    "/location/country/form_of_government",
+    "/location/country/official_language",
+    "/location/statistical_region/gni_per_capita_in_ppp_dollars./measurement_unit/dated_money_value/currency"
+   ],
+   "chosen": "/location/country/official_language",
+   "raw": "2",
+   "embed_top1": "/location/country/official_language"
+  },
+  {
+   "i": 621,
+   "linked": "/m/01c6zg",
+   "k": 6,
+   "shortlist": [
+    "/base/aareas/schema/administrative_area/capital",
+    "/location/administrative_division/first_level_division_of",
+    "/location/location/time_zones"
+   ],
+   "chosen": "/location/location/time_zones",
+   "raw": "3",
+   "embed_top1": "/location/location/time_zones"
+  },
+  {
+   "i": 365,
+   "linked": "/m/0g9yrw",
+   "k": 8,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 252,
+   "linked": "/m/0432_5",
+   "k": 9,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/produced_by",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_region"
+   ],
+   "chosen": "/film/film/release_date_s./film/film_regional_release_date/film_release_region",
+   "raw": "3",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 142,
+   "linked": "/m/0dj0x",
+   "k": 4,
+   "shortlist": [
+    "/base/biblioness/bibs_location/country",
+    "/location/administrative_division/country",
+    "/location/location/contains"
+   ],
+   "chosen": "/base/biblioness/bibs_location/country",
+   "raw": "1",
+   "embed_top1": "/location/location/contains"
+  },
+  {
+   "i": 391,
+   "linked": "/m/024qqx",
+   "k": 1,
+   "shortlist": [
+    "/media_common/netflix_genre/titles"
+   ],
+   "chosen": "/media_common/netflix_genre/titles",
+   "raw": null,
+   "embed_top1": "/media_common/netflix_genre/titles"
+  },
+  {
+   "i": 83,
+   "linked": "/m/0gy0l_",
+   "k": 14,
+   "shortlist": [
+    "/film/film/produced_by",
+    "/film/film/production_companies",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/written_by",
+   "raw": "3",
+   "embed_top1": "/film/film/production_companies"
+  },
+  {
+   "i": 426,
+   "linked": "/m/03hxsv",
+   "k": 15,
+   "shortlist": [
+    "/film/film/featured_film_locations",
+    "/film/film/film_production_design_by",
+    "/film/film/prequel"
+   ],
+   "chosen": "/film/film/film_production_design_by",
+   "raw": "2",
+   "embed_top1": "/film/film/film_production_design_by"
+  },
+  {
+   "i": 281,
+   "linked": "/m/0h21v2",
+   "k": 15,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/produced_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 428,
+   "linked": "/m/01vfqh",
+   "k": 16,
+   "shortlist": [
+    "/film/film/cinematography",
+    "/film/film/country",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/cinematography",
+   "raw": "1",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 316,
+   "linked": "/m/01yz0x",
+   "k": 3,
+   "shortlist": [
+    "/award/award_category/disciplines_or_subjects",
+    "/award/award_category/winners./award/award_honor/award_winner",
+    "/award/award_category/winners./award/award_honor/ceremony"
+   ],
+   "chosen": "/award/award_category/winners./award/award_honor/ceremony",
+   "raw": "3",
+   "embed_top1": "/award/award_category/disciplines_or_subjects"
+  },
+  {
+   "i": 347,
+   "linked": "/m/039c26",
+   "k": 8,
+   "shortlist": [
+    "/tv/tv_program/country_of_origin",
+    "/tv/tv_program/genre",
+    "/tv/tv_program/program_creator"
+   ],
+   "chosen": "/tv/tv_program/genre",
+   "raw": "2",
+   "embed_top1": "/tv/tv_program/country_of_origin"
+  },
+  {
+   "i": 13,
+   "linked": "/m/0dd6bf",
+   "k": 6,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/language",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_region"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 157,
+   "linked": "/m/0180mw",
+   "k": 10,
+   "shortlist": [
+    "/tv/tv_program/country_of_origin",
+    "/tv/tv_program/genre",
+    "/tv/tv_program/languages"
+   ],
+   "chosen": "/tv/tv_program/genre",
+   "raw": "2",
+   "embed_top1": "/tv/tv_program/genre"
+  },
+  {
+   "i": 12,
+   "linked": "/m/03m6t5",
+   "k": 8,
+   "shortlist": [
+    "/base/americancomedy/celebrity_impressionist/celebrities_impersonated",
+    "/people/person/place_of_birth",
+    "/people/person/profession"
+   ],
+   "chosen": "/base/americancomedy/celebrity_impressionist/celebrities_impersonated",
+   "raw": "1",
+   "embed_top1": "/base/americancomedy/celebrity_impressionist/celebrities_impersonated"
+  },
+  {
+   "i": 210,
+   "linked": "/m/0xnvg",
+   "k": 4,
+   "shortlist": [
+    "/people/ethnicity/geographic_distribution",
+    "/people/ethnicity/languages_spoken",
+    "/people/ethnicity/people"
+   ],
+   "chosen": "/people/ethnicity/people",
+   "raw": "3",
+   "embed_top1": "/people/ethnicity/people"
+  },
+  {
+   "i": 528,
+   "linked": "/m/05w3f",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 576,
+   "linked": "/m/05z96",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 634,
+   "linked": "/m/07f_t4",
+   "k": 13,
+   "shortlist": [
+    "/film/film/featured_film_locations",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_region",
+    "/film/film/story_by"
+   ],
+   "chosen": "/film/film/featured_film_locations",
+   "raw": "1",
+   "embed_top1": "/film/film/featured_film_locations"
+  },
+  {
+   "i": 255,
+   "linked": "/m/05rfst",
+   "k": 13,
+   "shortlist": [
+    "/film/film/executive_produced_by",
+    "/film/film/film_production_design_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/executive_produced_by",
+   "raw": "1",
+   "embed_top1": "/film/film/executive_produced_by"
+  },
+  {
+   "i": 619,
+   "linked": "/m/04rlf",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 96,
+   "linked": "/m/06dn58",
+   "k": 10,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/religion",
+    "/people/person/spouse_s./people/marriage/type_of_union"
+   ],
+   "chosen": "/people/person/spouse_s./people/marriage/type_of_union",
+   "raw": "3",
+   "embed_top1": "/people/person/religion"
+  },
+  {
+   "i": 278,
+   "linked": null,
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 431,
+   "linked": "/m/01gglm",
+   "k": 11,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/story_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 689,
+   "linked": "/m/01jq34",
+   "k": 12,
+   "shortlist": [
+    "/education/educational_institution/colors",
+    "/education/educational_institution/school_type",
+    "/education/educational_institution_campus/educational_institution"
+   ],
+   "chosen": "/education/educational_institution_campus/educational_institution",
+   "raw": "3",
+   "embed_top1": "/education/educational_institution/colors"
+  },
+  {
+   "i": 341,
+   "linked": "/m/0266s9",
+   "k": 6,
+   "shortlist": [
+    "/tv/tv_program/country_of_origin",
+    "/tv/tv_program/genre",
+    "/tv/tv_program/languages"
+   ],
+   "chosen": "/tv/tv_program/genre",
+   "raw": "2",
+   "embed_top1": "/tv/tv_program/genre"
+  },
+  {
+   "i": 502,
+   "linked": "/m/016tvq",
+   "k": 6,
+   "shortlist": [
+    "/tv/tv_program/country_of_origin",
+    "/tv/tv_program/program_creator",
+    "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor"
+   ],
+   "chosen": "/tv/tv_program/program_creator",
+   "raw": "2",
+   "embed_top1": "/tv/tv_program/program_creator"
+  },
+  {
+   "i": 330,
+   "linked": null,
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 230,
+   "linked": "/m/01771z",
+   "k": 9,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/produced_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/written_by",
+   "raw": "3",
+   "embed_top1": "/film/film/written_by"
+  },
+  {
+   "i": 304,
+   "linked": "/m/04t36",
+   "k": 2,
+   "shortlist": [
+    "/media_common/netflix_genre/titles",
+    "/music/genre/artists"
+   ],
+   "chosen": "/media_common/netflix_genre/titles",
+   "raw": "1",
+   "embed_top1": "/media_common/netflix_genre/titles"
+  },
+  {
+   "i": 45,
+   "linked": "/m/03wxvk",
+   "k": 4,
+   "shortlist": [
+    "/base/aareas/schema/administrative_area/capital",
+    "/location/administrative_division/country",
+    "/location/location/contains"
+   ],
+   "chosen": "/base/aareas/schema/administrative_area/capital",
+   "raw": "1",
+   "embed_top1": "/location/administrative_division/country"
+  },
+  {
+   "i": 352,
+   "linked": "/m/05k4my",
+   "k": 11,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/produced_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/produced_by",
+   "raw": "2",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 513,
+   "linked": "/m/02z3r8t",
+   "k": 11,
+   "shortlist": [
+    "/film/film/featured_film_locations",
+    "/film/film/music",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/written_by",
+   "raw": "3",
+   "embed_top1": "/film/film/written_by"
+  },
+  {
+   "i": 177,
+   "linked": "/m/0dpl44",
+   "k": 9,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/production_companies",
+   "raw": "3",
+   "embed_top1": "/film/film/production_companies"
+  },
+  {
+   "i": 336,
+   "linked": "/m/05r6t",
+   "k": 3,
+   "shortlist": [
+    "/media_common/netflix_genre/titles",
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/parent_genre",
+   "raw": "3",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 695,
+   "linked": "/m/01cdt5",
+   "k": 1,
+   "shortlist": [
+    "/medicine/symptom/symptom_of"
+   ],
+   "chosen": "/medicine/symptom/symptom_of",
+   "raw": null,
+   "embed_top1": "/medicine/symptom/symptom_of"
+  },
+  {
+   "i": 648,
+   "linked": "/m/017wh",
+   "k": 7,
+   "shortlist": [
+    "/base/aareas/schema/administrative_area/capital",
+    "/location/administrative_division/country",
+    "/location/administrative_division/first_level_division_of"
+   ],
+   "chosen": "/location/administrative_division/first_level_division_of",
+   "raw": "3",
+   "embed_top1": "/location/administrative_division/first_level_division_of"
+  },
+  {
+   "i": 95,
+   "linked": "/m/0fqt1ns",
+   "k": 17,
+   "shortlist": [
+    "/film/film/executive_produced_by",
+    "/film/film/music",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/music",
+   "raw": "2",
+   "embed_top1": "/film/film/music"
+  },
+  {
+   "i": 311,
+   "linked": "/m/0t_4_",
+   "k": 6,
+   "shortlist": [
+    "/location/hud_county_place/county",
+    "/location/hud_county_place/place",
+    "/location/hud_foreclosure_area/estimated_number_of_mortgages./measurement_unit/dated_integer/source"
+   ],
+   "chosen": "/location/hud_county_place/county",
+   "raw": "1",
+   "embed_top1": "/location/hud_county_place/place"
+  },
+  {
+   "i": 200,
+   "linked": "/m/034r25",
+   "k": 13,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/produced_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 6,
+   "linked": "/m/0dl5d",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 273,
+   "linked": "/m/021b_",
+   "k": 8,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/places_lived./people/place_lived/location",
+    "/people/person/religion"
+   ],
+   "chosen": "/people/person/religion",
+   "raw": "3",
+   "embed_top1": "/people/person/religion"
+  },
+  {
+   "i": 723,
+   "linked": "/m/0dryh9k",
+   "k": 2,
+   "shortlist": [
+    "/people/ethnicity/languages_spoken",
+    "/people/ethnicity/people"
+   ],
+   "chosen": "/people/ethnicity/people",
+   "raw": "2",
+   "embed_top1": "/people/ethnicity/people"
+  },
+  {
+   "i": 41,
+   "linked": null,
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 475,
+   "linked": "/m/021_z5",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 208,
+   "linked": "/m/0ndwt2w",
+   "k": 12,
+   "shortlist": [
+    "/film/film/featured_film_locations",
+    "/film/film/produced_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/written_by",
+   "raw": "3",
+   "embed_top1": "/film/film/written_by"
+  },
+  {
+   "i": 268,
+   "linked": "/m/07cdz",
+   "k": 16,
+   "shortlist": [
+    "/film/film/edited_by",
+    "/film/film/genre",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "2",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 92,
+   "linked": "/m/02scbv",
+   "k": 13,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/language",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_region"
+   ],
+   "chosen": "/film/film/release_date_s./film/film_regional_release_date/film_release_region",
+   "raw": "3",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 116,
+   "linked": "/m/01jtp7",
+   "k": 9,
+   "shortlist": [
+    "/education/educational_institution/campuses",
+    "/education/educational_institution/students_graduates./education/education/major_field_of_study",
+    "/education/educational_institution_campus/educational_institution"
+   ],
+   "chosen": "/education/educational_institution/campuses",
+   "raw": "1",
+   "embed_top1": "/education/educational_institution/campuses"
+  },
+  {
+   "i": 735,
+   "linked": "/m/06n90",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 44,
+   "linked": "/m/0cx7f",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 276,
+   "linked": "/m/053x8hr",
+   "k": 5,
+   "shortlist": [
+    "/tv/tv_program/genre",
+    "/tv/tv_program/languages",
+    "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor"
+   ],
+   "chosen": "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor",
+   "raw": "3",
+   "embed_top1": "/tv/tv_program/languages"
+  },
+  {
+   "i": 543,
+   "linked": "/m/01clyr",
+   "k": 2,
+   "shortlist": [
+    "/common/topic/webpage./common/webpage/category",
+    "/music/record_label/artist"
+   ],
+   "chosen": "/music/record_label/artist",
+   "raw": "2",
+   "embed_top1": "/music/record_label/artist"
+  },
+  {
+   "i": 639,
+   "linked": "/m/01qvz8",
+   "k": 11,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/film_format",
+    "/film/film/genre"
+   ],
+   "chosen": "/film/film/film_format",
+   "raw": "2",
+   "embed_top1": "/film/film/film_format"
+  },
+  {
+   "i": 464,
+   "linked": "/m/01s7w3",
+   "k": 13,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 688,
+   "linked": "/m/016cjb",
+   "k": 1,
+   "shortlist": [
+    "/music/genre/artists"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": null,
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 388,
+   "linked": "/m/07s9rl0",
+   "k": 1,
+   "shortlist": [
+    "/media_common/netflix_genre/titles"
+   ],
+   "chosen": "/media_common/netflix_genre/titles",
+   "raw": null,
+   "embed_top1": "/media_common/netflix_genre/titles"
+  },
+  {
+   "i": 570,
+   "linked": "/m/01srq2",
+   "k": 14,
+   "shortlist": [
+    "/film/film/film_format",
+    "/film/film/film_production_design_by",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/film_format",
+   "raw": "1",
+   "embed_top1": "/film/film/film_format"
+  },
+  {
+   "i": 5,
+   "linked": "/m/0ckd1",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 291,
+   "linked": "/m/0660b9b",
+   "k": 15,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "2",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 741,
+   "linked": "/m/0jlv5",
+   "k": 10,
+   "shortlist": [
+    "/people/person/gender",
+    "/people/person/nationality",
+    "/people/person/place_of_birth"
+   ],
+   "chosen": "/people/person/gender",
+   "raw": "1",
+   "embed_top1": "/people/person/gender"
+  },
+  {
+   "i": 538,
+   "linked": "/m/02q_cc",
+   "k": 12,
+   "shortlist": [
+    "/organization/organization_founder/organizations_founded",
+    "/people/person/employment_history./business/employment_tenure/company",
+    "/tv/tv_producer/programs_produced./tv/tv_producer_term/program"
+   ],
+   "chosen": "/organization/organization_founder/organizations_founded",
+   "raw": "1",
+   "embed_top1": "/organization/organization_founder/organizations_founded"
+  },
+  {
+   "i": 662,
+   "linked": "/m/03rz2b",
+   "k": 11,
+   "shortlist": [
+    "/film/film/film_format",
+    "/film/film/genre",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_distribution_medium"
+   ],
+   "chosen": "/film/film/release_date_s./film/film_regional_release_date/film_release_distribution_medium",
+   "raw": "3",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 369,
+   "linked": "/m/07ldhs",
+   "k": 16,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/people/person/religion"
+   ],
+   "chosen": "/people/person/religion",
+   "raw": "3",
+   "embed_top1": "/people/person/religion"
+  },
+  {
+   "i": 726,
+   "linked": "/m/036jv",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 441,
+   "linked": "/m/03f4k",
+   "k": 8,
+   "shortlist": [
+    "/music/artist/track_contributions./music/track_contribution/role",
+    "/people/person/nationality",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/profession",
+   "raw": "3",
+   "embed_top1": "/people/person/profession"
+  },
+  {
+   "i": 667,
+   "linked": "/m/024lt6",
+   "k": 14,
+   "shortlist": [
+    "/film/film/executive_produced_by",
+    "/film/film/production_companies",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/executive_produced_by",
+   "raw": "1",
+   "embed_top1": "/film/film/executive_produced_by"
+  },
+  {
+   "i": 454,
+   "linked": null,
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 612,
+   "linked": "/m/01k5y0",
+   "k": 10,
+   "shortlist": [
+    "/award/award_winning_work/awards_won./award/award_honor/award",
+    "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/written_by",
+   "raw": "3",
+   "embed_top1": "/film/film/written_by"
+  },
+  {
+   "i": 637,
+   "linked": "/m/02nf2c",
+   "k": 6,
+   "shortlist": [
+    "/tv/tv_program/country_of_origin",
+    "/tv/tv_program/genre",
+    "/tv/tv_program/languages"
+   ],
+   "chosen": "/tv/tv_program/genre",
+   "raw": "2",
+   "embed_top1": "/tv/tv_program/genre"
+  },
+  {
+   "i": 671,
+   "linked": "/m/027jk",
+   "k": 16,
+   "shortlist": [
+    "/location/country/form_of_government",
+    "/location/country/official_language",
+    "/location/location/time_zones"
+   ],
+   "chosen": "/location/location/time_zones",
+   "raw": "3",
+   "embed_top1": "/location/location/time_zones"
+  },
+  {
+   "i": 286,
+   "linked": "/m/01c6l",
+   "k": 13,
+   "shortlist": [
+    "/award/award_nominee/award_nominations./award/award_nomination/nominated_for",
+    "/film/director/film",
+    "/film/film/film_festivals"
+   ],
+   "chosen": "/film/director/film",
+   "raw": "2",
+   "embed_top1": "/film/director/film"
+  },
+  {
+   "i": 256,
+   "linked": "/m/0d66j2",
+   "k": 6,
+   "shortlist": [
+    "/tv/tv_program/country_of_origin",
+    "/tv/tv_program/genre",
+    "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor"
+   ],
+   "chosen": "/tv/tv_program/genre",
+   "raw": "2",
+   "embed_top1": "/tv/tv_program/country_of_origin"
+  },
+  {
+   "i": 342,
+   "linked": null,
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 327,
+   "linked": "/m/0mhfr",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/parent_genre",
+   "raw": "2",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 551,
+   "linked": "/m/02w1b8",
+   "k": 1,
+   "shortlist": [
+    "/film/film_subject/films"
+   ],
+   "chosen": "/film/film_subject/films",
+   "raw": null,
+   "embed_top1": "/film/film_subject/films"
+  },
+  {
+   "i": 698,
+   "linked": "/m/03qjg",
+   "k": 5,
+   "shortlist": [
+    "/music/instrument/instrumentalists",
+    "/music/performance_role/regular_performances./music/group_membership/group",
+    "/music/performance_role/regular_performances./music/group_membership/role"
+   ],
+   "chosen": "/music/performance_role/regular_performances./music/group_membership/role",
+   "raw": "3",
+   "embed_top1": "/music/instrument/instrumentalists"
+  },
+  {
+   "i": 306,
+   "linked": "/m/0dx97",
+   "k": 7,
+   "shortlist": [
+    "/people/deceased_person/place_of_death",
+    "/people/person/place_of_birth",
+    "/people/person/places_lived./people/place_lived/location"
+   ],
+   "chosen": "/people/deceased_person/place_of_death",
+   "raw": "1",
+   "embed_top1": "/people/deceased_person/place_of_death"
+  },
+  {
+   "i": 47,
+   "linked": "/m/0dcsx",
+   "k": 3,
+   "shortlist": [
+    "/medicine/disease/notable_people_with_this_condition",
+    "/medicine/disease/risk_factors",
+    "/people/cause_of_death/people"
+   ],
+   "chosen": "/medicine/disease/notable_people_with_this_condition",
+   "raw": "1",
+   "embed_top1": "/medicine/disease/notable_people_with_this_condition"
+  },
+  {
+   "i": 550,
+   "linked": "/m/0jqn5",
+   "k": 17,
+   "shortlist": [
+    "/film/film/distributors./film/film_film_distributor_relationship/film_distribution_medium",
+    "/film/film/produced_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/production_companies",
+   "raw": "3",
+   "embed_top1": "/film/film/production_companies"
+  },
+  {
+   "i": 16,
+   "linked": "/m/03cwwl",
+   "k": 8,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/production_companies"
+  },
+  {
+   "i": 39,
+   "linked": "/m/05xpms",
+   "k": 11,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/people/person/places_lived./people/place_lived/location"
+   ],
+   "chosen": "/people/person/place_of_birth",
+   "raw": "2",
+   "embed_top1": "/people/person/place_of_birth"
+  },
+  {
+   "i": 501,
+   "linked": "/m/0dzf_",
+   "k": 16,
+   "shortlist": [
+    "/base/popstra/celebrity/friendship./base/popstra/friendship/participant",
+    "/celebrities/celebrity/celebrity_friends./celebrities/friendship/friend",
+    "/influence/influence_node/influenced_by"
+   ],
+   "chosen": "/influence/influence_node/influenced_by",
+   "raw": "3",
+   "embed_top1": "/influence/influence_node/influenced_by"
+  },
+  {
+   "i": 358,
+   "linked": "/m/049nq",
+   "k": 6,
+   "shortlist": [
+    "/location/country/capital",
+    "/location/country/form_of_government",
+    "/location/country/official_language"
+   ],
+   "chosen": "/location/country/official_language",
+   "raw": "3",
+   "embed_top1": "/location/country/form_of_government"
+  },
+  {
+   "i": 665,
+   "linked": "/m/0lk8j",
+   "k": 5,
+   "shortlist": [
+    "/olympics/olympic_games/medals_awarded./olympics/olympic_medal_honor/medal",
+    "/olympics/olympic_games/participating_countries",
+    "/olympics/olympic_games/sports"
+   ],
+   "chosen": "/olympics/olympic_games/sports",
+   "raw": "3",
+   "embed_top1": "/olympics/olympic_games/sports"
+  },
+  {
+   "i": 172,
+   "linked": "/m/0gyv0b4",
+   "k": 14,
+   "shortlist": [
+    "/film/film/genre",
+    "/film/film/story_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "1",
+   "embed_top1": "/film/film/written_by"
+  },
+  {
+   "i": 248,
+   "linked": "/m/08l_c1",
+   "k": 6,
+   "shortlist": [
+    "/education/educational_institution/campuses",
+    "/education/educational_institution/colors",
+    "/education/educational_institution_campus/educational_institution"
+   ],
+   "chosen": "/education/educational_institution_campus/educational_institution",
+   "raw": "3",
+   "embed_top1": "/education/educational_institution/colors"
+  },
+  {
+   "i": 57,
+   "linked": "/m/03k8th",
+   "k": 11,
+   "shortlist": [
+    "/film/film/language",
+    "/film/film/prequel",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/language",
+   "raw": "1",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 372,
+   "linked": "/m/01k1k4",
+   "k": 18,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/language",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/written_by",
+   "raw": "3",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 673,
+   "linked": "/m/0gk4g",
+   "k": 2,
+   "shortlist": [
+    "/medicine/disease/risk_factors",
+    "/people/cause_of_death/people"
+   ],
+   "chosen": "/people/cause_of_death/people",
+   "raw": "2",
+   "embed_top1": "/people/cause_of_death/people"
+  },
+  {
+   "i": 557,
+   "linked": "/m/0b1hw",
+   "k": 3,
+   "shortlist": [
+    "/award/award_nominee/award_nominations./award/award_nomination/award",
+    "/common/topic/webpage./common/webpage/category",
+    "/influence/influence_node/influenced_by"
+   ],
+   "chosen": "/influence/influence_node/influenced_by",
+   "raw": "3",
+   "embed_top1": "/influence/influence_node/influenced_by"
+  },
+  {
+   "i": 63,
+   "linked": "/m/05ch98",
+   "k": 10,
+   "shortlist": [
+    "/film/film/genre",
+    "/film/film/music",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/music",
+   "raw": "2",
+   "embed_top1": "/film/film/music"
+  },
+  {
+   "i": 552,
+   "linked": "/m/01vtqml",
+   "k": 16,
+   "shortlist": [
+    "/music/artist/origin",
+    "/people/person/nationality",
+    "/people/person/places_lived./people/place_lived/location"
+   ],
+   "chosen": "/people/person/places_lived./people/place_lived/location",
+   "raw": "3",
+   "embed_top1": "/music/artist/origin"
+  },
+  {
+   "i": 30,
+   "linked": "/m/03jsvl",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 190,
+   "linked": "/m/0glt670",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 48,
+   "linked": null,
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 527,
+   "linked": "/m/0295sy",
+   "k": 13,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/produced_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 460,
+   "linked": "/m/01kff7",
+   "k": 14,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/language",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 333,
+   "linked": "/m/040nwr",
+   "k": 7,
+   "shortlist": [
+    "/people/person/languages",
+    "/people/person/nationality",
+    "/people/person/place_of_birth"
+   ],
+   "chosen": "/people/person/languages",
+   "raw": "1",
+   "embed_top1": "/people/person/languages"
+  },
+  {
+   "i": 401,
+   "linked": "/m/017yfz",
+   "k": 8,
+   "shortlist": [
+    "/people/deceased_person/place_of_death",
+    "/people/person/place_of_birth",
+    "/people/person/places_lived./people/place_lived/location"
+   ],
+   "chosen": "/people/deceased_person/place_of_death",
+   "raw": "1",
+   "embed_top1": "/people/deceased_person/place_of_death"
+  },
+  {
+   "i": 633,
+   "linked": "/m/031hcx",
+   "k": 11,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/film_format",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/language",
+   "raw": "3",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 657,
+   "linked": "/m/0gwlfnb",
+   "k": 7,
+   "shortlist": [
+    "/film/film/genre",
+    "/film/film/production_companies",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_region"
+   ],
+   "chosen": "/film/film/release_date_s./film/film_regional_release_date/film_release_region",
+   "raw": "3",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 235,
+   "linked": "/m/091xrc",
+   "k": 9,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/music"
+   ],
+   "chosen": "/film/film/music",
+   "raw": "3",
+   "embed_top1": "/film/film/music"
+  },
+  {
+   "i": 413,
+   "linked": "/m/02bqxb",
+   "k": 13,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/language",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/produced_by",
+   "raw": "3",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 75,
+   "linked": null,
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 537,
+   "linked": "/m/05gg4",
+   "k": 7,
+   "shortlist": [
+    "/sports/sports_team/colors",
+    "/sports/sports_team/roster./american_football/football_historical_roster_position/position_s",
+    "/sports/sports_team/sport"
+   ],
+   "chosen": "/sports/sports_team/colors",
+   "raw": "1",
+   "embed_top1": "/sports/sports_team/sport"
+  },
+  {
+   "i": 184,
+   "linked": "/m/0f4_2k",
+   "k": 15,
+   "shortlist": [
+    "/film/film/language",
+    "/film/film/produced_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/language",
+   "raw": "1",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 234,
+   "linked": "/m/0s69k",
+   "k": 5,
+   "shortlist": [
+    "/base/biblioness/bibs_location/country",
+    "/location/hud_county_place/county",
+    "/location/location/time_zones"
+   ],
+   "chosen": "/location/location/time_zones",
+   "raw": "3",
+   "embed_top1": "/location/location/time_zones"
+  },
+  {
+   "i": 500,
+   "linked": "/m/09yxcz",
+   "k": 11,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/music",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/produced_by",
+   "raw": "3",
+   "embed_top1": "/film/film/music"
+  },
+  {
+   "i": 321,
+   "linked": "/m/037q2p",
+   "k": 15,
+   "shortlist": [
+    "/education/educational_institution/colors",
+    "/education/educational_institution/school_type",
+    "/education/educational_institution_campus/educational_institution"
+   ],
+   "chosen": "/education/educational_institution_campus/educational_institution",
+   "raw": "3",
+   "embed_top1": "/education/educational_institution/colors"
+  },
+  {
+   "i": 560,
+   "linked": "/m/018s6c",
+   "k": 2,
+   "shortlist": [
+    "/people/ethnicity/languages_spoken",
+    "/people/ethnicity/people"
+   ],
+   "chosen": "/people/ethnicity/languages_spoken",
+   "raw": "1",
+   "embed_top1": "/people/ethnicity/languages_spoken"
+  },
+  {
+   "i": 38,
+   "linked": "/m/0gwjw0c",
+   "k": 11,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/language",
+   "raw": "3",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 597,
+   "linked": "/m/015fs3",
+   "k": 11,
+   "shortlist": [
+    "/education/educational_institution/campuses",
+    "/education/educational_institution/colors",
+    "/education/university/fraternities_and_sororities"
+   ],
+   "chosen": "/education/educational_institution/colors",
+   "raw": "2",
+   "embed_top1": "/education/educational_institution/colors"
+  },
+  {
+   "i": 504,
+   "linked": "/m/052bw",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 363,
+   "linked": "/m/0bt9lr",
+   "k": 1,
+   "shortlist": [
+    "/film/film_subject/films"
+   ],
+   "chosen": "/film/film_subject/films",
+   "raw": null,
+   "embed_top1": "/film/film_subject/films"
+  },
+  {
+   "i": 275,
+   "linked": "/m/07c52",
+   "k": 3,
+   "shortlist": [
+    "/education/field_of_study/students_majoring./education/education/major_field_of_study",
+    "/film/film_subject/films",
+    "/media_common/netflix_genre/titles"
+   ],
+   "chosen": "/media_common/netflix_genre/titles",
+   "raw": "3",
+   "embed_top1": "/media_common/netflix_genre/titles"
+  },
+  {
+   "i": 536,
+   "linked": "/m/0755wz",
+   "k": 9,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/nationality",
+   "raw": "1",
+   "embed_top1": "/people/person/nationality"
+  },
+  {
+   "i": 42,
+   "linked": "/m/05zlld0",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 491,
+   "linked": "/m/068p2",
+   "k": 10,
+   "shortlist": [
+    "/location/hud_county_place/county",
+    "/location/hud_county_place/place",
+    "/sports/sports_team_location/teams"
+   ],
+   "chosen": "/sports/sports_team_location/teams",
+   "raw": "3",
+   "embed_top1": "/sports/sports_team_location/teams"
+  },
+  {
+   "i": 674,
+   "linked": "/m/02ln1",
+   "k": 6,
+   "shortlist": [
+    "/people/deceased_person/place_of_death",
+    "/people/person/religion",
+    "/user/alexander/philosophy/philosopher/interests"
+   ],
+   "chosen": "/people/deceased_person/place_of_death",
+   "raw": "1",
+   "embed_top1": "/people/deceased_person/place_of_death"
+  },
+  {
+   "i": 393,
+   "linked": "/m/01my_c",
+   "k": 12,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/place_of_birth",
+   "raw": "2",
+   "embed_top1": "/people/person/place_of_birth"
+  },
+  {
+   "i": 468,
+   "linked": "/m/016wzw",
+   "k": 17,
+   "shortlist": [
+    "/base/aareas/schema/administrative_area/administrative_area_type",
+    "/location/country/form_of_government",
+    "/location/country/official_language"
+   ],
+   "chosen": "/location/country/official_language",
+   "raw": "3",
+   "embed_top1": "/location/country/official_language"
+  },
+  {
+   "i": 274,
+   "linked": "/m/0qcr0",
+   "k": 2,
+   "shortlist": [
+    "/medicine/disease/risk_factors",
+    "/people/cause_of_death/people"
+   ],
+   "chosen": "/people/cause_of_death/people",
+   "raw": "2",
+   "embed_top1": "/people/cause_of_death/people"
+  },
+  {
+   "i": 649,
+   "linked": "/m/012jfb",
+   "k": 12,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/language",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/language",
+   "raw": "2",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 558,
+   "linked": "/m/047d21r",
+   "k": 14,
+   "shortlist": [
+    "/film/film/executive_produced_by",
+    "/film/film/produced_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/production_companies",
+   "raw": "3",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 175,
+   "linked": "/m/0h3lt",
+   "k": 5,
+   "shortlist": [
+    "/base/biblioness/bibs_location/country",
+    "/location/hud_foreclosure_area/estimated_number_of_mortgages./measurement_unit/dated_integer/source",
+    "/location/location/time_zones"
+   ],
+   "chosen": "/location/location/time_zones",
+   "raw": "3",
+   "embed_top1": "/location/location/time_zones"
+  },
+  {
+   "i": 424,
+   "linked": "/m/0gg8l",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 606,
+   "linked": "/m/0hvvf",
+   "k": 13,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "2",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 478,
+   "linked": "/m/0gj9tn5",
+   "k": 11,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/production_companies",
+    "/film/film/story_by"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 72,
+   "linked": "/m/0h14ln",
+   "k": 7,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/genre"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "3",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 355,
+   "linked": "/m/05bt6j",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 523,
+   "linked": "/m/037q2p",
+   "k": 15,
+   "shortlist": [
+    "/education/educational_institution/colors",
+    "/education/educational_institution/school_type",
+    "/education/educational_institution_campus/educational_institution"
+   ],
+   "chosen": "/education/educational_institution_campus/educational_institution",
+   "raw": "3",
+   "embed_top1": "/education/educational_institution/school_type"
+  },
+  {
+   "i": 359,
+   "linked": "/m/0mj0c",
+   "k": 9,
+   "shortlist": [
+    "/people/person/places_lived./people/place_lived/location",
+    "/people/person/profession",
+    "/user/alexander/philosophy/philosopher/interests"
+   ],
+   "chosen": "/user/alexander/philosophy/philosopher/interests",
+   "raw": "3",
+   "embed_top1": "/user/alexander/philosophy/philosopher/interests"
+  },
+  {
+   "i": 575,
+   "linked": "/m/01t8sr",
+   "k": 9,
+   "shortlist": [
+    "/education/educational_institution/campuses",
+    "/education/educational_institution/school_type",
+    "/education/educational_institution_campus/educational_institution"
+   ],
+   "chosen": "/education/educational_institution_campus/educational_institution",
+   "raw": "3",
+   "embed_top1": "/education/educational_institution/school_type"
+  },
+  {
+   "i": 246,
+   "linked": "/m/01y9r2",
+   "k": 12,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/produced_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/production_companies",
+   "raw": "3",
+   "embed_top1": "/film/film/production_companies"
+  },
+  {
+   "i": 320,
+   "linked": "/m/01ynzf",
+   "k": 11,
+   "shortlist": [
+    "/people/deceased_person/place_of_burial",
+    "/people/deceased_person/place_of_death",
+    "/people/person/place_of_birth"
+   ],
+   "chosen": "/people/deceased_person/place_of_death",
+   "raw": "2",
+   "embed_top1": "/people/deceased_person/place_of_burial"
+  },
+  {
+   "i": 724,
+   "linked": "/m/018_q8",
+   "k": 8,
+   "shortlist": [
+    "/business/business_operation/industry",
+    "/organization/organization/headquarters./location/mailing_address/citytown",
+    "/organization/organization/headquarters./location/mailing_address/state_province_region"
+   ],
+   "chosen": "/organization/organization/headquarters./location/mailing_address/state_province_region",
+   "raw": "3",
+   "embed_top1": "/organization/organization/headquarters./location/mailing_address/citytown"
+  },
+  {
+   "i": 144,
+   "linked": "/m/05k7sb",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 530,
+   "linked": "/m/0739y",
+   "k": 5,
+   "shortlist": [
+    "/influence/influence_node/influenced_by",
+    "/people/person/nationality",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/nationality",
+   "raw": "2",
+   "embed_top1": "/people/person/nationality"
+  },
+  {
+   "i": 77,
+   "linked": "/m/0yyg4",
+   "k": 7,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/produced_by",
+   "raw": "3",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 565,
+   "linked": "/m/03k9fj",
+   "k": 1,
+   "shortlist": [
+    "/media_common/netflix_genre/titles"
+   ],
+   "chosen": "/media_common/netflix_genre/titles",
+   "raw": null,
+   "embed_top1": "/media_common/netflix_genre/titles"
+  },
+  {
+   "i": 301,
+   "linked": "/m/0721cy",
+   "k": 14,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/people/person/spouse_s./people/marriage/spouse"
+   ],
+   "chosen": "/people/person/nationality",
+   "raw": "1",
+   "embed_top1": "/people/person/nationality"
+  },
+  {
+   "i": 87,
+   "linked": "/m/0fd3y",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/parent_genre",
+   "raw": "2",
+   "embed_top1": "/music/genre/parent_genre"
+  },
+  {
+   "i": 701,
+   "linked": "/m/07c6l",
+   "k": 5,
+   "shortlist": [
+    "/music/instrument/family",
+    "/music/instrument/instrumentalists",
+    "/music/performance_role/regular_performances./music/group_membership/role"
+   ],
+   "chosen": "/music/instrument/instrumentalists",
+   "raw": "2",
+   "embed_top1": "/music/instrument/instrumentalists"
+  },
+  {
+   "i": 307,
+   "linked": "/m/0k2sk",
+   "k": 16,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "2",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 679,
+   "linked": "/m/01l_pn",
+   "k": 14,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/language",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/language",
+   "raw": "2",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 581,
+   "linked": "/m/021j72",
+   "k": 9,
+   "shortlist": [
+    "/people/person/languages",
+    "/people/person/nationality",
+    "/people/person/place_of_birth"
+   ],
+   "chosen": "/people/person/languages",
+   "raw": "1",
+   "embed_top1": "/people/person/languages"
+  },
+  {
+   "i": 630,
+   "linked": "/m/0k6yt1",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 101,
+   "linked": "/m/02vxn",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 283,
+   "linked": "/m/042l3v",
+   "k": 10,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/profession",
+   "raw": "3",
+   "embed_top1": "/people/person/nationality"
+  },
+  {
+   "i": 410,
+   "linked": "/m/0_ytw",
+   "k": 4,
+   "shortlist": [
+    "/base/biblioness/bibs_location/country",
+    "/location/hud_county_place/place",
+    "/location/location/contains"
+   ],
+   "chosen": "/location/hud_county_place/place",
+   "raw": "2",
+   "embed_top1": "/base/biblioness/bibs_location/country"
+  },
+  {
+   "i": 228,
+   "linked": "/m/01znbj",
+   "k": 2,
+   "shortlist": [
+    "/common/topic/webpage./common/webpage/category",
+    "/music/record_label/artist"
+   ],
+   "chosen": "/music/record_label/artist",
+   "raw": "2",
+   "embed_top1": "/music/record_label/artist"
+  },
+  {
+   "i": 419,
+   "linked": "/m/0dbdy",
+   "k": 3,
+   "shortlist": [
+    "/base/biblioness/bibs_location/country",
+    "/location/administrative_division/country",
+    "/location/location/contains"
+   ],
+   "chosen": "/location/administrative_division/country",
+   "raw": "2",
+   "embed_top1": "/location/administrative_division/country"
+  },
+  {
+   "i": 563,
+   "linked": "/m/02c6pq",
+   "k": 11,
+   "shortlist": [
+    "/award/award_winner/awards_won./award/award_honor/award_winner",
+    "/people/person/nationality",
+    "/people/person/place_of_birth"
+   ],
+   "chosen": "/people/person/place_of_birth",
+   "raw": "3",
+   "embed_top1": "/people/person/place_of_birth"
+  },
+  {
+   "i": 587,
+   "linked": "/m/0f3kl",
+   "k": 1,
+   "shortlist": [
+    "/medicine/symptom/symptom_of"
+   ],
+   "chosen": "/medicine/symptom/symptom_of",
+   "raw": null,
+   "embed_top1": "/medicine/symptom/symptom_of"
+  },
+  {
+   "i": 192,
+   "linked": "/m/02nt75",
+   "k": 4,
+   "shortlist": [
+    "/soccer/football_team/current_roster./soccer/football_roster_position/position",
+    "/soccer/football_team/current_roster./sports/sports_team_roster/position",
+    "/sports/sports_team/sport"
+   ],
+   "chosen": "/sports/sports_team/sport",
+   "raw": "3",
+   "embed_top1": "/soccer/football_team/current_roster./sports/sports_team_roster/position"
+  },
+  {
+   "i": 511,
+   "linked": "/m/072192",
+   "k": 13,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_region"
+   ],
+   "chosen": "/film/film/release_date_s./film/film_regional_release_date/film_release_region",
+   "raw": "3",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 221,
+   "linked": "/m/0h96g",
+   "k": 10,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/people/person/places_lived./people/place_lived/location"
+   ],
+   "chosen": "/people/person/places_lived./people/place_lived/location",
+   "raw": "3",
+   "embed_top1": "/people/person/place_of_birth"
+  },
+  {
+   "i": 178,
+   "linked": "/m/01fjw0",
+   "k": 2,
+   "shortlist": [
+    "/location/administrative_division/country",
+    "/location/capital_of_administrative_division/capital_of./location/administrative_division_capital_relationship/administrative_division"
+   ],
+   "chosen": "/location/capital_of_administrative_division/capital_of./location/administrative_division_capital_relationship/administrative_division",
+   "raw": "2",
+   "embed_top1": "/location/administrative_division/country"
+  },
+  {
+   "i": 717,
+   "linked": "/m/047gn4y",
+   "k": 11,
+   "shortlist": [
+    "/film/film/cinematography",
+    "/film/film/edited_by",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/edited_by",
+   "raw": "2",
+   "embed_top1": "/film/film/edited_by"
+  },
+  {
+   "i": 663,
+   "linked": null,
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 395,
+   "linked": "/m/0hv81",
+   "k": 15,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 209,
+   "linked": "/m/032j_n",
+   "k": 6,
+   "shortlist": [
+    "/film/film_distributor/films_distributed./film/film_film_distributor_relationship/film",
+    "/organization/organization/headquarters./location/mailing_address/citytown",
+    "/organization/organization/place_founded"
+   ],
+   "chosen": "/organization/organization/place_founded",
+   "raw": "3",
+   "embed_top1": "/organization/organization/place_founded"
+  },
+  {
+   "i": 339,
+   "linked": "/m/0jdr0",
+   "k": 10,
+   "shortlist": [
+    "/film/film/produced_by",
+    "/film/film/story_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/written_by",
+   "raw": "3",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 647,
+   "linked": "/m/04093",
+   "k": 5,
+   "shortlist": [
+    "/people/person/place_of_birth",
+    "/people/person/places_lived./people/place_lived/location",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/place_of_birth",
+   "raw": "1",
+   "embed_top1": "/people/person/place_of_birth"
+  },
+  {
+   "i": 579,
+   "linked": "/m/09ld6g",
+   "k": 3,
+   "shortlist": [
+    "/people/person/gender",
+    "/people/person/languages",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/languages",
+   "raw": "2",
+   "embed_top1": "/people/person/languages"
+  },
+  {
+   "i": 334,
+   "linked": "/m/05148p4",
+   "k": 6,
+   "shortlist": [
+    "/music/instrument/instrumentalists",
+    "/music/performance_role/regular_performances./music/group_membership/group",
+    "/music/performance_role/regular_performances./music/group_membership/role"
+   ],
+   "chosen": "/music/instrument/instrumentalists",
+   "raw": "1",
+   "embed_top1": "/music/instrument/instrumentalists"
+  },
+  {
+   "i": 721,
+   "linked": "/m/027pfb2",
+   "k": 5,
+   "shortlist": [
+    "/film/film/genre",
+    "/film/film/language",
+    "/tv/tv_program/country_of_origin"
+   ],
+   "chosen": "/tv/tv_program/country_of_origin",
+   "raw": "3",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 183,
+   "linked": "/m/02_1q9",
+   "k": 5,
+   "shortlist": [
+    "/tv/tv_program/genre",
+    "/tv/tv_program/languages",
+    "/tv/tv_program/program_creator"
+   ],
+   "chosen": "/tv/tv_program/languages",
+   "raw": "2",
+   "embed_top1": "/tv/tv_program/languages"
+  },
+  {
+   "i": 446,
+   "linked": "/m/02q87z6",
+   "k": 13,
+   "shortlist": [
+    "/film/film/genre",
+    "/film/film/music",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "1",
+   "embed_top1": "/film/film/music"
+  },
+  {
+   "i": 237,
+   "linked": "/m/0342h",
+   "k": 7,
+   "shortlist": [
+    "/music/instrument/family",
+    "/music/instrument/instrumentalists",
+    "/music/performance_role/regular_performances./music/group_membership/role"
+   ],
+   "chosen": "/music/performance_role/regular_performances./music/group_membership/role",
+   "raw": "3",
+   "embed_top1": "/music/instrument/instrumentalists"
+  },
+  {
+   "i": 1,
+   "linked": "/m/08phg9",
+   "k": 21,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/featured_film_locations",
+   "raw": "2",
+   "embed_top1": "/film/film/featured_film_locations"
+  },
+  {
+   "i": 567,
+   "linked": "/m/0kz2w",
+   "k": 12,
+   "shortlist": [
+    "/education/educational_institution/colors",
+    "/education/educational_institution/school_type",
+    "/education/educational_institution/students_graduates./education/education/major_field_of_study"
+   ],
+   "chosen": "/education/educational_institution/school_type",
+   "raw": "2",
+   "embed_top1": "/education/educational_institution/school_type"
+  },
+  {
+   "i": 195,
+   "linked": "/m/01g5v",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 585,
+   "linked": "/m/051zy_b",
+   "k": 15,
+   "shortlist": [
+    "/film/film/film_production_design_by",
+    "/film/film/produced_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/written_by",
+   "raw": "3",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 216,
+   "linked": "/m/0h2zvzr",
+   "k": 10,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/language",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_region"
+   ],
+   "chosen": "/film/film/release_date_s./film/film_regional_release_date/film_release_region",
+   "raw": "3",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 312,
+   "linked": "/m/0m_w6",
+   "k": 3,
+   "shortlist": [
+    "/base/aareas/schema/administrative_area/administrative_parent",
+    "/location/administrative_division/country",
+    "/location/location/adjoin_s./location/adjoining_relationship/adjoins"
+   ],
+   "chosen": "/location/location/adjoin_s./location/adjoining_relationship/adjoins",
+   "raw": "3",
+   "embed_top1": "/base/aareas/schema/administrative_area/administrative_parent"
+  },
+  {
+   "i": 238,
+   "linked": "/m/02x02kb",
+   "k": 8,
+   "shortlist": [
+    "/people/person/languages",
+    "/people/person/nationality",
+    "/people/person/place_of_birth"
+   ],
+   "chosen": "/people/person/languages",
+   "raw": "1",
+   "embed_top1": "/people/person/languages"
+  },
+  {
+   "i": 133,
+   "linked": "/m/016clz",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 55,
+   "linked": "/m/05cv8",
+   "k": 7,
+   "shortlist": [
+    "/influence/influence_node/influenced_by",
+    "/people/person/nationality",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/profession",
+   "raw": "3",
+   "embed_top1": "/people/person/profession"
+  },
+  {
+   "i": 74,
+   "linked": "/m/0gd_s",
+   "k": 6,
+   "shortlist": [
+    "/influence/influence_node/influenced_by",
+    "/people/person/profession",
+    "/people/person/spouse_s./people/marriage/type_of_union"
+   ],
+   "chosen": "/influence/influence_node/influenced_by",
+   "raw": "1",
+   "embed_top1": "/influence/influence_node/influenced_by"
+  },
+  {
+   "i": 545,
+   "linked": "/m/07ghq",
+   "k": 10,
+   "shortlist": [
+    "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+    "/film/film/produced_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/written_by",
+   "raw": "3",
+   "embed_top1": "/film/film/written_by"
+  },
+  {
+   "i": 632,
+   "linked": "/m/0bw20",
+   "k": 14,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_distribution_medium"
+   ],
+   "chosen": "/film/film/release_date_s./film/film_regional_release_date/film_release_distribution_medium",
+   "raw": "3",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 384,
+   "linked": null,
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 540,
+   "linked": "/m/050l8",
+   "k": 11,
+   "shortlist": [
+    "/base/aareas/schema/administrative_area/capital",
+    "/base/biblioness/bibs_location/country",
+    "/location/administrative_division/country"
+   ],
+   "chosen": "/location/administrative_division/country",
+   "raw": "3",
+   "embed_top1": "/base/aareas/schema/administrative_area/capital"
+  },
+  {
+   "i": 114,
+   "linked": "/m/01x4r3",
+   "k": 12,
+   "shortlist": [
+    "/influence/influence_node/influenced_by",
+    "/people/person/place_of_birth",
+    "/people/person/places_lived./people/place_lived/location"
+   ],
+   "chosen": "/influence/influence_node/influenced_by",
+   "raw": "1",
+   "embed_top1": "/influence/influence_node/influenced_by"
+  },
+  {
+   "i": 382,
+   "linked": "/m/0xhtw",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 625,
+   "linked": "/m/0yyn5",
+   "k": 12,
+   "shortlist": [
+    "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+    "/film/film/country",
+    "/film/film/featured_film_locations"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "2",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 471,
+   "linked": "/m/05fhy",
+   "k": 11,
+   "shortlist": [
+    "/base/biblioness/bibs_location/country",
+    "/location/administrative_division/country",
+    "/location/statistical_region/religions./location/religion_percentage/religion"
+   ],
+   "chosen": "/base/biblioness/bibs_location/country",
+   "raw": "1",
+   "embed_top1": "/location/administrative_division/country"
+  },
+  {
+   "i": 467,
+   "linked": "/m/017_qw",
+   "k": 1,
+   "shortlist": [
+    "/music/genre/artists"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": null,
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 584,
+   "linked": "/m/03shpq",
+   "k": 11,
+   "shortlist": [
+    "/film/film/genre",
+    "/film/film/language",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "1",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 481,
+   "linked": "/m/048htn",
+   "k": 13,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/edited_by",
+    "/film/film/executive_produced_by"
+   ],
+   "chosen": "/film/film/executive_produced_by",
+   "raw": "3",
+   "embed_top1": "/film/film/edited_by"
+  },
+  {
+   "i": 618,
+   "linked": "/m/064177",
+   "k": 8,
+   "shortlist": [
+    "/people/deceased_person/place_of_death",
+    "/people/person/nationality",
+    "/people/person/place_of_birth"
+   ],
+   "chosen": "/people/deceased_person/place_of_death",
+   "raw": "1",
+   "embed_top1": "/people/deceased_person/place_of_death"
+  },
+  {
+   "i": 737,
+   "linked": "/m/0drnwh",
+   "k": 16,
+   "shortlist": [
+    "/film/film/edited_by",
+    "/film/film/executive_produced_by",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/produced_by",
+   "raw": "3",
+   "embed_top1": "/film/film/edited_by"
+  },
+  {
+   "i": 399,
+   "linked": "/m/06by7",
+   "k": 3,
+   "shortlist": [
+    "/film/film_subject/films",
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "2",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 615,
+   "linked": "/m/0821j",
+   "k": 7,
+   "shortlist": [
+    "/influence/influence_node/influenced_by",
+    "/people/person/places_lived./people/place_lived/location",
+    "/people/person/profession"
+   ],
+   "chosen": "/influence/influence_node/influenced_by",
+   "raw": "1",
+   "embed_top1": "/influence/influence_node/influenced_by"
+  },
+  {
+   "i": 677,
+   "linked": "/m/084x96",
+   "k": 4,
+   "shortlist": [
+    "/film/actor/dubbing_performances./film/dubbing_performance/language",
+    "/people/person/nationality",
+    "/people/person/place_of_birth"
+   ],
+   "chosen": "/people/person/place_of_birth",
+   "raw": "3",
+   "embed_top1": "/people/person/place_of_birth"
+  },
+  {
+   "i": 285,
+   "linked": "/m/09qh1",
+   "k": 12,
+   "shortlist": [
+    "/base/popstra/celebrity/friendship./base/popstra/friendship/participant",
+    "/celebrities/celebrity/celebrity_friends./celebrities/friendship/friend",
+    "/influence/influence_node/influenced_by"
+   ],
+   "chosen": "/influence/influence_node/influenced_by",
+   "raw": "3",
+   "embed_top1": "/influence/influence_node/influenced_by"
+  },
+  {
+   "i": 710,
+   "linked": "/m/05bcl",
+   "k": 10,
+   "shortlist": [
+    "/location/administrative_division/country",
+    "/location/administrative_division/first_level_division_of",
+    "/location/country/form_of_government"
+   ],
+   "chosen": "/location/country/form_of_government",
+   "raw": "3",
+   "embed_top1": "/location/administrative_division/country"
+  },
+  {
+   "i": 343,
+   "linked": "/m/015_1q",
+   "k": 3,
+   "shortlist": [
+    "/music/record_label/artist",
+    "/organization/organization/headquarters./location/mailing_address/citytown",
+    "/organization/organization/headquarters./location/mailing_address/state_province_region"
+   ],
+   "chosen": "/music/record_label/artist",
+   "raw": "1",
+   "embed_top1": "/music/record_label/artist"
+  },
+  {
+   "i": 287,
+   "linked": "/m/063zky",
+   "k": 9,
+   "shortlist": [
+    "/film/film/executive_produced_by",
+    "/film/film/production_companies",
+    "/tv/tv_program/country_of_origin"
+   ],
+   "chosen": "/film/film/executive_produced_by",
+   "raw": "1",
+   "embed_top1": "/film/film/executive_produced_by"
+  },
+  {
+   "i": 161,
+   "linked": "/m/0ywrc",
+   "k": 14,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 484,
+   "linked": "/m/01fmys",
+   "k": 11,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/produced_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/written_by",
+   "raw": "3",
+   "embed_top1": "/film/film/written_by"
+  },
+  {
+   "i": 730,
+   "linked": "/m/02r8hh_",
+   "k": 9,
+   "shortlist": [
+    "/common/topic/webpage./common/webpage/category",
+    "/film/film/genre",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "2",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 189,
+   "linked": "/m/01l69g",
+   "k": 2,
+   "shortlist": [
+    "/base/aareas/schema/administrative_area/administrative_parent",
+    "/base/aareas/schema/administrative_area/capital"
+   ],
+   "chosen": "/base/aareas/schema/administrative_area/administrative_parent",
+   "raw": "1",
+   "embed_top1": "/base/aareas/schema/administrative_area/capital"
+  },
+  {
+   "i": 492,
+   "linked": "/m/03b12",
+   "k": 4,
+   "shortlist": [
+    "/location/hud_county_place/place",
+    "/location/hud_foreclosure_area/estimated_number_of_mortgages./measurement_unit/dated_integer/source",
+    "/location/location/time_zones"
+   ],
+   "chosen": "/location/location/time_zones",
+   "raw": "3",
+   "embed_top1": "/location/location/time_zones"
+  },
+  {
+   "i": 314,
+   "linked": "/m/07q1m",
+   "k": 10,
+   "shortlist": [
+    "/film/film/cinematography",
+    "/film/film/country",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/cinematography",
+   "raw": "1",
+   "embed_top1": "/film/film/cinematography"
+  },
+  {
+   "i": 556,
+   "linked": "/m/059_w",
+   "k": 5,
+   "shortlist": [
+    "/people/ethnicity/geographic_distribution",
+    "/people/ethnicity/languages_spoken",
+    "/people/ethnicity/people"
+   ],
+   "chosen": "/people/ethnicity/people",
+   "raw": "3",
+   "embed_top1": "/people/ethnicity/languages_spoken"
+  },
+  {
+   "i": 420,
+   "linked": "/m/0880p",
+   "k": 1,
+   "shortlist": [
+    "/language/human_language/countries_spoken_in"
+   ],
+   "chosen": "/language/human_language/countries_spoken_in",
+   "raw": null,
+   "embed_top1": "/language/human_language/countries_spoken_in"
+  },
+  {
+   "i": 646,
+   "linked": "/m/0ldd",
+   "k": 7,
+   "shortlist": [
+    "/people/person/languages",
+    "/people/person/nationality",
+    "/people/person/place_of_birth"
+   ],
+   "chosen": "/people/person/nationality",
+   "raw": "2",
+   "embed_top1": "/people/person/nationality"
+  },
+  {
+   "i": 213,
+   "linked": "/m/0k2sk",
+   "k": 16,
+   "shortlist": [
+    "/film/film/executive_produced_by",
+    "/film/film/produced_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/production_companies",
+   "raw": "3",
+   "embed_top1": "/film/film/production_companies"
+  },
+  {
+   "i": 422,
+   "linked": "/m/0c5dd",
+   "k": 11,
+   "shortlist": [
+    "/film/film/film_art_direction_by",
+    "/film/film/produced_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/production_companies",
+   "raw": "3",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 381,
+   "linked": "/m/04llb",
+   "k": 6,
+   "shortlist": [
+    "/base/biblioness/bibs_location/country",
+    "/location/statistical_region/religions./location/religion_percentage/religion",
+    "/sports/sports_team_location/teams"
+   ],
+   "chosen": "/base/biblioness/bibs_location/country",
+   "raw": "1",
+   "embed_top1": "/location/statistical_region/religions./location/religion_percentage/religion"
+  },
+  {
+   "i": 465,
+   "linked": "/m/01r97z",
+   "k": 11,
+   "shortlist": [
+    "/film/film/costume_design_by",
+    "/film/film/edited_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/production_companies",
+   "raw": "3",
+   "embed_top1": "/film/film/production_companies"
+  },
+  {
+   "i": 297,
+   "linked": "/m/033dbw",
+   "k": 14,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/language",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/language",
+   "raw": "2",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 469,
+   "linked": "/m/023p7l",
+   "k": 7,
+   "shortlist": [
+    "/film/film/genre",
+    "/film/film/language",
+    "/film/film/music"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "1",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 452,
+   "linked": "/m/02mt51",
+   "k": 16,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/produced_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/written_by",
+   "raw": "3",
+   "embed_top1": "/film/film/written_by"
+  },
+  {
+   "i": 194,
+   "linked": "/m/04mvk7",
+   "k": 3,
+   "shortlist": [
+    "/soccer/football_team/current_roster./soccer/football_roster_position/position",
+    "/soccer/football_team/current_roster./sports/sports_team_roster/position",
+    "/sports/sports_team/sport"
+   ],
+   "chosen": "/soccer/football_team/current_roster./soccer/football_roster_position/position",
+   "raw": "1",
+   "embed_top1": "/sports/sports_team/sport"
+  },
+  {
+   "i": 26,
+   "linked": "/m/050ks",
+   "k": 12,
+   "shortlist": [
+    "/base/aareas/schema/administrative_area/administrative_parent",
+    "/base/biblioness/bibs_location/country",
+    "/location/administrative_division/first_level_division_of"
+   ],
+   "chosen": "/location/administrative_division/first_level_division_of",
+   "raw": "3",
+   "embed_top1": "/base/biblioness/bibs_location/country"
+  },
+  {
+   "i": 627,
+   "linked": "/m/06by7",
+   "k": 3,
+   "shortlist": [
+    "/film/film_subject/films",
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "2",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 143,
+   "linked": "/m/07gxw",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 476,
+   "linked": "/m/01719t",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 85,
+   "linked": "/m/02lf1j",
+   "k": 8,
+   "shortlist": [
+    "/film/actor/film./film/performance/film",
+    "/people/person/nationality",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/profession",
+   "raw": "3",
+   "embed_top1": "/people/person/profession"
+  },
+  {
+   "i": 166,
+   "linked": "/m/016lh0",
+   "k": 10,
+   "shortlist": [
+    "/government/politician/government_positions_held./government/government_position_held/basic_title",
+    "/influence/influence_node/influenced_by",
+    "/people/person/religion"
+   ],
+   "chosen": "/influence/influence_node/influenced_by",
+   "raw": "2",
+   "embed_top1": "/influence/influence_node/influenced_by"
+  },
+  {
+   "i": 716,
+   "linked": "/m/06cs95",
+   "k": 5,
+   "shortlist": [
+    "/tv/tv_program/country_of_origin",
+    "/tv/tv_program/genre",
+    "/tv/tv_program/languages"
+   ],
+   "chosen": "/tv/tv_program/country_of_origin",
+   "raw": "1",
+   "embed_top1": "/tv/tv_program/country_of_origin"
+  },
+  {
+   "i": 706,
+   "linked": "/m/01q2nx",
+   "k": 10,
+   "shortlist": [
+    "/film/film/film_format",
+    "/film/film/genre",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "2",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 220,
+   "linked": "/m/03rz4",
+   "k": 3,
+   "shortlist": [
+    "/base/popstra/location/vacationers./base/popstra/vacation_choice/vacationer",
+    "/location/location/partially_contains",
+    "/user/tsegaran/random/taxonomy_subject/entry./user/tsegaran/random/taxonomy_entry/taxonomy"
+   ],
+   "chosen": "/location/location/partially_contains",
+   "raw": "2",
+   "embed_top1": "/location/location/partially_contains"
+  },
+  {
+   "i": 635,
+   "linked": "/m/0298n7",
+   "k": 10,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/production_companies",
+   "raw": "3",
+   "embed_top1": "/film/film/featured_film_locations"
+  },
+  {
+   "i": 224,
+   "linked": "/m/01lxd4",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/parent_genre",
+   "raw": "2",
+   "embed_top1": "/music/genre/parent_genre"
+  },
+  {
+   "i": 714,
+   "linked": "/m/04xrx",
+   "k": 18,
+   "shortlist": [
+    "/base/popstra/celebrity/friendship./base/popstra/friendship/participant",
+    "/celebrities/celebrity/sexual_relationships./celebrities/romantic_relationship/celebrity",
+    "/influence/influence_node/influenced_by"
+   ],
+   "chosen": "/influence/influence_node/influenced_by",
+   "raw": "3",
+   "embed_top1": "/influence/influence_node/influenced_by"
+  },
+  {
+   "i": 332,
+   "linked": "/m/06znpjr",
+   "k": 9,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/language",
+   "raw": "3",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 375,
+   "linked": "/m/0t0n5",
+   "k": 3,
+   "shortlist": [
+    "/location/hud_county_place/county",
+    "/location/hud_county_place/place",
+    "/location/location/time_zones"
+   ],
+   "chosen": "/location/hud_county_place/place",
+   "raw": "2",
+   "embed_top1": "/location/hud_county_place/place"
+  },
+  {
+   "i": 447,
+   "linked": "/m/015y3j",
+   "k": 15,
+   "shortlist": [
+    "/education/educational_institution/campuses",
+    "/education/educational_institution/colors",
+    "/education/educational_institution/school_type"
+   ],
+   "chosen": "/education/educational_institution/colors",
+   "raw": "2",
+   "embed_top1": "/education/educational_institution/colors"
+  },
+  {
+   "i": 362,
+   "linked": "/m/03ydlnj",
+   "k": 11,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/featured_film_locations",
+   "raw": "2",
+   "embed_top1": "/film/film/featured_film_locations"
+  },
+  {
+   "i": 80,
+   "linked": "/m/01_1pv",
+   "k": 10,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/featured_film_locations"
+  },
+  {
+   "i": 326,
+   "linked": "/m/03y_f8",
+   "k": 5,
+   "shortlist": [
+    "/soccer/football_team/current_roster./soccer/football_roster_position/position",
+    "/soccer/football_team/current_roster./sports/sports_team_roster/position",
+    "/sports/sports_team/sport"
+   ],
+   "chosen": "/soccer/football_team/current_roster./soccer/football_roster_position/position",
+   "raw": "1",
+   "embed_top1": "/sports/sports_team/sport"
+  },
+  {
+   "i": 239,
+   "linked": "/m/039cpd",
+   "k": 4,
+   "shortlist": [
+    "/business/business_operation/industry",
+    "/common/topic/webpage./common/webpage/category",
+    "/organization/organization/child./organization/organization_relationship/child"
+   ],
+   "chosen": "/business/business_operation/industry",
+   "raw": "1",
+   "embed_top1": "/business/business_operation/industry"
+  },
+  {
+   "i": 613,
+   "linked": "/m/07rd7",
+   "k": 15,
+   "shortlist": [
+    "/award/award_nominee/award_nominations./award/award_nomination/award_nominee",
+    "/award/award_nominee/award_nominations./award/award_nomination/nominated_for",
+    "/film/director/film"
+   ],
+   "chosen": "/film/director/film",
+   "raw": "3",
+   "embed_top1": "/film/director/film"
+  },
+  {
+   "i": 705,
+   "linked": "/m/07gghl",
+   "k": 13,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_region"
+   ],
+   "chosen": "/film/film/release_date_s./film/film_regional_release_date/film_release_region",
+   "raw": "3",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 704,
+   "linked": "/m/07q1m",
+   "k": 10,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "2",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 288,
+   "linked": "/m/034qmv",
+   "k": 13,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/executive_produced_by",
+    "/film/film/story_by"
+   ],
+   "chosen": "/film/film/story_by",
+   "raw": "3",
+   "embed_top1": "/film/film/story_by"
+  },
+  {
+   "i": 583,
+   "linked": "/m/02w7gg",
+   "k": 3,
+   "shortlist": [
+    "/dataworld/gardening_hint/split_to",
+    "/people/ethnicity/languages_spoken",
+    "/people/ethnicity/people"
+   ],
+   "chosen": "/dataworld/gardening_hint/split_to",
+   "raw": "1",
+   "embed_top1": "/people/ethnicity/people"
+  },
+  {
+   "i": 582,
+   "linked": "/m/02sqkh",
+   "k": 6,
+   "shortlist": [
+    "/tv/tv_program/country_of_origin",
+    "/tv/tv_program/genre",
+    "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor"
+   ],
+   "chosen": "/tv/tv_program/genre",
+   "raw": "2",
+   "embed_top1": "/tv/tv_program/country_of_origin"
+  },
+  {
+   "i": 455,
+   "linked": "/m/01lyv",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 229,
+   "linked": "/m/06czyr",
+   "k": 10,
+   "shortlist": [
+    "/base/popstra/celebrity/friendship./base/popstra/friendship/participant",
+    "/people/person/nationality",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/nationality",
+   "raw": "2",
+   "embed_top1": "/people/person/nationality"
+  },
+  {
+   "i": 78,
+   "linked": "/m/0kbvv",
+   "k": 5,
+   "shortlist": [
+    "/olympics/olympic_games/participating_countries",
+    "/olympics/olympic_games/sports",
+    "/time/event/locations"
+   ],
+   "chosen": "/olympics/olympic_games/sports",
+   "raw": "2",
+   "embed_top1": "/olympics/olympic_games/sports"
+  },
+  {
+   "i": 233,
+   "linked": "/m/06wbm8q",
+   "k": 10,
+   "shortlist": [
+    "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+    "/film/film/executive_produced_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/executive_produced_by",
+   "raw": "2",
+   "embed_top1": "/film/film/executive_produced_by"
+  },
+  {
+   "i": 661,
+   "linked": "/m/05f7w84",
+   "k": 5,
+   "shortlist": [
+    "/tv/tv_program/country_of_origin",
+    "/tv/tv_program/genre",
+    "/tv/tv_program/languages"
+   ],
+   "chosen": "/tv/tv_program/languages",
+   "raw": "3",
+   "embed_top1": "/tv/tv_program/languages"
+  },
+  {
+   "i": 694,
+   "linked": "/m/01k7b0",
+   "k": 12,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/language",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 253,
+   "linked": "/m/01hdht",
+   "k": 10,
+   "shortlist": [
+    "/people/deceased_person/place_of_death",
+    "/people/person/place_of_birth",
+    "/people/person/places_lived./people/place_lived/location"
+   ],
+   "chosen": "/people/deceased_person/place_of_death",
+   "raw": "1",
+   "embed_top1": "/people/deceased_person/place_of_death"
+  },
+  {
+   "i": 593,
+   "linked": "/m/0gvrws1",
+   "k": 8,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/produced_by",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_region"
+   ],
+   "chosen": "/film/film/release_date_s./film/film_regional_release_date/film_release_region",
+   "raw": "3",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 23,
+   "linked": "/m/02183k",
+   "k": 11,
+   "shortlist": [
+    "/education/educational_institution/campuses",
+    "/education/educational_institution/colors",
+    "/education/educational_institution/school_type"
+   ],
+   "chosen": "/education/educational_institution/colors",
+   "raw": "2",
+   "embed_top1": "/education/educational_institution/colors"
+  },
+  {
+   "i": 81,
+   "linked": "/m/0167xy",
+   "k": 4,
+   "shortlist": [
+    "/influence/influence_node/influenced_by",
+    "/influence/influence_node/peers./influence/peer_relationship/peers",
+    "/music/artist/origin"
+   ],
+   "chosen": "/influence/influence_node/influenced_by",
+   "raw": "1",
+   "embed_top1": "/influence/influence_node/influenced_by"
+  },
+  {
+   "i": 638,
+   "linked": "/m/027rpym",
+   "k": 13,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/language",
+   "raw": "3",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 245,
+   "linked": "/m/05lbzg",
+   "k": 3,
+   "shortlist": [
+    "/base/culturalevent/event/entity_involved",
+    "/military/military_conflict/combatants./military/military_combatant_group/combatants",
+    "/time/event/locations"
+   ],
+   "chosen": "/military/military_conflict/combatants./military/military_combatant_group/combatants",
+   "raw": "2",
+   "embed_top1": "/military/military_conflict/combatants./military/military_combatant_group/combatants"
+  },
+  {
+   "i": 421,
+   "linked": "/m/016clz",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 474,
+   "linked": "/m/02ntb8",
+   "k": 11,
+   "shortlist": [
+    "/film/film/executive_produced_by",
+    "/film/film/produced_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/executive_produced_by",
+   "raw": "1",
+   "embed_top1": "/film/film/executive_produced_by"
+  },
+  {
+   "i": 124,
+   "linked": "/m/09nwwf",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 700,
+   "linked": null,
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 118,
+   "linked": "/m/0828jw",
+   "k": 9,
+   "shortlist": [
+    "/tv/tv_program/country_of_origin",
+    "/tv/tv_program/genre",
+    "/tv/tv_program/languages"
+   ],
+   "chosen": "/tv/tv_program/genre",
+   "raw": "2",
+   "embed_top1": "/tv/tv_program/genre"
+  },
+  {
+   "i": 461,
+   "linked": "/m/05dy7p",
+   "k": 14,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/edited_by",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/language",
+   "raw": "3",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 35,
+   "linked": "/m/01k60v",
+   "k": 13,
+   "shortlist": [
+    "/film/film/costume_design_by",
+    "/film/film/film_production_design_by",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/produced_by",
+   "raw": "3",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 740,
+   "linked": "/m/0234j5",
+   "k": 12,
+   "shortlist": [
+    "/film/film/executive_produced_by",
+    "/film/film/produced_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/written_by",
+   "raw": "3",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 300,
+   "linked": "/m/0ql7q",
+   "k": 3,
+   "shortlist": [
+    "/base/culturalevent/event/entity_involved",
+    "/military/military_conflict/combatants./military/military_combatant_group/combatants",
+    "/time/event/locations"
+   ],
+   "chosen": "/time/event/locations",
+   "raw": "3",
+   "embed_top1": "/time/event/locations"
+  },
+  {
+   "i": 522,
+   "linked": "/m/07s9rl0",
+   "k": 1,
+   "shortlist": [
+    "/media_common/netflix_genre/titles"
+   ],
+   "chosen": "/media_common/netflix_genre/titles",
+   "raw": null,
+   "embed_top1": "/media_common/netflix_genre/titles"
+  },
+  {
+   "i": 99,
+   "linked": null,
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 215,
+   "linked": "/m/02qcqkl",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 596,
+   "linked": "/m/0d7wh",
+   "k": 2,
+   "shortlist": [
+    "/people/ethnicity/languages_spoken",
+    "/people/ethnicity/people"
+   ],
+   "chosen": "/people/ethnicity/people",
+   "raw": "2",
+   "embed_top1": "/people/ethnicity/people"
+  },
+  {
+   "i": 212,
+   "linked": "/m/01g1lp",
+   "k": 12,
+   "shortlist": [
+    "/people/person/gender",
+    "/people/person/nationality",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/gender",
+   "raw": "1",
+   "embed_top1": "/people/person/gender"
+  },
+  {
+   "i": 411,
+   "linked": "/m/01n7q",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 34,
+   "linked": "/m/0glt670",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 214,
+   "linked": "/m/07c52",
+   "k": 3,
+   "shortlist": [
+    "/education/field_of_study/students_majoring./education/education/major_field_of_study",
+    "/film/film_subject/films",
+    "/media_common/netflix_genre/titles"
+   ],
+   "chosen": "/media_common/netflix_genre/titles",
+   "raw": "3",
+   "embed_top1": "/media_common/netflix_genre/titles"
+  },
+  {
+   "i": 296,
+   "linked": null,
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 516,
+   "linked": "/m/050gkf",
+   "k": 13,
+   "shortlist": [
+    "/film/film/featured_film_locations",
+    "/film/film/produced_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/production_companies",
+   "raw": "3",
+   "embed_top1": "/film/film/production_companies"
+  },
+  {
+   "i": 113,
+   "linked": "/m/02p5hf",
+   "k": 15,
+   "shortlist": [
+    "/people/deceased_person/place_of_burial",
+    "/people/person/place_of_birth",
+    "/people/person/places_lived./people/place_lived/location"
+   ],
+   "chosen": "/people/deceased_person/place_of_burial",
+   "raw": "1",
+   "embed_top1": "/people/deceased_person/place_of_burial"
+  },
+  {
+   "i": 433,
+   "linked": "/m/08fn5b",
+   "k": 16,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/produced_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/production_companies",
+   "raw": "3",
+   "embed_top1": "/film/film/production_companies"
+  },
+  {
+   "i": 544,
+   "linked": "/m/02ylg6",
+   "k": 15,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/production_companies",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/written_by",
+   "raw": "3",
+   "embed_top1": "/film/film/production_companies"
+  },
+  {
+   "i": 602,
+   "linked": "/m/030s5g",
+   "k": 8,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/people/person/places_lived./people/place_lived/location"
+   ],
+   "chosen": "/people/person/nationality",
+   "raw": "1",
+   "embed_top1": "/people/person/nationality"
+  },
+  {
+   "i": 62,
+   "linked": "/m/01243b",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 130,
+   "linked": "/m/04t36",
+   "k": 2,
+   "shortlist": [
+    "/media_common/netflix_genre/titles",
+    "/music/genre/artists"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "2",
+   "embed_top1": "/media_common/netflix_genre/titles"
+  },
+  {
+   "i": 656,
+   "linked": "/m/0ckd1",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 165,
+   "linked": "/m/0466s8n",
+   "k": 11,
+   "shortlist": [
+    "/film/film/genre",
+    "/film/film/language",
+    "/film/film/story_by"
+   ],
+   "chosen": "/film/film/story_by",
+   "raw": "3",
+   "embed_top1": "/film/film/story_by"
+  },
+  {
+   "i": 443,
+   "linked": "/m/01tvz5j",
+   "k": 11,
+   "shortlist": [
+    "/people/person/gender",
+    "/people/person/nationality",
+    "/people/person/place_of_birth"
+   ],
+   "chosen": "/people/person/place_of_birth",
+   "raw": "3",
+   "embed_top1": "/people/person/place_of_birth"
+  },
+  {
+   "i": 302,
+   "linked": "/m/0g5rg",
+   "k": 5,
+   "shortlist": [
+    "/location/capital_of_administrative_division/capital_of./location/administrative_division_capital_relationship/administrative_division",
+    "/location/hud_foreclosure_area/estimated_number_of_mortgages./measurement_unit/dated_integer/source",
+    "/location/location/time_zones"
+   ],
+   "chosen": "/location/location/time_zones",
+   "raw": "3",
+   "embed_top1": "/location/location/time_zones"
+  },
+  {
+   "i": 33,
+   "linked": null,
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 715,
+   "linked": "/m/016r9z",
+   "k": 5,
+   "shortlist": [
+    "/olympics/olympic_games/medals_awarded./olympics/olympic_medal_honor/medal",
+    "/olympics/olympic_games/participating_countries",
+    "/olympics/olympic_games/sports"
+   ],
+   "chosen": "/olympics/olympic_games/sports",
+   "raw": "3",
+   "embed_top1": "/olympics/olympic_games/sports"
+  },
+  {
+   "i": 722,
+   "linked": "/m/01p_ly",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 181,
+   "linked": "/m/0pd4f",
+   "k": 9,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/music",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/music",
+   "raw": "2",
+   "embed_top1": "/film/film/music"
+  },
+  {
+   "i": 561,
+   "linked": "/m/01cgz",
+   "k": 5,
+   "shortlist": [
+    "/film/film_subject/films",
+    "/media_common/netflix_genre/titles",
+    "/sports/sport/pro_athletes./sports/pro_sports_played/athlete"
+   ],
+   "chosen": "/film/film_subject/films",
+   "raw": "1",
+   "embed_top1": "/media_common/netflix_genre/titles"
+  },
+  {
+   "i": 28,
+   "linked": "/m/0drnwh",
+   "k": 16,
+   "shortlist": [
+    "/film/film/executive_produced_by",
+    "/film/film/produced_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/production_companies",
+   "raw": "3",
+   "embed_top1": "/film/film/production_companies"
+  },
+  {
+   "i": 331,
+   "linked": "/m/02vxn",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 15,
+   "linked": "/m/01svry",
+   "k": 11,
+   "shortlist": [
+    "/film/film/executive_produced_by",
+    "/film/film/featured_film_locations",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/produced_by",
+   "raw": "3",
+   "embed_top1": "/film/film/featured_film_locations"
+  },
+  {
+   "i": 651,
+   "linked": "/m/0lgxj",
+   "k": 5,
+   "shortlist": [
+    "/olympics/olympic_games/medals_awarded./olympics/olympic_medal_honor/medal",
+    "/olympics/olympic_games/participating_countries",
+    "/olympics/olympic_games/sports"
+   ],
+   "chosen": "/olympics/olympic_games/participating_countries",
+   "raw": "2",
+   "embed_top1": "/olympics/olympic_games/participating_countries"
+  },
+  {
+   "i": 466,
+   "linked": "/m/03f5vvx",
+   "k": 8,
+   "shortlist": [
+    "/influence/influence_node/influenced_by",
+    "/people/person/nationality",
+    "/people/person/profession"
+   ],
+   "chosen": "/influence/influence_node/influenced_by",
+   "raw": "1",
+   "embed_top1": "/influence/influence_node/influenced_by"
+  },
+  {
+   "i": 697,
+   "linked": "/m/0qcrj",
+   "k": 8,
+   "shortlist": [
+    "/location/hud_county_place/county",
+    "/location/hud_county_place/place",
+    "/location/location/adjoin_s./location/adjoining_relationship/adjoins"
+   ],
+   "chosen": "/location/hud_county_place/place",
+   "raw": "2",
+   "embed_top1": "/location/hud_county_place/place"
+  },
+  {
+   "i": 658,
+   "linked": "/m/02bqxb",
+   "k": 13,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "2",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 308,
+   "linked": "/m/0jm74",
+   "k": 5,
+   "shortlist": [
+    "/sports/professional_sports_team/draft_picks./sports/sports_league_draft_pick/school",
+    "/sports/sports_team/colors",
+    "/sports/sports_team/sport"
+   ],
+   "chosen": "/sports/sports_team/sport",
+   "raw": "3",
+   "embed_top1": "/sports/sports_team/sport"
+  },
+  {
+   "i": 631,
+   "linked": "/m/06ncr",
+   "k": 6,
+   "shortlist": [
+    "/music/instrument/family",
+    "/music/instrument/instrumentalists",
+    "/music/performance_role/guest_performances./music/recording_contribution/performance_role"
+   ],
+   "chosen": "/music/performance_role/guest_performances./music/recording_contribution/performance_role",
+   "raw": "3",
+   "embed_top1": "/music/instrument/instrumentalists"
+  },
+  {
+   "i": 483,
+   "linked": "/m/0byq0v",
+   "k": 3,
+   "shortlist": [
+    "/soccer/football_team/current_roster./soccer/football_roster_position/position",
+    "/soccer/football_team/current_roster./sports/sports_team_roster/position",
+    "/sports/sports_team/colors"
+   ],
+   "chosen": "/sports/sports_team/colors",
+   "raw": "3",
+   "embed_top1": "/sports/sports_team/colors"
+  },
+  {
+   "i": 734,
+   "linked": "/m/02q52q",
+   "k": 16,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/produced_by",
+    "/film/film/story_by"
+   ],
+   "chosen": "/film/film/story_by",
+   "raw": "3",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 120,
+   "linked": "/m/032zq6",
+   "k": 13,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/featured_film_locations",
+   "raw": "2",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 693,
+   "linked": "/m/0d6b7",
+   "k": 10,
+   "shortlist": [
+    "/film/film/language",
+    "/film/film/music",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/written_by",
+   "raw": "3",
+   "embed_top1": "/film/film/written_by"
+  },
+  {
+   "i": 267,
+   "linked": "/m/0df2zx",
+   "k": 14,
+   "shortlist": [
+    "/film/film/genre",
+    "/film/film/produced_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "1",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 241,
+   "linked": "/m/047qxs",
+   "k": 11,
+   "shortlist": [
+    "/film/film/film_format",
+    "/film/film/genre",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "2",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 0,
+   "linked": "/m/02ppg1r",
+   "k": 8,
+   "shortlist": [
+    "/film/film/genre",
+    "/tv/tv_program/country_of_origin",
+    "/tv/tv_program/genre"
+   ],
+   "chosen": "/tv/tv_program/genre",
+   "raw": "3",
+   "embed_top1": "/tv/tv_program/genre"
+  },
+  {
+   "i": 445,
+   "linked": "/m/0_7w6",
+   "k": 12,
+   "shortlist": [
+    "/award/award_winning_work/awards_won./award/award_honor/award",
+    "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+    "/film/film/music"
+   ],
+   "chosen": "/film/film/music",
+   "raw": "3",
+   "embed_top1": "/film/film/music"
+  },
+  {
+   "i": 604,
+   "linked": "/m/0gyy53",
+   "k": 7,
+   "shortlist": [
+    "/film/film/costume_design_by",
+    "/film/film/other_crew./film/film_crew_gig/film_crew_role",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/costume_design_by",
+   "raw": "1",
+   "embed_top1": "/film/film/costume_design_by"
+  },
+  {
+   "i": 299,
+   "linked": "/m/0b90_r",
+   "k": 20,
+   "shortlist": [
+    "/location/country/capital",
+    "/location/country/official_language",
+    "/location/location/contains"
+   ],
+   "chosen": "/location/location/contains",
+   "raw": "3",
+   "embed_top1": "/location/location/contains"
+  },
+  {
+   "i": 61,
+   "linked": "/m/0jnpv",
+   "k": 2,
+   "shortlist": [
+    "/ice_hockey/hockey_team/current_roster./sports/sports_team_roster/position",
+    "/sports/sports_team/sport"
+   ],
+   "chosen": "/ice_hockey/hockey_team/current_roster./sports/sports_team_roster/position",
+   "raw": "1",
+   "embed_top1": "/sports/sports_team/sport"
+  },
+  {
+   "i": 73,
+   "linked": "/m/011wtv",
+   "k": 18,
+   "shortlist": [
+    "/film/film/film_format",
+    "/film/film/genre",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/film_format",
+   "raw": "1",
+   "embed_top1": "/film/film/film_format"
+  },
+  {
+   "i": 485,
+   "linked": "/m/01s7w3",
+   "k": 13,
+   "shortlist": [
+    "/film/film/executive_produced_by",
+    "/film/film/produced_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/written_by",
+   "raw": "3",
+   "embed_top1": "/film/film/executive_produced_by"
+  },
+  {
+   "i": 318,
+   "linked": "/m/04jwly",
+   "k": 14,
+   "shortlist": [
+    "/film/film/cinematography",
+    "/film/film/executive_produced_by",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/executive_produced_by",
+   "raw": "2",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 712,
+   "linked": "/m/03vw9m",
+   "k": 1,
+   "shortlist": [
+    "/music/genre/artists"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": null,
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 76,
+   "linked": "/m/0bn3jg",
+   "k": 4,
+   "shortlist": [
+    "/award/award_nominee/award_nominations./award/award_nomination/award",
+    "/people/person/nationality",
+    "/people/person/place_of_birth"
+   ],
+   "chosen": "/people/person/nationality",
+   "raw": "2",
+   "embed_top1": "/people/person/nationality"
+  },
+  {
+   "i": 387,
+   "linked": "/m/02jkkv",
+   "k": 14,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/produced_by",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_distribution_medium"
+   ],
+   "chosen": "/film/film/release_date_s./film/film_regional_release_date/film_release_distribution_medium",
+   "raw": "3",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 366,
+   "linked": "/m/05nlzq",
+   "k": 4,
+   "shortlist": [
+    "/tv/tv_program/country_of_origin",
+    "/tv/tv_program/genre",
+    "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor"
+   ],
+   "chosen": "/tv/tv_program/country_of_origin",
+   "raw": "1",
+   "embed_top1": "/tv/tv_program/country_of_origin"
+  },
+  {
+   "i": 364,
+   "linked": "/m/035xwd",
+   "k": 10,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 517,
+   "linked": "/m/01qhm_",
+   "k": 3,
+   "shortlist": [
+    "/people/ethnicity/geographic_distribution",
+    "/people/ethnicity/languages_spoken",
+    "/people/ethnicity/people"
+   ],
+   "chosen": "/people/ethnicity/people",
+   "raw": "3",
+   "embed_top1": "/people/ethnicity/people"
+  },
+  {
+   "i": 374,
+   "linked": "/m/01r2l",
+   "k": 3,
+   "shortlist": [
+    "/education/field_of_study/students_majoring./education/education/major_field_of_study",
+    "/education/field_of_study/students_majoring./education/education/student",
+    "/language/human_language/countries_spoken_in"
+   ],
+   "chosen": "/language/human_language/countries_spoken_in",
+   "raw": "3",
+   "embed_top1": "/language/human_language/countries_spoken_in"
+  },
+  {
+   "i": 436,
+   "linked": "/m/01gpzx",
+   "k": 4,
+   "shortlist": [
+    "/base/aareas/schema/administrative_area/administrative_parent",
+    "/location/administrative_division/country",
+    "/location/administrative_division/first_level_division_of"
+   ],
+   "chosen": "/base/aareas/schema/administrative_area/administrative_parent",
+   "raw": "1",
+   "embed_top1": "/location/administrative_division/country"
+  },
+  {
+   "i": 10,
+   "linked": "/m/05k7sb",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 207,
+   "linked": "/m/065zlr",
+   "k": 16,
+   "shortlist": [
+    "/film/film/produced_by",
+    "/film/film/story_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/written_by",
+   "raw": "3",
+   "embed_top1": "/film/film/written_by"
+  },
+  {
+   "i": 310,
+   "linked": "/m/016jny",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 222,
+   "linked": "/m/049mql",
+   "k": 9,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/produced_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 109,
+   "linked": "/m/0lhn5",
+   "k": 5,
+   "shortlist": [
+    "/base/biblioness/bibs_location/country",
+    "/location/hud_foreclosure_area/estimated_number_of_mortgages./measurement_unit/dated_integer/source",
+    "/location/location/time_zones"
+   ],
+   "chosen": "/base/biblioness/bibs_location/country",
+   "raw": "1",
+   "embed_top1": "/base/biblioness/bibs_location/country"
+  },
+  {
+   "i": 709,
+   "linked": "/m/019vv1",
+   "k": 4,
+   "shortlist": [
+    "/education/educational_institution/colors",
+    "/education/educational_institution/school_type",
+    "/education/educational_institution/students_graduates./education/education/student"
+   ],
+   "chosen": "/education/educational_institution/colors",
+   "raw": "1",
+   "embed_top1": "/education/educational_institution/colors"
+  },
+  {
+   "i": 284,
+   "linked": "/m/08m4c8",
+   "k": 11,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/people/person/places_lived./people/place_lived/location"
+   ],
+   "chosen": "/people/person/place_of_birth",
+   "raw": "2",
+   "embed_top1": "/people/person/place_of_birth"
+  },
+  {
+   "i": 738,
+   "linked": "/m/0b2v79",
+   "k": 12,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/featured_film_locations",
+   "raw": "2",
+   "embed_top1": "/film/film/featured_film_locations"
+  },
+  {
+   "i": 532,
+   "linked": "/m/01fxg8",
+   "k": 7,
+   "shortlist": [
+    "/education/educational_institution/campuses",
+    "/education/educational_institution/school_type",
+    "/education/educational_institution_campus/educational_institution"
+   ],
+   "chosen": "/education/educational_institution/school_type",
+   "raw": "2",
+   "embed_top1": "/education/educational_institution/school_type"
+  },
+  {
+   "i": 324,
+   "linked": "/m/03np_7",
+   "k": 10,
+   "shortlist": [
+    "/education/educational_institution/campuses",
+    "/education/educational_institution/colors",
+    "/education/educational_institution_campus/educational_institution"
+   ],
+   "chosen": "/education/educational_institution_campus/educational_institution",
+   "raw": "3",
+   "embed_top1": "/education/educational_institution/campuses"
+  },
+  {
+   "i": 595,
+   "linked": "/m/0gvvf4j",
+   "k": 9,
+   "shortlist": [
+    "/film/film/executive_produced_by",
+    "/film/film/production_companies",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_distribution_medium"
+   ],
+   "chosen": "/film/film/release_date_s./film/film_regional_release_date/film_release_distribution_medium",
+   "raw": "3",
+   "embed_top1": "/film/film/production_companies"
+  },
+  {
+   "i": 623,
+   "linked": "/m/07jnt",
+   "k": 15,
+   "shortlist": [
+    "/film/film/cinematography",
+    "/film/film/country",
+    "/film/film/story_by"
+   ],
+   "chosen": "/film/film/cinematography",
+   "raw": "1",
+   "embed_top1": "/film/film/cinematography"
+  },
+  {
+   "i": 732,
+   "linked": "/m/0dh8v4",
+   "k": 4,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/language",
+   "raw": "3",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 25,
+   "linked": "/m/02qlg7s",
+   "k": 8,
+   "shortlist": [
+    "/award/award_winner/awards_won./award/award_honor/award_winner",
+    "/people/person/nationality",
+    "/people/person/place_of_birth"
+   ],
+   "chosen": "/people/person/place_of_birth",
+   "raw": "3",
+   "embed_top1": "/people/person/place_of_birth"
+  },
+  {
+   "i": 180,
+   "linked": "/m/08hsww",
+   "k": 11,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/nationality",
+   "raw": "1",
+   "embed_top1": "/people/person/place_of_birth"
+  },
+  {
+   "i": 156,
+   "linked": "/m/03y2kr",
+   "k": 7,
+   "shortlist": [
+    "/organization/organization_founder/organizations_founded",
+    "/people/person/nationality",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/nationality",
+   "raw": "2",
+   "embed_top1": "/people/person/nationality"
+  },
+  {
+   "i": 470,
+   "linked": "/m/01xdxy",
+   "k": 16,
+   "shortlist": [
+    "/film/film/prequel",
+    "/film/film/story_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/prequel",
+   "raw": "1",
+   "embed_top1": "/film/film/prequel"
+  },
+  {
+   "i": 437,
+   "linked": "/m/02mzg9",
+   "k": 12,
+   "shortlist": [
+    "/education/educational_institution/campuses",
+    "/education/educational_institution/school_type",
+    "/education/educational_institution_campus/educational_institution"
+   ],
+   "chosen": "/education/educational_institution_campus/educational_institution",
+   "raw": "3",
+   "embed_top1": "/education/educational_institution/school_type"
+  },
+  {
+   "i": 145,
+   "linked": "/m/025twgf",
+   "k": 9,
+   "shortlist": [
+    "/film/film/genre",
+    "/film/film/language",
+    "/film/film/story_by"
+   ],
+   "chosen": "/film/film/story_by",
+   "raw": "3",
+   "embed_top1": "/film/film/story_by"
+  },
+  {
+   "i": 404,
+   "linked": null,
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 223,
+   "linked": "/m/01n7q",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 292,
+   "linked": "/m/081yw",
+   "k": 11,
+   "shortlist": [
+    "/location/administrative_division/country",
+    "/location/location/contains",
+    "/location/location/partially_contains"
+   ],
+   "chosen": "/location/location/partially_contains",
+   "raw": "3",
+   "embed_top1": "/location/administrative_division/country"
+  },
+  {
+   "i": 322,
+   "linked": "/m/01cssf",
+   "k": 16,
+   "shortlist": [
+    "/film/film/produced_by",
+    "/film/film/production_companies",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/produced_by",
+   "raw": "1",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 620,
+   "linked": "/m/0nbjq",
+   "k": 6,
+   "shortlist": [
+    "/film/film_subject/films",
+    "/olympics/olympic_games/participating_countries",
+    "/olympics/olympic_games/sports"
+   ],
+   "chosen": "/olympics/olympic_games/sports",
+   "raw": "3",
+   "embed_top1": "/olympics/olympic_games/sports"
+  },
+  {
+   "i": 373,
+   "linked": "/m/0r7fy",
+   "k": 6,
+   "shortlist": [
+    "/base/biblioness/bibs_location/country",
+    "/location/hud_county_place/place",
+    "/location/hud_foreclosure_area/estimated_number_of_mortgages./measurement_unit/dated_integer/source"
+   ],
+   "chosen": "/location/hud_county_place/place",
+   "raw": "2",
+   "embed_top1": "/location/hud_county_place/place"
+  },
+  {
+   "i": 351,
+   "linked": "/m/04dsnp",
+   "k": 13,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/featured_film_locations"
+  },
+  {
+   "i": 687,
+   "linked": "/m/05tbn",
+   "k": 13,
+   "shortlist": [
+    "/location/administrative_division/country",
+    "/location/location/contains",
+    "/location/statistical_region/religions./location/religion_percentage/religion"
+   ],
+   "chosen": "/location/administrative_division/country",
+   "raw": "1",
+   "embed_top1": "/location/administrative_division/country"
+  },
+  {
+   "i": 159,
+   "linked": "/m/04ltlj",
+   "k": 9,
+   "shortlist": [
+    "/film/film/produced_by",
+    "/film/film/production_companies",
+    "/film/film/story_by"
+   ],
+   "chosen": "/film/film/story_by",
+   "raw": "3",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 277,
+   "linked": "/m/08jtv5",
+   "k": 6,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/profession",
+   "raw": "3",
+   "embed_top1": "/people/person/nationality"
+  },
+  {
+   "i": 719,
+   "linked": "/m/07ssc",
+   "k": 22,
+   "shortlist": [
+    "/location/country/capital",
+    "/location/country/form_of_government",
+    "/location/location/contains"
+   ],
+   "chosen": "/location/location/contains",
+   "raw": "3",
+   "embed_top1": "/location/location/contains"
+  },
+  {
+   "i": 589,
+   "linked": "/m/03w6sj",
+   "k": 3,
+   "shortlist": [
+    "/base/culturalevent/event/entity_involved",
+    "/military/military_conflict/combatants./military/military_combatant_group/combatants",
+    "/time/event/locations"
+   ],
+   "chosen": "/time/event/locations",
+   "raw": "3",
+   "embed_top1": "/military/military_conflict/combatants./military/military_combatant_group/combatants"
+  },
+  {
+   "i": 676,
+   "linked": "/m/01pg1d",
+   "k": 9,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/people/person/places_lived./people/place_lived/location"
+   ],
+   "chosen": "/people/person/places_lived./people/place_lived/location",
+   "raw": "3",
+   "embed_top1": "/people/person/place_of_birth"
+  },
+  {
+   "i": 407,
+   "linked": "/m/07d2d",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/parent_genre"
+  },
+  {
+   "i": 598,
+   "linked": "/m/04v7k2",
+   "k": 10,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/profession",
+    "/people/person/religion"
+   ],
+   "chosen": "/people/person/religion",
+   "raw": "3",
+   "embed_top1": "/people/person/religion"
+  },
+  {
+   "i": 236,
+   "linked": "/m/050t68",
+   "k": 7,
+   "shortlist": [
+    "/people/person/gender",
+    "/people/person/nationality",
+    "/people/person/place_of_birth"
+   ],
+   "chosen": "/people/person/gender",
+   "raw": "1",
+   "embed_top1": "/people/person/gender"
+  },
+  {
+   "i": 271,
+   "linked": "/m/02vxn",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 69,
+   "linked": "/m/03rjj",
+   "k": 22,
+   "shortlist": [
+    "/base/aareas/schema/administrative_area/administrative_area_type",
+    "/location/country/second_level_divisions",
+    "/organization/organization_member/member_of./organization/organization_membership/organization"
+   ],
+   "chosen": "/base/aareas/schema/administrative_area/administrative_area_type",
+   "raw": "1",
+   "embed_top1": "/location/country/second_level_divisions"
+  },
+  {
+   "i": 479,
+   "linked": "/m/02grjf",
+   "k": 13,
+   "shortlist": [
+    "/education/educational_institution/colors",
+    "/education/educational_institution/school_type",
+    "/education/educational_institution_campus/educational_institution"
+   ],
+   "chosen": "/education/educational_institution_campus/educational_institution",
+   "raw": "3",
+   "embed_top1": "/education/educational_institution/colors"
+  },
+  {
+   "i": 265,
+   "linked": "/m/03rhqg",
+   "k": 4,
+   "shortlist": [
+    "/music/record_label/artist",
+    "/organization/organization/child./organization/organization_relationship/child",
+    "/organization/organization/headquarters./location/mailing_address/citytown"
+   ],
+   "chosen": "/music/record_label/artist",
+   "raw": "1",
+   "embed_top1": "/music/record_label/artist"
+  },
+  {
+   "i": 725,
+   "linked": "/m/0dmn0x",
+   "k": 8,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/film_format",
+    "/film/film/genre"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "3",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 258,
+   "linked": "/m/05q_dw",
+   "k": 12,
+   "shortlist": [
+    "/film/film/other_crew./film/film_crew_gig/film_crew_role",
+    "/film/film/produced_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/production_companies",
+   "raw": "3",
+   "embed_top1": "/film/film/production_companies"
+  },
+  {
+   "i": 168,
+   "linked": "/m/09ps01",
+   "k": 13,
+   "shortlist": [
+    "/film/film/produced_by",
+    "/film/film/production_companies",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/produced_by",
+   "raw": "1",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 566,
+   "linked": "/m/03vyw8",
+   "k": 10,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/featured_film_locations",
+   "raw": "2",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 660,
+   "linked": "/m/02k6hp",
+   "k": 3,
+   "shortlist": [
+    "/medicine/disease/notable_people_with_this_condition",
+    "/medicine/disease/risk_factors",
+    "/people/cause_of_death/people"
+   ],
+   "chosen": "/people/cause_of_death/people",
+   "raw": "3",
+   "embed_top1": "/people/cause_of_death/people"
+  },
+  {
+   "i": 654,
+   "linked": "/m/01cx_",
+   "k": 15,
+   "shortlist": [
+    "/base/biblioness/bibs_location/country",
+    "/base/petbreeds/city_with_dogs/top_breeds./base/petbreeds/dog_city_relationship/dog_breed",
+    "/sports/sports_team_location/teams"
+   ],
+   "chosen": "/sports/sports_team_location/teams",
+   "raw": "3",
+   "embed_top1": "/sports/sports_team_location/teams"
+  },
+  {
+   "i": 134,
+   "linked": "/m/037c9s",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 680,
+   "linked": "/m/0d1qmz",
+   "k": 9,
+   "shortlist": [
+    "/film/film/film_production_design_by",
+    "/film/film/prequel",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/written_by",
+   "raw": "3",
+   "embed_top1": "/film/film/written_by"
+  },
+  {
+   "i": 668,
+   "linked": "/m/0tbql",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 280,
+   "linked": "/m/0c11mj",
+   "k": 6,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/soccer/football_player/current_team./sports/sports_team_roster/team"
+   ],
+   "chosen": "/people/person/nationality",
+   "raw": "1",
+   "embed_top1": "/people/person/nationality"
+  },
+  {
+   "i": 244,
+   "linked": "/m/0c3z0",
+   "k": 14,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/language",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/language",
+   "raw": "2",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 290,
+   "linked": "/m/01jp4s",
+   "k": 3,
+   "shortlist": [
+    "/base/biblioness/bibs_location/country",
+    "/common/topic/webpage./common/webpage/category",
+    "/sports/sports_team_location/teams"
+   ],
+   "chosen": "/base/biblioness/bibs_location/country",
+   "raw": "1",
+   "embed_top1": "/sports/sports_team_location/teams"
+  },
+  {
+   "i": 269,
+   "linked": "/m/0127s7",
+   "k": 19,
+   "shortlist": [
+    "/music/artist/origin",
+    "/people/person/nationality",
+    "/people/person/religion"
+   ],
+   "chosen": "/people/person/religion",
+   "raw": "3",
+   "embed_top1": "/people/person/religion"
+  },
+  {
+   "i": 444,
+   "linked": "/m/02645b",
+   "k": 9,
+   "shortlist": [
+    "/people/deceased_person/place_of_death",
+    "/people/person/nationality",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/profession",
+   "raw": "3",
+   "embed_top1": "/people/person/profession"
+  },
+  {
+   "i": 66,
+   "linked": "/m/0cz_ym",
+   "k": 16,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/produced_by",
+   "raw": "3",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 628,
+   "linked": "/m/01sxly",
+   "k": 11,
+   "shortlist": [
+    "/film/film/featured_film_locations",
+    "/film/film/genre",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/featured_film_locations",
+   "raw": "1",
+   "embed_top1": "/film/film/featured_film_locations"
+  },
+  {
+   "i": 32,
+   "linked": "/m/01pcj4",
+   "k": 13,
+   "shortlist": [
+    "/education/educational_institution/colors",
+    "/education/educational_institution/school_type",
+    "/education/educational_institution_campus/educational_institution"
+   ],
+   "chosen": "/education/educational_institution_campus/educational_institution",
+   "raw": "3",
+   "embed_top1": "/education/educational_institution/colors"
+  },
+  {
+   "i": 659,
+   "linked": "/m/07tj4c",
+   "k": 11,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "2",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 642,
+   "linked": "/m/09889g",
+   "k": 28,
+   "shortlist": [
+    "/base/eating/practicer_of_diet/diet",
+    "/base/popstra/celebrity/dated./base/popstra/dated/participant",
+    "/music/artist/origin"
+   ],
+   "chosen": "/base/eating/practicer_of_diet/diet",
+   "raw": "1",
+   "embed_top1": "/base/eating/practicer_of_diet/diet"
+  },
+  {
+   "i": 498,
+   "linked": "/m/016z68",
+   "k": 7,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/people/person/religion"
+   ],
+   "chosen": "/people/person/religion",
+   "raw": "3",
+   "embed_top1": "/people/person/religion"
+  },
+  {
+   "i": 346,
+   "linked": "/m/0l14md",
+   "k": 5,
+   "shortlist": [
+    "/music/instrument/instrumentalists",
+    "/music/performance_role/guest_performances./music/recording_contribution/performance_role",
+    "/music/performance_role/track_performances./music/track_contribution/role"
+   ],
+   "chosen": "/music/performance_role/track_performances./music/track_contribution/role",
+   "raw": "3",
+   "embed_top1": "/music/instrument/instrumentalists"
+  },
+  {
+   "i": 718,
+   "linked": "/m/03gfvsz",
+   "k": 1,
+   "shortlist": [
+    "/broadcast/content/artist"
+   ],
+   "chosen": "/broadcast/content/artist",
+   "raw": null,
+   "embed_top1": "/broadcast/content/artist"
+  },
+  {
+   "i": 126,
+   "linked": "/m/07tf8",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 548,
+   "linked": "/m/0d_w7",
+   "k": 9,
+   "shortlist": [
+    "/people/person/employment_history./business/employment_tenure/company",
+    "/people/person/nationality",
+    "/people/person/religion"
+   ],
+   "chosen": "/people/person/religion",
+   "raw": "3",
+   "embed_top1": "/people/person/religion"
+  },
+  {
+   "i": 519,
+   "linked": "/m/0gf14",
+   "k": 8,
+   "shortlist": [
+    "/education/educational_institution/campuses",
+    "/education/educational_institution/school_type",
+    "/education/educational_institution_campus/educational_institution"
+   ],
+   "chosen": "/education/educational_institution_campus/educational_institution",
+   "raw": "3",
+   "embed_top1": "/education/educational_institution/school_type"
+  },
+  {
+   "i": 176,
+   "linked": "/m/0mpbx",
+   "k": 10,
+   "shortlist": [
+    "/base/aareas/schema/administrative_area/administrative_parent",
+    "/location/administrative_division/country",
+    "/location/us_county/county_seat"
+   ],
+   "chosen": "/location/us_county/county_seat",
+   "raw": "3",
+   "embed_top1": "/location/us_county/county_seat"
+  },
+  {
+   "i": 640,
+   "linked": "/m/05r6t",
+   "k": 3,
+   "shortlist": [
+    "/media_common/netflix_genre/titles",
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/parent_genre",
+   "raw": "3",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 4,
+   "linked": "/m/04b_46",
+   "k": 5,
+   "shortlist": [
+    "/education/educational_institution/school_type",
+    "/education/educational_institution/students_graduates./education/education/major_field_of_study",
+    "/education/educational_institution/students_graduates./education/education/student"
+   ],
+   "chosen": "/education/educational_institution/school_type",
+   "raw": "1",
+   "embed_top1": "/education/educational_institution/school_type"
+  },
+  {
+   "i": 186,
+   "linked": "/m/03bw6",
+   "k": 8,
+   "shortlist": [
+    "/award/award_nominee/award_nominations./award/award_nomination/nominated_for",
+    "/film/director/film",
+    "/people/deceased_person/place_of_death"
+   ],
+   "chosen": "/film/director/film",
+   "raw": "2",
+   "embed_top1": "/film/director/film"
+  },
+  {
+   "i": 19,
+   "linked": "/m/034qmv",
+   "k": 13,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/story_by"
+   ],
+   "chosen": "/film/film/story_by",
+   "raw": "3",
+   "embed_top1": "/film/film/featured_film_locations"
+  },
+  {
+   "i": 607,
+   "linked": "/m/02vxn",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 115,
+   "linked": "/m/0m0jc",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 405,
+   "linked": "/m/06bnz",
+   "k": 16,
+   "shortlist": [
+    "/location/country/capital",
+    "/location/country/form_of_government",
+    "/location/statistical_region/places_exported_to./location/imports_and_exports/exported_to"
+   ],
+   "chosen": "/location/statistical_region/places_exported_to./location/imports_and_exports/exported_to",
+   "raw": "3",
+   "embed_top1": "/location/country/capital"
+  },
+  {
+   "i": 204,
+   "linked": "/m/02vxn",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 140,
+   "linked": "/m/0jqn5",
+   "k": 17,
+   "shortlist": [
+    "/film/film/film_festivals",
+    "/film/film/produced_by",
+    "/film/film/release_date_s./film/film_regional_release_date/film_regional_debut_venue"
+   ],
+   "chosen": "/film/film/film_festivals",
+   "raw": "1",
+   "embed_top1": "/film/film/film_festivals"
+  },
+  {
+   "i": 50,
+   "linked": "/m/025sc50",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 380,
+   "linked": "/m/06mxs",
+   "k": 6,
+   "shortlist": [
+    "/base/biblioness/bibs_location/country",
+    "/location/location/contains",
+    "/location/location/time_zones"
+   ],
+   "chosen": "/location/location/time_zones",
+   "raw": "3",
+   "embed_top1": "/location/location/time_zones"
+  },
+  {
+   "i": 58,
+   "linked": "/m/058vp",
+   "k": 5,
+   "shortlist": [
+    "/influence/influence_node/influenced_by",
+    "/people/person/nationality",
+    "/people/person/profession"
+   ],
+   "chosen": "/influence/influence_node/influenced_by",
+   "raw": "1",
+   "embed_top1": "/influence/influence_node/influenced_by"
+  },
+  {
+   "i": 71,
+   "linked": "/m/01pvxl",
+   "k": 7,
+   "shortlist": [
+    "/film/film/genre",
+    "/film/film/language",
+    "/film/film/music"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "1",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 251,
+   "linked": "/m/02h7qr",
+   "k": 10,
+   "shortlist": [
+    "/education/educational_institution/campuses",
+    "/education/educational_institution/school_type",
+    "/education/university/local_tuition./measurement_unit/dated_money_value/currency"
+   ],
+   "chosen": "/education/educational_institution/campuses",
+   "raw": "1",
+   "embed_top1": "/education/educational_institution/campuses"
+  },
+  {
+   "i": 226,
+   "linked": "/m/03f5spx",
+   "k": 13,
+   "shortlist": [
+    "/music/artist/origin",
+    "/music/artist/track_contributions./music/track_contribution/role",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/profession",
+   "raw": "3",
+   "embed_top1": "/people/person/profession"
+  },
+  {
+   "i": 692,
+   "linked": "/m/029k4p",
+   "k": 13,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/produced_by",
+   "raw": "3",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 508,
+   "linked": "/m/016_nr",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/parent_genre",
+   "raw": "2",
+   "embed_top1": "/music/genre/parent_genre"
+  },
+  {
+   "i": 149,
+   "linked": "/m/0kvqv",
+   "k": 9,
+   "shortlist": [
+    "/award/award_nominee/award_nominations./award/award_nomination/nominated_for",
+    "/film/director/film",
+    "/people/person/profession"
+   ],
+   "chosen": "/film/director/film",
+   "raw": "2",
+   "embed_top1": "/film/director/film"
+  },
+  {
+   "i": 535,
+   "linked": null,
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 487,
+   "linked": "/m/03cmsqb",
+   "k": 11,
+   "shortlist": [
+    "/film/film/executive_produced_by",
+    "/film/film/produced_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/executive_produced_by",
+   "raw": "1",
+   "embed_top1": "/film/film/executive_produced_by"
+  },
+  {
+   "i": 711,
+   "linked": "/m/015_1q",
+   "k": 3,
+   "shortlist": [
+    "/music/record_label/artist",
+    "/organization/organization/headquarters./location/mailing_address/citytown",
+    "/organization/organization/headquarters./location/mailing_address/state_province_region"
+   ],
+   "chosen": "/music/record_label/artist",
+   "raw": "1",
+   "embed_top1": "/music/record_label/artist"
+  },
+  {
+   "i": 198,
+   "linked": "/m/01z3bz",
+   "k": 7,
+   "shortlist": [
+    "/education/educational_institution/campuses",
+    "/education/educational_institution_campus/educational_institution",
+    "/location/location/time_zones"
+   ],
+   "chosen": "/education/educational_institution/campuses",
+   "raw": "1",
+   "embed_top1": "/location/location/time_zones"
+  },
+  {
+   "i": 148,
+   "linked": "/m/02knxx",
+   "k": 1,
+   "shortlist": [
+    "/people/cause_of_death/people"
+   ],
+   "chosen": "/people/cause_of_death/people",
+   "raw": null,
+   "embed_top1": "/people/cause_of_death/people"
+  },
+  {
+   "i": 462,
+   "linked": "/m/02lp3c",
+   "k": 9,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/nationality",
+   "raw": "1",
+   "embed_top1": "/people/person/nationality"
+  },
+  {
+   "i": 600,
+   "linked": "/m/09ntbc",
+   "k": 6,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/soccer/football_player/current_team./sports/sports_team_roster/team"
+   ],
+   "chosen": "/people/person/nationality",
+   "raw": "1",
+   "embed_top1": "/people/person/nationality"
+  },
+  {
+   "i": 378,
+   "linked": "/m/01lyv",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 678,
+   "linked": "/m/0122wc",
+   "k": 4,
+   "shortlist": [
+    "/soccer/football_team/current_roster./sports/sports_team_roster/position",
+    "/sports/sports_team/colors",
+    "/sports/sports_team/sport"
+   ],
+   "chosen": "/sports/sports_team/colors",
+   "raw": "2",
+   "embed_top1": "/sports/sports_team/colors"
+  },
+  {
+   "i": 408,
+   "linked": "/m/0161c",
+   "k": 13,
+   "shortlist": [
+    "/base/aareas/schema/administrative_area/administrative_area_type",
+    "/location/country/form_of_government",
+    "/location/country/official_language"
+   ],
+   "chosen": "/location/country/official_language",
+   "raw": "3",
+   "embed_top1": "/location/country/official_language"
+  },
+  {
+   "i": 414,
+   "linked": "/m/0bcndz",
+   "k": 20,
+   "shortlist": [
+    "/film/film/film_art_direction_by",
+    "/film/film/produced_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/film_art_direction_by",
+   "raw": "1",
+   "embed_top1": "/film/film/film_art_direction_by"
+  },
+  {
+   "i": 655,
+   "linked": "/m/026ck",
+   "k": 8,
+   "shortlist": [
+    "/people/person/gender",
+    "/people/person/profession",
+    "/people/person/spouse_s./people/marriage/type_of_union"
+   ],
+   "chosen": "/people/person/spouse_s./people/marriage/type_of_union",
+   "raw": "3",
+   "embed_top1": "/people/person/gender"
+  },
+  {
+   "i": 386,
+   "linked": "/m/018p4y",
+   "k": 10,
+   "shortlist": [
+    "/film/actor/film./film/performance/film",
+    "/people/person/languages",
+    "/people/person/nationality"
+   ],
+   "chosen": "/people/person/languages",
+   "raw": "2",
+   "embed_top1": "/people/person/languages"
+  },
+  {
+   "i": 206,
+   "linked": "/m/02p72j",
+   "k": 5,
+   "shortlist": [
+    "/education/educational_institution/campuses",
+    "/education/educational_institution/school_type",
+    "/education/educational_institution_campus/educational_institution"
+   ],
+   "chosen": "/education/educational_institution/campuses",
+   "raw": "1",
+   "embed_top1": "/education/educational_institution/school_type"
+  },
+  {
+   "i": 696,
+   "linked": "/m/02tf1y",
+   "k": 9,
+   "shortlist": [
+    "/people/person/languages",
+    "/people/person/nationality",
+    "/people/person/places_lived./people/place_lived/location"
+   ],
+   "chosen": "/people/person/nationality",
+   "raw": "2",
+   "embed_top1": "/people/person/nationality"
+  },
+  {
+   "i": 141,
+   "linked": "/m/084w8",
+   "k": 7,
+   "shortlist": [
+    "/influence/influence_node/influenced_by",
+    "/people/person/places_lived./people/place_lived/location",
+    "/people/person/profession"
+   ],
+   "chosen": "/influence/influence_node/influenced_by",
+   "raw": "1",
+   "embed_top1": "/influence/influence_node/influenced_by"
+  },
+  {
+   "i": 601,
+   "linked": "/m/084qpk",
+   "k": 13,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/language",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/produced_by",
+   "raw": "3",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 43,
+   "linked": "/m/09gdm7q",
+   "k": 10,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/film_format",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/language",
+   "raw": "3",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 240,
+   "linked": "/m/01w8sf",
+   "k": 9,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/profession",
+    "/people/person/spouse_s./people/marriage/type_of_union"
+   ],
+   "chosen": "/people/person/profession",
+   "raw": "2",
+   "embed_top1": "/people/person/profession"
+  },
+  {
+   "i": 201,
+   "linked": "/m/02bj22",
+   "k": 9,
+   "shortlist": [
+    "/film/film/estimated_budget./measurement_unit/dated_money_value/currency",
+    "/film/film/genre",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/language",
+   "raw": "3",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 9,
+   "linked": "/m/0gtvpkw",
+   "k": 9,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 335,
+   "linked": "/m/02vxn",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 574,
+   "linked": "/m/0yx_w",
+   "k": 12,
+   "shortlist": [
+    "/film/film/cinematography",
+    "/film/film/produced_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/cinematography",
+   "raw": "1",
+   "embed_top1": "/film/film/cinematography"
+  },
+  {
+   "i": 400,
+   "linked": "/m/06wcbk7",
+   "k": 2,
+   "shortlist": [
+    "/common/topic/webpage./common/webpage/category",
+    "/music/record_label/artist"
+   ],
+   "chosen": "/music/record_label/artist",
+   "raw": "2",
+   "embed_top1": "/music/record_label/artist"
+  },
+  {
+   "i": 729,
+   "linked": "/m/02rjv2w",
+   "k": 8,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/featured_film_locations",
+   "raw": "2",
+   "embed_top1": "/film/film/featured_film_locations"
+  },
+  {
+   "i": 147,
+   "linked": "/m/01cm8w",
+   "k": 9,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/featured_film_locations",
+   "raw": "2",
+   "embed_top1": "/film/film/featured_film_locations"
+  },
+  {
+   "i": 105,
+   "linked": "/m/063hp4",
+   "k": 14,
+   "shortlist": [
+    "/film/film/film_art_direction_by",
+    "/film/film/produced_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/film_art_direction_by",
+   "raw": "1",
+   "embed_top1": "/film/film/film_art_direction_by"
+  },
+  {
+   "i": 588,
+   "linked": "/m/01lyv",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 580,
+   "linked": "/m/045xh",
+   "k": 2,
+   "shortlist": [
+    "/award/award_category/disciplines_or_subjects",
+    "/award/award_category/winners./award/award_honor/award_winner"
+   ],
+   "chosen": "/award/award_category/winners./award/award_honor/award_winner",
+   "raw": "2",
+   "embed_top1": "/award/award_category/winners./award/award_honor/award_winner"
+  },
+  {
+   "i": 94,
+   "linked": "/m/01y665",
+   "k": 13,
+   "shortlist": [
+    "/people/person/gender",
+    "/people/person/nationality",
+    "/people/person/place_of_birth"
+   ],
+   "chosen": "/people/person/gender",
+   "raw": "1",
+   "embed_top1": "/people/person/gender"
+  },
+  {
+   "i": 160,
+   "linked": "/m/0g8bw",
+   "k": 4,
+   "shortlist": [
+    "/location/country/form_of_government",
+    "/location/country/official_language",
+    "/military/military_combatant/military_conflicts./military/military_combatant_group/combatants"
+   ],
+   "chosen": "/location/country/form_of_government",
+   "raw": "1",
+   "embed_top1": "/location/country/form_of_government"
+  },
+  {
+   "i": 397,
+   "linked": "/m/019c57",
+   "k": 11,
+   "shortlist": [
+    "/education/educational_institution/colors",
+    "/education/educational_institution_campus/educational_institution",
+    "/education/university/domestic_tuition./measurement_unit/dated_money_value/currency"
+   ],
+   "chosen": "/education/educational_institution/colors",
+   "raw": "1",
+   "embed_top1": "/education/educational_institution/colors"
+  },
+  {
+   "i": 325,
+   "linked": "/m/08b0cj",
+   "k": 7,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/profession",
+    "/people/person/religion"
+   ],
+   "chosen": "/people/person/religion",
+   "raw": "3",
+   "embed_top1": "/people/person/religion"
+  },
+  {
+   "i": 163,
+   "linked": "/m/04hs7d",
+   "k": 3,
+   "shortlist": [
+    "/tv/tv_program/country_of_origin",
+    "/tv/tv_program/genre",
+    "/tv/tv_program/languages"
+   ],
+   "chosen": "/tv/tv_program/country_of_origin",
+   "raw": "1",
+   "embed_top1": "/tv/tv_program/genre"
+  },
+  {
+   "i": 510,
+   "linked": "/m/0342h",
+   "k": 7,
+   "shortlist": [
+    "/music/instrument/family",
+    "/music/instrument/instrumentalists",
+    "/music/performance_role/guest_performances./music/recording_contribution/performance_role"
+   ],
+   "chosen": "/music/instrument/instrumentalists",
+   "raw": "2",
+   "embed_top1": "/music/instrument/instrumentalists"
+  },
+  {
+   "i": 187,
+   "linked": "/m/0177s6",
+   "k": 6,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/profession",
+    "/people/person/spouse_s./people/marriage/type_of_union"
+   ],
+   "chosen": "/people/person/profession",
+   "raw": "2",
+   "embed_top1": "/people/person/profession"
+  },
+  {
+   "i": 262,
+   "linked": "/m/0410cp",
+   "k": 10,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/religion",
+    "/people/person/spouse_s./people/marriage/type_of_union"
+   ],
+   "chosen": "/people/person/religion",
+   "raw": "2",
+   "embed_top1": "/people/person/religion"
+  },
+  {
+   "i": 261,
+   "linked": "/m/0124ld",
+   "k": 4,
+   "shortlist": [
+    "/olympics/olympic_games/medals_awarded./olympics/olympic_medal_honor/medal",
+    "/olympics/olympic_games/participating_countries",
+    "/olympics/olympic_games/sports"
+   ],
+   "chosen": "/olympics/olympic_games/medals_awarded./olympics/olympic_medal_honor/medal",
+   "raw": "1",
+   "embed_top1": "/olympics/olympic_games/sports"
+  },
+  {
+   "i": 682,
+   "linked": "/m/02w7gg",
+   "k": 3,
+   "shortlist": [
+    "/dataworld/gardening_hint/split_to",
+    "/people/ethnicity/languages_spoken",
+    "/people/ethnicity/people"
+   ],
+   "chosen": "/dataworld/gardening_hint/split_to",
+   "raw": "1",
+   "embed_top1": "/people/ethnicity/people"
+  },
+  {
+   "i": 367,
+   "linked": "/m/01hvjx",
+   "k": 10,
+   "shortlist": [
+    "/film/film/executive_produced_by",
+    "/film/film/production_companies",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_region"
+   ],
+   "chosen": "/film/film/release_date_s./film/film_regional_release_date/film_release_region",
+   "raw": "3",
+   "embed_top1": "/film/film/production_companies"
+  },
+  {
+   "i": 315,
+   "linked": "/m/0p2rj",
+   "k": 6,
+   "shortlist": [
+    "/base/aareas/schema/administrative_area/administrative_parent",
+    "/location/location/contains",
+    "/location/us_county/county_seat"
+   ],
+   "chosen": "/location/us_county/county_seat",
+   "raw": "3",
+   "embed_top1": "/location/us_county/county_seat"
+  },
+  {
+   "i": 520,
+   "linked": "/m/03gvt",
+   "k": 5,
+   "shortlist": [
+    "/music/instrument/instrumentalists",
+    "/music/performance_role/guest_performances./music/recording_contribution/performance_role",
+    "/music/performance_role/regular_performances./music/group_membership/role"
+   ],
+   "chosen": "/music/instrument/instrumentalists",
+   "raw": "1",
+   "embed_top1": "/music/instrument/instrumentalists"
+  },
+  {
+   "i": 356,
+   "linked": null,
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 14,
+   "linked": "/m/01vh096",
+   "k": 7,
+   "shortlist": [
+    "/influence/influence_node/influenced_by",
+    "/people/person/nationality",
+    "/people/person/places_lived./people/place_lived/location"
+   ],
+   "chosen": "/influence/influence_node/influenced_by",
+   "raw": "1",
+   "embed_top1": "/influence/influence_node/influenced_by"
+  },
+  {
+   "i": 3,
+   "linked": "/m/048z7l",
+   "k": 2,
+   "shortlist": [
+    "/people/ethnicity/languages_spoken",
+    "/people/ethnicity/people"
+   ],
+   "chosen": "/people/ethnicity/languages_spoken",
+   "raw": "1",
+   "embed_top1": "/people/ethnicity/languages_spoken"
+  },
+  {
+   "i": 91,
+   "linked": "/m/01l2b3",
+   "k": 12,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/film_format"
+   ],
+   "chosen": "/film/film/film_format",
+   "raw": "3",
+   "embed_top1": "/film/film/film_format"
+  },
+  {
+   "i": 49,
+   "linked": "/m/02w4v",
+   "k": 1,
+   "shortlist": [
+    "/music/genre/artists"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": null,
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 546,
+   "linked": "/m/05bt6j",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 529,
+   "linked": "/m/03w1v2",
+   "k": 11,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/profession",
+    "/people/person/religion"
+   ],
+   "chosen": "/people/person/religion",
+   "raw": "3",
+   "embed_top1": "/people/person/religion"
+  },
+  {
+   "i": 494,
+   "linked": "/m/020hyj",
+   "k": 9,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/nationality",
+   "raw": "1",
+   "embed_top1": "/people/person/nationality"
+  },
+  {
+   "i": 652,
+   "linked": "/m/01337_",
+   "k": 9,
+   "shortlist": [
+    "/people/deceased_person/place_of_burial",
+    "/people/deceased_person/place_of_death",
+    "/people/person/places_lived./people/place_lived/location"
+   ],
+   "chosen": "/people/deceased_person/place_of_burial",
+   "raw": "1",
+   "embed_top1": "/people/deceased_person/place_of_burial"
+  },
+  {
+   "i": 203,
+   "linked": "/m/016ywb",
+   "k": 9,
+   "shortlist": [
+    "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+    "/film/film/story_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/written_by",
+   "raw": "3",
+   "embed_top1": "/film/film/written_by"
+  },
+  {
+   "i": 313,
+   "linked": "/m/011k11",
+   "k": 2,
+   "shortlist": [
+    "/music/record_label/artist",
+    "/organization/organization/place_founded"
+   ],
+   "chosen": "/organization/organization/place_founded",
+   "raw": "2",
+   "embed_top1": "/organization/organization/place_founded"
+  },
+  {
+   "i": 102,
+   "linked": "/m/07bty",
+   "k": 8,
+   "shortlist": [
+    "/people/person/gender",
+    "/people/person/nationality",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/gender",
+   "raw": "1",
+   "embed_top1": "/people/person/gender"
+  },
+  {
+   "i": 572,
+   "linked": "/m/01pcq3",
+   "k": 18,
+   "shortlist": [
+    "/film/actor/dubbing_performances./film/dubbing_performance/language",
+    "/people/person/languages",
+    "/people/person/nationality"
+   ],
+   "chosen": "/film/actor/dubbing_performances./film/dubbing_performance/language",
+   "raw": "1",
+   "embed_top1": "/people/person/languages"
+  },
+  {
+   "i": 398,
+   "linked": "/m/06t8b",
+   "k": 11,
+   "shortlist": [
+    "/film/director/film",
+    "/people/person/profession",
+    "/people/person/religion"
+   ],
+   "chosen": "/film/director/film",
+   "raw": "1",
+   "embed_top1": "/film/director/film"
+  },
+  {
+   "i": 626,
+   "linked": "/m/07srw",
+   "k": 11,
+   "shortlist": [
+    "/base/biblioness/bibs_location/country",
+    "/location/administrative_division/country",
+    "/location/statistical_region/religions./location/religion_percentage/religion"
+   ],
+   "chosen": "/location/administrative_division/country",
+   "raw": "2",
+   "embed_top1": "/location/administrative_division/country"
+  },
+  {
+   "i": 497,
+   "linked": null,
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 232,
+   "linked": "/m/03cd0x",
+   "k": 14,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/genre"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "3",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 185,
+   "linked": "/m/01k3s2",
+   "k": 9,
+   "shortlist": [
+    "/education/educational_institution/campuses",
+    "/education/educational_institution/students_graduates./education/education/student",
+    "/education/educational_institution_campus/educational_institution"
+   ],
+   "chosen": "/education/educational_institution_campus/educational_institution",
+   "raw": "3",
+   "embed_top1": "/education/educational_institution/campuses"
+  },
+  {
+   "i": 24,
+   "linked": "/m/02lf70",
+   "k": 13,
+   "shortlist": [
+    "/people/person/languages",
+    "/people/person/nationality",
+    "/people/person/place_of_birth"
+   ],
+   "chosen": "/people/person/languages",
+   "raw": "1",
+   "embed_top1": "/people/person/languages"
+  },
+  {
+   "i": 458,
+   "linked": "/m/02r79_h",
+   "k": 13,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/film_art_direction_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/production_companies",
+   "raw": "3",
+   "embed_top1": "/film/film/production_companies"
+  },
+  {
+   "i": 608,
+   "linked": "/m/015l4k",
+   "k": 3,
+   "shortlist": [
+    "/olympics/olympic_games/medals_awarded./olympics/olympic_medal_honor/medal",
+    "/olympics/olympic_games/sports",
+    "/user/jg/default_domain/olympic_games/sports"
+   ],
+   "chosen": "/user/jg/default_domain/olympic_games/sports",
+   "raw": "3",
+   "embed_top1": "/olympics/olympic_games/sports"
+  },
+  {
+   "i": 219,
+   "linked": "/m/0by1wkq",
+   "k": 9,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "2",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 403,
+   "linked": "/m/016fyc",
+   "k": 14,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/featured_film_locations",
+   "raw": "2",
+   "embed_top1": "/film/film/featured_film_locations"
+  },
+  {
+   "i": 392,
+   "linked": "/m/01jfsb",
+   "k": 1,
+   "shortlist": [
+    "/media_common/netflix_genre/titles"
+   ],
+   "chosen": "/media_common/netflix_genre/titles",
+   "raw": null,
+   "embed_top1": "/media_common/netflix_genre/titles"
+  },
+  {
+   "i": 119,
+   "linked": "/m/017y26",
+   "k": 7,
+   "shortlist": [
+    "/education/educational_institution/school_type",
+    "/education/educational_institution/students_graduates./education/education/major_field_of_study",
+    "/education/educational_institution_campus/educational_institution"
+   ],
+   "chosen": "/education/educational_institution_campus/educational_institution",
+   "raw": "3",
+   "embed_top1": "/education/educational_institution/school_type"
+  },
+  {
+   "i": 429,
+   "linked": "/m/0ds35l9",
+   "k": 17,
+   "shortlist": [
+    "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+    "/film/film/produced_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/written_by",
+   "raw": "3",
+   "embed_top1": "/film/film/written_by"
+  },
+  {
+   "i": 249,
+   "linked": "/m/0dq626",
+   "k": 9,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/production_companies",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_region"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 541,
+   "linked": "/m/0bx_hnp",
+   "k": 12,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "2",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 60,
+   "linked": "/m/02w70",
+   "k": 4,
+   "shortlist": [
+    "/base/biblioness/bibs_location/country",
+    "/base/biblioness/bibs_location/state",
+    "/location/location/time_zones"
+   ],
+   "chosen": "/location/location/time_zones",
+   "raw": "3",
+   "embed_top1": "/location/location/time_zones"
+  },
+  {
+   "i": 495,
+   "linked": "/m/07bty",
+   "k": 8,
+   "shortlist": [
+    "/organization/organization_founder/organizations_founded",
+    "/people/person/profession",
+    "/people/person/spouse_s./people/marriage/type_of_union"
+   ],
+   "chosen": "/organization/organization_founder/organizations_founded",
+   "raw": "1",
+   "embed_top1": "/organization/organization_founder/organizations_founded"
+  },
+  {
+   "i": 289,
+   "linked": "/m/01g23m",
+   "k": 19,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/people/person/places_lived./people/place_lived/location"
+   ],
+   "chosen": "/people/person/place_of_birth",
+   "raw": "2",
+   "embed_top1": "/people/person/place_of_birth"
+  },
+  {
+   "i": 390,
+   "linked": "/m/02_kd",
+   "k": 12,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "2",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 90,
+   "linked": "/m/06ch55",
+   "k": 1,
+   "shortlist": [
+    "/music/instrument/instrumentalists"
+   ],
+   "chosen": "/music/instrument/instrumentalists",
+   "raw": null,
+   "embed_top1": "/music/instrument/instrumentalists"
+  },
+  {
+   "i": 629,
+   "linked": "/m/026t6",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 644,
+   "linked": "/m/02z3r8t",
+   "k": 11,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/language",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/language",
+   "raw": "2",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 742,
+   "linked": "/m/060__7",
+   "k": 12,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "2",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 434,
+   "linked": "/m/026z9",
+   "k": 3,
+   "shortlist": [
+    "/media_common/netflix_genre/titles",
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "2",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 622,
+   "linked": null,
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 259,
+   "linked": "/m/030qb3t",
+   "k": 14,
+   "shortlist": [
+    "/base/biblioness/bibs_location/country",
+    "/location/hud_county_place/county",
+    "/location/hud_county_place/place"
+   ],
+   "chosen": "/location/hud_county_place/place",
+   "raw": "3",
+   "embed_top1": "/location/hud_county_place/place"
+  },
+  {
+   "i": 609,
+   "linked": "/m/05zlld0",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 345,
+   "linked": "/m/01vw8k",
+   "k": 14,
+   "shortlist": [
+    "/film/film/film_format",
+    "/film/film/genre",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "2",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 496,
+   "linked": "/m/040rjq",
+   "k": 10,
+   "shortlist": [
+    "/film/director/film",
+    "/people/person/nationality",
+    "/people/person/place_of_birth"
+   ],
+   "chosen": "/people/person/nationality",
+   "raw": "2",
+   "embed_top1": "/people/person/nationality"
+  },
+  {
+   "i": 377,
+   "linked": "/m/02z44tp",
+   "k": 11,
+   "shortlist": [
+    "/film/film/cinematography",
+    "/film/film/country",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_region"
+   ],
+   "chosen": "/film/film/release_date_s./film/film_regional_release_date/film_release_region",
+   "raw": "3",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 524,
+   "linked": "/m/025sc50",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 138,
+   "linked": "/m/09x8ms",
+   "k": 7,
+   "shortlist": [
+    "/base/popstra/celebrity/friendship./base/popstra/friendship/participant",
+    "/people/deceased_person/place_of_burial",
+    "/people/deceased_person/place_of_death"
+   ],
+   "chosen": "/people/deceased_person/place_of_death",
+   "raw": "3",
+   "embed_top1": "/people/deceased_person/place_of_death"
+  },
+  {
+   "i": 442,
+   "linked": "/m/0330r",
+   "k": 7,
+   "shortlist": [
+    "/tv/tv_program/country_of_origin",
+    "/tv/tv_program/genre",
+    "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor"
+   ],
+   "chosen": "/tv/tv_program/genre",
+   "raw": "2",
+   "embed_top1": "/tv/tv_program/country_of_origin"
+  },
+  {
+   "i": 254,
+   "linked": null,
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 435,
+   "linked": "/m/0ggx5q",
+   "k": 1,
+   "shortlist": [
+    "/music/genre/artists"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": null,
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 328,
+   "linked": "/m/0bpm4yw",
+   "k": 16,
+   "shortlist": [
+    "/film/film/music",
+    "/film/film/produced_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/music",
+   "raw": "1",
+   "embed_top1": "/film/film/music"
+  },
+  {
+   "i": 337,
+   "linked": "/m/01jnc_",
+   "k": 10,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/language",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/language",
+   "raw": "2",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 117,
+   "linked": "/m/04psf",
+   "k": 1,
+   "shortlist": [
+    "/people/cause_of_death/people"
+   ],
+   "chosen": "/people/cause_of_death/people",
+   "raw": null,
+   "embed_top1": "/people/cause_of_death/people"
+  },
+  {
+   "i": 643,
+   "linked": "/m/0488g",
+   "k": 11,
+   "shortlist": [
+    "/base/biblioness/bibs_location/country",
+    "/location/administrative_division/country",
+    "/location/statistical_region/gdp_nominal./measurement_unit/dated_money_value/currency"
+   ],
+   "chosen": "/base/biblioness/bibs_location/country",
+   "raw": "1",
+   "embed_top1": "/location/administrative_division/country"
+  },
+  {
+   "i": 514,
+   "linked": "/m/020bv3",
+   "k": 16,
+   "shortlist": [
+    "/film/film/language",
+    "/film/film/produced_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/language",
+   "raw": "1",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 131,
+   "linked": "/m/0n0bp",
+   "k": 7,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/language",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/language",
+   "raw": "2",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 103,
+   "linked": "/m/01hmk9",
+   "k": 12,
+   "shortlist": [
+    "/influence/influence_node/influenced_by",
+    "/people/person/nationality",
+    "/people/person/profession"
+   ],
+   "chosen": "/influence/influence_node/influenced_by",
+   "raw": "1",
+   "embed_top1": "/influence/influence_node/influenced_by"
+  },
+  {
+   "i": 518,
+   "linked": "/m/01cssf",
+   "k": 16,
+   "shortlist": [
+    "/film/film/music",
+    "/film/film/produced_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/written_by",
+   "raw": "3",
+   "embed_top1": "/film/film/written_by"
+  },
+  {
+   "i": 453,
+   "linked": "/m/02ntb8",
+   "k": 11,
+   "shortlist": [
+    "/film/film/executive_produced_by",
+    "/film/film/produced_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/executive_produced_by",
+   "raw": "1",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 350,
+   "linked": "/m/03f22dp",
+   "k": 6,
+   "shortlist": [
+    "/people/person/profession",
+    "/people/person/religion",
+    "/people/person/spouse_s./people/marriage/type_of_union"
+   ],
+   "chosen": "/people/person/profession",
+   "raw": "1",
+   "embed_top1": "/people/person/religion"
+  },
+  {
+   "i": 603,
+   "linked": null,
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 379,
+   "linked": "/m/01f8hf",
+   "k": 17,
+   "shortlist": [
+    "/film/film/executive_produced_by",
+    "/film/film/produced_by",
+    "/film/film/story_by"
+   ],
+   "chosen": "/film/film/story_by",
+   "raw": "3",
+   "embed_top1": "/film/film/story_by"
+  },
+  {
+   "i": 568,
+   "linked": "/m/0cp0ph6",
+   "k": 10,
+   "shortlist": [
+    "/film/film/genre",
+    "/film/film/language",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "1",
+   "embed_top1": "/film/film/written_by"
+  },
+  {
+   "i": 135,
+   "linked": "/m/01pq4w",
+   "k": 21,
+   "shortlist": [
+    "/education/educational_institution_campus/educational_institution",
+    "/education/university/fraternities_and_sororities",
+    "/organization/organization_member/member_of./organization/organization_membership/organization"
+   ],
+   "chosen": "/education/educational_institution_campus/educational_institution",
+   "raw": "1",
+   "embed_top1": "/education/university/fraternities_and_sororities"
+  },
+  {
+   "i": 217,
+   "linked": "/m/06zn2v2",
+   "k": 11,
+   "shortlist": [
+    "/film/film/film_format",
+    "/film/film/genre",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/film_format",
+   "raw": "1",
+   "embed_top1": "/film/film/film_format"
+  },
+  {
+   "i": 154,
+   "linked": "/m/04rrd",
+   "k": 12,
+   "shortlist": [
+    "/location/administrative_division/country",
+    "/location/statistical_region/gdp_nominal./measurement_unit/dated_money_value/currency",
+    "/location/statistical_region/religions./location/religion_percentage/religion"
+   ],
+   "chosen": "/location/administrative_division/country",
+   "raw": "1",
+   "embed_top1": "/location/administrative_division/country"
+  },
+  {
+   "i": 486,
+   "linked": "/m/099p5",
+   "k": 7,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/people/person/religion"
+   ],
+   "chosen": "/people/person/religion",
+   "raw": "3",
+   "embed_top1": "/people/person/religion"
+  },
+  {
+   "i": 348,
+   "linked": "/m/021j38",
+   "k": 2,
+   "shortlist": [
+    "/common/topic/webpage./common/webpage/category",
+    "/location/administrative_division/country"
+   ],
+   "chosen": "/location/administrative_division/country",
+   "raw": "2",
+   "embed_top1": "/location/administrative_division/country"
+  },
+  {
+   "i": 211,
+   "linked": "/m/0ckrgs",
+   "k": 7,
+   "shortlist": [
+    "/film/film/genre",
+    "/film/film/language",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_region"
+   ],
+   "chosen": "/film/film/language",
+   "raw": "2",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 591,
+   "linked": "/m/02k1pr",
+   "k": 10,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "2",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 7,
+   "linked": "/m/0crs0b8",
+   "k": 10,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/story_by"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 645,
+   "linked": "/m/011yhm",
+   "k": 15,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/produced_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 84,
+   "linked": "/m/025g__",
+   "k": 1,
+   "shortlist": [
+    "/music/genre/artists"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": null,
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 139,
+   "linked": "/m/03ywyk",
+   "k": 11,
+   "shortlist": [
+    "/base/popstra/celebrity/friendship./base/popstra/friendship/participant",
+    "/people/person/nationality",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/nationality",
+   "raw": "2",
+   "embed_top1": "/people/person/nationality"
+  },
+  {
+   "i": 525,
+   "linked": "/m/01cszh",
+   "k": 2,
+   "shortlist": [
+    "/common/topic/webpage./common/webpage/category",
+    "/music/record_label/artist"
+   ],
+   "chosen": "/music/record_label/artist",
+   "raw": "2",
+   "embed_top1": "/music/record_label/artist"
+  },
+  {
+   "i": 231,
+   "linked": null,
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 100,
+   "linked": "/m/03mqtr",
+   "k": 1,
+   "shortlist": [
+    "/media_common/netflix_genre/titles"
+   ],
+   "chosen": "/media_common/netflix_genre/titles",
+   "raw": null,
+   "embed_top1": "/media_common/netflix_genre/titles"
+  },
+  {
+   "i": 272,
+   "linked": "/m/0dwl2",
+   "k": 2,
+   "shortlist": [
+    "/business/business_operation/industry",
+    "/organization/organization/headquarters./location/mailing_address/citytown"
+   ],
+   "chosen": "/business/business_operation/industry",
+   "raw": "1",
+   "embed_top1": "/business/business_operation/industry"
+  },
+  {
+   "i": 416,
+   "linked": "/m/0fpzt5",
+   "k": 6,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/places_lived./people/place_lived/location",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/profession",
+   "raw": "3",
+   "embed_top1": "/people/person/profession"
+  },
+  {
+   "i": 171,
+   "linked": "/m/0330r",
+   "k": 7,
+   "shortlist": [
+    "/tv/tv_program/country_of_origin",
+    "/tv/tv_program/genre",
+    "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor"
+   ],
+   "chosen": "/tv/tv_program/genre",
+   "raw": "2",
+   "embed_top1": "/tv/tv_program/genre"
+  },
+  {
+   "i": 242,
+   "linked": "/m/0rrhp",
+   "k": 5,
+   "shortlist": [
+    "/location/hud_county_place/county",
+    "/location/hud_county_place/place",
+    "/location/hud_foreclosure_area/estimated_number_of_mortgages./measurement_unit/dated_integer/source"
+   ],
+   "chosen": "/location/hud_county_place/county",
+   "raw": "1",
+   "embed_top1": "/location/hud_county_place/place"
+  },
+  {
+   "i": 155,
+   "linked": "/m/01sxd1",
+   "k": 6,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/profession",
+    "/people/person/spouse_s./people/marriage/spouse"
+   ],
+   "chosen": "/people/person/profession",
+   "raw": "2",
+   "embed_top1": "/people/person/profession"
+  },
+  {
+   "i": 323,
+   "linked": "/m/0d8h4",
+   "k": 5,
+   "shortlist": [
+    "/location/administrative_division/country",
+    "/location/administrative_division/first_level_division_of",
+    "/location/location/contains"
+   ],
+   "chosen": "/location/administrative_division/country",
+   "raw": "1",
+   "embed_top1": "/location/administrative_division/country"
+  },
+  {
+   "i": 282,
+   "linked": "/m/03phtz",
+   "k": 10,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_distribution_medium",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_region"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 132,
+   "linked": "/m/011yth",
+   "k": 15,
+   "shortlist": [
+    "/film/film/produced_by",
+    "/film/film/production_companies",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/produced_by",
+   "raw": "1",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 473,
+   "linked": "/m/09r94m",
+   "k": 11,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/produced_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/produced_by",
+   "raw": "2",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 389,
+   "linked": "/m/05q_dw",
+   "k": 12,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/featured_film_locations",
+   "raw": "2",
+   "embed_top1": "/film/film/featured_film_locations"
+  },
+  {
+   "i": 383,
+   "linked": "/m/0y3_8",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/parent_genre",
+   "raw": "2",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 690,
+   "linked": "/m/04wqsm",
+   "k": 3,
+   "shortlist": [
+    "/soccer/football_team/current_roster./soccer/football_roster_position/position",
+    "/soccer/football_team/current_roster./sports/sports_team_roster/position",
+    "/sports/sports_team/sport"
+   ],
+   "chosen": "/sports/sports_team/sport",
+   "raw": "3",
+   "embed_top1": "/sports/sports_team/sport"
+  },
+  {
+   "i": 123,
+   "linked": "/m/0mb0",
+   "k": 9,
+   "shortlist": [
+    "/influence/influence_node/influenced_by",
+    "/people/person/places_lived./people/place_lived/location",
+    "/people/person/religion"
+   ],
+   "chosen": "/influence/influence_node/influenced_by",
+   "raw": "1",
+   "embed_top1": "/influence/influence_node/influenced_by"
+  },
+  {
+   "i": 70,
+   "linked": "/m/014z8v",
+   "k": 12,
+   "shortlist": [
+    "/film/actor/film./film/performance/film",
+    "/people/person/places_lived./people/place_lived/location",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/profession",
+   "raw": "3",
+   "embed_top1": "/people/person/profession"
+  },
+  {
+   "i": 685,
+   "linked": "/m/0n00",
+   "k": 7,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/places_lived./people/place_lived/location",
+    "/people/person/religion"
+   ],
+   "chosen": "/people/person/religion",
+   "raw": "3",
+   "embed_top1": "/people/person/religion"
+  },
+  {
+   "i": 360,
+   "linked": null,
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 295,
+   "linked": "/m/04p3w",
+   "k": 2,
+   "shortlist": [
+    "/medicine/disease/risk_factors",
+    "/people/cause_of_death/people"
+   ],
+   "chosen": "/medicine/disease/risk_factors",
+   "raw": "1",
+   "embed_top1": "/people/cause_of_death/people"
+  },
+  {
+   "i": 354,
+   "linked": "/m/0lgxj",
+   "k": 5,
+   "shortlist": [
+    "/olympics/olympic_games/medals_awarded./olympics/olympic_medal_honor/medal",
+    "/olympics/olympic_games/participating_countries",
+    "/olympics/olympic_games/sports"
+   ],
+   "chosen": "/olympics/olympic_games/participating_countries",
+   "raw": "2",
+   "embed_top1": "/olympics/olympic_games/participating_countries"
+  },
+  {
+   "i": 370,
+   "linked": "/m/03y_46",
+   "k": 8,
+   "shortlist": [
+    "/award/award_winner/awards_won./award/award_honor/award_winner",
+    "/film/actor/film./film/performance/film",
+    "/people/person/nationality"
+   ],
+   "chosen": "/people/person/nationality",
+   "raw": "3",
+   "embed_top1": "/people/person/nationality"
+  },
+  {
+   "i": 449,
+   "linked": "/m/0yb_4",
+   "k": 5,
+   "shortlist": [
+    "/location/hud_county_place/county",
+    "/location/hud_county_place/place",
+    "/location/location/contains"
+   ],
+   "chosen": "/location/location/contains",
+   "raw": "3",
+   "embed_top1": "/location/hud_county_place/place"
+  },
+  {
+   "i": 666,
+   "linked": "/m/07srw",
+   "k": 11,
+   "shortlist": [
+    "/base/biblioness/bibs_location/country",
+    "/location/administrative_division/country",
+    "/location/statistical_region/religions./location/religion_percentage/religion"
+   ],
+   "chosen": "/location/administrative_division/country",
+   "raw": "2",
+   "embed_top1": "/location/administrative_division/country"
+  },
+  {
+   "i": 11,
+   "linked": "/m/065zlr",
+   "k": 16,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/featured_film_locations",
+   "raw": "2",
+   "embed_top1": "/film/film/featured_film_locations"
+  },
+  {
+   "i": 415,
+   "linked": "/m/07wlf",
+   "k": 14,
+   "shortlist": [
+    "/education/educational_institution/campuses",
+    "/education/educational_institution/colors",
+    "/education/educational_institution_campus/educational_institution"
+   ],
+   "chosen": "/education/educational_institution/colors",
+   "raw": "2",
+   "embed_top1": "/education/educational_institution/colors"
+  },
+  {
+   "i": 506,
+   "linked": "/m/05r5c",
+   "k": 7,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/instrument/family",
+    "/music/instrument/instrumentalists"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/instrument/instrumentalists"
+  },
+  {
+   "i": 169,
+   "linked": "/m/06fc0b",
+   "k": 10,
+   "shortlist": [
+    "/film/actor/film./film/performance/film",
+    "/people/person/place_of_birth",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/profession",
+   "raw": "3",
+   "embed_top1": "/people/person/profession"
+  },
+  {
+   "i": 46,
+   "linked": "/m/0r5y9",
+   "k": 7,
+   "shortlist": [
+    "/base/biblioness/bibs_location/country",
+    "/location/hud_county_place/place",
+    "/location/location/time_zones"
+   ],
+   "chosen": "/location/hud_county_place/place",
+   "raw": "2",
+   "embed_top1": "/base/biblioness/bibs_location/country"
+  },
+  {
+   "i": 650,
+   "linked": "/m/0180mw",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 107,
+   "linked": "/m/03vfr_",
+   "k": 8,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/language",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_region"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 338,
+   "linked": "/m/033q4k",
+   "k": 12,
+   "shortlist": [
+    "/education/educational_institution/school_type",
+    "/education/educational_institution_campus/educational_institution",
+    "/education/university/fraternities_and_sororities"
+   ],
+   "chosen": "/education/educational_institution/school_type",
+   "raw": "1",
+   "embed_top1": "/education/university/fraternities_and_sororities"
+  },
+  {
+   "i": 125,
+   "linked": "/m/01lyv",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/parent_genre",
+   "raw": "2",
+   "embed_top1": "/music/genre/parent_genre"
+  },
+  {
+   "i": 227,
+   "linked": "/m/026t6",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 279,
+   "linked": "/m/0m123",
+   "k": 5,
+   "shortlist": [
+    "/tv/tv_program/country_of_origin",
+    "/tv/tv_program/genre",
+    "/tv/tv_program/languages"
+   ],
+   "chosen": "/tv/tv_program/genre",
+   "raw": "2",
+   "embed_top1": "/tv/tv_program/genre"
+  },
+  {
+   "i": 675,
+   "linked": "/m/03nqnnk",
+   "k": 10,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 611,
+   "linked": "/m/0lx2l",
+   "k": 17,
+   "shortlist": [
+    "/award/award_winner/awards_won./award/award_honor/award_winner",
+    "/influence/influence_node/influenced_by",
+    "/people/person/profession"
+   ],
+   "chosen": "/influence/influence_node/influenced_by",
+   "raw": "2",
+   "embed_top1": "/people/person/profession"
+  },
+  {
+   "i": 490,
+   "linked": "/m/05kkh",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 402,
+   "linked": "/m/05t54s",
+   "k": 13,
+   "shortlist": [
+    "/film/film/film_format",
+    "/film/film/genre",
+    "/film/film/prequel"
+   ],
+   "chosen": "/film/film/prequel",
+   "raw": "3",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 739,
+   "linked": "/m/017gm7",
+   "k": 15,
+   "shortlist": [
+    "/film/film/executive_produced_by",
+    "/film/film/produced_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/produced_by",
+   "raw": "2",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 88,
+   "linked": "/m/033g4d",
+   "k": 14,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/language",
+    "/film/film/runtime./film/film_cut/film_release_region"
+   ],
+   "chosen": "/film/film/runtime./film/film_cut/film_release_region",
+   "raw": "3",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 728,
+   "linked": "/m/0g3zrd",
+   "k": 12,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/featured_film_locations",
+   "raw": "2",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 573,
+   "linked": "/m/07s9rl0",
+   "k": 1,
+   "shortlist": [
+    "/media_common/netflix_genre/titles"
+   ],
+   "chosen": "/media_common/netflix_genre/titles",
+   "raw": null,
+   "embed_top1": "/media_common/netflix_genre/titles"
+  },
+  {
+   "i": 188,
+   "linked": "/m/0hnp7",
+   "k": 11,
+   "shortlist": [
+    "/people/deceased_person/place_of_death",
+    "/people/person/place_of_birth",
+    "/people/person/places_lived./people/place_lived/location"
+   ],
+   "chosen": "/people/person/places_lived./people/place_lived/location",
+   "raw": "3",
+   "embed_top1": "/people/person/places_lived./people/place_lived/location"
+  },
+  {
+   "i": 720,
+   "linked": "/m/01m9f1",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 555,
+   "linked": "/m/052smk",
+   "k": 1,
+   "shortlist": [
+    "/music/genre/artists"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": null,
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 683,
+   "linked": "/m/04x1_w",
+   "k": 12,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/people/person/places_lived./people/place_lived/location"
+   ],
+   "chosen": "/people/person/places_lived./people/place_lived/location",
+   "raw": "3",
+   "embed_top1": "/people/person/place_of_birth"
+  },
+  {
+   "i": 531,
+   "linked": "/m/0ds33",
+   "k": 17,
+   "shortlist": [
+    "/film/film/produced_by",
+    "/film/film/production_companies",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/produced_by",
+   "raw": "1",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 158,
+   "linked": "/m/026wlxw",
+   "k": 11,
+   "shortlist": [
+    "/film/film/language",
+    "/film/film/production_companies",
+    "/film/film/story_by"
+   ],
+   "chosen": "/film/film/story_by",
+   "raw": "3",
+   "embed_top1": "/film/film/story_by"
+  },
+  {
+   "i": 727,
+   "linked": "/m/06qd3",
+   "k": 15,
+   "shortlist": [
+    "/base/aareas/schema/administrative_area/administrative_area_type",
+    "/location/country/form_of_government",
+    "/organization/organization_member/member_of./organization/organization_membership/organization"
+   ],
+   "chosen": "/location/country/form_of_government",
+   "raw": "2",
+   "embed_top1": "/base/aareas/schema/administrative_area/administrative_area_type"
+  },
+  {
+   "i": 641,
+   "linked": "/m/0m63c",
+   "k": 10,
+   "shortlist": [
+    "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+    "/film/film/music",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+   "raw": "1",
+   "embed_top1": "/film/film/production_companies"
+  },
+  {
+   "i": 664,
+   "linked": "/m/06q5t7",
+   "k": 14,
+   "shortlist": [
+    "/base/popstra/celebrity/friendship./base/popstra/friendship/participant",
+    "/film/actor/film./film/performance/film",
+    "/influence/influence_node/influenced_by"
+   ],
+   "chosen": "/influence/influence_node/influenced_by",
+   "raw": "3",
+   "embed_top1": "/influence/influence_node/influenced_by"
+  },
+  {
+   "i": 610,
+   "linked": "/m/02rhwjr",
+   "k": 3,
+   "shortlist": [
+    "/tv/tv_program/country_of_origin",
+    "/tv/tv_program/genre",
+    "/tv/tv_program/regular_cast./tv/regular_tv_appearance/actor"
+   ],
+   "chosen": "/tv/tv_program/genre",
+   "raw": "2",
+   "embed_top1": "/tv/tv_program/country_of_origin"
+  },
+  {
+   "i": 703,
+   "linked": "/m/06nns1",
+   "k": 11,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/people/person/places_lived./people/place_lived/location"
+   ],
+   "chosen": "/people/person/place_of_birth",
+   "raw": "2",
+   "embed_top1": "/people/person/place_of_birth"
+  },
+  {
+   "i": 406,
+   "linked": "/m/02bn75",
+   "k": 10,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/people/person/places_lived./people/place_lived/location"
+   ],
+   "chosen": "/people/person/places_lived./people/place_lived/location",
+   "raw": "3",
+   "embed_top1": "/people/person/nationality"
+  },
+  {
+   "i": 112,
+   "linked": "/m/076zy_g",
+   "k": 12,
+   "shortlist": [
+    "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+    "/film/film/music",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/music",
+   "raw": "2",
+   "embed_top1": "/film/film/music"
+  },
+  {
+   "i": 173,
+   "linked": "/m/0n6ds",
+   "k": 13,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/produced_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/produced_by",
+   "raw": "2",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 708,
+   "linked": "/m/0fw2f",
+   "k": 6,
+   "shortlist": [
+    "/base/biblioness/bibs_location/country",
+    "/location/hud_county_place/county",
+    "/location/hud_county_place/place"
+   ],
+   "chosen": "/location/hud_county_place/place",
+   "raw": "3",
+   "embed_top1": "/base/biblioness/bibs_location/country"
+  },
+  {
+   "i": 417,
+   "linked": "/m/0mvsg",
+   "k": 4,
+   "shortlist": [
+    "/location/hud_foreclosure_area/estimated_number_of_mortgages./measurement_unit/dated_integer/source",
+    "/location/location/time_zones",
+    "/location/statistical_region/rent50_2./measurement_unit/dated_money_value/currency"
+   ],
+   "chosen": "/location/location/time_zones",
+   "raw": "2",
+   "embed_top1": "/location/location/time_zones"
+  },
+  {
+   "i": 385,
+   "linked": "/m/07tf8",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 440,
+   "linked": "/m/03tn80",
+   "k": 10,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/produced_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/written_by",
+   "raw": "3",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 121,
+   "linked": "/m/0j_c",
+   "k": 13,
+   "shortlist": [
+    "/film/actor/film./film/performance/film",
+    "/film/actor/film./film/performance/special_performance_type",
+    "/film/director/film"
+   ],
+   "chosen": "/film/director/film",
+   "raw": "3",
+   "embed_top1": "/film/director/film"
+  },
+  {
+   "i": 577,
+   "linked": "/m/0ck91",
+   "k": 7,
+   "shortlist": [
+    "/people/person/languages",
+    "/people/person/nationality",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/languages",
+   "raw": "1",
+   "embed_top1": "/people/person/languages"
+  },
+  {
+   "i": 98,
+   "linked": "/m/0ql7q",
+   "k": 3,
+   "shortlist": [
+    "/base/culturalevent/event/entity_involved",
+    "/military/military_conflict/combatants./military/military_combatant_group/combatants",
+    "/time/event/locations"
+   ],
+   "chosen": "/base/culturalevent/event/entity_involved",
+   "raw": "1",
+   "embed_top1": "/military/military_conflict/combatants./military/military_combatant_group/combatants"
+  },
+  {
+   "i": 477,
+   "linked": "/m/08lpkq",
+   "k": 3,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre",
+    "/people/person/gender"
+   ],
+   "chosen": "/music/genre/parent_genre",
+   "raw": "2",
+   "embed_top1": "/music/genre/parent_genre"
+  },
+  {
+   "i": 368,
+   "linked": "/m/0ggx5q",
+   "k": 1,
+   "shortlist": [
+    "/music/genre/artists"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": null,
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 605,
+   "linked": "/m/0dnvn3",
+   "k": 17,
+   "shortlist": [
+    "/film/film/edited_by",
+    "/film/film/produced_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/production_companies",
+   "raw": "3",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 534,
+   "linked": "/m/0df4y",
+   "k": 3,
+   "shortlist": [
+    "/base/aareas/schema/administrative_area/administrative_parent",
+    "/base/biblioness/bibs_location/country",
+    "/location/location/adjoin_s./location/adjoining_relationship/adjoins"
+   ],
+   "chosen": "/base/aareas/schema/administrative_area/administrative_parent",
+   "raw": "1",
+   "embed_top1": "/base/aareas/schema/administrative_area/administrative_parent"
+  },
+  {
+   "i": 86,
+   "linked": "/m/01y8zd",
+   "k": 15,
+   "shortlist": [
+    "/education/educational_institution/campuses",
+    "/education/educational_institution/school_type",
+    "/education/educational_institution_campus/educational_institution"
+   ],
+   "chosen": "/education/educational_institution_campus/educational_institution",
+   "raw": "3",
+   "embed_top1": "/education/educational_institution/campuses"
+  },
+  {
+   "i": 129,
+   "linked": "/m/02g8h",
+   "k": 12,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/people/person/places_lived./people/place_lived/location"
+   ],
+   "chosen": "/people/person/place_of_birth",
+   "raw": "2",
+   "embed_top1": "/people/person/place_of_birth"
+  },
+  {
+   "i": 106,
+   "linked": "/m/01kmd4",
+   "k": 9,
+   "shortlist": [
+    "/people/person/gender",
+    "/people/person/nationality",
+    "/people/person/place_of_birth"
+   ],
+   "chosen": "/people/person/gender",
+   "raw": "1",
+   "embed_top1": "/people/person/gender"
+  },
+  {
+   "i": 64,
+   "linked": "/m/0cbkc",
+   "k": 16,
+   "shortlist": [
+    "/people/person/languages",
+    "/people/person/nationality",
+    "/people/person/place_of_birth"
+   ],
+   "chosen": "/people/person/languages",
+   "raw": "1",
+   "embed_top1": "/people/person/languages"
+  },
+  {
+   "i": 423,
+   "linked": "/m/0bmch_x",
+   "k": 10,
+   "shortlist": [
+    "/film/film/featured_film_locations",
+    "/film/film/language",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/language",
+   "raw": "2",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 425,
+   "linked": "/m/084302",
+   "k": 11,
+   "shortlist": [
+    "/film/film/genre",
+    "/film/film/release_date_s./film/film_regional_release_date/film_release_distribution_medium",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "1",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 303,
+   "linked": "/m/06x68",
+   "k": 6,
+   "shortlist": [
+    "/baseball/baseball_team/team_stats./baseball/baseball_team_stats/season",
+    "/sports/sports_team/colors",
+    "/sports/sports_team/roster./baseball/baseball_roster_position/position"
+   ],
+   "chosen": "/baseball/baseball_team/team_stats./baseball/baseball_team_stats/season",
+   "raw": "1",
+   "embed_top1": "/sports/sports_team/colors"
+  },
+  {
+   "i": 578,
+   "linked": "/m/05w3f",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 459,
+   "linked": "/m/05bt6j",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 670,
+   "linked": "/m/0h99n",
+   "k": 2,
+   "shortlist": [
+    "/medicine/disease/notable_people_with_this_condition",
+    "/medicine/disease/risk_factors"
+   ],
+   "chosen": "/medicine/disease/notable_people_with_this_condition",
+   "raw": "1",
+   "embed_top1": "/medicine/disease/notable_people_with_this_condition"
+  },
+  {
+   "i": 21,
+   "linked": "/m/0qpn9",
+   "k": 4,
+   "shortlist": [
+    "/location/hud_county_place/place",
+    "/location/hud_foreclosure_area/estimated_number_of_mortgages./measurement_unit/dated_integer/source",
+    "/location/location/time_zones"
+   ],
+   "chosen": "/location/location/time_zones",
+   "raw": "3",
+   "embed_top1": "/location/location/time_zones"
+  },
+  {
+   "i": 450,
+   "linked": "/m/043c4j",
+   "k": 9,
+   "shortlist": [
+    "/people/person/nationality",
+    "/people/person/place_of_birth",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/nationality",
+   "raw": "1",
+   "embed_top1": "/people/person/nationality"
+  },
+  {
+   "i": 110,
+   "linked": "/m/09_2gj",
+   "k": 5,
+   "shortlist": [
+    "/people/deceased_person/place_of_death",
+    "/people/person/nationality",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/deceased_person/place_of_death",
+   "raw": "1",
+   "embed_top1": "/people/deceased_person/place_of_death"
+  },
+  {
+   "i": 526,
+   "linked": "/m/013b6_",
+   "k": 3,
+   "shortlist": [
+    "/people/ethnicity/geographic_distribution",
+    "/people/ethnicity/languages_spoken",
+    "/people/ethnicity/people"
+   ],
+   "chosen": "/people/ethnicity/people",
+   "raw": "3",
+   "embed_top1": "/people/ethnicity/people"
+  },
+  {
+   "i": 162,
+   "linked": "/m/03cdg",
+   "k": 9,
+   "shortlist": [
+    "/influence/influence_node/influenced_by",
+    "/influence/influence_node/peers./influence/peer_relationship/peers",
+    "/organization/organization_founder/organizations_founded"
+   ],
+   "chosen": "/influence/influence_node/influenced_by",
+   "raw": "1",
+   "embed_top1": "/influence/influence_node/influenced_by"
+  },
+  {
+   "i": 205,
+   "linked": "/m/01vfqh",
+   "k": 16,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "2",
+   "embed_top1": "/film/film/genre"
+  },
+  {
+   "i": 562,
+   "linked": "/m/078sj4",
+   "k": 13,
+   "shortlist": [
+    "/film/film/cinematography",
+    "/film/film/executive_produced_by",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/cinematography",
+   "raw": "1",
+   "embed_top1": "/film/film/cinematography"
+  },
+  {
+   "i": 37,
+   "linked": "/m/0cvkv5",
+   "k": 8,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/film_format",
+    "/film/film/genre"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "3",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 371,
+   "linked": "/m/02pl5bx",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/parent_genre",
+   "raw": "2",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 293,
+   "linked": "/m/011ypx",
+   "k": 12,
+   "shortlist": [
+    "/film/film/music",
+    "/film/film/produced_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/music",
+   "raw": "1",
+   "embed_top1": "/film/film/written_by"
+  },
+  {
+   "i": 247,
+   "linked": "/m/012mrr",
+   "k": 15,
+   "shortlist": [
+    "/film/film/cinematography",
+    "/film/film/edited_by",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/cinematography",
+   "raw": "1",
+   "embed_top1": "/film/film/edited_by"
+  },
+  {
+   "i": 707,
+   "linked": "/m/05k2xy",
+   "k": 14,
+   "shortlist": [
+    "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+    "/film/film/country",
+    "/film/film/language"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "2",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 127,
+   "linked": "/m/02x8m",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 68,
+   "linked": "/m/05yzt_",
+   "k": 9,
+   "shortlist": [
+    "/film/actor/film./film/performance/film",
+    "/people/person/nationality",
+    "/people/person/profession"
+   ],
+   "chosen": "/people/person/profession",
+   "raw": "3",
+   "embed_top1": "/people/person/profession"
+  },
+  {
+   "i": 79,
+   "linked": "/m/09z2b7",
+   "k": 12,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/featured_film_locations",
+    "/film/film/story_by"
+   ],
+   "chosen": "/film/film/featured_film_locations",
+   "raw": "2",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 456,
+   "linked": "/m/02w7gg",
+   "k": 3,
+   "shortlist": [
+    "/dataworld/gardening_hint/split_to",
+    "/people/ethnicity/languages_spoken",
+    "/people/ethnicity/people"
+   ],
+   "chosen": "/dataworld/gardening_hint/split_to",
+   "raw": "1",
+   "embed_top1": "/people/ethnicity/people"
+  },
+  {
+   "i": 599,
+   "linked": "/m/053x8hr",
+   "k": 5,
+   "shortlist": [
+    "/tv/tv_program/genre",
+    "/tv/tv_program/languages",
+    "/tv/tv_program/tv_producer./tv/tv_producer_term/producer_type"
+   ],
+   "chosen": "/tv/tv_program/genre",
+   "raw": "1",
+   "embed_top1": "/tv/tv_program/genre"
+  },
+  {
+   "i": 542,
+   "linked": "/m/01w1sx",
+   "k": 3,
+   "shortlist": [
+    "/film/film_subject/films",
+    "/military/military_conflict/combatants./military/military_combatant_group/combatants",
+    "/time/event/locations"
+   ],
+   "chosen": "/time/event/locations",
+   "raw": "3",
+   "embed_top1": "/film/film_subject/films"
+  },
+  {
+   "i": 684,
+   "linked": "/m/03pc89",
+   "k": 8,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/music"
+   ],
+   "chosen": "/film/film/music",
+   "raw": "3",
+   "embed_top1": "/film/film/music"
+  },
+  {
+   "i": 653,
+   "linked": "/m/03h_yfh",
+   "k": 8,
+   "shortlist": [
+    "/people/deceased_person/place_of_death",
+    "/people/person/place_of_birth",
+    "/people/person/places_lived./people/place_lived/location"
+   ],
+   "chosen": "/people/person/places_lived./people/place_lived/location",
+   "raw": "3",
+   "embed_top1": "/people/person/place_of_birth"
+  },
+  {
+   "i": 40,
+   "linked": "/m/0dls3",
+   "k": 2,
+   "shortlist": [
+    "/music/genre/artists",
+    "/music/genre/parent_genre"
+   ],
+   "chosen": "/music/genre/artists",
+   "raw": "1",
+   "embed_top1": "/music/genre/artists"
+  },
+  {
+   "i": 111,
+   "linked": "/m/04dbw3",
+   "k": 2,
+   "shortlist": [
+    "/people/ethnicity/languages_spoken",
+    "/people/ethnicity/people"
+   ],
+   "chosen": "/people/ethnicity/languages_spoken",
+   "raw": "1",
+   "embed_top1": "/people/ethnicity/languages_spoken"
+  },
+  {
+   "i": 438,
+   "linked": "/m/01npcx",
+   "k": 11,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/genre",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/produced_by"
+  },
+  {
+   "i": 305,
+   "linked": "/m/025ts_z",
+   "k": 11,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/language",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/written_by",
+   "raw": "3",
+   "embed_top1": "/film/film/language"
+  },
+  {
+   "i": 52,
+   "linked": "/m/07l450",
+   "k": 10,
+   "shortlist": [
+    "/award/award_winning_work/awards_won./award/award_honor/award_winner",
+    "/film/film/country",
+    "/film/film/written_by"
+   ],
+   "chosen": "/film/film/written_by",
+   "raw": "3",
+   "embed_top1": "/film/film/written_by"
+  },
+  {
+   "i": 669,
+   "linked": "/m/01k5y0",
+   "k": 10,
+   "shortlist": [
+    "/film/film/country",
+    "/film/film/produced_by",
+    "/film/film/production_companies"
+   ],
+   "chosen": "/film/film/country",
+   "raw": "1",
+   "embed_top1": "/film/film/country"
+  },
+  {
+   "i": 199,
+   "linked": "/m/02vxn",
+   "k": 0,
+   "shortlist": [],
+   "chosen": null,
+   "raw": null,
+   "embed_top1": null
+  },
+  {
+   "i": 412,
+   "linked": "/m/0cjf0",
+   "k": 2,
+   "shortlist": [
+    "/medicine/symptom/symptom_of",
+    "/people/cause_of_death/people"
+   ],
+   "chosen": "/medicine/symptom/symptom_of",
+   "raw": "1",
+   "embed_top1": "/medicine/symptom/symptom_of"
+  },
+  {
+   "i": 167,
+   "linked": "/m/0cfgd",
+   "k": 2,
+   "shortlist": [
+    "/common/topic/webpage./common/webpage/category",
+    "/music/artist/origin"
+   ],
+   "chosen": "/music/artist/origin",
+   "raw": "2",
+   "embed_top1": "/music/artist/origin"
+  },
+  {
+   "i": 20,
+   "linked": "/m/03b1sb",
+   "k": 8,
+   "shortlist": [
+    "/film/film/genre",
+    "/film/film/language",
+    "/film/film/produced_by"
+   ],
+   "chosen": "/film/film/genre",
+   "raw": "1",
+   "embed_top1": "/film/film/genre"
+  }
+ ]
+}
