@@ -77,3 +77,45 @@ contrario della 16, per la stessa ragione.
   diverse): conta come giusta la risposta della memoria se è fra quelle annotate.
 - 515 domande e 27 cluster: differenze di 3–4 punti possono non uscire dal rumore.
 - Un solo grafo; i modelli sono piccoli.
+
+---
+
+## Esito — 2026-10-07, eseguito dopo il commit `cb430e4`
+
+Ipotesi e criteri **non modificati**. Risultati:
+[`results/webqsp_prereg_results.json`](../../results/webqsp_prereg_results.json);
+risposte in `results/webqsp_answers.json`. L'esecuzione è stata interrotta dalla fine
+di una sessione dopo le fasi E, S e G (salvate) ed è ripresa dalla fase Q; nessuna
+fase è stata rieseguita.
+
+515 domande, 27 memorie. Collegamento giusto nel **75%** delle domande (uguale per
+tutti i front-end); con il collegamento giusto, la shortlist di 3 contiene la
+relazione giusta nel **94%** dei casi.
+
+| front-end | relazione giusta | risposta giusta |
+|---|---|---|
+| G — Gemma, tutte le opzioni | 0.383 | 0.381 |
+| E — solo embedding | 0.616 | 0.598 |
+| S — shortlist di 3 + Gemma | 0.612 | 0.608 |
+| Q — Qwen3-4B, tutte le opzioni | 0.687 | 0.656 |
+
+| ipotesi | stima (punti) | 95%, cluster | esito |
+|---|---|---|---|
+| **H1** — E contro G | +21.7 | [+16.4, +27.3] | **sostenuta** |
+| **H2** — S contro G | +22.7 | [+17.8, +28.1] | **sostenuta** |
+| **H3** — E non inferiore a Q di più di 5 | −5.8 | [−8.9, −3.2] | **sostenuta in parte** |
+| **H4** — E contro S | −1.0 | [−3.2, +1.2] | **indecisa** |
+
+### Cosa dice, e cosa no
+
+- Il guadagno della preregistrazione 16 **non era un artefatto** di SimpleQuestions:
+  su domande prese dalle ricerche Google, ridurre le opzioni con un embedding porta
+  le risposte giuste di Gemma da 0.38 a 0.61 (+22.7 punti), quasi quanto sulle domande
+  di SimpleQuestions (+19.9).
+- Il solo embedding e la shortlist con Gemma sono equivalenti entro il rumore (H4):
+  su domande naturali Gemma non peggiora più la scelta dell'embedding, come nella 16,
+  ma non la migliora.
+- Qwen3-4B resta avanti di circa 6 punti; l'embedding da 33 milioni di parametri ne
+  recupera la gran parte (da 0.38 a 0.60 su 0.66).
+- Il collegamento per nome perde un quarto delle domande con ogni front-end: è il
+  prossimo collo di bottiglia, non la scelta della relazione.
