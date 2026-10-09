@@ -4,7 +4,7 @@ Every number on this page comes from a committed result file, which a committed
 script produced. Nineteen of the tests were **preregistered**: their predictions
 and pass criteria were committed before any data was looked at
 (`docs/preregistration/`). Three of the nineteen failed; they are kept below with
-their causes. The paper (v1.14) reports all nineteen.
+their causes. The paper (v1.15) reports all nineteen.
 
 What is measured is not task accuracy against other systems. It is how well the
 model **predicts, in advance, the accuracy of the memory**: predicted minus
@@ -43,7 +43,7 @@ facts independent over GF(2). Where those fail, so does the model. See
 
 ## The nineteen preregistered tests
 
-The paper's tally (thirteen supported, three in part, three failed) goes by primary hypothesis; test 15 counts as failed, since its primary H1 (relation accuracy) was falsified. Test 2's primary H1 was supported, and a secondary one was in part. Test 11's primary, end-to-end, was in part. For tests 2, 11, 13, 14, 15 and 17 the primary hypothesis was chosen when the tally was written, after the outcomes. Per hypothesis the count is 61: 44 supported, 9 in part, 5 falsified, 3 neither or undecided. No multiplicity correction was preregistered (see the paper, §6).
+The paper counts three groups separately, by primary hypothesis: tests of the theory (1–10), eight supported and two failed (7, 8); front-end tests (11–17), which do not test the theory, three supported, three in part, one failed (15); baselines at equal bits (18–19), two supported, an expected outcome. In all, thirteen supported, three in part, three failed; test 15 counts as failed, since its primary H1 (relation accuracy) was falsified. Test 2's primary H1 was supported, and a secondary one was in part. Test 11's primary, end-to-end, was in part. For tests 2, 11, 13, 14, 15 and 17 the primary hypothesis was chosen when the tally was written, after the outcomes. Per hypothesis the count is 61: 44 supported, 9 in part, 5 falsified, 3 neither or undecided. No multiplicity correction was preregistered (see the paper, Appendix F). The paper's §3.2 gives, for each test, the smallest bias it could detect: 0.8–4.9 points for the error summaries of tests 1–6, 1.1–8 points in a single cell.
 
 | # | file | what it tests | outcome | result file | `replicate.py` name |
 |---|---|---|---|---|---|
@@ -152,6 +152,9 @@ hypothesis of tests 4 and 6 is still supported.
 - **Even cycles break the independence assumption.** Four facts on a rectangle
   XOR to the identity. On a loaded biclique the model is up to 6 points
   optimistic. This is not modelled yet.
+- **The alias ceiling is an expectation, not a bound.** It assumes a random
+  insertion order among candidates at equal signal; in test 10 single subgraphs
+  at D = 16 384 exceeded it by up to +4.3 points (WN18RR) and +8.2 (FB15k-237).
 - **Tiny codebooks are out of scope.** Off-path recovery dominates there (test 7,
   falsified).
 - **Dense real graphs at low D and high load:** the model was pessimistic by up

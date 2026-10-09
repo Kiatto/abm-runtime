@@ -1,12 +1,14 @@
 ---
-title: "Predicting the Accuracy of a Binary Holographic Memory before It Is Built: Preregistered Tests, Mostly Negative"
+title: "Predicting the Accuracy of a Binary Holographic Memory before It Is Built: Nineteen Preregistered Tests of an Estimate for a Dominated Design"
 subtitle: "Algebraic Binary Memory (ABM)"
 author:
   - kiatto
-date: "Preprint v1.14 — October 2026"
+date: "Preprint v1.15 — October 2026"
 bibliography: docs/paper/refs.bib
 link-citations: true
-numbersections: true
+# I titoli in docs/paper.md sono già numerati a mano (§ nel testo): niente
+# numerazione automatica, che la raddoppierebbe.
+numbersections: false
 geometry: "margin=1in"
 fontsize: 11pt
 colorlinks: true
