@@ -1,47 +1,32 @@
-# Contributing to BSM Foundation
+# Contributing to ABM
 
-## How to contribute
-
-1. Read the [Specification](docs/SPECIFICATION.md) first.
-2. Check existing RFCs in `docs/rfc/`.
-3. Open an issue to discuss changes before writing code.
-4. Submit PRs against the `main` branch.
-
-## Development
+## Setup and tests
 
 ```bash
-pip install -e .
-pip install -e ".[torch,bench]"
-
-# Run tests
-python -m pytest bsm/tests/
-
-# Run benchmark
-bsm-bench --quick
-
-# Single test file
-python bsm/tests/test_encoder.py
+pip install -e ".[replicate]"
+python -m pytest            # reference/ and bsm/tests
 ```
 
-## RFC process
+Work on the `master` branch; open an issue before large changes.
 
-Significant changes require an RFC:
+## New claims need a preregistration
 
-1. Copy `docs/rfc/RFC-0000.md.template` (or use an existing RFC as template).
-2. Assign the next available RFC number.
-3. Submit as a PR with `[RFC]` prefix.
-4. Discuss and iterate.
-5. Once approved, implement.
+ABM is in a research phase: every new claim about accuracy, capacity or
+comparison with a baseline is tested by a preregistration.
 
-## Code conventions
+1. Write the preregistration in [`docs/preregistration/`](docs/preregistration/):
+   hypothesis, prediction with its threshold, dataset, seeds, analysis, and what
+   would count as a failure.
+2. Commit and **push the preregistration before running** the experiment, so the
+   timestamp precedes the result.
+3. Run, save the raw results as JSON in `results/`, report against the
+   preregistered threshold.
 
-- No comments unless the "why" is non-obvious.
-- Type hints required for all public APIs.
-- Test coverage > 90 % for new code.
-- Benchmark before and after performance changes.
+Negative results are recorded like positive ones (in BENCHMARKS.md and in the
+preregistration); a failed prediction is never removed or rewritten.
 
-## Guiding principles
+## Code
 
-- Memory is geometric, not statistical.
-- Encoders plug in; the Core doesn't change.
-- Small dependencies, small memory, small API.
+- `reference/` is the executable specification: behaviour changes there need a
+  version bump and a CHANGELOG entry.
+- Tests for new code; numpy is the only runtime dependency.
