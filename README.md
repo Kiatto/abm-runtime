@@ -127,7 +127,7 @@ adds the Law IV report, labelled as superseded. Output of `abm demo`:
 MEMORY CONTRACT (exact model, abm.exact.contract_for)
   Facts           =  3 (D=4096, codebook=7)
   Expected accuracy = 100.0% (mean over the stored (subject, relation) queries)
-  Alias ceiling   =  100.0% (whatever D)
+  Alias ceiling   =  100.0% (expected, random insertion order)
   Symmetric twins =  0.0% of triples; queries with aliases 0.0%
   Grounding       =  93.0% (projected single query 93.0%)
   A mean over queries, not a per-query guarantee.

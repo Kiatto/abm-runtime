@@ -551,7 +551,10 @@ def predict_queries(triples, dim: int, queries=None, codebook=None, unknown="rai
 
 
 def ceiling(triples, queries=None) -> float:
-    """Il tetto di accuratezza imposto dagli alias, qualunque sia D: media di g/(g+a)."""
+    """Il tetto atteso imposto dagli alias, qualunque sia D: media di g/(g+a).
+
+    È un valore atteso sull'ordine di inserimento (regola dei pareggi): una singola
+    memoria può superarlo (test 10: fino a +8.2 punti su un sottografo)."""
     objects, into, _m = _structure(triples)
     queries = list(objects) if queries is None else list(queries)
     self_rels = {r for s, r, o in triples if s == o}

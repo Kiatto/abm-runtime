@@ -46,7 +46,7 @@ def exact_contract_text(triples, dim, grounding=1.0):
         f"  Facts           =  {c['facts']} (D={c['dim']}, codebook={c['codebook']})\n"
         f"  Expected accuracy = {c['expected_accuracy']:.1%} "
         f"(mean over the stored (subject, relation) queries)\n"
-        f"  Alias ceiling   =  {c['ceiling']:.1%} (whatever D)\n"
+        f"  Alias ceiling   =  {c['ceiling']:.1%} (expected, random insertion order)\n"
         f"  Symmetric twins =  {c['twin_share']:.1%} of triples; "
         f"queries with aliases {c['alias_share']:.1%}\n"
         f"  Grounding       =  {grounding:.1%} "

@@ -23,7 +23,7 @@ triples = [("payment_service", "requires", "auth_service"),
 
 c = exact.contract_for(triples, dim=4096)
 c["expected_accuracy"]   # mean over the stored (subject, relation) queries
-c["ceiling"]             # cap set by aliases of symmetric relations, whatever D
+c["ceiling"]             # expected cap from aliases (random insertion order); one memory can exceed it
 exact.min_dimension(triples, 0.9)   # smallest D predicted to reach 90%,
                                     # None if 0.9 is above the ceiling
 ```
