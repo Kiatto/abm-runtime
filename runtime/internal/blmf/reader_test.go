@@ -9,6 +9,11 @@ import (
 
 func generateTestBLMF(t *testing.T) string {
 	t.Helper()
+	// The fixture is produced by the Python trainer, which needs torch: skip
+	// cleanly on machines that only have the ABM reference installed.
+	if err := exec.Command("python3", "-c", "import torch").Run(); err != nil {
+		t.Skip("python3 with torch not available; skipping BLMF fixture generation")
+	}
 	dir := t.TempDir()
 	outPath := filepath.Join(dir, "test.blmf")
 
@@ -28,7 +33,11 @@ print("OK")
 	`)
 
 	// Run from project root
-	cmd.Dir = "/var/www/html/BitKore"
+	root, err := filepath.Abs(filepath.Join("..", "..", ".."))
+	if err != nil {
+		t.Fatal(err)
+	}
+	cmd.Dir = root
 	cmd.Stderr = os.Stderr
 	out, err := cmd.Output()
 	if err != nil {

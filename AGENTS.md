@@ -1,5 +1,16 @@
 # session
 
+## Stato corrente (ottobre 2026) — leggere prima di tutto
+
+- Il progetto vivo è **ABM** (`reference/`, pacchetto `abm`) e il paper `docs/paper.md`.
+  Lo stato del lavoro è in `docs/NEXT_STEPS.md`; i numeri in `BENCHMARKS.md`.
+- Regole: ogni affermazione nuova si preregistra in `docs/preregistration/` prima di
+  vedere i dati; gli esiti negativi si registrano; audit e review sempre ostili.
+- `bsm/`, `runtime/` (Go), `training/`, `vercel-demo/`, `local-llm-server/` sono linee
+  di ricerca chiuse, lasciate nel repo; le note qui sotto le descrivono e sono **storiche**.
+
+# Note storiche (BSM, luglio 2026)
+
 ## BSM 2.0 — Multihop Reasoning (Jul 8)
 
 ### Architecture
