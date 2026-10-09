@@ -6,21 +6,24 @@ stats() è una formula del formalismo, non una statistica descrittiva —
 è la differenza tra mostrare numeri e mostrare garanzie.
 
     from abm import Memory
-    from inspector import stats, contract, report
+    from abm.inspector import stats, contract, report
 
     stats(mem)                      → dict con i campi del Memory Contract
     contract(mem, grounding=0.93)   → la specifica firmabile
     report(mem)                     → testo leggibile
 """
 
-import sys
 from math import sqrt
-from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import numpy as np
-from abm import (Memory, capacity, predicted_accuracy, z_gumbel, hamming,
-                 confidence)
+try:
+    from .abm import (Memory, capacity, predicted_accuracy, z_gumbel, hamming,
+                      confidence)
+except ImportError:
+    # file usato fuori dal pacchetto: gli script di examples/ mettono reference/
+    # nel sys.path da sé. Il modulo non tocca più il sys.path di chi lo importa.
+    from abm import (Memory, capacity, predicted_accuracy,  # type: ignore
+                     z_gumbel, hamming, confidence)
 
 
 def stats(mem: Memory, extractor_precision: float = 1.0,
@@ -137,7 +140,7 @@ def report(mem: Memory, extractor_precision: float = 1.0) -> str:
     return "ABM INSPECTOR\n" + "\n".join("  " + line for line in lines)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":                  # python -m abm.inspector
     mem = Memory(2048)
     for i in range(287):
         mem.store(f"s{i}", f"r{i % 17}", f"o{i}")

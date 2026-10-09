@@ -24,12 +24,12 @@ memory in advance:
 """
 
 from .abm import (Memory, ItemMemory, bind, bundle, permute, random_hv,
-                  hamming, phi, confidence, capacity, predicted_accuracy,
+                  hamming, phi, margin_z, confidence, capacity, predicted_accuracy,
                   z_gumbel, __version__)
 from .inspector import stats, contract, report, aliasing
 from . import exact
 
 __all__ = ["Memory", "ItemMemory", "bind", "bundle", "permute",
-           "random_hv", "hamming", "phi", "confidence", "capacity",
+           "random_hv", "hamming", "phi", "margin_z", "confidence", "capacity",
            "predicted_accuracy", "z_gumbel", "stats", "contract",
            "report", "aliasing", "exact", "__version__"]

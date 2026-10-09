@@ -73,7 +73,7 @@ it delivers (preregistration 10).
 
 ```python
 from abm import Memory
-from inspector import stats, contract, report
+from abm.inspector import stats, contract, report
 
 mem = Memory(dim=8192)
 mem.store("payment_service", "requires", "auth_service")

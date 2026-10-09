@@ -4,10 +4,6 @@ assiomi e i teoremi di FORMALISM.md v2.0. Se questi test passano,
 l'implementazione è conforme alla specifica.
 """
 
-import sys
-from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-
 import numpy as np
 from abm import (Memory, ItemMemory, bind, bundle, permute, random_hv,
                  hamming, phi, confidence, capacity, predicted_accuracy)
@@ -157,7 +153,7 @@ class TestInspector:
         return m
 
     def test_stats_fields(self):
-        from inspector import stats
+        from abm.inspector import stats
         s = stats(self._mem(100), extractor_precision=0.9)
         assert s["facts"] == 100
         assert 0 < s["expected_accuracy"] <= 1
@@ -166,7 +162,7 @@ class TestInspector:
         assert s["estimated_capacity"] > 0
 
     def test_pressure_warns_overload(self):
-        from inspector import stats
+        from abm.inspector import stats
         healthy = stats(self._mem(60))
         overloaded = stats(self._mem(600, d=1024))
         assert healthy["pressure"] < 1 < overloaded["pressure"]
@@ -174,7 +170,7 @@ class TestInspector:
                 > overloaded["dimension"])
 
     def test_aliasing_diagnosis(self):
-        from inspector import aliasing, stats
+        from abm.inspector import aliasing, stats
         # catena a relazione ripetuta: g=2 sull'hop 2 -> fattore 0.5
         triples = [("a", "next", "b"), ("b", "next", "c")]
         al = aliasing(triples, [("a", ["next", "next"])])
@@ -190,7 +186,7 @@ class TestInspector:
         assert s["projected_with_aliasing"] <= 0.5 * s["expected_accuracy"] + 1e-9
 
     def test_contract_prediction_tracks_measurement(self):
-        from inspector import stats
+        from abm.inspector import stats
         import numpy as np
         m = self._mem(120, d=2048)
         s = stats(m)
