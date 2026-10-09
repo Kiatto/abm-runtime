@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "abm-runtime"
-version = "1.0.1"
+version = "1.1.0"
 description = "ABM — deterministic algebraic memory runtime for compiled symbolic knowledge, with predictive Memory Contracts"
 readme = "README.md"
 license = {text = "MIT"}

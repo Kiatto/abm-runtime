@@ -29,9 +29,21 @@ from typing import Any, List, Optional, Sequence, Tuple
 import hashlib
 import numpy as np
 
-__version__ = "1.0.1"                       # frozen with FORMALISM v2.0
+__version__ = "1.1.0"                       # frozen with FORMALISM v2.0
 # 1.0.1: confidence() returns a plain Python float instead of
 # np.float64 (public-API surface fix; numerically identical).
+# 1.1.0: input validation (dim, codebook, n_facts: ValueError instead of
+# loops, numpy tracebacks or math domain errors); reads never add unknown
+# symbols to the codebook; chain() needs at least one relation. Numerically
+# identical on every input that was valid before.
+
+
+def _check_positive_int(name: str, value) -> int:
+    """Positive integer (numpy integers included, bool excluded)."""
+    if isinstance(value, bool) or not isinstance(value, (int, np.integer)) \
+            or value < 1:
+        raise ValueError(f"{name} must be a positive integer, got {value!r}")
+    return int(value)
 
 
 # ---------------------------------------------------------------------------
@@ -95,6 +107,7 @@ def margin_z(dist: float, dim: int) -> float:
     (docs/preregistration/escalation3.md) it raised the accuracy of the answers
     given, as a confidence index, by 2.6 points [0.9, 4.1] over the front-end's
     own confidence."""
+    _check_positive_int("dim", dim)
     return float((dim / 2.0 - dist) / (sqrt(dim) / 2.0))
 
 
@@ -103,19 +116,26 @@ def confidence(dist: float, dim: int, temperature: float = 8.0) -> float:
     from noise. It orders answers exactly as z does, but it is NOT calibrated:
     the temperature is a fixed choice, not fitted, so the value is not a
     probability of being right."""
+    if not temperature > 0:
+        raise ValueError(f"temperature must be > 0, got {temperature!r}")
     return float(1.0 / (1.0 + np.exp(-margin_z(dist, dim) / temperature)))
 
 
 def z_gumbel(m: int) -> float:
     """Second-order extreme-value threshold for the min of m null
-    distances (the codebook noise floor)."""
+    distances (the codebook noise floor). Defined for m >= 2."""
+    if not m >= 2:
+        raise ValueError(f"z_gumbel needs a codebook of at least 2 items, got {m!r}")
     zm = sqrt(2 * log(m))
     return zm - (log(log(m)) + log(4 * pi)) / (2 * zm)
 
 
 def predicted_accuracy(n_facts: int, dim: int, codebook: int) -> float:
     """Law IV, forward direction: theory-predicted single-query accuracy
-    at load n_facts — the 'capacity contract'. No fitted parameters."""
+    at load n_facts — the 'capacity contract'. No fitted parameters.
+    Needs n_facts >= 1, dim >= 1, codebook >= 2."""
+    _check_positive_int("n_facts", n_facts)
+    _check_positive_int("dim", dim)
     margin = sqrt(2 * dim / (pi * n_facts)) - z_gumbel(codebook)
     return 0.5 * (1 + erf(margin / sqrt(2)))
 
@@ -127,6 +147,9 @@ def capacity(dim: int, codebook: int, k: float = 0.92) -> float:
     Asymptotic Gaussian form with a fixed codebook. exact.capacity(dim,
     codebook_of_n) has a different signature (codebook as a function of N)
     and gives the exact crossing; the two values differ in general."""
+    _check_positive_int("dim", dim)
+    if not k > 0:
+        raise ValueError(f"k must be > 0, got {k!r}")
     return k * 2 * dim / (pi * z_gumbel(codebook) ** 2)
 
 
@@ -188,8 +211,10 @@ class Memory:
 
     def __init__(self, dim: int = 2048,
                  items: Optional[ItemMemory] = None):
-        self.dim = dim
-        self.items = items or ItemMemory(dim)
+        self.dim = _check_positive_int("dim", dim)
+        if items is not None and items.dim != self.dim:
+            raise ValueError(f"items has dim={items.dim}, the memory dim={self.dim}")
+        self.items = items if items is not None else ItemMemory(self.dim)
         self._facts: List[np.ndarray] = []
         self._trace: Optional[np.ndarray] = None
 
