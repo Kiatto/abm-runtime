@@ -5,7 +5,7 @@ Da questa data sono **definitivamente congelati**:
 - l'algebra (operatori: bind, bundle, permute, cleanup, projection)
 - il formalismo ([docs/FORMALISM.md](docs/FORMALISM.md) v2.1)
 - il paper ([docs/paper.md](docs/paper.md) v1.7 — era v1.1; vedi le note sotto)
-- la reference implementation ([reference/abm.py](reference/abm.py) v1.0.0)
+- la reference implementation ([reference/abm.py](reference/abm.py) v1.1.0 — era v1.0.0; vedi la nota del 2026-10-09)
 
 **Nota del 2026-09-28 — perché il paper è passato a v1.2.** Il congelamento è
 stato riaperto una volta, in preparazione alla pubblicazione, e solo per
@@ -59,3 +59,8 @@ Razionale: il collo di bottiglia del progetto non è più la teoria
 (coerenza interna ~9/10) ma il trasferimento (evidenza esterna ~4.5/10,
 prodotto ~6.5/10). Vedi docs/phase1b_report.md e la due diligence del
 16-07-2026.
+
+**Nota del 2026-10-09 — reference v1.1.0.** La reference implementation passa da
+v1.0.0 a v1.1.0 (CHANGELOG): validazione degli input e letture che non
+aggiungono simboli al codebook. Nessun operatore, assioma o Law cambia; il test 5
+con `--code current` cambia di al più 3.3 punti, i risultati pubblicati no.
