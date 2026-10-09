@@ -11,9 +11,10 @@ model **predicts, in advance, the accuracy of the memory**: predicted minus
 measured, in percentage points. A small error means the contract can be trusted
 before the memory is deployed.
 
-All of it reruns from a clean clone with one command (see
-[Reproducing](#reproducing)). On 2026-10-01 every entry on this page reproduced:
-twelve byte for byte, and two (tests 4 and 10) up to the last digit of one float.
+Tests 1–14 rerun from a clean clone with one command (see
+[Reproducing](#reproducing)). On 2026-10-01 those entries reproduced: twelve byte
+for byte, and two (tests 4 and 10) up to the last digit of one float. Tests 15–19
+are not yet wired into `replicate.py`; each has its own harness in `examples/`.
 
 ---
 

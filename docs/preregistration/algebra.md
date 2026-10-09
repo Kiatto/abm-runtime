@@ -146,7 +146,7 @@ Eseguito una volta, dopo il commit `e041f9a` della preregistrazione, con
 
 - Nemmeno l'algebra salva ABM a pari bit: con la catena (unbinding a due hop) ABM
   sta sotto store + join in ogni cella; la composizione compilata si avvicina
-  (0.92–0.99 a D = 8192) ma la tabella dei percorsi a pari bit resta a 1.0.
+  (0.91–0.99 a D = 8192; correzione del 9/10: prima scritto 0.92, il minimo misurato è 0.908) ma la tabella dei percorsi a pari bit resta a 1.0.
 - Il modello esatto ha previsto anche questo entro 2 punti, compresa la nuova
   traduzione della composizione compilata (la parte più a rischio).
 - In Python ABM è da 2600 a 230 000 volte più lento di un `dict` per domanda a due
