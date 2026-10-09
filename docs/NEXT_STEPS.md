@@ -17,6 +17,11 @@ ferma dopo il commit e chiede il push prima di eseguire.
 
 ## Stato al 2026-10-09 (leggere questo per primo)
 
+- Procedura per ogni nuova preregistrazione: commit → push → `tools/stamp_prereg.sh`
+  (OpenTimestamps) → commit dei `.ots` → solo allora il run.
+- In corso, verso 8/10: preregistrazione 20 (errori di bit, avversari con ECC a pari
+  bit) e 21 (la stima su altre famiglie VSA). Prima del run: review ostile del disegno.
+
 - Push fatto: `origin/master` allineato. Il bloccante "push" del 1/10 è chiuso.
 - Preregistrazioni **18**, tutte valutate (12–18 dopo il 1/10, vedi BENCHMARKS.md).
   La 18 è sfavorevole: a pari bit store esatto e Bloom battono ABM in ogni cella.
