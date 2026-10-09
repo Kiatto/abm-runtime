@@ -32,6 +32,18 @@ from functools import lru_cache
 import numpy as np
 
 
+def _check_int(name, value, minimum):
+    if isinstance(value, bool) or not isinstance(value, (int, np.integer)) or value < minimum:
+        raise ValueError(f"{name} must be an integer >= {minimum}, got {value!r}")
+    return int(value)
+
+
+def _check_dim(dim):
+    if isinstance(dim, bool) or not isinstance(dim, (int, np.integer)) or dim < 1:
+        raise ValueError(f"dim must be a positive integer, got {dim!r}")
+    return int(dim)
+
+
 def _log_binom_pmf(dim: int, p: float) -> np.ndarray:
     """log P(X = d), d = 0..dim, per X ~ Binomial(dim, p), senza overflow."""
     d = np.arange(dim + 1, dtype=np.float64)
@@ -73,6 +85,8 @@ def cleanup_accuracy(n_facts: int, dim: int, codebook: int,
     altri sono nulli. Per simmetria, se vince un candidato a segnale, è uno degli
     oggetti veri con probabilità correct / (correct + aliases).
     """
+    _check_int("n_facts", n_facts, 1)
+    _check_dim(dim)
     g = correct + aliases
     if correct < 0 or aliases < 0 or codebook < g:
         raise ValueError("cleanup_accuracy needs correct, aliases >= 0 and "
@@ -111,6 +125,7 @@ def capacity(dim: int, codebook_of_n=lambda n: 2 * n + 11,
     asintotica della Legge IV con la costante misurata k. I due numeri non
     coincidono in generale.
     """
+    _check_dim(dim)
     for _ in range(60):
         mid = (lo + hi) / 2
         n = max(int(round(mid)), 1)
@@ -156,13 +171,19 @@ def bit_correlation(n_facts: int) -> float:
     return -rho * rho / (1 - rho * rho)
 
 
+def _check_two_hop(n_facts, dim, codebook):
+    if isinstance(n_facts, bool) or not isinstance(n_facts, (int, np.integer)) or n_facts < 2:
+        raise ValueError(f"two-hop needs at least two stored facts, got n_facts={n_facts!r}")
+    _check_dim(dim)
+    _check_int("codebook", codebook, 1)
+
+
 def two_hop_joint(n_facts: int, dim: int, codebook: int):
     """(p, P(entrambi i hop corretti)) per due fatti della stessa traccia.
 
     Restituisce anche p², cioè la previsione della Law V, per il confronto.
     """
-    if n_facts < 2:
-        raise ValueError("two_hop_joint needs at least two stored facts")
+    _check_two_hop(n_facts, dim, codebook)
     u = _agree_given(n_facts, same=True)     # f1 = f2: la traccia concorda con entrambi o con nessuno
     v = _agree_given(n_facts, same=False)    # f1 = -f2: concorda con esattamente uno
     # per bit, P(accordo1, accordo2): (+,+), (+,-), (-,+), (-,-)
@@ -218,6 +239,7 @@ def _weighted_sum_pmf(weights) -> tuple:
 
 def p_agree_weighted(query_weight: int, other_weights) -> float:
     """P(la maggioranza concorda con un fatto di peso `query_weight`), esatta."""
+    _check_int("query_weight", query_weight, 1)
     offset, pmf = _weighted_sum_pmf(other_weights)
     totals = np.arange(len(pmf)) + offset + query_weight
     return float(np.sum(pmf * np.where(totals > 0, 1.0, np.where(totals == 0, 0.5, 0.0))))
@@ -303,6 +325,7 @@ def two_hop_joint_fast(n_facts: int, dim: int, codebook: int, width: float = 8.0
     d2 = a + (D - k - b). Le tre binomiali si troncano a `width` deviazioni
     standard; la massa scartata è sotto 1e-12.
     """
+    _check_two_hop(n_facts, dim, codebook)
     u = _agree_given(n_facts, same=True)
     v = _agree_given(n_facts, same=False)
     null = binom_pmf(dim, 0.5)
@@ -355,8 +378,15 @@ def chain_accuracy_mc(n_facts: int, dim: int, codebook: int, hops: int,
     serve per la regola esatta dei pareggi (win_ordered), in cui la posizione del
     bersaglio nel codebook conta. Senza, i pareggi si dividono a metà.
     """
+    hops = _check_int("hops", hops, 1)
+    _check_dim(dim)
+    _check_int("codebook", codebook, 1)
+    _check_int("trials", trials, 1)
     if n_facts < hops:
         raise ValueError("chain_accuracy_mc needs n_facts >= hops")
+    if wins is not None and (len(wins) != hops
+                             or any(np.shape(w) != (dim + 1,) for w in wins)):
+        raise ValueError(f"wins must be {hops} vectors of length dim + 1 = {dim + 1}")
     rng = np.random.RandomState(seed)
     null = binom_pmf(dim, 0.5)
     null_sf = np.clip(1.0 - np.cumsum(null), 0.0, 1.0)
@@ -400,6 +430,9 @@ def chain_accuracy_mc(n_facts: int, dim: int, codebook: int, hops: int,
 
 
 def win_ordered(dim: int, n_before: int, n_after: int) -> np.ndarray:
+    _check_dim(dim)
+    _check_int("n_before", n_before, 0)
+    _check_int("n_after", n_after, 0)
     null = binom_pmf(dim, 0.5)
     gt = np.clip(1.0 - np.cumsum(null), 0.0, 1.0)      # P(nullo > d)
     ge = np.clip(gt + null, 0.0, 1.0)                    # P(nullo >= d)
@@ -408,6 +441,7 @@ def win_ordered(dim: int, n_before: int, n_after: int) -> np.ndarray:
 
 def cleanup_accuracy_ordered(n_facts: int, dim: int, n_before: int, n_after: int) -> float:
     """Accuratezza di cleanup con la regola dei pareggi della reference."""
+    _check_int("n_facts", n_facts, 1)
     sig = binom_pmf(dim, 1.0 - p_agree(n_facts))
     return float(np.sum(sig * win_ordered(dim, n_before, n_after)))
 
@@ -425,12 +459,6 @@ def _structure(triples):
         into[(o, r)].add(s)          # (x, r, s) memorizzato: x è un alias per (s, r)
     codebook = len({x for t in triples for x in t})
     return objects, into, codebook
-
-
-def _check_dim(dim):
-    if isinstance(dim, bool) or not isinstance(dim, (int, np.integer)) or dim < 1:
-        raise ValueError(f"dim must be a positive integer, got {dim!r}")
-    return int(dim)
 
 
 def _check_codebook(codebook, m):
@@ -481,6 +509,16 @@ def predict_queries(triples, dim: int, queries=None, codebook=None, unknown="rai
     vero memorizzato (non rispondibile, o solo alias) vale 0.0. Una query il cui
     soggetto o relazione non compare mai nelle triple (di solito un refuso) solleva
     KeyError; con unknown="zero" vale invece 0.0, come fino alla v1.10.
+
+    Duplicati e self-loop, semantica esplicita (è quella della reference, e quella
+    usata dalle preregistrazioni; non cambia):
+    - una tripla ripetuta k volte è UN fatto di peso k, come k chiamate a
+      Memory.store: non viene deduplicata, e il suo peso entra nel voto;
+    - (s, r, o) e (o, r, s) sono lo stesso vettore: un fatto di peso 2;
+    - tutti i self-loop (s, r, s) di una relazione sono lo stesso vettore ρ(c_r),
+      e rendono ogni soggetto x un alias di (x, r) (vedi fact_key).
+    Se le triple vengono da un estrattore, deduplicarle prima è una scelta
+    dell'applicazione.
     """
     dim = _check_dim(dim)
     objects, into, m = _structure(triples)
@@ -571,6 +609,10 @@ def min_dimension(triples, target: float, step: int = 64, d_max: int = 1 << 16,
     di `step` non oltre `d_max`, per esempio perché sta sopra il tetto degli alias.
     `queries`, `codebook` e `unknown` come in predict_queries.
     """
+    if isinstance(target, bool) or not isinstance(target, (int, float, np.integer,
+                                                          np.floating)) \
+            or not 0.0 < target <= 1.0:                  # nan fallisce il confronto
+        raise ValueError(f"target must be an accuracy in (0, 1], got {target!r}")
     if isinstance(step, bool) or not isinstance(step, (int, np.integer)) or step < 1:
         raise ValueError(f"step must be a positive integer, got {step!r}")
     if isinstance(d_max, bool) or not isinstance(d_max, (int, np.integer)) or d_max < step:
