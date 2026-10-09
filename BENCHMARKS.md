@@ -1,10 +1,10 @@
 # ABM benchmarks
 
 Every number on this page comes from a committed result file, which a committed
-script produced. Eighteen of the tests were **preregistered**: their predictions
+script produced. Nineteen of the tests were **preregistered**: their predictions
 and pass criteria were committed before any data was looked at
-(`docs/preregistration/`). Three of the eighteen failed; they are kept below with
-their causes. The paper (v1.12) reports all eighteen.
+(`docs/preregistration/`). Three of the nineteen failed; they are kept below with
+their causes. The paper (v1.13) reports all nineteen.
 
 What is measured is not task accuracy against other systems. It is how well the
 model **predicts, in advance, the accuracy of the memory**: predicted minus
@@ -28,6 +28,7 @@ twelve byte for byte, and two (tests 4 and 10) up to the last digit of one float
 | Same, with the asymptotic Law IV that the package used to expose | WN18RR: 2.8–6.2 points below target, up to 12/20 subgraphs more than 6 below | 10 |
 | Questions written by people (SimpleQuestions ∩ FB15k-237), memory level | 0.807 measured against 0.802 predicted (+0.3 SE) | 11 |
 | At equal bits, against an idealised exact store and a Bloom filter | **ABM loses in every cell** (14/14 recall, every membership cell); predicted by the model within 1 point | 18 |
+| The algebra at equal bits: two-hop chains and compiled compositions against a dictionary + join / path table | **no ABM advantage in any of 16 cells** per task; predicted within 2.01 points; ABM ≥ 2 600× slower in Python | 19 |
 | Fitted parameters in the model | **0** | — |
 
 The model is exact under stated idealisations: independent random codewords, and
@@ -36,9 +37,9 @@ facts independent over GF(2). Where those fail, so does the model. See
 
 ---
 
-## The eighteen preregistered tests
+## The nineteen preregistered tests
 
-The paper's tally (twelve supported, three in part, three failed) goes by primary hypothesis; test 15 counts as failed, since its primary H1 (relation accuracy) was falsified. Test 2's primary H1 was supported, and a secondary one was in part. Test 11's primary, end-to-end, was in part.
+The paper's tally (thirteen supported, three in part, three failed) goes by primary hypothesis; test 15 counts as failed, since its primary H1 (relation accuracy) was falsified. Test 2's primary H1 was supported, and a secondary one was in part. Test 11's primary, end-to-end, was in part.
 
 | # | file | what it tests | outcome | result file | `replicate.py` name |
 |---|---|---|---|---|---|
@@ -60,6 +61,7 @@ The paper's tally (twelve supported, three in part, three failed) goes by primar
 | 16 | `shortlist.md` | an embedding shortlist (bge-small, k = 3 chosen on the audit split) cuts the small front-end's options | relation +26.0 [21.7, 30.3], answer +19.9 [15.9, 24.1]: **supported**; embedding top-1 alone did better still (0.647 answers), not a hypothesis | `shortlist_prereg_results.json` | — |
 | 17 | `webqsp.md` | the embedding front-end on natural questions (515 WebQuestionsSP questions) | embedding +21.7 and shortlist + small model +22.7 over the small model alone: **supported**; within 5 points of Qwen3-4B: in part (−5.8 [−8.9, −3.2]); embedding against shortlist undecided (−1.0 [−3.2, +1.2]); entity linking by name right in 75% | `webqsp_prereg_results.json` | — |
 | 18 | `equal_bits.md` | ABM against an ideal exact store and a Bloom filter with the same number of bits | the exact store wins in 14/14 cells, the Bloom filter in every cell, as the exact model predicted (within 1 point): ABM uses 3.8–46× the Fano minimum | `equal_bits_prereg_results.json` | — |
+| 19 | `algebra.md` | ABM's algebra (two-hop chain; compiled composition) against a realisable store with implicit keys (join; path table) at the same bits, and time per question | all four supported: ABM ahead in 0/16 cells for either task; exact model within 0.32–2.01 points; ABM 2 600–230 000× slower than a `dict` (store time near timer resolution: order of magnitude only) | `algebra_prereg_results.json` | — |
 
 Result files are in `results/`, harnesses in `examples/<file stem>_prereg.py`.
 Summary errors with confidence intervals: `results/prereg_summary_results.json`,
@@ -134,9 +136,12 @@ hypothesis of tests 4 and 6 is still supported.
 - **ABM is not a compressor, and not dense.** An exact store beats it on
   ProofWriter. At equal bits (test 18) an idealised exact store recalls more in
   14/14 cells and a Bloom filter makes fewer membership errors in every cell;
-  ABM uses 3.8–46× the Fano minimum. What remains is accuracy computable in
-  advance, and an algebra (composition, binding) that has **not** been measured
-  against alternatives.
+  ABM uses 3.8–46× the Fano minimum. Its algebra does not help either (test
+  19): on two-hop chains and compiled compositions a dictionary + join or a path
+  table of the same bits is at least as accurate in every cell, and orders of
+  magnitude faster. Richer queries (conjunctions, analogies) and a bitpacked
+  runtime are unmeasured. What remains is accuracy computable before the memory
+  is built.
 - **Entity linking is the measured front-end bottleneck.** Linking by name lost
   a quarter of the WebQuestionsSP questions (test 17), for every front-end.
 - **Even cycles break the independence assumption.** Four facts on a rectangle
