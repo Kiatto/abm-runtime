@@ -35,7 +35,8 @@ sys.path.insert(0, str(ROOT / "examples"))
 import abm  # noqa: E402
 import exact_prereg as ep  # noqa: E402  build, measure, dense_sample, load_fb15k
 from bsm.memory.exact_contract import (cleanup_accuracy, cleanup_accuracy_mixed,  # noqa: E402
-                                       fact_weights, p_agree, p_agree_weighted)
+                                       fact_key, fact_weights, p_agree,
+                                       p_agree_weighted)
 
 WN = ROOT / "data" / "external" / "wn18rr_train.csv"
 WN_SHA = "28f7a0b3e13d6c0b2884ed2ceef4a18087e203b2f0cdb7dc946508453688e6a0"
@@ -86,13 +87,20 @@ def predict(sample, keys, objects, into, dim, m):
             p_by_w[w] = p_agree_weighted(w, others)
         return p_by_w[w]
 
+    self_rels = {r for s, r, o in sample if s == o}
     n = len(sample)
     out = []
     for s, r in keys:
         good, bad = objects[(s, r)], into[(s, r)] - objects[(s, r)]
-        cp = [p_of((frozenset((s, o)), r)) for o in good]
-        ap = [p_of((frozenset((x, s)), r)) for x in bad]
-        g, a = len(good), len(bad)
+        # fact_key: dal fix dei self-loop (2026-10-01) un self-loop ha chiave
+        # ("__self__", r), non frozenset({s}); stesse chiavi di fact_weights.
+        cp = [p_of(fact_key(s, r, o)) for o in good]
+        ap = [p_of(fact_key(x, r, s)) for x in bad]
+        # un self-loop su r vale rho(c_r) e da' a OGNI query (s, r) il candidato s
+        # stesso (come abm.exact.predict_queries)
+        if r in self_rels and s not in good and s not in bad:
+            ap.append(p_of(("__self__", r)))
+        g, a = len(good), len(bad)     # no_twins e Law IV: come preregistrati
         margin = sqrt(2 * 0.92 * dim / (pi * n)) - abm.z_gumbel(max(m, 3))
         law = 0.5 * (1 + erf(margin / sqrt(2))) * g / (g + a)
         out.append({"twins": cleanup_accuracy_mixed(dim, m, cp, ap),

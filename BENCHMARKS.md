@@ -192,8 +192,14 @@ SimpleQuestions v2) and checks its sha256. It then runs each harness **on the
 commit that recorded its results**, writes the rerun to `results/replica/`, and
 compares it with the published file. It reports `IDENTICA`, `IDENTICA a meno di
 1e-12 relativo` (identical up to float rounding) or `DIVERSA`. `--code current`
-runs today's code instead. Since the self-loop fix, tests 4, 6 and 10 crash
-under it, and test 11 moves by 0.13 points. Since abm 1.1.0 (2026-10-09) a read no
+runs today's code instead. Tests 4, 6 and 10 crashed under it after the
+self-loop fix; since 2026-10-09 the twins harness uses `fact_key` and the
+self-loop alias (as `abm.exact.predict_queries`) and they run. Test 10 (sizing)
+is identical; test 4 (twins) changes `pred_twins` in 7 of 240 KG cells, by at
+most 17.4 points (WN18RR uniform, D = 8192, N = 200, seed 7: 97.6% → 80.2%,
+measured 80.0%); test 6 (asymmetric) moves the symmetric prediction by at most
+0.06 points. H1–H4 of test 4 and H1–H4 of test 6 stay supported, H5 of test 4
+has no self-loops. Test 11 moves by 0.13 points. Since abm 1.1.0 (2026-10-09) a read no
 longer adds an unknown symbol to the codebook; under `--code current` test 5
 (composition) changes in 11 of 72 cells, by at most 3.3 points (a missing chain
 head is no longer a cleanup candidate). On 2026-10-09 every other test runnable
