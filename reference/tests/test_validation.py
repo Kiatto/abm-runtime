@@ -54,3 +54,47 @@ def test_law_iv_functions_unchanged_on_valid_input():
         0.5 * (1 + math.erf((math.sqrt(2 * 2048 / (math.pi * 100)) - z_gumbel(50))
                             / math.sqrt(2))), abs=0)
     assert capacity(2048, 2) > 0 and z_gumbel(2) == z_gumbel(2.0)
+
+
+# --- punto 5: le letture non cambiano lo stato -------------------------------
+
+def _small():
+    m = Memory(512)
+    for s, r, o in [("a", "r", "b"), ("b", "q", "c")]:
+        m.store(s, r, o)
+    return m
+
+
+@pytest.mark.parametrize("read", [
+    lambda m: m.query("zzz", "r"),
+    lambda m: m.query("a", "never_stored"),
+    lambda m: m.query_z("zzz", "r"),
+    lambda m: m.member("a", "r", "zzz"),
+    lambda m: m.chain("zzz", ["r", "q"]),
+    lambda m: m.query_compiled("zzz", "r", "q"),
+])
+def test_reads_never_grow_the_codebook(read):
+    """Prima query() faceva items.add del soggetto: il codebook M cresceva a ogni
+    lettura, e il soggetto sconosciuto diventava un candidato (anche la risposta)."""
+    m = _small()
+    names, trace = list(m.items._names), m._trace.copy()
+    read(m)
+    assert m.items._names == names and np.array_equal(m._trace, trace)
+
+
+def test_unknown_subject_is_answered_from_the_codebook_as_noise():
+    m = _small()
+    name, z = m.query_z("zzz", "r")
+    assert name in ("a", "r", "b", "q", "c")
+    assert abs(z) < 4                       # rumore: margine compatibile con il caso
+    assert m.member("a", "r", "zzz") is False
+
+
+def test_chain_needs_at_least_one_relation():
+    with pytest.raises(ValueError, match="relation"):
+        _small().chain("a", [])
+
+
+def test_member_on_empty_memory_raises():
+    with pytest.raises(ValueError):
+        Memory(256).member("a", "r", "b")

@@ -236,15 +236,32 @@ class Memory:
         self._trace = bundle(self._facts)
 
     # -- read (probabilistic steps, cost from Level 1) --------------------
+    #
+    # Reads never change the state. A symbol never stored is encoded with its
+    # deterministic hypervector but NOT added to the codebook: the answer is
+    # then the nearest stored symbol, i.e. noise, recognizable by a margin
+    # near 0 (query_z). Before 1.1.0 reads added it, so every query on an
+    # unknown subject grew M and made the subject itself a candidate answer.
+
+    def _hv(self, name: str) -> np.ndarray:
+        if name in self.items._index:
+            return self.items.get(name)
+        return random_hv(name, self.dim)
+
+    def _read_key(self, s: str, r: str) -> np.ndarray:
+        return bind(self._hv(s), permute(self._hv(r), 1))
+
+    def _require_trace(self, what: str) -> None:
+        if self._trace is None:
+            raise ValueError(f"{what} on an empty memory: store at least one fact first")
 
     def query(self, s: str, r: str,
               subset: Optional[Sequence[str]] = None) -> Tuple[str, float]:
         """Elementary query: cleanup(T xor key). Returns (object name,
         confidence), the confidence a logistic of the observed margin (see
         `confidence`; use `query_z` for the margin itself)."""
-        if self._trace is None:
-            raise ValueError("query on an empty memory: store at least one fact first")
-        noisy = bind(self._trace, self.key(s, r))
+        self._require_trace("query")
+        noisy = bind(self._trace, self._read_key(s, r))
         name, dist = self.items.cleanup(noisy, subset)
         return name, confidence(dist, self.dim)
 
@@ -253,14 +270,16 @@ class Memory:
         """Like `query`, but returns the observed margin z (margin_z) of the
         answer: higher means further from noise. Use it to rank answers, for
         example to decide which to give and which to abstain on."""
-        if self._trace is None:
-            raise ValueError("query on an empty memory: store at least one fact first")
-        name, dist = self.items.cleanup(bind(self._trace, self.key(s, r)), subset)
+        self._require_trace("query")
+        name, dist = self.items.cleanup(bind(self._trace, self._read_key(s, r)), subset)
         return name, margin_z(dist, self.dim)
 
     def chain(self, start: str, relations: Sequence[str]) -> Tuple[str, float]:
         """Multi-hop with cleanup per hop. Theorem 3.4: success = p^h;
-        the cleanup reset is constitutive (T xor T no-go), not optional."""
+        the cleanup reset is constitutive (T xor T no-go), not optional.
+        Needs at least one relation."""
+        if len(relations) == 0:
+            raise ValueError("chain needs at least one relation")
         node, conf = start, 1.0
         for r in relations:
             node, c = self.query(node, r)
@@ -270,7 +289,8 @@ class Memory:
     def member(self, s: str, r: str, o: str, z_min: float = 3.0) -> bool:
         """Algebraic truth oracle (Prop. 3.7): is the fact in the trace?
         A single Hamming distance against a single vector."""
-        d = hamming(self.fact_hv(s, r, o), self._trace)
+        self._require_trace("member")
+        d = hamming(bind(self._read_key(s, r), self._hv(o)), self._trace)
         return (self.dim / 2 - d) / (sqrt(self.dim) / 2) >= z_min
 
     # -- exact steps (free and certain, from A1) --------------------------
@@ -298,9 +318,9 @@ class Memory:
     def query_compiled(self, s: str, r1: str, r2: str) -> Tuple[str, float]:
         """Query a compiled trace with the static composed key
         c_s xor rho(r1) xor rho(r2)."""
-        k = bind(self.items.add(s),
-                 bind(permute(self.items.add(r1), 1),
-                      permute(self.items.add(r2), 1)))
+        self._require_trace("query_compiled")
+        k = bind(self._hv(s),
+                 bind(permute(self._hv(r1), 1), permute(self._hv(r2), 1)))
         name, dist = self.items.cleanup(bind(self._trace, k))
         return name, confidence(dist, self.dim)
 
