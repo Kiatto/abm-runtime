@@ -1,4 +1,4 @@
-.PHONY: all test lint clean fmt build-go test-go test-py setup
+.PHONY: all test test-legacy lint clean fmt build-go test-go test-py setup
 
 all: build-go test-py test-go
 	@echo "=== All checks passed ==="
@@ -21,7 +21,12 @@ test-py:
 	@echo "=== Running Python tests ==="
 	cd training && python3 -m pytest tests/ -v -x --tb=short
 
-test: test-py test-go
+# abm: la suite di reference/ e bsm/tests (testpaths in pyproject.toml)
+test:
+	python -m pytest
+
+# il vecchio `make test` (training/ e runtime/ Go)
+test-legacy: test-py test-go
 
 lint:
 	@echo "=== Linting ==="
