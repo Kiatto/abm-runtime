@@ -11,6 +11,20 @@ questo lavoro.
 vedere i dati (`docs/preregistration/`); un esito negativo si registra, non si
 aggira; i risultati vecchi restano accanto ai nuovi; budget zero.
 
+## Stato al 2026-10-09 (leggere questo per primo)
+
+- Push fatto: `origin/master` allineato. Il bloccante "push" del 1/10 è chiuso.
+- Preregistrazioni **18**, tutte valutate (12–18 dopo il 1/10, vedi BENCHMARKS.md).
+  La 18 è sfavorevole: a pari bit store esatto e Bloom battono ABM in ogni cella.
+  La tesi non è più la densità: è l'accuratezza calcolabile prima + l'algebra.
+- Le 15–17 dicono che il collo di bottiglia end-to-end è il collegamento per nome
+  (front-end), non la memoria.
+- In corso (9/10): paper v1.12 con i test 15–18; preregistrazione 19 sull'algebra
+  (ABM contro store esatto + join, a pari bit); poi terzo audit ostile.
+- Test Go: `TestLoadModel` ora salta se manca torch (prima falliva).
+- Zavorra (`bsm/`, Go, `training/`, demo): kiatto ha deciso di lasciarla, da rivedere.
+- Email a Kleyko/Frady: **solo dopo** paper v1.12 e terzo audit.
+
 ## Stato al 2026-09-28, sera
 
 Paper `docs/paper.md` **v1.8** (undici preregistrazioni, abm.exact nel pacchetto), **audit ostile a più agenti del 2026-09-30: 5.5/10** (il mio 8.5 era troppo generoso). Leggere `docs/audit_2026-09-30.md`: nove bloccanti prima di qualsiasi email. Da integrare nel paper: preregistrazioni 6–9 (due fallite, con le cause), la regola esatta dei pareggi, la figura 10. Problema aperto emerso: recupero fuori percorso con codebook piccoli (nessun modello pulito).
