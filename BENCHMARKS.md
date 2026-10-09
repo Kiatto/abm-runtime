@@ -11,10 +11,13 @@ model **predicts, in advance, the accuracy of the memory**: predicted minus
 measured, in percentage points. A small error means the contract can be trusted
 before the memory is deployed.
 
-Tests 1–14 rerun from a clean clone with one command (see
-[Reproducing](#reproducing)). On 2026-10-01 those entries reproduced: twelve byte
-for byte, and two (tests 4 and 10) up to the last digit of one float. Tests 15–19
-are not yet wired into `replicate.py`; each has its own harness in `examples/`.
+Tests 1–14, 18 and 19 rerun from a clean clone with one command (see
+[Reproducing](#reproducing)). On 2026-10-01 tests 1–11 reproduced: twelve entries
+byte for byte, and two (tests 4 and 10) up to the last digit of one float. On
+2026-10-09 test 18 reproduced byte for byte, and test 19 identically in every
+field except its timings, which are not deterministic and are not compared.
+Tests 15–17 query a local language model and are not wired into
+`replicate.py`; each has its own harness in `examples/`.
 
 ---
 
@@ -185,7 +188,11 @@ under it, and test 11 moves by 0.13 points.
 
 Test 11 needs a local language model. `replicate.py` reruns only its deterministic
 part: the exact-model prediction, and the memory's answer to the true
-(subject, relation).
+(subject, relation). Tests 15–17 need one too and are not wired in.
+
+Test 19 (`algebra`) also measures wall-clock times. Those fields (`t_*_s` and
+`time_ratio`) depend on the machine and are excluded from the comparison; every
+other field must match.
 
 Speed is not benchmarked here. Measurements of the runtime on one machine, with
 their spreads, are in [PERFORMANCE.md](PERFORMANCE.md).

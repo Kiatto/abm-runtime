@@ -24,7 +24,9 @@ macOS arm64 e Windows.
 Il test 11 (human_questions) interroga un modello linguistico locale: qui se ne
 riesegue solo la parte deterministica (previsione di abm.exact e risposta della
 memoria alla relazione vera, con --memory-only), confrontata con i campi
-corrispondenti del file pubblicato. ProofWriter richiede pyarrow.
+corrispondenti del file pubblicato. Il test 19 (algebra) misura anche tempi:
+t_*_s e time_ratio non sono deterministici e sono esclusi dal confronto.
+ProofWriter richiede pyarrow.
 
 Uso, dalla root del repo:
     python examples/replicate.py --list
@@ -97,13 +99,30 @@ PREREGS = {
                     "escalation2_prereg_results.json", None, "~1 min"),
     "escalation3": ("escalation3_prereg.py", ["--stage", "analyze"], "escalation3_prereg_results.json",
                     "escalation3_prereg_results.json", None, "~2 min"),
+    # test 18–19: sintetico (18) e FB15k-237/WN18RR (19), nessun LLM
+    "equal_bits": ("equal_bits_prereg.py", "equal_bits_prereg_results.json", "~1 min"),
+    "algebra": ("algebra_prereg.py", "algebra_prereg_results.json", "~9 min"),
 }
+
+# campi non deterministici, esclusi dal confronto: nel test 19 i tempi misurati
+# (t_*_s per cella, time_ratio per cella e riepilogo) dipendono dalla macchina
+# e dal carico; tutto il resto (accuratezze, previsioni, capacità) è confrontato
+def _no_timing(d):
+    if isinstance(d, dict):
+        return {k: _no_timing(v) for k, v in d.items()
+                if not ((k.startswith("t_") and k.endswith("_s")) or k == "time_ratio")}
+    if isinstance(d, list):
+        return [_no_timing(x) for x in d]
+    return d
+
+
+NONDET = {"algebra": _no_timing}
 
 # i dati che ogni harness legge: si scaricano solo quelli dei target scelti
 FB, WN, PW = "fb15k237_train.txt", "wn18rr_train.csv", "proofwriter_val.parquet"
 NEEDS = {
     "fb15k237": {FB}, "exact_contract": {FB}, "twins": {FB, WN}, "asymmetric": {FB, WN},
-    "sizing": {FB, WN},
+    "sizing": {FB, WN}, "algebra": {FB, WN},
     "human_questions": {FB, "fb15k_mid2name.txt", "SimpleQuestions_v2.tgz"},
     "proofwriter": {PW}, "proofwriter_seeds": {PW},
     **{k: {FB, "fb15k_mid2name.txt", "SimpleQuestions_v2.tgz"}
@@ -123,6 +142,7 @@ COMMITS = {
     # posteriore e gira sul codice di ca77196, dove proofwriter_eval legge data/
     "proofwriter_seeds": "ca77196",
     "escalation": "f447da8", "escalation2": "b46c28e", "escalation3": "5c9ba4b",
+    "equal_bits": "728c88d", "algebra": "4fc9e8a",
 }
 # harness copiati dal codice attuale sull'albero di quel commit: human_questions
 # per --memory-only (la pipeline è la stessa, il modello resta quello del commit);
@@ -222,6 +242,8 @@ def run(name, code, tmp):
     reference = json.loads((ROOT / "results" / pub).read_text())
     if keys is not None:
         replica, reference = fields(name, replica), fields(name, reference)
+    if name in NONDET:
+        replica, reference = NONDET[name](replica), NONDET[name](reference)
     if replica == reference:
         verdict = "IDENTICA"
     elif close(replica, reference):

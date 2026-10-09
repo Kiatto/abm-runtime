@@ -948,9 +948,11 @@ part, without the language model; tests 12–14 only their analysis, from the
 committed model answers). On 2026-10-01 the first eleven tests, the seed-10
 capacity data, the Clarkson comparison and ProofWriter reproduced: twelve
 byte-identical, two (tests 4 and 10) up to the last digit of one float; on
-2026-10-05 the analyses of tests 12–14 reproduced up to float rounding. Tests
-15–19 are not yet wired into `replicate.py`; their harnesses
-(`examples/memory_preview_prereg.py`, `shortlist_prereg.py`, `webqsp_prereg.py`,
-`equal_bits_prereg.py`, `algebra_prereg.py`) and model answers are committed.*
+2026-10-05 the analyses of tests 12–14 reproduced up to float rounding. On
+2026-10-09 test 18 reproduced byte-identical, and test 19 identical in every field
+except its wall-clock timings, which are not deterministic and are excluded from
+the comparison. Tests 15–17 query a local language model and are not wired into
+`replicate.py`; their harnesses (`examples/memory_preview_prereg.py`,
+`shortlist_prereg.py`, `webqsp_prereg.py`) and model answers are committed.*
 
 ## References
