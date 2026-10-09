@@ -128,3 +128,30 @@ rispetto a dict + join a pari bit, e il paper deve dirlo.
   ruoli); se il valore dell'algebra sta lì, questo test non lo vede.
 - Sotto ~0.01 di accuratezza (N grandi a D = 2048) ABM e store sono entrambi al
   pavimento: quelle celle non discriminano.
+
+## Esito (2026-10-09)
+
+Eseguito una volta, dopo il commit `e041f9a` della preregistrazione, con
+`python examples/algebra_prereg.py` (≈3 min); risultati in
+`results/algebra_prereg_results.json`.
+
+| ipotesi | risultato | esito |
+|---|---|---|
+| **H1** — catena, nessun vantaggio ABM a pari bit | 0 celle su 16 con ABM > store + 2 SE | **sostenuta** |
+| **H2** — compilata, nessun vantaggio ABM a pari bit | 0 celle su 16 | **sostenuta** |
+| **H3** — il modello esatto prevede ABM | errore medio 0.32–2.01 punti per (dataset, D, compito); massimo 2.01 (WN18RR, D = 2048, catena) | **sostenuta** |
+| **H4** — tempo | t_ABM / t_store ≥ 2600 in ogni cella | **sostenuta** |
+
+### Cosa dice
+
+- Nemmeno l'algebra salva ABM a pari bit: con la catena (unbinding a due hop) ABM
+  sta sotto store + join in ogni cella; la composizione compilata si avvicina
+  (0.92–0.99 a D = 8192) ma la tabella dei percorsi a pari bit resta a 1.0.
+- Il modello esatto ha previsto anche questo entro 2 punti, compresa la nuova
+  traduzione della composizione compilata (la parte più a rischio).
+- In Python ABM è da 2600 a 230 000 volte più lento di un `dict` per domanda a due
+  hop. Il tempo dello store è sotto la risoluzione stampata (0.0 s nel log): il
+  rapporto è indicativo dell'ordine di grandezza, non una misura fine.
+- Cosa resta a ABM: l'accuratezza prevedibile prima di costruire la memoria. Non la
+  densità (test 18), non l'algebra su catene e composizioni (test 19). Restano non
+  misurate le query più ricche (congiunzioni, analogie, ruoli) e il runtime bitpacked.
