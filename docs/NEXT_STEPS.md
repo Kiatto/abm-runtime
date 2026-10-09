@@ -10,6 +10,10 @@ questo lavoro.
 **Regole che valgono sempre:** ogni affermazione nuova si preregistra prima di
 vedere i dati (`docs/preregistration/`); un esito negativo si registra, non si
 aggira; i risultati vecchi restano accanto ai nuovi; budget zero.
+**Push della preregistrazione prima del run** (audit 2026-10-09): il commit di
+preregistrazione va pushato su `origin` prima di lanciare l'harness, così
+l'anteriorità è verificabile da terzi. Il push lo fa solo kiatto: l'agente si
+ferma dopo il commit e chiede il push prima di eseguire.
 
 ## Stato al 2026-10-09 (leggere questo per primo)
 

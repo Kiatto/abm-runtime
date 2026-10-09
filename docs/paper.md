@@ -1,8 +1,8 @@
-# A Parameter-Free, Finite-Dimension Resource Theory for Binary Holographic Memory, with Preregistered Tests
+# Predicting the Accuracy of a Binary Holographic Memory before It Is Built: Preregistered Tests, Mostly Negative
 
 *(Algebraic Binary Memory — ABM)*
 
-**Preprint v1.13 — October 2026**
+**Preprint v1.14 — October 2026**
 *Normative specification: [FORMALISM.md](FORMALISM.md) (frozen, v2.1).
 Reference implementation: [`reference/abm.py`](../reference/abm.py); exact
 theory, shipped as `abm.exact`: [`reference/exact.py`](../reference/exact.py).
@@ -11,7 +11,7 @@ JSON; the nineteen preregistrations are in `docs/preregistration/`.*
 
 ## Abstract
 
-We study Algebraic Binary Memory (ABM), a MAP-B vector-symbolic memory: facts are XOR-bound triples in one majority-vote trace, and reasoning alternates unbinding with cleanup. We predict cleanup accuracy at finite dimension with no fitted parameter, under stated idealisations (independent random codewords, facts independent over GF(2)). The readout probability is that of Frady, Kleyko and Sommer; what we add is the accounting: the reference tie rule, several answers, aliases, weighted facts and the dependence between hops. Nineteen preregistered tests: thirteen supported their primary hypotheses, three in part, three failed. At an unmeasured dimension the error was 0.27 points; on dense subgraphs of two real graphs, 0.6–1.1 (test 4); under grounding errors, 0.8–1.9 without calibration. Choosing the dimension in advance on 80 unseen subgraphs, the model kept its promise on average, where the asymptotic law missed by over 6 points in up to 12 of 20 on WN18RR. Hops on one trace are negatively correlated (about −2/(πN) per bit); chains fall below p^h. The idealisation of independent facts fails on even cycles: on a biclique the model is up to 6 points optimistic. At equal bits ABM loses everywhere: an idealised exact store recalls more (14 of 14 cells) and a Bloom filter makes fewer membership errors, with ABM at 3.8–46× the Fano minimum, as the model predicted within 1 point (test 18). Nor does its algebra help: on two-hop chains and compiled compositions on two real graphs a dictionary with a join or a path table of the same bits did as well or better in 16 of 16 cells, as predicted within 2 points (test 19). Three front-end tests on questions written by people show the bottleneck is outside the memory: an embedding shortlist lifts a small model's answers by 20–23 points; linking by name loses a quarter. What remains is an accuracy computed before the memory is built, checked on average.
+We study Algebraic Binary Memory (ABM), a MAP-B vector-symbolic memory: facts are XOR-bound triples in one majority-vote trace, and reasoning alternates unbinding with cleanup. This is a methods paper whose results are mostly negative. We compute cleanup accuracy at finite dimension with no fitted parameter, under idealisations that real data violate: facts independent over GF(2), false on even cycles, where the model is up to 6 points optimistic; null distances independent across hops, not measured. The readout probability is that of Frady, Kleyko and Sommer and the agreement probability is classical; we add only accounting: the tie rule, several answers, aliases, weighted facts, hop dependence. Nineteen preregistered tests: thirteen supported their primary hypotheses, three in part, three failed (primaries were designated after the fact; per hypothesis, 44 of 61 supported, 9 in part, 5 failed, 3 undecided). Mean errors were 0.27 points at an unmeasured dimension and 0.6–1.1 on dense subgraphs of two real graphs (test 4); single cells err by up to 7.4. At equal bits ABM is dominated: an idealised exact store, whose accuracy ⌊D/b⌋/N is also known in advance, would recall more in 14 of 14 cells (computed, not run); a Bloom filter makes fewer membership errors; a dictionary with a join or a path table did as well or better on two-hop chains and compiled compositions in 16 of 16 cells. The model predicted these losses (mean error under 1 and 2 points, worst cell 2.0 and 7.4), outcomes we expected, not strong tests. Three front-end tests on human-written questions place the bottleneck outside the memory. What remains is a parameter-free accuracy estimate for a dominated design, of use only where distributed binary codes are required anyway (VSA hardware, networks that need them), and a record of preregistered falsification.
 
 ## 1. Introduction
 
@@ -22,6 +22,20 @@ model [@lewis2020rag]. We study the opposite division of labour — a memory who
 hold and how reliably it answers, as a function of its resources: dimension D,
 load N, codebook size M, and reasoning depth h.
 
+**What this paper is, after tests 18 and 19.** Earlier versions presented a
+"resource theory" of a memory with useful properties. The tests at equal bits
+removed the properties: an exact store, a Bloom filter, a dictionary with a join
+and a path table of the same size dominate ABM on every task we measured. An
+exact store's accuracy is also computable before it is built (⌊D/b⌋/N facts
+recalled at b bits per fact), and more simply than ABM's. So predicting ABM's
+accuracy is of interest only to someone who must use a distributed binary
+representation anyway (vector-symbolic hardware such as neuromorphic or
+in-memory computing, or a network whose interface requires bundled vectors), and
+we claim no reader beyond that perimeter. The contribution that holds is one of
+method: a falsification record of nineteen preregistered tests, including
+negative and failed ones, and a sizing calculation, valid under stated
+idealisations, for those who already use this kind of memory.
+
 In the vector-symbolic taxonomy ABM is a MAP-B architecture
 [@clarkson2023capacity], and the order of growth of its capacity is known. What
 a deployment needs is not an order of growth but a number: the accuracy of *this*
@@ -30,18 +44,20 @@ parameters, and tests it the way such a claim should be tested.
 
 **Contributions.**
 
-1. A **finite-D accuracy without fitted parameters** for cleanup, a
+1. A **finite-D accuracy estimate without fitted parameters** for cleanup, a
    specialisation of the finite-size theory of Frady, Kleyko and Sommer
    [@frady2018sequence] and of Kleyko et al. [@kleyko2023perceptron] to binary majority traces, with the
    classical majority-agreement probability [@kanerva1988sdm; @kleyko2022survey].
    What is new is the accounting: the reference tie rule, several true answers,
    aliases, weighted facts and symmetric twins (§3). It replaces an asymptotic
    law whose single constant, k = 0.92, turns out to be the error of its own
-   approximations. The binomial distances themselves add nothing measurable at
+   approximations. Its core is FKS's readout plus the classical majority
+   agreement; the accounting is bookkeeping, not new mathematics. The binomial distances themselves add nothing measurable at
    the dimensions we use: the FKS finite-M integral, with the same p_agree,
    agrees within 0.1 points on every tested configuration, and within 0.005 on
    test 2 (§3.2).
-2. The **dependence between hops** on one trace, a one-line lemma (§4). The independence
+2. The **dependence between hops** on one trace, a one-line consequence of the
+   level-1 Fourier weight of majority [@odonnell2014boolean] (§4). The independence
    assumed by the composition law Acc(h) = p^h is false; the violation is
    derived and then measured.
 3. **Nineteen preregistered tests** (§6), with predictions, criteria and harnesses
@@ -63,6 +79,21 @@ designed to falsify it. Since v1.4 every new claim is **preregistered**: the
 prediction, the success and falsification criteria and the harness are committed
 before the run, and the outcome is appended to the same file, whatever it is.
 Retired laws stay in the record with the data that killed them (§8).
+Two limits of this record. First, anteriority is not verifiable by a third
+party: the preregistrations are local git commits, pushed in batches after the
+runs, and commit times are set by the author. For test 19 the result file was
+written 3 min 21 s after the preregistration commit, and that commit had not
+been pushed when the run took place; nothing but the author's word shows the
+harness was not run earlier. From now on a preregistration is pushed before its
+run. Second, which hypothesis of a test is "primary" was in several tests decided
+when the tally was written, after the outcomes (§6); we therefore give the count
+per hypothesis beside the count per test.
+
+**On the word "exact".** In this paper an "exact" model means a computation
+from the discrete distributions with no Gaussian or extreme-value step, *under
+the idealisations of §3.2*. Real knowledge graphs violate them (even cycles: up
+to 6 points; independence of null distances across hops: not measured), so for
+real data the model is an estimate, not an exact law.
 
 ## 2. The model
 
@@ -221,7 +252,7 @@ FKS integral does once given that p_agree; we did not test the p_agree
 approximation of the original papers. p_agree itself is classical [@kanerva1988sdm; @kleyko2022survey]. What this
 paper adds is the accounting (ordered tie rule, several answers, aliases,
 weights and twins, hop dependence) and the preregistered validation. Against a Monte Carlo of the reference implementation at D = 256,
-N = 20, the exact model gives 0.722 for a measured 0.714, where Law IV gives
+N = 20, M = 43 (800 queries), the exact model gives 0.722 for a measured 0.714, where Law IV gives
 0.792; the test suite requires the exact model within 3 standard errors *and*
 Law IV outside them. These checks use data we had already seen; the tests of §6
 use data we had not (Fig. 1).
@@ -323,7 +354,10 @@ correlation
 
 This is a one-line lemma. μ is the level-1 Fourier coefficient of majority on
 each input, and the level-1 Fourier weight of majority tends to 2/π
-[@odonnell2014boolean], which gives the approximation. We have not found the
+[@odonnell2014boolean], which gives the approximation. The approximation is
+poor at small odd N, where there are no ties: −0.127 against −0.164 at N = 5
+(22% low) and −0.212 against −0.333 at N = 3; at even N it is within about 1%
+(−0.0637 against −0.0645 at N = 10). The tests use the exact form. We have not found the
 lemma stated for the decoding of vector-symbolic bundles, and earlier versions
 of this paper assumed the opposite.
 
@@ -431,7 +465,9 @@ then was that approximation's error.
 Each test below was committed — prediction, success and falsification criteria,
 harness — before its run; the commit hashes are in the files. Outcomes are
 evaluated only with those criteria, and appended to the same file.
-The tally in the abstract counts each test by its primary hypothesis. Test 2's primary hypothesis (H1, D = 16 384) was supported, though a secondary one was only in part. Test 11's primary hypothesis is end-to-end accuracy, and it was supported in part. Test 12's primary hypothesis was supported; those of tests 13 and 14 in part. Test 15's primary hypothesis (H1, the relation chosen) was falsified, though its end-to-end H2 was supported; it is counted as failed. Test 17's primary hypotheses (H1, H2) were supported; H3 was in part and H4 undecided. Tests 16, 18 and 19 were supported in full. In all: thirteen supported, three in part, three failed.
+The tally in the abstract counts each test by its primary hypothesis. Test 2's primary hypothesis (H1, D = 16 384) was supported, though a secondary one was only in part. Test 11's primary hypothesis is end-to-end accuracy, and it was supported in part. Test 12's primary hypothesis was supported; those of tests 13 and 14 in part. Test 15's primary hypothesis (H1, the relation chosen) was falsified, though its end-to-end H2 was supported; it is counted as failed. Test 17's primary hypotheses (H1, H2) were supported; H3 was in part and H4 undecided. Tests 16, 18 and 19 were supported in full. In all: thirteen supported, three in part, three failed. This count depends on the rule. For tests 2, 11, 13, 14, 15 and 17 the primary hypothesis was not named in the preregistration; we chose it when writing this tally, after the outcomes. Counted per hypothesis, as read from the outcome tables of the nineteen files, there are 61: 44 supported, 9 in part, 5 falsified, 3 neither or undecided.
+
+Three further caveats apply to tests 11–17. *Multiplicity:* no correction was preregistered. Within its own test, Bonferroni leaves test 15's H2 (+2.8 [+1.0, +4.6], z ≈ 3.0, two hypotheses) and test 14's observed margin (+2.6 [+0.9, +4.1], z ≈ 3.2, five hypotheses) significant (lower bounds about +0.7 and +0.5); across all 61 hypotheses neither would survive. *Contamination:* SimpleQuestions and WebQuestionsSP are public since 2015–2016 and may be in the pretraining data of Gemma, Qwen and bge; we did not test for it, and it would favour the front-ends equally rather than the memory. *Determinism:* the language models ran at temperature 0, but about 0.3% of the small model's choices (2 of 643) and 0.9% of the larger one's (6 of 643) changed across reruns, and neither the llama.cpp build nor a seed was recorded. In test 17 a quarter of the questions are lost to entity linking before any front-end acts, which scores 0 for every arm and dilutes each difference by about a quarter.
 
 | # | file | what is tested | outcome |
 |---|---|---|---|
@@ -452,8 +488,8 @@ The tally in the abstract counts each test by its primary hypothesis. Test 2's p
 | 15 | `memory_preview.md` | the small front-end sees the memory's answer for each candidate relation | relation (H1) **falsified** (−0.3 [−2.6, +2.0]); answer (H2) **supported** (+2.8 [+1.0, +4.6]) |
 | 16 | `shortlist.md` | an embedding shortlist of k = 3 relations for the small front-end | both **supported**: relation +26.0 [+21.7, +30.3], answer +19.9 [+15.9, +24.1] |
 | 17 | `webqsp.md` | the same front-ends on 515 natural questions (WebQuestionsSP) | H1, H2 **supported**; H3 (within 5 points of Qwen3-4B) **in part**; H4 **undecided** |
-| 18 | `equal_bits.md` | ABM against an ideal exact store and a Bloom filter with the same bits | all three **supported**: ABM loses in every cell, as predicted |
-| 19 | `algebra.md` | two-hop chains and compiled compositions against a dictionary + join / path table with the same bits; time | all four **supported**: no ABM advantage in 0 of 16 cells per task; model within 0.32–2.01 points; ABM ≥ 2 600× slower |
+| 18 | `equal_bits.md` | ABM against an ideal exact store and a Bloom filter with the same bits | all three **supported** (an expected outcome): ABM loses in every cell, as predicted; mean error 0.99 / 0.54, worst cell 1.97 points |
+| 19 | `algebra.md` | two-hop chains and compiled compositions against a dictionary + join / path table with the same bits; time | all four **supported** (an expected outcome): ABM ahead in 0 of 16 cells per task; mean error 0.32–2.01 points per group, worst cell 7.4 (WN18RR, D = 2048, N = 100, chain); ABM ≥ 2 600× slower |
 
 **Test 2 — the exact model on new configurations.** At D = 16 384, a dimension no
 experiment had used, the mean absolute error over six loads was **0.27 points**
@@ -689,29 +725,32 @@ test, not per proof.
 ![ProofWriter, parsable subset: accuracy by depth (10 seeds, 95% CI) against the
 majority baseline.](figures/fig3_proofwriter.png){width=60%}
 
-**Not a compressor.** Holding N facts at single-query accuracy a needs about
-π·(z_G(M) + Φ⁻¹(a))²/(2k) bits per fact (Law IV), while a minimal exact encoding
-of (s, r, o) needs 2·log₂V + log₂R. At high accuracy the trace is the larger of
-the two; the accuracy at which they cross depends on V, R and M, and an earlier
-version printed a crossover range that no committed script reproduces, so we
-withdraw it (§8).
+**Not a compressor.** An earlier version argued this from the asymptotic Law IV,
+which is retired; the argument now rests on test 18, below, and on the
+ProofWriter trace above.
 
 **At equal bits (test 18).** We then measured it. Facts (s_i, r_{i mod 13}, o_i)
 over 2N entities, three seeds per cell, D = 2048 with N = 50–600 and D = 8192 with
 N = 200–2 400. An *idealised* exact store spends 2·⌈log₂ 2N⌉ + ⌈log₂ 13⌉ bits per
 fact with no overhead and no stored keys, which no real table achieves, so the
 comparison favours the store; with D bits it keeps ⌊D/b⌋ facts and loses the
-rest. ABM recalled fewer facts in **14 of 14 cells**, including every overloaded
+rest. The store was not run: its accuracy is computed, min(1, ⌊D/b⌋/N), so only
+ABM's side is a measurement. ABM's accuracy was below that figure in **14 of 14 cells**, including every overloaded
 one (for example 0.660 against 0.853 at D = 8192, N = 400; 0.015 against 0.114 at
-N = 2 400): there is no crossover, as the exact model had predicted, and it
+N = 2 400); in the lightest cell (D = 2048, N = 50, 0.993 against 1.000) the gap
+is under one standard error and is not a meaningful loss. There is no crossover, as the exact model had predicted, and it
 predicted ABM's accuracy with a mean error of 0.99 points at D = 2048 and 0.54 at
-D = 8192. For membership, a Bloom filter of D bits made fewer errors (false
+D = 8192 (worst cell 1.97, at D = 2048, N = 100). For membership, a Bloom filter of D bits made fewer errors (false
 negatives plus false positives on 1 000 unstored facts) than `Memory.member`
 (z ≥ 3) in every cell: the Bloom filter had no false negatives, while
 `Memory.member`, with almost no false positives, missed 26–93% of the stored
 facts above the lightest loads. Measured against the Fano minimum for answering N
 queries among 2N objects at the accuracy it reached, ABM used 3.8 to 46 times the
-bits. All three hypotheses were supported, which here means ABM lost. One synthetic
+bits, rising with load: 6.3, 4.1, 4.3, 5.3, 8.1, 11.0, 18.3 at D = 2048 and
+N = 50–600, and 4.9, 3.8, 4.9, 6.3, 10.8, 19.2, 46.2 at D = 8192 and
+N = 200–2 400. All three hypotheses were supported, which here means ABM lost. The outcome
+was expected before the run; the test is a confirmation of the obvious with a
+number attached, not a strong test of the theory. One synthetic
 protocol, no aliases or twins, and only single-hop recall and membership were
 compared. **ABM is not dense**, and no claim of this paper rests on density or
 compactness. What it offers, if anything, is a degradation that can be computed
@@ -735,14 +774,17 @@ D = 8192), but the table stayed at 1.0 there, and at D = 2048, N ≥ 400 it held
 0.76–0.96 against ABM's 0.26–0.38. ABM was ahead by more than 2 SE in **0 of 16
 cells** for either task. The exact model, including the new translation of a
 compiled composition into a single-hop query, predicted ABM with a mean error of
-0.32–2.01 points per (graph, D, task). For one two-hop question, ABM with a
-vectorised cleanup took 2 600 to 230 000 times as long as a Python `dict`; the
+0.32–2.01 points per (graph, D, task); per cell the error reached 7.4 points
+(WN18RR, D = 2048, N = 100, chain), where "within 2 points" would mislead. For one two-hop question, ABM with a
+vectorised cleanup took 2 600 to 229 725 times as long as a Python `dict`; the
 store's time is near the timer's resolution, so the ratio gives only the order of
-magnitude. All four hypotheses were supported, which again means ABM lost. What
+magnitude. All four hypotheses were supported, which again means ABM lost, as we expected
+before the run. What
 remains unmeasured is richer queries (conjunctions, analogies, role filling) and
 a bitpacked runtime; on what was measured, the algebra is **not an advantage**,
 and the only claim left is that ABM's accuracy can be computed before the memory
-is built.
+is built. So can the store's, more simply; that claim matters only within the
+perimeter stated in §1.
 
 **Sufficient bounds and sizing constants.** Clarkson, Ubaru and Yang's Theorem 16
 [@clarkson2023capacity] gives, from its proof, a sufficient dimension
@@ -795,7 +837,7 @@ It is a case, not a sample.
 | the bits-per-fact crossover (74–81%, v1.8) | no committed script reproduces it; withdrawn (audit 2026-09-30) |
 | "the known bound over-provisions dimension sixfold" (v1.8 abstract) | a proof constant against a measurement; kept in §7 as a sizing remark, out of the abstract |
 | "exact" without the GF(2) caveat | facts on even cycles are dependent; several points on a loaded biclique (§3.2) |
-| "a fixed size, membership by one distance" as properties of the design (v1.11 §7, untested) | preregistered test 18: at equal bits an idealised exact store recalls more and a Bloom filter makes fewer membership errors in every cell |
+| "a fixed size, membership by one distance" as properties of the design (v1.11 §7, untested) | preregistered test 18: at equal bits an idealised exact store (computed, not run) recalls more and a Bloom filter makes fewer membership errors in every cell |
 | "an algebra: binding, unbinding and composition" as the residual value (v1.12 abstract and §7, unmeasured) | preregistered test 19: on two-hop chains and compiled compositions a dictionary + join or a path table of the same bits is at least as accurate in every cell, and orders of magnitude faster |
 | the even split of ties | preregistered test 8: with 1 000 distractors after the target, it misses a single hop by 1.8 points (13.8 SE); replaced by the exact rule |
 
@@ -868,6 +910,20 @@ soft theorem proving with transformers; our use of ProofWriter keeps the chainin
 symbolic and makes only the truth oracle algebraic. The rewriting results of §4.2
 are standard [@baader1998term].
 
+*Exact and approximate membership.* What ABM was compared with at equal bits is
+classical. Bloom filters [@bloom1970space] and their lower bound
+[@carter1978exact] set what membership costs; Bloomier filters
+[@chazelle2004bloomier] store a static function without storing the keys,
+which is the "implicit keys" store of test 19; its 1.23 bits per key per value
+bit is the factor of the peeling construction used by XOR filters
+[@graf2020xor]. The
+Fano minimum used in test 18 is the standard inequality [@cover2006elements].
+Clarkson, Ubaru and Yang already connect the two lines: their section on sparse
+binary bundling and Bloom filter analysis [@clarkson2023capacity, §2.5 and §7 of
+the current arXiv version] treats a sparse binary bundle as a Bloom filter. Our
+tests 18–19 are an empirical, dense-MAP-B instance of that comparison, with the
+expected outcome.
+
 ## 10. Open problems
 
 1. **Cycles.** Facts that close even cycles are dependent over GF(2) (§3.2);
@@ -906,7 +962,7 @@ are standard [@baader1998term].
 
 ## 11. Conclusion
 
-ABM is not a better retriever, not a compressor, and not better than an exact
+ABM is a dominated design. It is not a better retriever, not a compressor, and not better than an exact
 store or a Bloom filter with the same number of bits in any cell we measured,
 not better than a dictionary and a join on two-hop chains or compiled
 compositions, and we say so with measurements. It is a memory
@@ -925,7 +981,9 @@ prediction about the front-end — and one falsified a law of our own earlier
 versions by the amount the theory predicted. The test at equal bits went against
 ABM, as the model said it would, and so did the test of its algebra. What is
 left is the one claim this paper can support: the accuracy is computable before
-the memory is built. The predictions were fixed before the data; the
+the memory is built, under idealisations real graphs violate, on average and not
+per cell. An exact store's accuracy is computable too, more simply, so this
+matters only where a distributed binary representation is required anyway. The predictions were fixed before the data; the
 outcomes are in §6, the failures and the changes they caused in §8 and in the
 preregistration files.
 

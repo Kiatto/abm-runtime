@@ -4,7 +4,7 @@ Every number on this page comes from a committed result file, which a committed
 script produced. Nineteen of the tests were **preregistered**: their predictions
 and pass criteria were committed before any data was looked at
 (`docs/preregistration/`). Three of the nineteen failed; they are kept below with
-their causes. The paper (v1.13) reports all nineteen.
+their causes. The paper (v1.14) reports all nineteen.
 
 What is measured is not task accuracy against other systems. It is how well the
 model **predicts, in advance, the accuracy of the memory**: predicted minus
@@ -31,8 +31,8 @@ Tests 15–17 query a local language model and are not wired into
 | Choosing D in advance on 80 unseen subgraphs | promise kept in every group (measured − target: +0.01 to +1.68) | 10 |
 | Same, with the asymptotic Law IV that the package used to expose | WN18RR: 2.8–6.2 points below target, up to 12/20 subgraphs more than 6 below | 10 |
 | Questions written by people (SimpleQuestions ∩ FB15k-237), memory level | 0.807 measured against 0.802 predicted (+0.3 SE) | 11 |
-| At equal bits, against an idealised exact store and a Bloom filter | **ABM loses in every cell** (14/14 recall, every membership cell); predicted by the model within 1 point | 18 |
-| The algebra at equal bits: two-hop chains and compiled compositions against a dictionary + join / path table | **no ABM advantage in any of 16 cells** per task; predicted within 2.01 points; ABM ≥ 2 600× slower in Python | 19 |
+| At equal bits, against an idealised exact store and a Bloom filter | **ABM loses in every cell** (14/14 recall against the store's computed accuracy ⌊D/b⌋/N, every membership cell); model mean error 0.99 / 0.54 points, worst cell 1.97. An expected outcome | 18 |
+| The algebra at equal bits: two-hop chains and compiled compositions against a dictionary + join / path table | **no ABM advantage in any of 16 cells** per task; model mean error 0.32–2.01 points per group, worst cell 7.4 (WN18RR, D = 2048, N = 100, chain); ABM ≥ 2 600× slower in Python. An expected outcome | 19 |
 | Fitted parameters in the model | **0** | — |
 
 The model is exact under stated idealisations: independent random codewords, and
@@ -43,7 +43,7 @@ facts independent over GF(2). Where those fail, so does the model. See
 
 ## The nineteen preregistered tests
 
-The paper's tally (thirteen supported, three in part, three failed) goes by primary hypothesis; test 15 counts as failed, since its primary H1 (relation accuracy) was falsified. Test 2's primary H1 was supported, and a secondary one was in part. Test 11's primary, end-to-end, was in part.
+The paper's tally (thirteen supported, three in part, three failed) goes by primary hypothesis; test 15 counts as failed, since its primary H1 (relation accuracy) was falsified. Test 2's primary H1 was supported, and a secondary one was in part. Test 11's primary, end-to-end, was in part. For tests 2, 11, 13, 14, 15 and 17 the primary hypothesis was chosen when the tally was written, after the outcomes. Per hypothesis the count is 61: 44 supported, 9 in part, 5 falsified, 3 neither or undecided. No multiplicity correction was preregistered (see the paper, §6).
 
 | # | file | what it tests | outcome | result file | `replicate.py` name |
 |---|---|---|---|---|---|
@@ -64,8 +64,8 @@ The paper's tally (thirteen supported, three in part, three failed) goes by prim
 | 15 | `memory_preview.md` | the small front-end sees the memory's answer for each candidate relation | relation accuracy **falsified** (−0.3); answer accuracy **supported** (+2.8 [1.0, 4.6]): choices move toward options where the memory answers plausibly | `memory_preview_prereg_results.json` | — |
 | 16 | `shortlist.md` | an embedding shortlist (bge-small, k = 3 chosen on the audit split) cuts the small front-end's options | relation +26.0 [21.7, 30.3], answer +19.9 [15.9, 24.1]: **supported**; embedding top-1 alone did better still (0.647 answers), not a hypothesis | `shortlist_prereg_results.json` | — |
 | 17 | `webqsp.md` | the embedding front-end on natural questions (515 WebQuestionsSP questions) | embedding +21.7 and shortlist + small model +22.7 over the small model alone: **supported**; within 5 points of Qwen3-4B: in part (−5.8 [−8.9, −3.2]); embedding against shortlist undecided (−1.0 [−3.2, +1.2]); entity linking by name right in 75% | `webqsp_prereg_results.json` | — |
-| 18 | `equal_bits.md` | ABM against an ideal exact store and a Bloom filter with the same number of bits | the exact store wins in 14/14 cells, the Bloom filter in every cell, as the exact model predicted (within 1 point): ABM uses 3.8–46× the Fano minimum | `equal_bits_prereg_results.json` | — |
-| 19 | `algebra.md` | ABM's algebra (two-hop chain; compiled composition) against a realisable store with implicit keys (join; path table) at the same bits, and time per question | all four supported: ABM ahead in 0/16 cells for either task; exact model within 0.32–2.01 points; ABM 2 600–230 000× slower than a `dict` (store time near timer resolution: order of magnitude only) | `algebra_prereg_results.json` | — |
+| 18 | `equal_bits.md` | ABM against an ideal exact store and a Bloom filter with the same number of bits | the exact store wins in 14/14 cells, the Bloom filter in every cell, as the exact model predicted (mean 0.99 / 0.54 points, worst cell 1.97); the store's accuracy is computed, not run; at D = 2048, N = 50 the gap (0.993 vs 1.000) is under 1 SE. ABM uses 3.8–46× the Fano minimum, rising with load | `equal_bits_prereg_results.json` | `equal_bits` |
+| 19 | `algebra.md` | ABM's algebra (two-hop chain; compiled composition) against a realisable store with implicit keys (join; path table) at the same bits, and time per question | all four supported: ABM ahead in 0/16 cells for either task; exact model mean error 0.32–2.01 points per (graph, D, task), worst cell 7.4; ABM 2 600–229 725× slower than a `dict` (store time near timer resolution: order of magnitude only) | `algebra_prereg_results.json` | `algebra` |
 
 Result files are in `results/`, harnesses in `examples/<file stem>_prereg.py`.
 Summary errors with confidence intervals: `results/prereg_summary_results.json`,
@@ -138,14 +138,15 @@ hypothesis of tests 4 and 6 is still supported.
   the contribution here is the accounting: the tie rule, and the multi-answer,
   alias, twin and hop-dependence extensions.
 - **ABM is not a compressor, and not dense.** An exact store beats it on
-  ProofWriter. At equal bits (test 18) an idealised exact store recalls more in
-  14/14 cells and a Bloom filter makes fewer membership errors in every cell;
+  ProofWriter. At equal bits (test 18) an idealised exact store, whose accuracy is computed
+  rather than run, recalls more in 14/14 cells and a Bloom filter makes fewer membership errors in every cell;
   ABM uses 3.8–46× the Fano minimum. Its algebra does not help either (test
   19): on two-hop chains and compiled compositions a dictionary + join or a path
   table of the same bits is at least as accurate in every cell, and orders of
   magnitude faster. Richer queries (conjunctions, analogies) and a bitpacked
   runtime are unmeasured. What remains is accuracy computable before the memory
-  is built.
+  is built. So is an exact store's, more simply; this is of use only where a
+  distributed binary representation is required anyway.
 - **Entity linking is the measured front-end bottleneck.** Linking by name lost
   a quarter of the WebQuestionsSP questions (test 17), for every front-end.
 - **Even cycles break the independence assumption.** Four facts on a rectangle
@@ -160,6 +161,14 @@ hypothesis of tests 4 and 6 is still supported.
 - **Small samples.** Cells use at most 200 queries. The minimum detectable bias is
   about 3–4 points in the noisy cells (audit 2026-09-30), and pass criteria of
   ±2–3 points are only 1.5–3 times that floor.
+- **Anteriority is not third-party verifiable.** Preregistrations are local
+  commits, pushed after the runs. Test 19's result file was written 3 min 21 s
+  after its preregistration commit, which was not yet pushed. From now on a
+  preregistration is pushed before its run.
+- **Language-model front-ends (tests 11–17).** Possible pretraining
+  contamination with SimpleQuestions and WebQuestionsSP, untested; about 0.3%
+  (small model) and 0.9% (larger) of choices changed across reruns at
+  temperature 0, with no build or seed recorded.
 - **No external replication.** Every number here was produced by the author.
   `replicate.py` makes a rerun easy, but nobody else has run it yet.
 - **No real documents.** Facts are synthetic or come from knowledge-graph dumps.
