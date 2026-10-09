@@ -30,8 +30,14 @@ ABM is not published on PyPI. Install it from GitHub:
 ```bash
 pip install git+https://github.com/Kiatto/abm-runtime
 abm demo
-abm inspect triples.json --dim 8192 --grounding 0.93
+abm inspect examples/triples.json --dim 8192 --grounding 0.93
 ```
+
+`abm inspect` reads a JSON file holding a non-empty array of
+`[subject, relation, object]` triples (each element is converted to a string),
+the natural output of an LLM extractor; see
+[`examples/triples.json`](examples/triples.json). `--grounding` is the audited
+precision of your extractor, in [0, 1].
 
 Developer guide (no theory required): [docs/SDK.md](docs/SDK.md).
 What is measured, what failed, and how to rerun all of it:
@@ -100,7 +106,8 @@ mem.query("payment_service", "requires")     # → ("auth_service", 0.99…)
 # recognizable by a margin near 0 (mem.query_z)
 
 # multi-hop reasoning
-mem.chain("payment_service", ["requires", "writes_to"])  # → "session_store"
+mem.chain("payment_service", ["requires", "writes_to"])  # → ("session_store", 0.9…)
+# the confidence of a chain is the product of the per-hop confidences
 
 # algebraic truth oracle: one Hamming distance
 mem.member("payment_service", "requires", "auth_service")  # → True

@@ -1,0 +1,8 @@
+[
+  ["payment_service", "requires", "auth_service"],
+  ["auth_service", "writes_to", "session_store"],
+  ["session_store", "deployed_in", "eu_west"],
+  ["payment_service", "deployed_in", "eu_west"],
+  ["auth_service", "owned_by", "identity_team"],
+  ["payment_service", "owned_by", "payments_team"]
+]
