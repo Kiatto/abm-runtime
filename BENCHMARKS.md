@@ -193,7 +193,12 @@ commit that recorded its results**, writes the rerun to `results/replica/`, and
 compares it with the published file. It reports `IDENTICA`, `IDENTICA a meno di
 1e-12 relativo` (identical up to float rounding) or `DIVERSA`. `--code current`
 runs today's code instead. Since the self-loop fix, tests 4, 6 and 10 crash
-under it, and test 11 moves by 0.13 points.
+under it, and test 11 moves by 0.13 points. Since abm 1.1.0 (2026-10-09) a read no
+longer adds an unknown symbol to the codebook; under `--code current` test 5
+(composition) changes in 11 of 72 cells, by at most 3.3 points (a missing chain
+head is no longer a cleanup candidate). On 2026-10-09 every other test runnable
+under `--code current` (1–3, 7–9, 12–14, 18, 19, Clarkson, seed10, ProofWriter)
+was identical.
 
 Test 11 needs a local language model. `replicate.py` reruns only its deterministic
 part: the exact-model prediction, and the memory's answer to the true
