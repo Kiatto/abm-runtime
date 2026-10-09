@@ -98,3 +98,28 @@ def test_chain_needs_at_least_one_relation():
 def test_member_on_empty_memory_raises():
     with pytest.raises(ValueError):
         Memory(256).member("a", "r", "b")
+
+
+# --- punto 4: niente contratti al 100% su input degeneri ---------------------
+
+def test_contract_on_empty_memory_raises_like_exact():
+    """Prima contract(Memory()) prometteva 100%, mentre exact.contract_for([])
+    sollevava: ora sollevano entrambi."""
+    from abm.inspector import contract, report, stats
+    for call in (lambda: contract(Memory()), lambda: stats(Memory()),
+                 lambda: report(Memory()), lambda: abm.exact.contract_for([], 64)):
+        with pytest.raises(ValueError, match="no"):
+            call()
+
+
+@pytest.mark.parametrize("g", [7, -0.1, 1.0001, float("nan"), "0.9"])
+def test_grounding_must_be_a_probability(g):
+    from abm.inspector import contract
+    with pytest.raises(ValueError, match="grounding|precision"):
+        contract(_small(), grounding=g)
+
+
+def test_contract_says_confidence_is_not_calibrated():
+    from abm.inspector import contract
+    text = contract(_small(), grounding=0.9)
+    assert "not calibrated" in text and "Law IV" in text

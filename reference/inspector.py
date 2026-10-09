@@ -1,6 +1,10 @@
 """
 inspector.py — ABM Inspector: la teoria esposta come API.
 
+SUPERATO dal modello esatto (abm.exact.contract_for): qui la Legge IV
+asintotica, ottimista di qualche punto a D piccolo e cieca a gemelli
+simmetrici e alias (preregistrazione 10). Resta per compatibilità.
+
 Non tocca la reference congelata (abm.py): la osserva. Ogni campo di
 stats() è una formula del formalismo, non una statistica descrittiva —
 è la differenza tra mostrare numeri e mostrare garanzie.
@@ -26,13 +30,27 @@ except ImportError:
                      z_gumbel, hamming, confidence)
 
 
+def _check_probability(name: str, p) -> float:
+    if isinstance(p, bool) or not isinstance(p, (int, float, np.integer, np.floating)) \
+            or not 0.0 <= p <= 1.0:              # nan fallisce il confronto
+        raise ValueError(f"{name} must be a number in [0, 1], got {p!r}")
+    return float(p)
+
+
 def stats(mem: Memory, extractor_precision: float = 1.0,
           horizon: int = 100, hops: int = 2,
           triples=None, queries=None) -> dict:
     """Il Memory Contract calcolato, non osservato. Se l'applicazione
     fornisce triples+queries (livello A), aggiunge la diagnosi di
-    aliasing strutturale."""
+    aliasing strutturale.
+
+    Solleva ValueError su una memoria vuota (come exact.contract_for([])) e su
+    una extractor_precision fuori da [0, 1]."""
+    _check_probability("extractor_precision (grounding)", extractor_precision)
     n = len(mem._facts)
+    if n == 0:
+        raise ValueError("no facts: a contract on an empty memory promises nothing; "
+                         "store at least one fact first")
     m = max(len(mem.items), 2)
     cap = capacity(mem.dim, m)
     acc_now = predicted_accuracy(n, mem.dim, m) if n else 1.0
@@ -115,17 +133,18 @@ def aliasing(triples, queries) -> dict:
 
 
 def contract(mem: Memory, grounding: float = 1.0) -> str:
-    """La specifica firmabile prima del deploy."""
+    """Il contratto della Legge IV asintotica (superato: per dimensionare una
+    memoria usare abm.exact.contract_for)."""
     s = stats(mem, extractor_precision=grounding)
     return (
-        f"MEMORY CONTRACT\n"
+        f"MEMORY CONTRACT (asymptotic Law IV; superseded by abm.exact.contract_for)\n"
         f"  Capacity        <= {s['estimated_capacity']} facts "
         f"(D={s['dimension']}, codebook={s['codebook']})\n"
         f"  Expected accuracy >= {s['expected_accuracy']:.0%} "
         f"at current load ({s['facts']} facts)\n"
         f"  Grounding       >= {grounding:.0%} "
         f"(projected end-to-end {s['projected_accuracy']:.0%})\n"
-        f"  Confidence      calibrated (0.5 = chance), "
+        f"  Confidence      logistic of the margin, not calibrated (0.5 = chance), "
         f"margin {s['confidence_margin_sigma']}σ\n"
         f"  Max depth (p50) =  {s['max_reasoning_depth_p50']} hops\n"
         f"  Pressure        =  {s['pressure']:.2f}"
