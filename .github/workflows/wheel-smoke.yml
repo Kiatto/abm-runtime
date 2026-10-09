@@ -1,0 +1,48 @@
+# Il wheel, installato in un venv vergine, fa quello che il README promette:
+# import, blocchi di codice Python del README, `abm demo` e `abm inspect` sul
+# file d'esempio. Gira dal di fuori del repo, così non si importa reference/.
+
+name: Wheel smoke test
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "reference/**"
+      - "pyproject.toml"
+      - "README.md"
+      - "examples/**"
+      - ".github/workflows/**"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Build del wheel
+        run: uv build --wheel --out-dir dist
+      - name: Install in un venv pulito ed esecuzione del README
+        run: |
+          set -eu
+          uv venv --python 3.12 /tmp/smoke
+          uv pip install --python /tmp/smoke/bin/python dist/*.whl
+          cp README.md examples/triples.json /tmp/
+          cd /tmp
+          /tmp/smoke/bin/abm demo
+          /tmp/smoke/bin/abm inspect triples.json --dim 8192 --grounding 0.93
+          /tmp/smoke/bin/python -c "from abm import Memory, exact; from abm.inspector import stats, contract, report"
+          /tmp/smoke/bin/python - <<'PY'
+          import re
+          blocks = re.findall(r"```python\n(.*?)```", open("README.md").read(), re.S)
+          assert blocks, "nessun blocco python nel README"
+          for b in blocks:
+              b = b.replace(", ...]", "]")   # segnaposto del README
+              exec(compile(b, "README.md", "exec"), {})
+          print(f"{len(blocks)} blocchi del README eseguiti")
+          PY
