@@ -64,6 +64,11 @@ DATASETS = {
     "SimpleQuestions_v2.tgz": (
         "https://www.dropbox.com/s/tohrsllcfy7rch4/SimpleQuestions_v2.tgz?dl=1",
         "58f65630895de4f9712eeb33458ca20538972436fd48bf5913df4765e6788bf5"),
+    # CoDEx-M (Safavi e Koutra, 2020), train split, al commit 3132e42 del repo pubblico
+    "codex/codex-m_train.txt": (
+        "https://raw.githubusercontent.com/tsafavi/codex/"
+        "3132e426c2a6b643b70bad679905a3a6270be440/data/triples/codex-m/train.txt",
+        "d99c3437ab51690391a26d96976adf6e5494dba7ef6902e77000551bfa566556"),
 }
 
 # preregistrazione -> (harness, file di risultati, tempo indicativo su 12 core)
@@ -185,6 +190,7 @@ def fetch(names):
         if name not in need:
             continue
         path = DATA / name
+        path.parent.mkdir(parents=True, exist_ok=True)
         if not path.exists():
             print(f"scarico {name} ...", flush=True)
             urllib.request.urlretrieve(url, path)
