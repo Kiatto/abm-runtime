@@ -57,7 +57,9 @@ SCHEMES = ("uniform", "dense")
 LOADS = (100, 400, 1600, 3200)
 ADMIT_GAP, ADMIT_FAMILIES = 0.02, 3    # regola di ammissione al test della contabilità
 RUN_BUDGET_H = 3.0                     # sopra, riduzione della griglia (regola nel documento)
-LOADS_BY_DATASET = {"codex-m": LOADS, "yago3-10": LOADS}
+# griglia ridotta con la regola scritta (stima 350 min > 3 h): via N = 3200 di YAGO3-10
+# (219 min), poi di CoDEx-M (≈ 80 min, sotto le 3 h)
+LOADS_BY_DATASET = {"codex-m": (100, 400, 1600), "yago3-10": (100, 400, 1600)}
 TARGETS = (0.50, 0.85)                 # frazione del tetto degli alias (regola della 21)
 FAMILIES = ("MAP-B", "MAP-I", "FHRR", "HRR", "BSDC-OR", "BSDC-S")
 HOPS = (1, 2, 3)
