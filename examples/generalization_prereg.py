@@ -3,12 +3,15 @@
 docs/preregistration/generalization.md. Riusa, importandolo e senza modificarlo, il codice
 della preregistrazione 21 (examples/vsa_families_prereg.py). Nuovo rispetto alla 21:
 
-- BSDC-S con il rumore condizionato alla traccia realizzata (diagnosi del bias della 21,
-  passo 1, `--diagnose`, solo sintetico);
+- BSDC-S con i pareggi esatti (`bsdc_s_exact`), dopo la diagnosi del bias della 21
+  (passo 1, `--diagnose`, solo sintetico; il modello condizionato alla traccia resta solo
+  come strumento di diagnosi); `--postdict` ricalcola le celle BSDC-S già misurate
+  della 21 con il modello corretto (postdizione, nessuna nuova misura);
 - HRR: vettori gaussiani, binding per convoluzione circolare (FFT), unbinding per
   involuzione; varianza del rumore con le molteplicità degli atomi (passo 2, `--verify`);
 - catene a 2 e 3 hop, cleanup a ogni hop come `Memory.chain` (passo 3, `--verify`);
-- dati nuovi: CoDEx-M (train), carichi fino a N = 3200, 20 seed.
+- dati nuovi: CoDEx-M e YAGO3-10 (train), carichi fino a N = 3200, 20 seed;
+- atomi MAP-B salati con il seed (indipendenza fra seed).
 
 Uso, dalla root:
     python examples/generalization_prereg.py --diagnose   # passo 1, sintetico
@@ -34,8 +37,14 @@ import vsa_families_prereg as v21  # noqa: E402  (aggiunge anche reference/ al p
 import abm  # noqa: E402
 import exact  # noqa: E402
 
-DATA = ROOT / "data" / "external" / "codex" / "codex-m_train.txt"
-DATA_SHA = "d99c3437ab51690391a26d96976adf6e5494dba7ef6902e77000551bfa566556"
+EXT = ROOT / "data" / "external"
+DATA = {
+    "codex-m": (EXT / "codex" / "codex-m_train.txt", None,
+                "d99c3437ab51690391a26d96976adf6e5494dba7ef6902e77000551bfa566556"),
+    "yago3-10": (EXT / "yago3_10" / "YAGO3-10.tar.gz", "train.txt",
+                 "9a3bdd5fd08c064bd4b9ffdbe972f37ba0b8799f4e9f868ff70f5d2f5331fb92"),
+}
+POSTDICT_OUT = ROOT / "results" / "generalization_postdiction_bsdc_s.json"
 OUT = ROOT / "results" / "generalization_prereg_results.json"
 PRED_OUT = ROOT / "results" / "generalization_prereg_predictions.json"
 DIAG_SEEDS = 16
@@ -43,8 +52,12 @@ VERIFY_SEEDS = 16
 DIAG_OUT = ROOT / "results" / "generalization_diagnosis.json"
 
 # ---- preregistrato: non cambiare dopo aver visto i risultati ----------------
+DATASETS = ("codex-m", "yago3-10")
 SCHEMES = ("uniform", "dense")
 LOADS = (100, 400, 1600, 3200)
+ADMIT_GAP, ADMIT_FAMILIES = 0.02, 3    # regola di ammissione al test della contabilità
+RUN_BUDGET_H = 3.0                     # sopra, riduzione della griglia (regola nel documento)
+LOADS_BY_DATASET = {"codex-m": LOADS, "yago3-10": LOADS}
 TARGETS = (0.50, 0.85)                 # frazione del tetto degli alias (regola della 21)
 FAMILIES = ("MAP-B", "MAP-I", "FHRR", "HRR", "BSDC-OR", "BSDC-S")
 HOPS = (1, 2, 3)
@@ -59,21 +72,35 @@ D_MAX = 1 << 18
 HRR_BITS = 32                          # float32
 BSDC_S_DRAWS = 400                     # tracce estratte dal modello (BSDC-S condizionato)
 MC3_TRIALS = 20000                     # exact.chain_accuracy_mc per MAP-B a 3 hop
-T_CRIT = 2.861                         # t di Student, 19 gdl, bilaterale 0.01
-T_95, T_80 = 2.093, 0.861              # IC al 95 % e potenza 0.8, 19 gdl
+# quantili di Student per gdl = n_seed − 1 (9..19): 0.995, 0.975, 0.80
+T995 = {9: 3.250, 10: 3.169, 11: 3.106, 12: 3.055, 13: 3.012, 14: 2.977, 15: 2.947,
+        16: 2.921, 17: 2.898, 18: 2.878, 19: 2.861}
+T975 = {9: 2.262, 10: 2.228, 11: 2.201, 12: 2.179, 13: 2.160, 14: 2.145, 15: 2.131,
+        16: 2.120, 17: 2.110, 18: 2.101, 19: 2.093}
+T80 = {9: 0.883, 10: 0.879, 11: 0.876, 12: 0.873, 13: 0.870, 14: 0.868, 15: 0.866,
+       16: 0.865, 17: 0.863, 18: 0.862, 19: 0.861}
+T_95 = T975[19]
+MDE_HOP_MAX = 0.05                     # H6: escluse le celle con MDE per hop > 5 punti
 SEED_BASE = 22_000_022
 # -----------------------------------------------------------------------------
 
 v21.Q_MAX = Q_MAX                      # Cell della 21 legge la costante di modulo
 
 
-def load():
-    if not DATA.exists():
-        raise SystemExit(f"{DATA} mancante: scaricalo come in examples/replicate.py (DATASETS)")
-    got = hashlib.sha256(DATA.read_bytes()).hexdigest()
-    if got != DATA_SHA:
-        raise SystemExit(f"{DATA.name}: sha256 {got}, atteso {DATA_SHA}")
-    return [tuple(line.rstrip("\n").split("\t")) for line in DATA.open()]
+def load(name):
+    path, member, sha = DATA[name]
+    if not path.exists():
+        raise SystemExit(f"{path} mancante: scaricalo come in examples/replicate.py (DATASETS)")
+    got = hashlib.sha256(path.read_bytes()).hexdigest()
+    if got != sha:
+        raise SystemExit(f"{path.name}: sha256 {got}, atteso {sha}")
+    if member is None:
+        lines = path.read_text().splitlines()
+    else:
+        import tarfile
+        with tarfile.open(path) as t:
+            lines = t.extractfile(member).read().decode().splitlines()
+    return [tuple(x.split("\t")) for x in lines if x.strip()]
 
 
 # =============================================================================
@@ -390,7 +417,9 @@ def predict_queries(cell, family, dim, queries, naive=False):
                 cache[(dim, sig_of(cell, *q))] = v
         return [cache[(dim, sig_of(cell, *q))] for q in queries]
     if family == "HRR":
-        hc = cell.__dict__.setdefault("_hrr", hrr_struct(cell))
+        if "_hrr" not in cell.__dict__:
+            cell._hrr = hrr_struct(cell)
+        hc = cell._hrr
         return [hrr_acc(cell, hc, s, r, dim) for s, r in queries]
     like = _like(cell)
     cache, out = cell.__dict__.setdefault("_pc", {}), []
@@ -519,6 +548,7 @@ class Engine:
     def __init__(self, cell, family, dim, rng):
         self.f, self.dim, self.rng = family, dim, rng
         self.sym = cell.symbols
+        self.salt = getattr(cell, "salt", "")
         self.idx = {x: i for i, x in enumerate(self.sym)}
         self.m = len(self.sym)
         self.base = int(rng.integers(2 ** 62))
@@ -570,7 +600,9 @@ class Engine:
     def _gen(self, ix):
         d = self.dim
         if self.f == "MAP-B":
-            return np.stack([abm.random_hv(self.sym[i], d) for i in ix]).astype(np.int8)
+            # atomi salati con il seed: indipendenti fra seed (revisione del disegno)
+            return np.stack([abm.random_hv(f"{self.sym[i]}#{self.salt}", d)
+                             for i in ix]).astype(np.int8)
         out = []
         for i in ix:
             g = np.random.default_rng([self.base, int(i)])
@@ -773,19 +805,22 @@ def choose_dim(cells, family, target_abs, n):
     return step * hi
 
 
-def build(graph, loads, seeds=SEEDS):
+def build(graphs, loads_by_ds, seeds=SEEDS):
     cells = {}
-    for si, scheme in enumerate(SCHEMES):
-        for n in loads:
-            cs = []
-            for k in range(seeds):
-                samp, atoms, ch = np.random.SeedSequence([SEED_BASE, si, n, k]).spawn(3)
-                rng = np.random.default_rng(samp)
-                c = v21.Cell(v21.sample(graph, n, scheme, rng), rng, atoms)
-                crng = np.random.default_rng(ch)
-                c.chains = {h: sample_chains(c, h, crng) for h in HOPS if h > 1}
-                cs.append(c)
-            cells[(scheme, n)] = cs
+    for name, graph in graphs.items():
+        di = DATASETS.index(name) if name in DATASETS else 9
+        for si, scheme in enumerate(SCHEMES):
+            for n in loads_by_ds[name]:
+                cs = []
+                for k in range(seeds):
+                    samp, atoms, ch = np.random.SeedSequence([SEED_BASE, di, si, n, k]).spawn(3)
+                    rng = np.random.default_rng(samp)
+                    c = v21.Cell(v21.sample(graph, n, scheme, rng), rng, atoms)
+                    c.salt = f"g22-{di}-{si}-{n}-{k}"       # sale degli atomi MAP-B
+                    crng = np.random.default_rng(ch)
+                    c.chains = {h: sample_chains(c, h, crng) for h in HOPS if h > 1}
+                    cs.append(c)
+                cells[(name, scheme, n)] = cs
     return cells
 
 
@@ -796,7 +831,7 @@ def se_model(preds_by_seed):
 
 def plan(cells):
     rows = []
-    for (scheme, n), cs in cells.items():
+    for (name, scheme, n), cs in cells.items():
         ceil = float(np.mean([c.ceiling for c in cs[:FIT_SEEDS]]))
         chain_ok = {h: len(chain_seeds(cs, h)) >= CHAIN_SEEDS for h in (2, 3)}
         for t in TARGETS:
@@ -806,8 +841,9 @@ def plan(cells):
                 for h in HOPS:
                     if h > 1 and not chain_ok[h]:
                         continue
-                    rows.append(_row(cs, scheme, n, t, fam, d, ceil, h))
-                print(f"  {scheme} N={n} t={t} {fam} D={d} ({time.time() - t0:.0f} s)", flush=True)
+                    rows.append(_row(cs, name, scheme, n, t, fam, d, ceil, h))
+                print(f"  {name} {scheme} N={n} t={t} {fam} D={d} ({time.time() - t0:.0f} s)",
+                      flush=True)
     return rows
 
 
@@ -815,11 +851,41 @@ def chain_seeds(cs, h):
     return [k for k, c in enumerate(cs) if len(c.chains[h]) >= CHAIN_MIN]
 
 
-def _row(cs_all, scheme, n, t, fam, d, ceil, h):
+def predict_naive_sig(cell, family, dim, queries):
+    """Comparatore che CONSERVA la firma della query (numero di oggetti veri) e toglie
+    solo gemelli (tutti i vettori di peso 1, S2 = N) e alias. Per H9 e descrittivo."""
+    n = len(cell.triples)
+    like = (cell.m, float(n), n, ((1, n),), n)
+    out = []
+    for q in queries:
+        g = len(cell.objects.get(q, ()))
+        if g == 0:
+            out.append(0.0)
+            continue
+        gw = (1,) * g
+        if family == "MAP-B":
+            out.append(exact.cleanup_accuracy_mixed(dim, cell.m, [exact.p_agree(n)] * g))
+        elif family == "HRR":
+            out.append(v21._sig_acc(like, "MAP-I", dim, gw, ()))
+        elif family == "BSDC-S":
+            out.append(_bsdc_s_pred(like, dim, gw, ()))
+        else:
+            out.append(v21._sig_acc(like, family, dim, gw, ()))
+    return out
+
+
+def chains_naive_sig(cell, family, dim, chains):
+    hop_q = sorted({(nd[i], pa[i]) for nd, pa in chains for i in range(len(pa))})
+    p = dict(zip(hop_q, predict_naive_sig(cell, family, dim, hop_q)))
+    return [float(np.prod([p[(nd[i], pa[i])] for i in range(len(pa))])) for nd, pa in chains]
+
+
+def _row(cs_all, name, scheme, n, t, fam, d, ceil, h):
     seeds = list(range(len(cs_all))) if h == 1 else chain_seeds(cs_all, h)
     cs = [cs_all[k] for k in seeds]
-    r = {"scheme": scheme, "N": n, "target": t, "target_abs": t * ceil, "family": fam,
-         "hops": h, "D": d, "ceiling": ceil, "seeds": seeds,
+    df = len(seeds) - 1
+    r = {"dataset": name, "scheme": scheme, "N": n, "target": t, "target_abs": t * ceil,
+         "family": fam, "hops": h, "D": d, "ceiling": ceil, "seeds": seeds, "df": df,
          "bits": None if d is None else d * bits_per_component(fam, n),
          "M": float(np.mean([c.m for c in cs])),
          "queries": int(sum(len(c.queries) if h == 1 else len(c.chains[h]) for c in cs)),
@@ -831,20 +897,24 @@ def _row(cs_all, scheme, n, t, fam, d, ceil, h):
     if h == 1:
         preds = [predict_queries(c, fam, d, c.queries) for c in cs]
         naive = [predict_queries(c, fam, d, c.queries[:1], naive=True)[0] for c in cs]
+        nsig = [float(np.mean(predict_naive_sig(c, fam, d, c.queries))) for c in cs]
     else:
         dep = None
-        if fam == "MAP-B":                         # uno per cella: N e M medi sui 20 seed
+        if fam == "MAP-B":                         # uno per cella: N e M medi sui seed
             dep = mapb_dep(int(round(np.mean([c.n_vec for c in cs]))), d,
                            int(round(np.mean([c.m for c in cs]))), h)
             r["dep"] = dep
         preds = [predict_chains(c, fam, d, c.chains[h], dep=dep) for c in cs]
         naive = [float(np.mean(predict_chains(c, fam, d, c.chains[h], naive=True))) for c in cs]
+        nsig = [float(np.mean(chains_naive_sig(c, fam, d, c.chains[h]))) for c in cs]
     r["pred_seed"] = [float(np.mean(p)) for p in preds]
     r["pred"] = float(np.mean(r["pred_seed"]))
     oos = [p for k, p in zip(seeds, r["pred_seed"]) if k >= FIT_SEEDS]
     r["pred_oos"] = float(np.mean(oos)) if oos else None
     r["pred_naive_seed"] = [float(x) for x in naive]
     r["pred_naive"] = float(np.mean(naive))
+    r["pred_naive_sig_seed"] = nsig
+    r["pred_naive_sig"] = float(np.mean(nsig))
     if fam == "BSDC-S":                            # modello della 21 (pareggi approssimati)
         p21 = []
         for c in cs:
@@ -858,7 +928,10 @@ def _row(cs_all, scheme, n, t, fam, d, ceil, h):
         r["pred_v21_seed"] = [float(np.mean(p)) for p in p21]
         r["pred_v21"] = float(np.mean(r["pred_v21_seed"]))
     r["se_model"] = se_model(preds)
-    r["mde"] = (T_95 + T_80) * r["se_model"]
+    r["mde"] = (T975[df] + T80[df]) * r["se_model"]
+    # scala per hop: x^(1/h); MDE per hop per il metodo delta
+    r["pred_hop"] = r["pred"] ** (1.0 / h)
+    r["mde_hop"] = r["mde"] / (h * max(r["pred"], 1e-6) ** ((h - 1.0) / h))
     return r
 
 
@@ -872,17 +945,70 @@ class Cell21View:
         self.sigs = [sig_of(cell, *q) for q in self.queries]
 
 
+# ---- regole scritte prima delle previsioni su YAGO3-10 ---------------------------
+
+def admission(rows):
+    """Un grafo entra nel test della contabilità (H2 come test, H5) se il divario previsto
+    |contabilità − FKS ingenuo| medio nelle celle dense a 1 hop è ≥ 2 punti in almeno 3
+    famiglie. Usa solo le previsioni."""
+    out = {}
+    for name in {r["dataset"] for r in rows}:
+        gaps = {}
+        for fam in FAMILIES:
+            sel = [r for r in rows if (r["dataset"], r["scheme"], r["hops"], r["family"])
+                   == (name, "dense", 1, fam) and r["pred"] is not None]
+            if sel:
+                gaps[fam] = float(np.mean([abs(r["pred"] - r["pred_naive"]) for r in sel]))
+        ok = [f for f, g in gaps.items() if g >= ADMIT_GAP]
+        out[name] = {"gaps": gaps, "families_over": ok, "admitted": len(ok) >= ADMIT_FAMILIES}
+    return out
+
+
+def _x_of(gap):
+    """Soglia X: metà del divario previsto, per difetto al mezzo punto, minimo 1 punto."""
+    return max(1.0, math.floor(100 * gap) / 2) / 100
+
+
+def thresholds(rows):
+    """X per H4 (HRR, h = 1, contro FKS ingenuo), H5 (dense h = 1, famiglie ammesse,
+    contro FKS ingenuo), H9 (catene, scala per hop, contro il comparatore che conserva la
+    firma). Calcolate insieme alle previsioni."""
+    adm = admission(rows)
+    X = {}
+    for (name, fam, scheme, h) in sorted({(r["dataset"], r["family"], r["scheme"], r["hops"])
+                                          for r in rows}):
+        sel = [r for r in rows if (r["dataset"], r["family"], r["scheme"], r["hops"])
+               == (name, fam, scheme, h) and r["pred"] is not None]
+        if h > 1:
+            sel = [r for r in sel if r["mde_hop"] <= MDE_HOP_MAX]
+        if not sel:
+            continue
+        if h == 1:
+            gap = float(np.mean([abs(r["pred"] - r["pred_naive"]) for r in sel]))
+            key = f"{name}|{fam}|{scheme}|h1"
+            if fam == "HRR":
+                X[key] = {"hyp": "H4", "gap": gap, "X": _x_of(gap)}
+            elif scheme == "dense" and adm[name]["admitted"] and gap >= ADMIT_GAP:
+                X[key] = {"hyp": "H5", "gap": gap, "X": _x_of(gap)}
+        else:
+            gap = float(np.mean([abs(r["pred"] ** (1 / h) - r["pred_naive_sig"] ** (1 / h))
+                                 for r in sel]))
+            X[f"{name}|{fam}|{scheme}|h{h}"] = {"hyp": "H9", "gap": gap, "X": _x_of(gap),
+                                                 "cells": len(sel)}
+    return X
+
+
 def run(cells, rows):
     """Una memoria per (cella, famiglia, D, seed): 1 hop e catene sulla stessa."""
     done = {}
-    for i, r in enumerate(rows):
+    for r in rows:
         if r["pred"] is None:
             continue
-        key = (r["scheme"], r["N"], r["target"], r["family"])
-        cs = cells[(r["scheme"], r["N"])]
+        key = (r["dataset"], r["scheme"], r["N"], r["target"], r["family"])
+        cs = cells[(r["dataset"], r["scheme"], r["N"])]
         if key not in done:
             done[key] = []
-            for k, c in enumerate(cs):
+            for c in cs:
                 rng = np.random.default_rng(np.random.SeedSequence(
                     c.atom_seq.entropy, spawn_key=c.atom_seq.spawn_key
                     + (SCHEMES.index(r["scheme"]), FAMILIES.index(r["family"]),
@@ -897,43 +1023,58 @@ def run(cells, rows):
         r["meas_oos"] = float(np.mean(oos)) if oos else None
         r["err"] = r["meas"] - r["pred"]
         r["err_naive"] = r["meas"] - r["pred_naive"]
+        h = r["hops"]
+        r["err_hop"] = r["meas"] ** (1 / h) - r["pred"] ** (1 / h)
+        r["err_naive_sig_hop"] = r["meas"] ** (1 / h) - r["pred_naive_sig"] ** (1 / h)
         r["se_cluster"] = float(np.std(e, ddof=1) / math.sqrt(len(e)))
-        if r["se_cluster"] > 0:
-            r["t"] = r["err"] / r["se_cluster"]
-        else:                          # 0/0 = nessuna differenza; d ≠ 0 con SE = 0: infinito
-            r["t"] = 0.0 if r["err"] == 0 else math.copysign(math.inf, r["err"])
-        print(f"{r['scheme']:7s} N={r['N']:4d} t={r['target']} {r['family']:7s} h={r['hops']} "
-              f"D={r['D']:6d} prev {r['pred']:.3f} ingenuo {r['pred_naive']:.3f} "
-              f"mis {r['meas']:.3f}", flush=True)
+        r["t"] = t_stat(r["err"], r["se_cluster"])
+        print(f"{r['dataset']} {r['scheme']:7s} N={r['N']:4d} t={r['target']} {r['family']:7s} "
+              f"h={h} D={r['D']:6d} prev {r['pred']:.3f} mis {r['meas']:.3f}", flush=True)
     return rows
 
 
-def summarize(rows):
-    """Gruppo = (famiglia, campione, h): celle dei 4 carichi × 2 target misurabili."""
+def t_stat(err, se):
+    """t con la convenzione 0/0 = nessuna differenza (t = 0); errore ≠ 0 con SE = 0: ±∞."""
+    if se > 0:
+        return err / se
+    return 0.0 if err == 0 else math.copysign(math.inf, err)
+
+
+def summarize(rows, X):
+    """Gruppo = (dataset, famiglia, campione, h). h = 1: errori sulla scala dell'accuratezza;
+    h > 1: errori per hop (x^(1/h)), solo celle con MDE per hop ≤ 5 punti."""
     meas = [r for r in rows if r.get("err") is not None]
     out = {}
-    for fam in FAMILIES:
-        for scheme in SCHEMES:
-            for h in HOPS:
-                sel = [r for r in meas if (r["family"], r["scheme"], r["hops"]) == (fam, scheme, h)]
-                if not sel:
-                    continue
-                if h == 1:       # stessi 20 seed in ogni cella: errore per seed, IC a cluster
-                    e = np.mean([np.asarray(r["meas_seed"]) - np.asarray(r["pred_seed"])
-                                 for r in sel], axis=0)
-                    ci = 100 * T_95 * float(np.std(e, ddof=1)) / math.sqrt(len(e))
-                else:            # catene: seed diversi per cella; media degli errori di cella
-                    e, ci = np.array([r["err"] for r in sel]), None
-                out[f"{fam}|{scheme}|h{h}"] = {
-                    "mae": 100 * float(np.mean([abs(r["err"]) for r in sel])),
-                    "max_cell": 100 * float(np.max([abs(r["err"]) for r in sel])),
-                    "mae_naive": 100 * float(np.mean([abs(r["err_naive"]) for r in sel])),
-                    "signed": 100 * float(np.mean(e)),
-                    "ci95_half": ci,
-                    "oos_ok": int(sum(r["meas_oos"] >= r["target_abs"] - 0.03 for r in sel
-                                      if h == 1)),
-                    "t_over": int(sum(abs(r["t"]) > T_CRIT for r in sel if r["hops"] == 1)),
-                    "cells": len(sel)}
+    for key in sorted({(r["dataset"], r["family"], r["scheme"], r["hops"]) for r in meas}):
+        name, fam, scheme, h = key
+        sel = [r for r in meas if (r["dataset"], r["family"], r["scheme"], r["hops"]) == key]
+        if h > 1:
+            sel = [r for r in sel if r["mde_hop"] <= MDE_HOP_MAX]
+            if not sel:
+                continue
+            err = [r["err_hop"] for r in sel]
+            errn = [r["err_naive_sig_hop"] for r in sel]
+            ci = None
+        else:
+            err = [r["err"] for r in sel]
+            errn = [r["err_naive"] for r in sel]
+            e = np.mean([np.asarray(r["meas_seed"]) - np.asarray(r["pred_seed"]) for r in sel],
+                        axis=0)
+            ci = 100 * T975[len(e) - 1] * float(np.std(e, ddof=1)) / math.sqrt(len(e))
+        w = np.array([1.0 / max(r["se_cluster"], 1e-4) ** 2 for r in sel])
+        g = {"mae": 100 * float(np.mean(np.abs(err))),
+             "max_cell": 100 * float(np.max(np.abs(err))),
+             "mae_naive": 100 * float(np.mean(np.abs(errn))),
+             "signed": 100 * float(np.mean(err)), "ci95_half": ci,
+             "mae_weighted_descr": 100 * float(np.sum(w * np.abs(err)) / np.sum(w)),
+             "cells": len(sel)}
+        if h == 1:
+            g["oos_ok"] = int(sum(r["meas_oos"] >= r["target_abs"] - 0.03 for r in sel))
+            g["t_over"] = int(sum(abs(r["t"]) > T995[r["df"]] for r in sel))
+        k = f"{name}|{fam}|{scheme}|h{h}"
+        if k in X:
+            g["X"] = X[k]["X"]
+        out[k] = g
     return out
 
 
@@ -942,41 +1083,105 @@ def synthetic_graph():
 
 
 def check_mapb(cell, dim):
-    """Smoke: l'Engine MAP-B risponde come abm.Memory.query (stessa traccia, stessi pareggi)."""
+    """Smoke: l'Engine MAP-B (atomi salati) risponde come abm.Memory.store/query sulle
+    stesse triple con i nomi salati: stessa traccia, stessi pareggi."""
+    salt = lambda x: f"{x}#{cell.salt}"                       # noqa: E731
     mem = abm.Memory(dim)
     for x in cell.symbols:
-        mem.items.add(x)
-    for t in cell.triples:
-        mem._facts.append(mem.fact_hv(*t))
-    mem._trace = abm.bundle(mem._facts)
+        mem.items.add(salt(x))
+    for s, r, o in cell.triples:
+        mem.store(salt(s), salt(r), salt(o))
     eng = Engine(cell, "MAP-B", dim, np.random.default_rng(0))
+    assert np.array_equal(eng.trace.astype(np.int8), mem._trace), "traccia MAP-B diversa"
     got = eng.answer([eng.idx[s] for s, _ in cell.queries], [eng.idx[r] for _, r in cell.queries])
-    ref = [mem.query(s, r)[0] for s, r in cell.queries]
-    assert [eng.sym[g] for g in got] == ref, "Engine MAP-B diverge da Memory.query"
+    ref = [mem.query(salt(s), salt(r))[0] for s, r in cell.queries]
+    assert [salt(eng.sym[g]) for g in got] == ref, "Engine MAP-B diverge da Memory.query"
 
 
 def timing(rows):
-    """Stima del tempo del run: una memoria per famiglia al D più grande previsto, su un
-    grafo SINTETICO con lo stesso N (nessuna misura sui dati reali)."""
-    g = synthetic_graph()
-    total = 0.0
-    for (scheme, n) in {(r["scheme"], r["N"]) for r in rows}:
-        c = _syn_cells(n, scheme, 1, SEED_BASE + 300, n_ent=max(400, n), n_rel=8,
-                       n_facts=max(4000, 3 * n))[0]
-        c.chains = {h: sample_chains(c, h, np.random.default_rng(h)) for h in (2, 3)}
-        for fam in FAMILIES:
-            for t in TARGETS:
-                ds = [r["D"] for r in rows if (r["scheme"], r["N"], r["family"], r["target"])
-                      == (scheme, n, fam, t) and r["D"]]
-                if not ds:
-                    continue
-                t0 = time.time()
-                measure(c, fam, ds[0], np.random.default_rng(0), c.queries, c.chains)
-                dt = time.time() - t0
-                total += dt * SEEDS
-                print(f"  tempo {scheme} N={n} {fam} t={t} D={ds[0]}: {dt:.1f} s/seed", flush=True)
-    del g
-    return total
+    """Stima del tempo del run: una memoria per (campione, N, famiglia, target) al D
+    previsto, su un grafo SINTETICO con lo stesso N e un codebook simile (nessuna misura
+    sui dati reali); × 20 seed. Restituisce secondi per dataset."""
+    out = {}
+    for name in sorted({r["dataset"] for r in rows}):
+        tot = 0.0
+        for (scheme, n) in sorted({(r["scheme"], r["N"]) for r in rows if r["dataset"] == name}):
+            m = np.mean([r["M"] for r in rows if (r["dataset"], r["scheme"], r["N"], r["hops"])
+                         == (name, scheme, n, 1)])
+            c = _syn_cells(n, scheme, 1, SEED_BASE + 300, n_ent=int(max(400, m)), n_rel=8,
+                           n_facts=max(4000, 3 * n))[0]
+            c.salt = "timing"
+            c.chains = {h: sample_chains(c, h, np.random.default_rng(h)) for h in (2, 3)}
+            for fam in FAMILIES:
+                for t in TARGETS:
+                    ds = [r["D"] for r in rows if (r["dataset"], r["scheme"], r["N"], r["family"],
+                                                   r["target"]) == (name, scheme, n, fam, t) and r["D"]]
+                    if not ds:
+                        continue
+                    t0 = time.time()
+                    measure(c, fam, ds[0], np.random.default_rng(0), c.queries, c.chains)
+                    dt = time.time() - t0
+                    tot += dt * SEEDS
+                    print(f"  tempo {name} {scheme} N={n} M≈{m:.0f} {fam} t={t} D={ds[0]}: "
+                          f"{dt:.1f} s/seed", flush=True)
+        out[name] = tot
+    return out
+
+
+def postdict():
+    """Postdizione (NON una nuova misura): le celle calib BSDC-S della 21, già misurate e
+    pubblicate (results/vsa_families_prereg_results.json), confrontate con bsdc_s_exact.
+    Ricampiona i sottografi della 21 con il suo codice (deterministico) e ricalcola solo
+    le previsioni."""
+    res = json.loads(v21.OUT.read_text())
+    graphs = {n: v21.Graph(v21.load(n)) for n in v21.DATASETS}
+    cells = v21.build_cells(graphs, v21.DATASETS, v21.LOADS)
+    rows = []
+    for r in res["rows"]:
+        if r["family"] != "BSDC-S" or r["block"] != "calib" or r.get("meas_seed") is None:
+            continue
+        cs = cells[(r["dataset"], r["scheme"], r["N"])]
+        new = [float(np.mean(predict_queries(c, "BSDC-S", r["D"], c.queries))) for c in cs]
+        old = r["pred_seed"]
+        assert np.allclose(old, [float(np.mean(v21.predict_cell(c, "BSDC-S", r["D"])))
+                                 for c in cs]), "ricampionamento della 21 non riprodotto"
+        rows.append({k: r[k] for k in ("dataset", "scheme", "N", "target", "D", "meas")}
+                    | {"pred21": float(np.mean(old)), "pred_exact": float(np.mean(new)),
+                       "err21": r["meas"] - float(np.mean(old)),
+                       "err_exact": r["meas"] - float(np.mean(new))})
+        print(f"{r['dataset']:8s} {r['scheme']:7s} N={r['N']} t={r['target']} D={r['D']}: mis "
+              f"{r['meas']:.3f} 21 {np.mean(old):.3f} esatto {np.mean(new):.3f}", flush=True)
+    summ = {}
+    for key in sorted({(r["dataset"], r["scheme"]) for r in rows}):
+        sel = [r for r in rows if (r["dataset"], r["scheme"]) == key]
+        summ["|".join(key)] = {
+            "mae21": 100 * float(np.mean([abs(r["err21"]) for r in sel])),
+            "mae_exact": 100 * float(np.mean([abs(r["err_exact"]) for r in sel])),
+            "signed21": 100 * float(np.mean([r["err21"] for r in sel])),
+            "signed_exact": 100 * float(np.mean([r["err_exact"] for r in sel]))}
+    POSTDICT_OUT.write_text(json.dumps({"rows": rows, "summary": summ}, indent=1))
+    for k, v in summ.items():
+        print(k, {a: round(b, 2) for a, b in v.items()})
+
+
+def verify_tails():
+    """Consigliata dalla revisione: HRR alle code, N = 3200 e codebook M ≈ 4000, sintetico."""
+    base = SEED_BASE + 400
+    cells = _syn_cells(3200, "uniform", 4, base, n_ent=4000, n_rel=8, n_facts=12000)
+    for k, c in enumerate(cells):
+        c.salt = f"tails-{k}"
+    d = choose_dim(cells[:2], "HRR", 0.85 * float(np.mean([c.ceiling for c in cells])), 3200)
+    p, m = [], []
+    for k, c in enumerate(cells):
+        p.append(float(np.mean(predict_queries(c, "HRR", d, c.queries))))
+        m.append(float(np.mean(measure(c, "HRR", d, np.random.default_rng([base, k]),
+                                       c.queries, {})[1])))
+    e = np.asarray(m) - np.asarray(p)
+    r = {"N": 3200, "M": float(np.mean([c.m for c in cells])), "D": d, "pred": float(np.mean(p)),
+         "meas": float(np.mean(m)), "se": float(np.std(e, ddof=1) / math.sqrt(len(e)))}
+    print(f"HRR code: N=3200 M={r['M']:.0f} D={d} prev {r['pred']:.3f} mis {r['meas']:.3f}"
+          f"±{r['se']:.3f}", flush=True)
+    return r
 
 
 def main():
@@ -985,51 +1190,71 @@ def main():
     ap.add_argument("--smoke", action="store_true", help="impianto intero su grafo sintetico")
     ap.add_argument("--diagnose", action="store_true", help="passo 1, BSDC-S, sintetico")
     ap.add_argument("--verify", action="store_true", help="passi 2-3, HRR e catene, sintetico")
+    ap.add_argument("--verify-tails", action="store_true", help="HRR a N = 3200, sintetico")
     ap.add_argument("--timing", action="store_true", help="stima del tempo del run, sintetico")
+    ap.add_argument("--postdict", action="store_true",
+                    help="BSDC-S corretto sulle celle già misurate della 21 (nessuna misura)")
+    ap.add_argument("--datasets", default=",".join(DATASETS))
     a = ap.parse_args()
     t0 = time.time()
-    if a.diagnose or a.verify:
-        res = {}
-        if DIAG_OUT.exists():
-            res = json.loads(DIAG_OUT.read_text())
+    if a.diagnose or a.verify or a.verify_tails:
+        res = json.loads(DIAG_OUT.read_text()) if DIAG_OUT.exists() else {}
         if a.diagnose:
             res["bsdc_s"] = diagnose()
         if a.verify:
             res["verify"] = verify()
+        if a.verify_tails:
+            res["verify_tails"] = verify_tails()
         DIAG_OUT.write_text(json.dumps(res, indent=1))
         print(f"{time.time() - t0:.0f} s")
         return
+    if a.postdict:
+        postdict()
+        return
     if a.timing:
-        rows = json.loads(PRED_OUT.read_text())
-        tot = timing(rows)
-        print(f"run stimato: {tot / 60:.0f} min")
+        pred = json.loads(PRED_OUT.read_text())
+        tot = timing(pred["rows"])
+        for k, v in tot.items():
+            print(f"misure stimate {k}: {v / 60:.0f} min")
+        print(f"misure stimate, totale: {sum(tot.values()) / 60:.0f} min")
         return
     if a.smoke:
-        cells = build(synthetic_graph(), (40, 80))
-        c0 = cells[("dense", 40)][0]
+        cells = build({"syn": synthetic_graph()}, {"syn": (40, 80)})
+        c0 = cells[("syn", "dense", 40)][0]
         check_mapb(c0, 512)
+        check_mapb(cells[("syn", "dense", 40)][1], 640)
         assert np.allclose(predict_queries(c0, "MAP-B", 512, c0.queries),
                            exact.predict_queries(c0.triples, 512, c0.queries)), "firma MAP-B"
     else:
-        cells = build(v21.Graph(load()), LOADS)
+        names = a.datasets.split(",")
+        cells = build({n: v21.Graph(load(n)) for n in names},
+                      {n: LOADS_BY_DATASET[n] for n in names})
     rows = plan(cells)
+    X = thresholds(rows)
     if a.predict:
         for r in rows:
             p = "—" if r["pred"] is None else f"{r['pred']:.3f} ingenuo={r['pred_naive']:.3f}"
             mde = "—" if r["mde"] is None else f"{100 * r['mde']:.1f}"
-            print(f"{r['scheme']:7s} N={r['N']:4d} t={r['target']} {r['family']:7s} h={r['hops']} "
-                  f"D={r['D']} bit={r['bits']} tetto={r['ceiling']:.3f} prev={p} MDE={mde}pt "
-                  f"q={r['queries']}")
+            print(f"{r['dataset']} {r['scheme']:7s} N={r['N']:4d} t={r['target']} {r['family']:7s} "
+                  f"h={r['hops']} D={r['D']} tetto={r['ceiling']:.3f} prev={p} MDE={mde}pt")
+        adm = admission(rows)
+        print(json.dumps(adm, indent=1))
         if not a.smoke:
-            PRED_OUT.write_text(json.dumps(rows, indent=1))
+            old = json.loads(PRED_OUT.read_text()) if PRED_OUT.exists() else {}
+            old_rows = [r for r in old.get("rows", []) if r["dataset"] not in names] \
+                if isinstance(old, dict) else []
+            allrows = old_rows + rows
+            PRED_OUT.write_text(json.dumps({"rows": allrows, "admission": admission(allrows),
+                                            "thresholds": thresholds(allrows)}, indent=1))
         print(f"{time.time() - t0:.0f} s")
         return
     rows = run(cells, rows)
-    summ = summarize(rows)
+    summ = summarize(rows, X)
     for k, v in summ.items():
         print(k, v)
     if not a.smoke:
-        OUT.write_text(json.dumps({"rows": rows, "summary": summ}, indent=1))
+        OUT.write_text(json.dumps({"rows": rows, "summary": summ,
+                                   "admission": admission(rows), "thresholds": X}, indent=1))
     print(f"{time.time() - t0:.0f} s")
 
 

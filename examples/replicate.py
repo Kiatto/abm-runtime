@@ -69,6 +69,12 @@ DATASETS = {
         "https://raw.githubusercontent.com/tsafavi/codex/"
         "3132e426c2a6b643b70bad679905a3a6270be440/data/triples/codex-m/train.txt",
         "d99c3437ab51690391a26d96976adf6e5494dba7ef6902e77000551bfa566556"),
+    # YAGO3-10 (Mahdisoltani et al. 2015; split di Dettmers et al. 2018), archivio del repo
+    # pubblico ConvE al commit f3c0eb2; l'harness legge train.txt dall'archivio
+    "yago3_10/YAGO3-10.tar.gz": (
+        "https://raw.githubusercontent.com/TimDettmers/ConvE/"
+        "f3c0eb286025410fa5b4c04696c918264163d0ca/YAGO3-10.tar.gz",
+        "9a3bdd5fd08c064bd4b9ffdbe972f37ba0b8799f4e9f868ff70f5d2f5331fb92"),
 }
 
 # preregistrazione -> (harness, file di risultati, tempo indicativo su 12 core)

@@ -12,6 +12,68 @@ CoDEx-M, FB15k-237 o WN18RR è stata fatta per questa preregistrazione. Stesse r
 [`vsa_families.md`](vsa_families.md) (prereg. 21), di cui riusa il codice importandolo,
 senza modificarlo.
 
+## Revisione del disegno prima dei dati (2026-10-12, dopo `53f99a5`)
+
+Revisione ostile del commit `53f99a5`, applicata prima di qualsiasi misura sui grafi reali.
+Questa sezione è committata **prima** di lanciare `--predict` su YAGO3-10 (e prima di
+rilanciarlo su CoDEx-M): le regole qui sotto non hanno visto previsioni di YAGO3-10.
+Tabelle, ipotesi e tempo più sotto sono quelle di `53f99a5` e **vengono sostituite** nel
+commit successivo, che riporta le nuove previsioni.
+
+1. **H9, comparatore.** Il comparatore delle catene in `53f99a5` (FKS ingenuo per hop,
+   un oggetto, D tarato sulla media a 1 hop) misurava anche un effetto di selezione. Ora
+   H9 usa `predict_naive_sig`: conserva la firma della query (numero di oggetti veri;
+   sulle catene funzionali è 1), toglie solo gemelli (S2 = N) e alias.
+2. **Grafo denso nuovo: YAGO3-10** (repo pubblico `TimDettmers/ConvE` al commit
+   `f3c0eb286025410fa5b4c04696c918264163d0ca`, `YAGO3-10.tar.gz`, sha256
+   `9a3bdd5fd08c064bd4b9ffdbe972f37ba0b8799f4e9f868ff70f5d2f5331fb92`, in
+   `data/external/yago3_10/`, voce in `examples/replicate.py`; l'harness legge
+   `train.txt` dall'archivio). Stesso impianto di CoDEx-M (carichi, seed, campioni).
+   **Regola di ammissione al test della contabilità** (`admission`, usa solo
+   `--predict`, nessuna memoria): un grafo entra nel test della contabilità (H2 come
+   test e H5) se il divario previsto medio |contabilità − FKS ingenuo| nelle celle dense
+   a 1 hop è ≥ 2 punti in **almeno 3 famiglie**. Altrimenti H2 su quel grafo è una
+   replica di FKS. **CoDEx-M non testa la contabilità**: lì H1/H2 sono repliche di FKS
+   (più le molteplicità di HRR, che sono un modello nuovo, H4).
+   **Tempo e riduzione della griglia** (regola scritta ora): se la stima del run
+   (`--predict` di entrambi i grafi + misure stimate con `--timing`) supera 3 h, si
+   tolgono nell'ordine (1) N = 3200 di YAGO3-10, (2) N = 3200 di CoDEx-M, (3) N = 1600 di
+   YAGO3-10, fermandosi al primo passo sotto le 3 h; la stima dopo ogni passo è la somma
+   dei tempi per (grafo, N) misurati da `--predict` e `--timing`. Se anche dopo (3) si
+   supera, il run si fa così.
+3. **H3 simmetrica**: sostenuta se |errore con segno| ≤ 1.0 punti in entrambi i gruppi
+   a 1 hop (per grafo), falsificata se |errore con segno| ≥ 1.5 in almeno uno.
+   **Percorso dipendente dall'esito, dichiarato:** la ricerca della correzione di BSDC-S
+   è partita dal bias osservato sui dati reali della 21; la diagnosi è stata fatta su
+   sintetico, ma la domanda nasceva da quell'esito. **Postdizione** di `bsdc_s_exact`
+   sulle 16 celle BSDC-S già misurate della 21 (`--postdict`, nessuna nuova misura,
+   risultati pubblicati della 21): riportata sotto, etichettata come postdizione.
+4. **Catene, scala per hop:** H6 e H9 confrontano misura^(1/h) con previsione^(1/h) (per
+   h = 1 è l'accuratezza), con le stesse soglie in punti del singolo hop (3 e 5): un
+   errore di 3 punti per hop. **Escluse da H6 e H9 le celle con MDE per hop > 5 punti**
+   (MDE per hop = MDE / (h · p^((h−1)/h)), metodo delta).
+5. **MAP-B: atomi salati con il seed** (nome + "#" + sale del sottografo): i seed sono
+   indipendenti anche per MAP-B. La previsione (`exact`) non dipende dagli atomi. Lo
+   smoke verifica che traccia e risposte dell'Engine coincidano con `abm.Memory.store` /
+   `query` sugli stessi nomi salati.
+6. **Gradi di libertà = n_seed − 1 per cella** (19 per le celle a 1 hop, 9–19 per le
+   catene): MDE, IC e soglie di t usano i quantili di Student di quei gdl.
+7. **Provenienza:** le soglie X sono calcolate dall'harness (`thresholds`) **insieme**
+   alle previsioni, con la regola scritta (metà del divario previsto, per difetto al
+   mezzo punto, minimo 1 punto); push e marche OpenTimestamps li fa il coordinatore dopo
+   il commit.
+8. **Gruppi incompleti o assenti:** in H6 e H9, G = numero di gruppi catena con almeno
+   una cella dopo l'esclusione del punto 4 (e, per H9, con X definito). H6: sostenuta se
+   MAE ≤ 3 in tutti i G gruppi, falsificata se > 5 in almeno uno. H9: sostenuta se il
+   guadagno ≥ X in almeno ⌈5G/6⌉ gruppi, falsificata se < 0 in almeno ⌈G/4⌉. Con G = 0
+   l'ipotesi è **non testabile** (riportata così).
+
+Consigliate, applicate: verifica sintetica di HRR alle code (N = 3200, M ≈ 4000,
+`--verify-tails`); MAE pesato per l'inverso della varianza (descrittivo); docstring
+corretta sul modello BSDC-S congelato; `hrr_struct` non più ricalcolato a ogni chiamata.
+Il SeedSequence ora include l'indice del grafo: i sottografi di CoDEx-M cambiano rispetto
+a `53f99a5` (nessuna misura in mezzo).
+
 ## Perché
 
 La 21 ha sostenuto H1–H9: la previsione a priori dell'accuratezza del cleanup, con la
