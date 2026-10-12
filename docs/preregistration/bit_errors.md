@@ -248,3 +248,30 @@ raffiche), 5 rumori sul codebook × 6 ε, 3 × 20 simulazioni complete dello sto
   il layout a lettura singola potrebbe costare meno bit di così.
 - **Campione uniforme di fatti**, non sottografi connessi: pochi gemelli e alias.
 - **5 seed come unità**: test con 4 gradi di libertà, potenza modesta.
+
+## Esito (2026-10-12)
+
+Eseguito una volta, dopo il push e le marche OpenTimestamps (`78a3234`), con
+`python examples/bit_errors_prereg.py --workers 6` (98 min); risultati in
+`results/bit_errors_prereg_results.json`.
+
+| ipotesi | risultato | esito |
+|---|---|---|
+| **H1** — ABM batte il miglior avversario in almeno una cella | famiglia confermativa vuota; su tutte le 112 celle nessun vantaggio di ABM. L'harness ne segnala 2 (WN18RR, D = 2048, N = 50, ε = 0 e 1e-4), ma sono **pareggi esatti** (ABM 1.000, avversario 1.000, d = 0, SE = 0): t = 0/0 = NaN, che il codice converte in p = 0. È un bug dell'harness, scoperto dopo il run; un pareggio non soddisfa "ABM batte", quindi conta il testo del criterio. L'output congelato non è stato modificato. | **falsificata** (come previsto) |
+| **H2** — il modello prevede ABM sotto rumore | MAE 0.38–0.73 punti per gruppo; massimo di cella 1.48 (anche a ε = 0.2) | **sostenuta** |
+| **H3** — ε\* previsto contro osservato | 13/13 serie valutabili entro un passo (ε\* = "mai" ovunque) | **sostenuta** |
+| **H4** — il modello dell'avversario | MAE 0.13–0.39 punti contro la ristima indipendente | **sostenuta** |
+| **H0** — controllo a ε = 0, ABM sotto | 15/16 serie; la sedicesima è il pareggio a 1.000 sopra | controllo coerente |
+
+### Cosa dice
+
+- Sotto bit flip iid fino a ε = 0.2, a pari bit, uno store esatto con codici pratici
+  (polari SC, BCH, concatenati) batte ABM in ogni cella in cui c'è una differenza; il
+  distacco più piccolo a ε alto è ~4–13 punti, e il tetto PPV dello store è ancora più su.
+- La prima versione del disegno prevedeva 21 vittorie di ABM: erano vittorie contro
+  ripetizione e Hamming. La review ostile del disegno le ha tolte prima dei dati.
+- Il perimetro "hardware rumoroso" non salva ABM, almeno con rumore iid e codebook senza
+  errori. Resta la sola cosa che regge: il modello esatto prevede ABM anche sotto rumore
+  (entro 1.5 punti per cella).
+- Bug da correggere nell'harness per il futuro: con d = 0 e SE = 0 il test deve dare
+  p = 1 (o 0.5), non 0.
