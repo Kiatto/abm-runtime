@@ -31,8 +31,8 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-# examples/replicate.py: ProofWriter è in parquet
-replicate = ["pyarrow>=14"]
+# examples/replicate.py: ProofWriter è in parquet; examples/bit_errors_prereg.py: codici BCH
+replicate = ["pyarrow>=14", "galois>=0.4"]
 
 [project.scripts]
 abm = "abm.cli:main"

@@ -1,48 +1,58 @@
-"""bit_errors_prereg.py — ABM contro store esatti (con e senza codice correttore) sotto bit flip.
+"""bit_errors_prereg.py — ABM contro store esatti con codici correttori, sotto bit flip.
 
-Preregistrazione: docs/preregistration/bit_errors.md. Committato insieme a quel file e
-PRIMA di misurare sui dati reali; prima del commit è stato eseguito solo con `--smoke`
-(grafo sintetico generato qui) e `--predict` (previsioni analitiche: legge i dati,
-costruisce le strutture dello store per sapere quante chiavi tiene, NON costruisce
-nessuna memoria ABM sui dati reali e non applica rumore).
+Preregistrazione: docs/preregistration/bit_errors.md (revisione del disegno prima dei
+dati). Committato PRIMA di misurare sui dati reali; prima del commit è stato eseguito
+solo con `--smoke` (grafo sintetico generato qui) e `--predict` (legge i dati reali,
+costruisce SOLO gli store e ne simula il rumore per scegliere il codice; NON costruisce
+nessuna memoria ABM sui dati reali).
 
-Domanda: con errori di bit durante la conservazione (bit flip iid con probabilità ε
-sulla traccia memorizzata), esiste un ε in cui ABM batte, a pari bit totali D, il
-migliore store esatto realizzabile? Disegno ostile ad ABM.
+Domanda: con errori di bit durante la conservazione (bit flip iid con probabilità ε su
+tutto lo stato che dipende dai fatti), esiste un ε in cui ABM batte, a pari bit totali
+D, il migliore store esatto realizzabile scelto a priori? Disegno ostile ad ABM.
 
-Per ogni (dataset, D, N, seed): N fatti distinti campionati uniformemente dal grafo;
-domande = chiavi (s, r) distinte del campione (al più Q_MAX); giusta se la risposta è
-uno degli oggetti veri di (s, r) nel campione.
+Per ogni (dataset, D, N, seed): N fatti distinti campionati uniformemente; domande =
+chiavi (s, r) distinte del campione (al più Q_MAX); giusta se la risposta è uno degli
+oggetti veri di (s, r) nel campione.
 
-ABM: traccia di D bit (reference), rumore: maschera Bernoulli(ε) XOR sulla traccia.
-     Codebook (item memory) senza rumore: si rigenera dai nomi.
-Store: funzione statica a chiavi implicite (XOR filter a 3 segmenti, peeling),
-     celle di le = ⌈log₂ #oggetti⌉ bit, ⌈1.23·c⌉ celle (arrotondate a multiplo di 3)
-     per c chiavi tenute; la lettura è lo XOR di 3 celle. Le celle, serializzate in
-     bit, passano per un codice C ∈ CODES e il risultato (≤ D bit) subisce lo stesso
-     rumore. C = "none" è l'avversario (a); gli altri sono (b).
-Regola dell'avversario (fissata ora): per ogni (dataset, D, N, seed, ε) si sceglie il
-     codice C (e quindi c, il massimo che entra in D bit) che massimizza l'accuratezza
-     PREVISTA (analitica esatta per none/ripetizione; per Hamming, Monte Carlo sul solo
-     store con STORE_MC rumori di un flusso separato, perché il limite analitico è lasco);
-     si misura quello (e sempre anche "none").
+ABM: traccia di D bit (reference); rumore = maschera Bernoulli(ε) sulla traccia.
+Store = layout × codice, tutto nei D bit rumorosi:
+  layout  XOR  : funzione statica (XOR filter a 3 segmenti), lettura = XOR di 3 celle;
+          MPHF : hash-and-displace (CHD semplificato, spostamenti a larghezza fissa)
+                 + array di valori; la MPHF sta nella memoria rumorosa e codificata;
+                 lettura = 1 spostamento + 1 cella.
+  codice  none | rep (r/r+2 misti, usa tutti i bit) | BCH (n ∈ 63…1023, accorciato) |
+          polare SC (N_b ∈ 256…2048, costruzione di Bhattacharyya per BSC(ε),
+          accorciamento al tasso esatto) | rep3 interna + BCH/polare esterno (ε ≥ 0.03).
+  chiavi  c ∈ FRACS × c_max(none): "meno chiavi, codice più forte" è ammesso.
+Regola (fissata ora): per (cella, seed, ε) si sceglie layout × codice × c con la massima
+accuratezza PREVISTA (none/rep: esatta; BCH: P(Bin(n, ε) ≤ t) per blocco; polare:
+Monte Carlo del solo store su un flusso RNG separato). Dopo la scelta, best_pred è
+ristimata con un terzo flusso indipendente (REEST_R rumori, simulazione completa).
 
 Uso, dalla root:
-    python examples/bit_errors_prereg.py --smoke     # sintetico piccolo + verifica Monte Carlo
-    python examples/bit_errors_prereg.py --predict   # solo previsioni (nessuna misura)
+    python examples/bit_errors_prereg.py --smoke     # sintetico piccolo + controlli A4
+    python examples/bit_errors_prereg.py --predict   # solo previsioni (nessuna misura ABM)
     python examples/bit_errors_prereg.py             # esecuzione completa
 """
-import argparse
-import csv
-import hashlib
-import json
-import sys
-import time
-from collections import defaultdict
-from math import ceil, comb, log2
-from pathlib import Path
+import os
 
-import numpy as np
+os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
+os.environ.setdefault("OMP_NUM_THREADS", "1")
+os.environ.setdefault("MKL_NUM_THREADS", "1")
+
+import argparse  # noqa: E402
+import csv  # noqa: E402
+import hashlib  # noqa: E402
+import json  # noqa: E402
+import sys  # noqa: E402
+import time  # noqa: E402
+from collections import Counter, defaultdict  # noqa: E402
+from functools import lru_cache  # noqa: E402
+from math import ceil, comb, erfc, log2, sqrt  # noqa: E402
+from multiprocessing import Pool  # noqa: E402
+from pathlib import Path  # noqa: E402
+
+import numpy as np  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "reference"))
@@ -57,6 +67,7 @@ FILES = {
                "28f7a0b3e13d6c0b2884ed2ceef4a18087e203b2f0cdb7dc946508453688e6a0"),
 }
 OUT = ROOT / "results" / "bit_errors_prereg_results.json"
+PRED_OUT = ROOT / "results" / "bit_errors_prereg_predictions.json"
 
 # ---- preregistrato: non cambiare dopo aver visto i risultati ----------------
 GRID = {2048: [50, 100, 200, 400], 8192: [200, 400, 800, 1600]}
@@ -64,13 +75,21 @@ EPS = [0.0, 1e-4, 1e-3, 1e-2, 3e-2, 0.1, 0.2]
 DATASETS = ("fb15k237", "wn18rr")
 SEEDS = 5
 Q_MAX = 300
-RET_OVERHEAD = 1.23           # celle per chiave dello XOR filter (come nel test 19)
-BUILD_TRIES = 20              # semi di hash provati prima di scendere a c - 1
-CODES = (["none"] + [f"rep{r}" for r in (3, 5, 7, 9, 11, 15, 21)]
-         + [f"ham{m}" for m in (3, 4, 5, 6, 7, 8)])   # ham_m = Hamming esteso (2^m, 2^m-m-1)
-STORE_MC = 20                 # rumori simulati per prevedere gli store con Hamming
-BURST_EPS = [1e-2, 3e-2]      # descrittivo: errori a raffica, stessa frequenza media
+R_NOISE = 20                  # rumori indipendenti per memoria e per ε (misura)
+REEST_R = 50                  # A6: rumori del terzo flusso per ristimare best_pred
+POLAR_BANK = 1024             # blocchi simulati per la previsione dei polari
+POLAR_SIMS = 64               # store simulati (dai blocchi) per la previsione dei polari
+XOR_OVERHEAD = 1.23           # celle per chiave dello XOR filter (come nel test 19)
+MPHF_LAMBDA = 4               # chiavi per bucket della MPHF
+BUILD_TRIES = 20
+FRACS = (1.0, 0.8, 0.64, 0.5, 0.4, 0.3, 0.2, 0.12)
+BCH_N = (63, 127, 255, 511, 1023)
+POLAR_N = (256, 512, 1024, 2048)
+CONCAT_MIN_EPS = 0.03
+BURST_EPS = [1e-2, 3e-2]      # descrittivo: raffiche, stessa frequenza media di flip
 BURST_LEN = 16
+CB_NOISE_R = 5                # descrittivo B2: rumori sul codebook ABM
+ALPHA = 0.05                  # Holm, one-sided, famiglia confermativa
 SEED_BASE = 20_000_003
 # -----------------------------------------------------------------------------
 
@@ -112,11 +131,18 @@ def sample_cell(triples, n, seed):
     return facts, objs, keys, qs
 
 
+def streams(seed):
+    """B7: un sotto-flusso RNG indipendente per sistema e per scopo."""
+    names = ("abm", "store_meas", "store_select", "store_reest", "none_meas",
+             "burst", "abm_cb")
+    kids = np.random.SeedSequence(seed).spawn(len(names))
+    return {n: np.random.default_rng(k) for n, k in zip(names, kids)}
+
+
 # ---- modello esatto di ABM con rumore ---------------------------------------
-# Un bit della traccia concorda con il fatto con probabilità p. Il flip è indipendente
-# da tutto (prob. ε): p' = p(1-ε) + (1-p)ε = ε + p(1-2ε). I codeword nulli restano
-# Binomial(D, 1/2) (un bit uniforme XOR un flip indipendente resta uniforme): cambia
-# solo la p di ogni candidato a segnale, poi cleanup_accuracy_mixed come senza rumore.
+# p' = p(1-ε) + (1-p)ε = ε + p(1-2ε) per ogni candidato a segnale; i nulli restano
+# Binomial(D, 1/2). Approssimazione (A4): il flip è comune a tutti i candidati di una
+# query; il modello tratta le distanze come indipendenti, come già senza rumore.
 
 def p_noisy(p, eps):
     return eps + p * (1.0 - 2.0 * eps)
@@ -148,47 +174,24 @@ def abm_predict(triples, dim, queries, eps):
     return out
 
 
-# ---- store: XOR filter + codice --------------------------------------------
+# ---- layout: XOR filter e MPHF ----------------------------------------------
 
-def code_params(code):
-    """(bit di dati per blocco k, bit codificati per blocco n)."""
-    if code == "none":
-        return 1, 1
-    if code.startswith("rep"):
-        return 1, int(code[3:])
-    m = int(code[3:])
-    return 2 ** m - m - 1, 2 ** m
-
-
-def n_cells(c):
-    return 3 * max(1, ceil(ceil(RET_OVERHEAD * c) / 3))
-
-
-def coded_bits(c, le, code):
-    k, n = code_params(code)
-    return ceil(n_cells(c) * le / k) * n
-
-
-def c_max(dim, le, code, n_keys):
-    c = n_keys
-    while c > 0 and coded_bits(c, le, code) > dim:
-        c -= 1
-    return c
-
-
-def _h3(key, seed, seg):
+def _hash_ints(key, seed, k):
     h = hashlib.sha256(f"{seed}|{key[0]}|{key[1]}".encode()).digest()
-    return [j * seg + int.from_bytes(h[8 * j:8 * j + 8], "little") % seg for j in range(3)]
+    return [int.from_bytes(h[8 * j:8 * j + 8], "little") for j in range(k)]
 
 
-def xor_build(keys, values, seed0):
-    """XOR filter a 3 segmenti per peeling. None se nessuno dei BUILD_TRIES semi riesce."""
-    c = len(keys)
-    m = n_cells(c)
+def xor_cells(c):
+    return 3 * max(1, ceil(ceil(XOR_OVERHEAD * c) / 3))
+
+
+def build_xor(kept, vals, le, seed0):
+    c = len(kept)
+    m = xor_cells(c)
     seg = m // 3
     for t in range(BUILD_TRIES):
         seed = seed0 * 1000 + t
-        hs = [_h3(k, seed, seg) for k in keys]
+        hs = [[j * seg + x % seg for j, x in enumerate(_hash_ints(k, seed, 3))] for k in kept]
         count = np.zeros(m, int)
         xork = np.zeros(m, int)
         for i, h in enumerate(hs):
@@ -212,145 +215,476 @@ def xor_build(keys, values, seed0):
         cells = np.zeros(m, np.int64)
         for i, x in reversed(stack):
             a, b, d = hs[i]
-            cells[x] = values[i] ^ cells[a] ^ cells[b] ^ cells[d] ^ cells[x]
-        return cells, hs, seed
+            cells[x] = vals[i] ^ cells[a] ^ cells[b] ^ cells[d]
+        return {"layout": "xor", "c": c, "le": le, "seed": seed, "m": m,
+                "pos": dict(zip(kept, hs)), "bits": _to_bits(cells, le)}
     return None
 
 
-def build_store(keys, objs, obj_index, le, dim, code, rng_perm):
-    """Il massimo c ≤ c_max per cui il peeling riesce; chiavi tenute = prefisso di rng_perm."""
-    c = c_max(dim, le, code, len(keys))
-    while c > 0:
-        kept = [keys[i] for i in rng_perm[:c]]
-        vals = [obj_index[objs[k][0]] for k in kept]
-        b = xor_build(kept, vals, c)
-        if b is not None:
-            cells, hs, seed = b
-            return {"code": code, "c": c, "kept": kept, "cells": cells,
-                    "pos": dict(zip(kept, hs)), "seed": seed, "le": le}
-        c -= 1
-    return {"code": code, "c": 0, "kept": [], "cells": np.zeros(0, np.int64), "pos": {},
-            "seed": None, "le": le}
+def _mphf_pos(a, b, d, m):
+    return (a + d * b + d * d) % m
 
 
-def _odd3(e):
-    """P(numero dispari di errori fra 3 bit indipendenti con errore e)."""
-    return (1.0 - (1.0 - 2.0 * e) ** 3) / 2.0
+def build_mphf(kept, vals, le, seed0):
+    c = len(kept)
+    nb = max(1, ceil(c / MPHF_LAMBDA))
+    for t in range(BUILD_TRIES):
+        seed = seed0 * 1000 + 500 + t
+        hv = [_hash_ints(k, seed, 3) for k in kept]
+        a = np.array([x[0] % c for x in hv], np.int64)
+        b = np.array([x[1] % c for x in hv], np.int64)
+        g = np.array([x[2] % nb for x in hv], np.int64)
+        buckets = defaultdict(list)
+        for i, gi in enumerate(g):
+            buckets[gi].append(i)
+        used = np.zeros(c, bool)
+        disp = np.zeros(nb, np.int64)
+        ok = True
+        for gi in sorted(buckets, key=lambda x: (-len(buckets[x]), x)):
+            idx = np.array(buckets[gi])
+            found = None
+            for start in range(0, 1 << 16, 1024):
+                d = np.arange(start, start + 1024, dtype=np.int64)
+                pos = _mphf_pos(a[idx][:, None], b[idx][:, None], d[None, :], c)  # k × T
+                free = ~used[pos].any(0)
+                if len(idx) > 1:
+                    s = np.sort(pos, axis=0)
+                    free &= (np.diff(s, axis=0) != 0).all(0)
+                hit = np.nonzero(free)[0]
+                if len(hit):
+                    found = int(d[hit[0]])
+                    break
+            if found is None:
+                ok = False
+                break
+            disp[gi] = found
+            used[_mphf_pos(a[idx], b[idx], found, c)] = True
+        if not ok:
+            continue
+        w = max(1, ceil(log2(int(disp.max()) + 1)))
+        table = np.zeros(c, np.int64)
+        slot = {}
+        for i, k in enumerate(kept):
+            p = int(_mphf_pos(a[i], b[i], disp[g[i]], c))
+            table[p] = vals[i]
+            slot[k] = (int(g[i]), p, int(a[i]), int(b[i]))
+        bits = np.concatenate([_to_bits(disp, w), _to_bits(table, le)])
+        return {"layout": "mphf", "c": c, "le": le, "seed": seed, "nb": nb, "w": w,
+                "slot": slot, "bits": bits}
+    return None
 
+
+def _to_bits(vals, width):
+    vals = np.asarray(vals, np.int64)
+    return ((vals[:, None] >> np.arange(width)[None, :]) & 1).astype(np.uint8).ravel()
+
+
+def _from_bits(bits, width):
+    return (bits.reshape(-1, width).astype(np.int64) << np.arange(width)[None, :]).sum(1)
+
+
+def deps(st, key):
+    """Bit di dati da cui dipende la lettura di una chiave tenuta."""
+    le = st["le"]
+    if st["layout"] == "xor":
+        return [x * le + j for x in st["pos"][key] for j in range(le)]
+    g, p, _, _ = st["slot"][key]
+    w = st["w"]
+    off = st["nb"] * w
+    return list(range(g * w, g * w + w)) + list(range(off + p * le, off + p * le + le))
+
+
+def read(st, bits, key, n_obj, fallback):
+    """Lettura vera su bit (eventualmente decodificati con errori). (indice, valido)."""
+    le = st["le"]
+    if st["layout"] == "xor":
+        h = _hash_ints(key, st["seed"], 3)
+        seg = st["m"] // 3
+        cells = [j * seg + x % seg for j, x in enumerate(h)]
+        v = 0
+        for x in cells:
+            v ^= int(_from_bits(bits[x * le:(x + 1) * le], le)[0])
+    else:
+        c, nb, w = st["c"], st["nb"], st["w"]
+        hv = _hash_ints(key, st["seed"], 3)
+        a, b, g = hv[0] % c, hv[1] % c, hv[2] % nb
+        d = int(_from_bits(bits[g * w:(g + 1) * w], w)[0])
+        p = int(_mphf_pos(a, b, d, c))
+        off = nb * w
+        v = int(_from_bits(bits[off + p * le:off + (p + 1) * le], le)[0])
+    return (v, True) if v < n_obj else (fallback, False)
+
+
+# ---- codici -----------------------------------------------------------------
 
 def rep_residual(r, e):
     return sum(comb(r, j) * e ** j * (1 - e) ** (r - j) for j in range(r // 2 + 1, r + 1))
 
 
-def store_key_prob(st, key, eps):
-    """P(lettura esatta della chiave). Esatta per none/rep; per Hamming è il limite
-    inferiore P(ogni blocco toccato ha ≤ 1 errore)."""
-    code, le = st["code"], st["le"]
-    if code == "none" or code.startswith("rep"):
-        e = eps if code == "none" else rep_residual(int(code[3:]), eps)
-        return (1.0 - _odd3(e)) ** le
-    k, n = code_params(code)
-    blocks = {(x * le + j) // k for x in st["pos"][key] for j in range(le)}
-    pb = (1 - eps) ** n + n * eps * (1 - eps) ** (n - 1)
-    return pb ** len(blocks)
+@lru_cache(maxsize=None)
+def bch_k(n, t):
+    """Dimensione del BCH binario primitivo (n, k) che corregge t errori (cosets ciclotomici)."""
+    roots = set()
+    for i in range(1, 2 * t + 1):
+        x = i % n
+        while x not in roots:
+            roots.add(x)
+            x = (2 * x) % n
+    return n - len(roots)
 
 
-def store_predict(st, queries, eps):
-    return [store_key_prob(st, q, eps) if q in st["pos"] else 0.0 for q in queries]
+@lru_cache(maxsize=None)
+def bch_ts(n):
+    out, t = [], 1
+    while True:
+        k = bch_k(n, t)
+        if k <= 1:
+            return out
+        if not out or k < out[-1][1]:
+            out.append((t, k))
+        t += 1
 
 
-# -- serializzazione, codici, rumore, decodifica (solo per la misura) --
+def code_fit(kind, L, B, eps):
+    """Il codice più forte del tipo dato che porta L bit di dati in ≤ B bit. None se impossibile."""
+    if L <= 0:
+        return None
+    if kind == "none":
+        return {"kind": "none", "B": L} if L <= B else None
+    if kind == "rep":
+        r = B // L
+        r = r if r % 2 else r - 1
+        if r < 3:
+            return None
+        x = min(L, (B - r * L) // 2)
+        return {"kind": "rep", "r": r, "x": x, "B": r * L + 2 * x}
+    if kind.startswith("bch"):
+        n = int(kind[3:])
+        best = None
+        for t, k in bch_ts(n):
+            b = ceil(L / k)
+            if L + b * (n - k) <= B:
+                best = {"kind": kind, "n": n, "t": t, "k": k, "blocks": b, "kb": ceil(L / b),
+                        "B": b * (ceil(L / b) + n - k)}
+        return best
+    if kind.startswith("polar"):
+        nb_ = int(kind[5:])
+        b = ceil(B / nb_)
+        nt = B // b
+        K = ceil(L / b)
+        if nt > nb_ or K > nt - 1:
+            return None
+        return {"kind": kind, "N": nb_, "blocks": b, "nt": nt, "K": K, "B": b * nt}
+    raise ValueError(kind)
 
-def _to_bits(cells, le):
-    return ((cells[:, None] >> np.arange(le)[None, :]) & 1).astype(np.uint8).ravel()
+
+def code_list(L, B, eps):
+    out = []
+    kinds = ["none"] if eps <= 0 else (["none", "rep"] + [f"bch{n}" for n in BCH_N]
+                                        + [f"polar{n}" for n in POLAR_N])
+    for k in kinds:
+        f = code_fit(k, L, B, eps)
+        if f:
+            out.append(f)
+    if eps >= CONCAT_MIN_EPS:
+        for k in [f"bch{n}" for n in BCH_N] + [f"polar{n}" for n in POLAR_N]:
+            f = code_fit(k, L, B // 3, eps)
+            if f:
+                out.append({"kind": "concat", "outer": f, "B": 3 * f["B"]})
+    return out
 
 
-def _from_bits(bits, le):
-    return (bits.reshape(-1, le).astype(np.int64) << np.arange(le)[None, :]).sum(1)
+def code_name(cd):
+    if cd["kind"] == "concat":
+        return "rep3+" + code_name(cd["outer"])
+    if cd["kind"] == "rep":
+        return f"rep{cd['r']}/{cd['r'] + 2}"
+    if cd["kind"].startswith("bch"):
+        return f"bch({cd['n']},{cd['k']},t={cd['t']})"
+    if cd["kind"].startswith("polar"):
+        return f"polar(N={cd['N']},K={cd['K']},n={cd['nt']})"
+    return "none"
 
 
-def _ham_layout(m):
-    n = 2 ** m
-    data_pos = np.array([i for i in range(1, n) if i & (i - 1)])       # non potenze di 2
-    return n, data_pos
+# -- polari (SC) --
+
+@lru_cache(maxsize=None)
+def polar_info(N, nt, K, eps):
+    z = np.full(N, 2 * sqrt(eps * (1 - eps)))
+    z[nt:] = 0.0                                  # accorciati: noti a zero
+
+    def rec(z):
+        if len(z) == 1:
+            return z
+        h = len(z) // 2
+        zl, zr = z[:h], z[h:]
+        return np.concatenate([rec(zl + zr - zl * zr), rec(zl * zr)])
+    zu = rec(z)
+    zu[nt:] = np.inf                              # u accorciati: congelati (x_i = 0, i ≥ nt)
+    info = np.sort(np.argsort(zu, kind="stable")[:K])
+    frozen = np.ones(N, bool)
+    frozen[info] = False
+    return info, frozen
 
 
-def encode(bits, code):
-    if code == "none":
+def polar_encode(u):
+    n = u.shape[1]
+    if n == 1:
+        return u
+    h = n // 2
+    v1, v2 = polar_encode(u[:, :h]), polar_encode(u[:, h:])
+    return np.concatenate([v1 ^ v2, v2], axis=1)
+
+
+def polar_sc(L, frozen):
+    """Decodifica SC (min-sum), batch sulle righe. Restituisce (u, x) stimati."""
+    n = L.shape[1]
+    if frozen.all():
+        z = np.zeros(L.shape, np.uint8)
+        return z, z
+    if not frozen.any():
+        x = (L < 0).astype(np.uint8)
+        return polar_encode(x), x                  # G è un'involuzione
+    if n == 1:
+        u = (L < 0).astype(np.uint8)
+        return u, u
+    h = n // 2
+    La, Lb = L[:, :h], L[:, h:]
+    L1 = np.sign(La) * np.sign(Lb) * np.minimum(np.abs(La), np.abs(Lb))
+    u1, v1 = polar_sc(L1, frozen[:h])
+    L2 = Lb + (1 - 2 * v1.astype(np.float64)) * La
+    u2, v2 = polar_sc(L2, frozen[h:])
+    return np.concatenate([u1, u2], 1), np.concatenate([v1 ^ v2, v2], 1)
+
+
+def _llr(rx, eps, N, nt):
+    ell = np.log((1 - eps) / eps) if 0 < eps < 0.5 else 30.0
+    L = np.full((rx.shape[0], N), 1e9)
+    L[:, :nt] = ell * (1 - 2 * rx.astype(np.float64))
+    # i pareggi (L = 0, frequenti su un BSC) vanno rotti a caso, non verso 0: senza questo
+    # la parola nulla del banco risulterebbe ottimista. Rumore minuscolo, fisso, simmetrico.
+    L[:, :nt] += 1e-6 * ell * np.random.default_rng(nt).standard_normal(L[:, :nt].shape)
+    return L
+
+
+@lru_cache(maxsize=4096)
+def polar_bank(N, nt, K, eps, seed):
+    """Errori sui K bit d'informazione di POLAR_BANK blocchi (parola nulla: canale simmetrico)."""
+    info, frozen = polar_info(N, nt, K, eps)
+    rng = np.random.default_rng(seed)
+    rx = (rng.random((POLAR_BANK, nt)) < eps).astype(np.uint8)
+    u, _ = polar_sc(_llr(rx, eps, N, nt), frozen)
+    return u[:, info]
+
+
+# -- encode / decode reali (misura) --
+
+def encode(bits, cd):
+    k = cd["kind"]
+    if k == "none":
         return bits.copy()
-    if code.startswith("rep"):
-        return np.tile(bits, int(code[3:]))            # copie interlacciate a distanza L
-    m = int(code[3:])
-    n, dp = _ham_layout(m)
-    k = len(dp)
-    nb = ceil(len(bits) / k)
-    data = np.zeros(nb * k, np.uint8)
-    data[:len(bits)] = bits
-    data = data.reshape(nb, k)
-    cw = np.zeros((nb, n), np.uint8)
-    cw[:, dp] = data
-    for j in range(m):
-        p = 1 << j
-        mask = (np.arange(n) & p) != 0
-        cw[:, p] = cw[:, mask].sum(1) % 2
-    cw[:, 0] = cw[:, 1:].sum(1) % 2
-    return cw.ravel()
+    if k == "rep":
+        return np.concatenate([np.tile(bits, cd["r"]), np.tile(bits[:cd["x"]], 2)])
+    if k == "concat":
+        return np.tile(encode(bits, cd["outer"]), 3)
+    if k.startswith("bch"):
+        code = _bch(cd["n"], cd["t"])
+        import galois
+        b, kb = cd["blocks"], cd["kb"]
+        msg = np.zeros(b * kb, np.uint8)
+        msg[:len(bits)] = bits
+        msg = msg.reshape(b, kb)
+        full = np.zeros((b, code.k), np.uint8)
+        full[:, code.k - kb:] = msg                    # accorciamento: zeri in testa
+        cw = np.array(code.encode(galois.GF2(full)))[:, code.k - kb:]
+        return cw.ravel()
+    if k.startswith("polar"):
+        N, b, nt, K = cd["N"], cd["blocks"], cd["nt"], cd["K"]
+        info, _ = polar_info(N, nt, K, cd["_eps"])
+        msg = np.zeros(b * K, np.uint8)
+        msg[:len(bits)] = bits
+        u = np.zeros((b, N), np.uint8)
+        u[:, info] = msg.reshape(b, K)
+        return polar_encode(u)[:, :nt].ravel()
+    raise ValueError(k)
 
 
-def decode(coded, code, n_data):
-    if code == "none":
-        return coded[:n_data]
-    if code.startswith("rep"):
-        r = int(code[3:])
-        return (coded.reshape(r, -1).sum(0) > r // 2).astype(np.uint8)[:n_data]
-    m = int(code[3:])
-    n, dp = _ham_layout(m)
-    cw = coded.reshape(-1, n).copy()
-    idx = np.arange(n)
-    syn = np.zeros(len(cw), int)
-    for j in range(m):
-        syn |= (cw[:, (idx >> j) & 1 == 1].sum(1).astype(int) % 2) << j
-    par = cw.sum(1) % 2
-    fix = (par == 1) & (syn != 0)                       # errore singolo: correggi
-    rows = np.nonzero(fix)[0]
-    cw[rows, syn[rows]] ^= 1
-    # par == 0 e syn != 0: doppio errore rilevato, dati lasciati come sono
-    return cw[:, dp].ravel()[:n_data]
+def decode(rx, cd, L, eps):
+    k = cd["kind"]
+    if k == "none":
+        return rx[:L]
+    if k == "rep":
+        r, x = cd["r"], cd["x"]
+        votes = rx[:r * L].reshape(r, L).sum(0).astype(int)
+        cnt = np.full(L, r)
+        if x:
+            votes[:x] += rx[r * L:].reshape(2, x).sum(0)
+            cnt[:x] += 2
+        return (2 * votes > cnt).astype(np.uint8)
+    if k == "concat":
+        inner = (rx.reshape(3, -1).sum(0) >= 2).astype(np.uint8)
+        e3 = rep_residual(3, eps)
+        return decode(inner, cd["outer"], L, e3)
+    if k.startswith("bch"):
+        code = _bch(cd["n"], cd["t"])
+        import galois
+        b, kb = cd["blocks"], cd["kb"]
+        nb_ = kb + cd["n"] - cd["k"]
+        r = rx.reshape(b, nb_)
+        sent = cd["_sent"].reshape(b, nb_)
+        nerr = (r != sent).sum(1)
+        out = r[:, :kb].copy()                          # sistematico: messaggio in testa
+        bad = np.nonzero(nerr > cd["t"])[0]            # ≤ t errori: corretti per costruzione
+        good = np.nonzero(nerr <= cd["t"])[0]
+        out[good] = sent[good, :kb]
+        if len(bad):
+            pad = np.zeros((len(bad), code.n - nb_), np.uint8)
+            dec = np.array(code.decode(galois.GF2(np.concatenate([pad, r[bad]], 1))))
+            out[bad] = dec[:, code.k - kb:]
+        return out.ravel()[:L]
+    if k.startswith("polar"):
+        N, b, nt, K = cd["N"], cd["blocks"], cd["nt"], cd["K"]
+        info, frozen = polar_info(N, nt, K, cd["_eps"])
+        u, _ = polar_sc(_llr(rx.reshape(b, nt), eps, N, nt), frozen)
+        return u[:, info].ravel()[:L]
+    raise ValueError(k)
 
 
-def noise_mask(n, eps, rng, burst=0):
+@lru_cache(maxsize=None)
+def _bch(n, t):
+    import galois
+    return galois.BCH(n, d=2 * t + 1)
+
+
+def block_of_coded(cd, total):
+    """Indice di blocco di ogni bit codificato, per l'interlacciatore a blocchi (B6)."""
+    k = cd["kind"]
+    if k.startswith("bch"):
+        nb_ = cd["kb"] + cd["n"] - cd["k"]
+        return np.repeat(np.arange(cd["blocks"]), nb_), np.tile(np.arange(nb_), cd["blocks"])
+    if k.startswith("polar"):
+        return np.repeat(np.arange(cd["blocks"]), cd["nt"]), np.tile(np.arange(cd["nt"]),
+                                                                       cd["blocks"])
+    if k == "concat":
+        bo, off = block_of_coded(cd["outer"], total // 3)
+        return np.tile(bo, 3), np.tile(off, 3)
+    return np.zeros(total, int), np.arange(total)
+
+
+def interleaver(cd, total):
+    blk, off = block_of_coded(cd, total)
+    return np.lexsort((blk, off))                     # ordina per (posizione nel blocco, blocco)
+
+
+def noise(n, eps, rng, burst=0):
     if eps <= 0:
         return np.zeros(n, np.uint8)
     if not burst:
-        return (rng.rand(n) < eps).astype(np.uint8)
-    starts = np.nonzero(rng.rand(n) < eps / burst)[0]
-    m = np.zeros(n, np.uint8)
-    for s in starts:
+        return (rng.random(n) < eps).astype(np.uint8)
+    m = np.zeros(n + burst, np.uint8)
+    for s in np.nonzero(rng.random(n) < eps / burst)[0]:
         m[s:s + burst] = 1
-    return m
+    return m[:n]
 
 
-def store_measure(st, objs, obj_names, queries, dim, eps, rng, burst=0):
-    if st["c"] == 0:
-        return np.zeros(len(queries))
+# ---- previsione dello store -------------------------------------------------
+
+def bit_residuals(cd, L, eps):
+    k = cd["kind"]
+    if k == "none":
+        return np.full(L, eps)
+    if k == "rep":
+        e = np.full(L, rep_residual(cd["r"], eps))
+        e[:cd["x"]] = rep_residual(cd["r"] + 2, eps)
+        return e
+    return None
+
+
+def _binom_cdf(n, p, t):
+    return sum(comb(n, j) * p ** j * (1 - p) ** (n - j) for j in range(t + 1))
+
+
+def store_predict(st, cd, queries, eps, rng):
+    """Accuratezza prevista della configurazione (layout, codice, c) sulle domande."""
+    L = len(st["bits"])
+    kept = st["pos"] if st["layout"] == "xor" else st["slot"]
+    qk = [q for q in queries if q in kept]
+    if not qk:
+        return 0.0
+    dp = np.array([deps(st, q) for q in qk])            # Qk × bit
+    ch_eps = rep_residual(3, eps) if cd["kind"] == "concat" else eps
+    core = cd["outer"] if cd["kind"] == "concat" else cd
+    e = bit_residuals(core, L, ch_eps)
     le = st["le"]
-    bits = _to_bits(st["cells"], le)
-    coded = encode(bits, st["code"])
-    assert len(coded) <= dim
-    coded ^= noise_mask(len(coded), eps, rng, burst)
-    cells = _from_bits(decode(coded, st["code"], len(bits)), le)
-    out = []
-    for q in queries:
-        if q not in st["pos"]:
-            out.append(0.0)     # chiave non tenuta: risposta arbitraria, contata sbagliata
-            continue
-        a, b, d = st["pos"][q]
-        v = int(cells[a] ^ cells[b] ^ cells[d])
-        out.append(float(v < len(obj_names) and obj_names[v] in objs[q]))
-    return np.array(out)
+    if e is not None:
+        if st["layout"] == "xor":
+            f = (1 - 2 * e[dp]).reshape(len(qk), 3, le).prod(1)
+            return float(np.prod((1 + f) / 2, axis=1).sum() / len(queries))
+        return float(np.prod(1 - e[dp], axis=1).sum() / len(queries))
+    if core["kind"].startswith("bch"):
+        nb_ = core["kb"] + core["n"] - core["k"]
+        pok = _binom_cdf(nb_, ch_eps, core["t"])
+        nblk = np.array([len(set((row // core["kb"]).tolist())) for row in dp])
+        return float((pok ** nblk).sum() / len(queries))
+    # polare: Monte Carlo del solo store, blocchi pescati da un banco simulato
+    bank = polar_bank(core["N"], core["nt"], core["K"], ch_eps, int(rng.integers(1 << 31)))
+    pick = rng.integers(len(bank), size=(POLAR_SIMS, core["blocks"]))
+    err = bank[pick].reshape(POLAR_SIMS, -1)[:, :L]       # SIMS × L
+    x = err[:, dp]                                         # SIMS × Qk × bit
+    if st["layout"] == "xor":
+        ok = ~(x.reshape(POLAR_SIMS, len(qk), 3, le).sum(2) % 2).any(2)
+    else:
+        ok = ~x.any(2)
+    return float(ok.sum() / POLAR_SIMS / len(queries))
 
 
-# ---- ABM: misura ------------------------------------------------------------
+def store_simulate(st, cd, queries, objs, obj_names, fallback, eps, rng, R, burst=0,
+                   interleave=False):
+    """Simulazione completa: codifica, rumore, decodifica, lettura vera. (acc, acc selettiva)."""
+    bits = st["bits"]
+    L = len(bits)
+    sent = encode(bits, cd)
+    core = cd["outer"] if cd["kind"] == "concat" else cd
+    if core["kind"].startswith("bch"):
+        core["_sent"] = encode(bits, core)
+    perm = interleaver(cd, len(sent)) if interleave else None
+    acc, sel = [], []
+    for _ in range(R):
+        nz = noise(len(sent), eps, rng, burst)
+        if perm is not None:
+            tmp = np.zeros_like(nz)
+            tmp[perm] = nz                    # la raffica colpisce posizioni fisiche consecutive
+            nz = tmp
+        dec = decode(sent ^ nz, cd, L, eps)
+        ok, ans = 0, 0
+        for q in queries:
+            v, valid = read(st, dec, q, len(obj_names), fallback)
+            hit = obj_names[v] in objs[q]
+            ok += hit
+            if valid:
+                ans += 1
+                sel.append(hit)
+        acc.append(ok / len(queries))
+    return float(np.mean(acc)), (float(np.mean(sel)) if sel else float("nan"))
+
+
+def ppv_store(dim, le, eps, n_keys):
+    """B1, descrittivo: tetto con un codice alla PPV (approssimazione normale) e overhead 1.0."""
+    if eps <= 0:
+        return min(1.0, (dim // le) / n_keys)
+    h = -eps * log2(eps) - (1 - eps) * log2(1 - eps)
+    C = 1 - h
+    V = eps * (1 - eps) * log2((1 - eps) / eps) ** 2
+    best = 0.0
+    for c in range(1, n_keys + 1):
+        k = c * le
+        z = (dim * C - k + 0.5 * log2(dim)) / sqrt(dim * V)
+        pe = 0.5 * erfc(z / sqrt(2))
+        best = max(best, c / n_keys * (1 - pe))
+    return best
+
+
+# ---- ABM: misura -------------------------------------------------------------
 
 def abm_build(facts, dim):
     mem = abm.Memory(dim)
@@ -360,82 +694,148 @@ def abm_build(facts, dim):
     return mem
 
 
-def abm_measure(mem, objs, queries, eps, rng, burst=0, check=False):
+def abm_measure(mem, objs, queries, eps, rng, R, burst=0, cb_noise=False, check=False):
     names = list(mem.items._names)
-    C = np.stack(mem.items._states).astype(np.float32)          # M × D, ±1
-    keys = np.stack([mem._read_key(s, r) for s, r in queries]).astype(np.int8)
-    flip = noise_mask(mem.dim, eps, rng, burst).astype(bool)
-    trace = np.where(flip, -mem._trace, mem._trace).astype(np.int8)
-    noisy = (keys * trace[None, :]).astype(np.float32)
-    best = np.argmax(noisy @ C.T, axis=1)          # primo a distanza minima, come cleanup
-    if check:
-        saved = mem._trace
-        mem._trace = trace
-        ref = mem.query(*queries[0])[0]
-        mem._trace = saved
-        assert ref == names[best[0]], "cleanup vettoriale diversa dalla reference"
-    return np.array([float(names[b] in objs[q]) for b, q in zip(best, queries)])
+    C0 = np.stack(mem.items._states).astype(np.float32)
+    keys = np.stack([mem._read_key(s, r) for s, r in queries]).astype(np.float32)
+    acc = []
+    for i in range(R):
+        flip = noise(mem.dim, eps, rng, burst).astype(bool)
+        trace = np.where(flip, -mem._trace, mem._trace).astype(np.float32)
+        C = C0
+        if cb_noise:
+            C = np.where(rng.random(C0.shape) < eps, -C0, C0).astype(np.float32)
+        best = np.argmax((keys * trace[None, :]) @ C.T, axis=1)
+        if check and i == 0 and not cb_noise:
+            saved = mem._trace
+            mem._trace = trace.astype(np.int8)
+            ref = mem.query(*queries[0])[0]
+            mem._trace = saved
+            assert ref == names[best[0]], "cleanup vettoriale diversa dalla reference"
+        acc.append(np.mean([names[b] in objs[q] for b, q in zip(best, queries)]))
+    return float(np.mean(acc))
 
 
-# ---- una cella --------------------------------------------------------------
+# ---- una memoria (dataset, D, N, seed) --------------------------------------
 
-def shannon_store(dim, le, eps, n_keys):
-    """Descrittivo, NON realizzabile: store con un codice ideale a capacità 1-h(ε)."""
-    h = 0.0 if eps <= 0 else -eps * log2(eps) - (1 - eps) * log2(1 - eps)
-    c = int(dim * (1 - h) // (RET_OVERHEAD * le))
-    return min(1.0, c / n_keys)
-
-
-def run_cell(triples, dim, n, seed, do_measure, smoke_mc=False):
+def run_cell(args):
+    name, dim, n, seed, do_measure = args
+    triples = GRAPHS[name]
     facts, objs, keys, qs = sample_cell(triples, n, seed)
     obj_names = sorted({o for _, _, o in facts})
     obj_index = {o: i for i, o in enumerate(obj_names)}
+    fallback = obj_index[Counter(o for _, _, o in facts).most_common(1)[0][0]]
     le = max(1, ceil(log2(len(obj_names))))
     perm = np.random.RandomState(seed + 1).permutation(len(keys))
-    stores = {code: build_store(keys, objs, obj_index, le, dim, code, perm) for code in CODES}
-    row = {"N": n, "seed": seed, "K": len(keys), "Q": len(qs), "le": le,
-           "codebook": len({x for t in facts for x in t}),
-           "c": {k: v["c"] for k, v in stores.items()}, "eps": {}}
+    rs = streams(seed)
+
+    def build(layout, c):
+        kept = [keys[i] for i in perm[:c]]
+        vals = [obj_index[objs[k][0]] for k in kept]
+        while c > 0:
+            st = (build_xor if layout == "xor" else build_mphf)(kept[:c], vals[:c], le, c)
+            if st is not None:
+                return st
+            c -= 1
+        return None
+
+    stores = []
+    for layout in ("xor", "mphf"):
+        c = min(len(keys), dim // le)       # c_max(none): il più grande c i cui bit entrano in D
+        st = None
+        while c > 0:
+            st = build(layout, c)
+            if st is not None and len(st["bits"]) <= dim:
+                break
+            over = len(st["bits"]) - dim if st is not None else le
+            c = min(c - 1, st["c"] - ceil(over / (le + 2)) if st is not None else c - 1)
+            st = None
+        if st is None:
+            continue
+        cmax, seen = st["c"], set()
+        for f in FRACS:
+            cf = max(1, int(round(f * cmax)))
+            s2 = st if cf == cmax else build(layout, cf)
+            if s2 is not None and len(s2["bits"]) <= dim and s2["c"] not in seen:
+                seen.add(s2["c"])
+                stores.append(s2)
+    row = {"dataset": name, "D": dim, "N": n, "seed": seed, "K": len(keys), "Q": len(qs),
+           "le": le, "codebook": len({x for t in facts for x in t}), "eps": {}}
     mem = abm_build(facts, dim) if do_measure else None
-    for ei, eps in enumerate(EPS):
+    xor_full = max((s for s in stores if s["layout"] == "xor"), key=lambda s: s["c"])
+    for eps in EPS:
         pa = float(np.mean(abm_predict(facts, dim, qs, eps)))
-        sp = {code: float(np.mean(store_predict(st, qs, eps))) for code, st in stores.items()}
-        sp_bound = dict(sp)
-        mc_rng = np.random.RandomState((seed * 7919 + ei + 10 ** 6) % 2 ** 32)   # flusso separato dalla misura
-        for code in CODES:
-            if code.startswith("ham") and eps > 0:
-                sp[code] = float(np.mean([np.mean(store_measure(
-                    stores[code], objs, obj_names, qs, dim, eps, mc_rng)) for _ in range(STORE_MC)]))
-        best = max(CODES, key=lambda c: (sp[c], -CODES.index(c)))   # pari: il primo in CODES
-        e = {"abm_pred": pa, "store_pred": sp, "best_code": best, "best_pred": sp[best],
-             "none_pred": sp["none"], "ham_bound": {c: v for c, v in sp_bound.items()
-                                                 if c.startswith("ham")}, "shannon_store": shannon_store(dim, le, eps, len(keys))}
+        best, best_cfg = -1.0, None
+        for st in stores:
+            for cd in code_list(len(st["bits"]), dim, eps):
+                _tag(cd, eps)
+                p = store_predict(st, cd, qs, eps, rs["store_select"])
+                if p > best + 1e-12:
+                    best, best_cfg = p, (st, cd)
+        st, cd = best_cfg
+        e = {"abm_pred": pa, "best_pred": best, "choice": f"{st['layout']}/c={st['c']}/"
+             f"{code_name(cd)}", "layout": st["layout"], "code": code_name(cd).split("(")[0],
+             "c_kept": st["c"], "ppv_store": ppv_store(dim, le, eps, len(keys))}
+        e["best_reest"], _ = store_simulate(st, cd, qs, objs, obj_names, fallback, eps,
+                                            rs["store_reest"], REEST_R)
         if do_measure:
-            rng = np.random.RandomState((seed * 101 + ei) % 2 ** 32)
-            e["abm_meas"] = abm_measure(mem, objs, qs, eps, rng, check=(ei == 0)).tolist()
-            e["best_meas"] = store_measure(stores[best], objs, obj_names, qs, dim, eps, rng).tolist()
-            e["none_meas"] = store_measure(stores["none"], objs, obj_names, qs, dim, eps, rng).tolist()
+            e["abm_meas"] = abm_measure(mem, objs, qs, eps, rs["abm"], R_NOISE,
+                                        check=(eps == 0))
+            e["best_meas"], e["best_selective"] = store_simulate(
+                st, cd, qs, objs, obj_names, fallback, eps, rs["store_meas"], R_NOISE)
+            e["none_meas"], _ = store_simulate(xor_full, {"kind": "none", "B": 0}, qs, objs,
+                                               obj_names, fallback, eps, rs["none_meas"], R_NOISE)
+            if eps > 0:
+                e["abm_cbnoise"] = abm_measure(mem, objs, qs, eps, rs["abm_cb"], CB_NOISE_R,
+                                               cb_noise=True)
+                e["name_factor"] = float(np.mean([(1 - eps) ** (8 * len(o)) for o in obj_names]))
             if eps in BURST_EPS:
-                e["abm_burst"] = abm_measure(mem, objs, qs, eps, rng, burst=BURST_LEN).tolist()
-                e["best_burst"] = store_measure(stores[best], objs, obj_names, qs, dim, eps, rng,
-                                                burst=BURST_LEN).tolist()
-            if smoke_mc:      # Monte Carlo del limite di Hamming e dello store per ogni codice
-                e["store_mc"] = {c: float(np.mean([np.mean(store_measure(
-                    stores[c], objs, obj_names, qs, dim, eps, rng)) for _ in range(5)]))
-                    for c in CODES}
+                e["abm_burst"] = abm_measure(mem, objs, qs, eps, rs["burst"], R_NOISE,
+                                             burst=BURST_LEN)
+                e["best_burst"], _ = store_simulate(st, cd, qs, objs, obj_names, fallback, eps,
+                                                    rs["burst"], R_NOISE, burst=BURST_LEN,
+                                                    interleave=True)
         row["eps"][str(eps)] = e
     return row
 
 
-# ---- riepilogo e verdetto ----------------------------------------------------
+def _tag(cd, eps):
+    cd["_eps"] = eps if cd["kind"] != "concat" else None
+    if cd["kind"] == "concat":
+        cd["outer"]["_eps"] = rep_residual(3, eps)
 
-def se_cell(per_seed, pooled):
-    """SE per cella: il massimo fra binomiale sul totale e SD fra semi / √S."""
-    q = len(pooled)
-    p = float(np.mean(pooled))
-    se_b = (max(p * (1 - p), 1.0 / q) / q) ** 0.5
-    se_s = float(np.std(per_seed, ddof=1) / len(per_seed) ** 0.5) if len(per_seed) > 1 else 0.0
-    return max(se_b, se_s)
+
+# ---- statistica --------------------------------------------------------------
+
+def t4_sf(t):
+    """P(T > t), Student con 4 gradi di libertà (forma chiusa)."""
+    u = t / sqrt(4 + t * t)
+    return 0.5 - 0.75 * u * (1 - u * u / 3)
+
+
+def t4_q(p):
+    lo, hi = -100.0, 100.0
+    for _ in range(200):
+        mid = (lo + hi) / 2
+        if t4_sf(mid) > 1 - p:
+            lo = mid
+        else:
+            hi = mid
+    return (lo + hi) / 2
+
+
+def family(cells):
+    """A5: celle previste a favore di ABM con margine > MDE(α/m Holm, potenza 80%), iterato."""
+    cand = [c for c in cells if c["d_pred"] > 0]
+    while True:
+        m = max(1, len(cand))
+        q = t4_q(1 - ALPHA / m) + t4_q(0.8)
+        new = [c for c in cand if c["d_pred"] > q * c["sd_pred"] / sqrt(SEEDS)]
+        for c in cells:
+            c["mde"] = q * c["sd_pred"] / sqrt(SEEDS)
+        if len(new) == len(cand):
+            return new
+        cand = new
 
 
 def summarize(rows, measured):
@@ -444,153 +844,240 @@ def summarize(rows, measured):
         by[(r["dataset"], r["D"], r["N"])].append(r)
     cells = []
     for (ds, dim, n), rs in sorted(by.items()):
-        q = sum(r["Q"] for r in rs)
         for eps in EPS:
             es = [r["eps"][str(eps)] for r in rs]
-            w = np.array([r["Q"] for r in rs], float)
-            c = {"dataset": ds, "D": dim, "N": n, "eps": eps, "Q": q,
-                 "abm_pred": float(np.average([e["abm_pred"] for e in es], weights=w)),
-                 "best_pred": float(np.average([e["best_pred"] for e in es], weights=w)),
-                 "none_pred": float(np.average([e["none_pred"] for e in es], weights=w)),
-                 "shannon_store": float(np.mean([e["shannon_store"] for e in es])),
-                 "codes": sorted({e["best_code"] for e in es})}
-            pa, pb = c["abm_pred"], c["best_pred"]
-            se_pred = ((pa * (1 - pa) + pb * (1 - pb)) / q) ** 0.5
-            c["mde_80"] = 2.84 * max(se_pred, (2.0 / q) ** 0.5 / 2)   # bias minimo rilevabile
+            qs = [r["Q"] for r in rs]
+            pa = np.array([e["abm_pred"] for e in es])
+            pb = np.array([e["best_pred"] for e in es])
+            d = pa - pb
+            within = np.mean([(a * (1 - a) + b * (1 - b)) / q for a, b, q in zip(pa, pb, qs)])
+            c = {"dataset": ds, "D": dim, "N": n, "eps": eps, "Q": int(sum(qs)),
+                 "abm_pred": float(pa.mean()), "best_pred": float(pb.mean()),
+                 "best_reest": float(np.mean([e["best_reest"] for e in es])),
+                 "d_pred": float(d.mean()),
+                 "sd_pred": float(sqrt(np.var(d, ddof=1) + within)),
+                 "ppv_store": float(np.mean([e["ppv_store"] for e in es])),
+                 "choices": sorted({e["choice"] for e in es}),
+                 "codes": sorted({e["layout"] + "/" + e["code"] for e in es})}
             if measured:
-                for k in ("abm", "best", "none"):
-                    pooled = sum((e[k + "_meas"] for e in es), [])
-                    c[k + "_meas"] = float(np.mean(pooled))
-                    c[k + "_se"] = se_cell([np.mean(e[k + "_meas"]) for e in es], pooled)
-                c["adv"] = c["abm_meas"] - c["best_meas"]
-                c["se_adv"] = (c["abm_se"] ** 2 + c["best_se"] ** 2) ** 0.5
-                c["abm_wins_all_seeds"] = all(np.mean(e["abm_meas"]) > np.mean(e["best_meas"])
-                                              for e in es)
-                if "abm_burst" in es[0]:
-                    c["abm_burst"] = float(np.mean(sum((e["abm_burst"] for e in es), [])))
-                    c["best_burst"] = float(np.mean(sum((e["best_burst"] for e in es), [])))
+                ma = np.array([e["abm_meas"] for e in es])
+                mb = np.array([e["best_meas"] for e in es])
+                dd = ma - mb
+                c.update(abm_meas=float(ma.mean()), best_meas=float(mb.mean()),
+                         none_meas=float(np.mean([e["none_meas"] for e in es])),
+                         d_meas=float(dd.mean()), se_d=float(dd.std(ddof=1) / sqrt(len(dd))),
+                         best_selective=float(np.nanmean([e["best_selective"] for e in es])))
+                c["t"] = c["d_meas"] / c["se_d"] if c["se_d"] > 0 else float("inf") * np.sign(
+                    c["d_meas"])
+                c["p_one_sided"] = t4_sf(c["t"]) if np.isfinite(c["t"]) else float(c["t"] < 0)
+                for k in ("abm_burst", "best_burst", "abm_cbnoise", "name_factor"):
+                    if k in es[0]:
+                        c[k] = float(np.mean([e[k] for e in es]))
             cells.append(c)
+    fam = family(cells)
+    for c in cells:
+        c["confirmatory"] = c in fam
     return cells
 
 
-def eps_star(series, key_a, key_b):
-    """Primo ε della griglia in cui a > b; None se mai."""
+def eps_star(series, key):
     for c in series:
-        if c[key_a] > c[key_b]:
+        if c[key] > 0:
             return c["eps"]
     return None
 
 
+def eligible(series):
+    """B4: ε* si valuta solo dove la differenza prevista al cambio di segno supera l'MDE
+    (o, per 'mai', dove è sotto −MDE a ogni ε)."""
+    s = eps_star(series, "d_pred")
+    if s is None:
+        return all(c["d_pred"] < -c["mde"] for c in series)
+    c = next(c for c in series if c["eps"] == s)
+    return c["d_pred"] > c["mde"]
+
+
 def print_table(cells, measured):
-    print("\ndataset    D     N   eps     | ABM prev  avv prev (codice)  none prev  Shannon  MDE")
+    print("\ndataset    D     N   eps    | ABM prev  avv prev  avv ristima  PPV    MDE   conf | scelta")
     for c in cells:
-        line = (f"{c['dataset']:9s} {c['D']:5d} {c['N']:5d} {c['eps']:<7g} | {c['abm_pred']:.3f}"
-                f"     {c['best_pred']:.3f} ({','.join(c['codes'])})  {c['none_pred']:.3f}"
-                f"      {c['shannon_store']:.3f}    {c['mde_80']:.3f}")
+        line = (f"{c['dataset']:9s} {c['D']:5d} {c['N']:5d} {c['eps']:<6g} | {c['abm_pred']:.3f}"
+                f"     {c['best_pred']:.3f}     {c['best_reest']:.3f}     {c['ppv_store']:.3f}"
+                f"  {c['mde']:.3f}  {'*' if c['confirmatory'] else ' '}   | "
+                f"{','.join(c['codes'])}")
         if measured:
             line += (f" || mis. ABM {c['abm_meas']:.3f} avv {c['best_meas']:.3f}"
-                     f" none {c['none_meas']:.3f} vant {c['adv']:+.3f}±{c['se_adv']:.3f}")
+                     f" d {c['d_meas']:+.3f}±{c['se_d']:.3f}")
         print(line)
     series = defaultdict(list)
     for c in cells:
         series[(c["dataset"], c["D"], c["N"])].append(c)
-    print("\nε* previsto (primo ε con ABM previsto > miglior avversario previsto):")
+    print("\nε* previsto (primo ε con ABM previsto > avversario previsto), valutabile (B4):")
     for k, s in series.items():
-        line = f"  {k}: {eps_star(s, 'abm_pred', 'best_pred')}"
+        line = f"  {k}: {eps_star(s, 'd_pred')}  valutabile={eligible(s)}"
         if measured:
-            line += f"   osservato: {eps_star(s, 'abm_meas', 'best_meas')}"
+            line += f"   osservato: {eps_star(s, 'd_meas')}"
         print(line)
+    fam = [c for c in cells if c["confirmatory"]]
+    print(f"\nfamiglia confermativa: {len(fam)} celle")
+    for c in fam:
+        print(f"  {c['dataset']} D={c['D']} N={c['N']} ε={c['eps']}: d prev {c['d_pred']:+.3f}"
+              f"  MDE {c['mde']:.3f}")
 
 
 def verdict(cells):
     v = {}
-    wins = [c for c in cells if c["adv"] > 2 * c["se_adv"]]
-    v["H1_cells_adv_gt_2se"] = len(wins)
-    v["H1_cells_adv_gt_2se_and_all_seeds"] = sum(c["abm_wins_all_seeds"] for c in wins)
-    v["H1_cells_adv_gt_3.5se_bonferroni"] = sum(c["adv"] > 3.5 * c["se_adv"] for c in cells)
+    fam = sorted([c for c in cells if c["confirmatory"]], key=lambda c: c["p_one_sided"])
+    m = len(fam)
+    rej = 0
+    for i, c in enumerate(fam):
+        if c["p_one_sided"] <= ALPHA / (m - i):
+            rej += 1
+        else:
+            break
+    v["H1_family_size"] = m
+    v["H1_holm_rejections"] = rej
+    v["H1_rejected_cells"] = [f"{c['dataset']}/{c['D']}/{c['N']}/{c['eps']}" for c in fam[:rej]]
+    # famiglia vuota (prevista: nessuna cella a favore di ABM): H1 si valuta su TUTTE le
+    # celle con Bonferroni one-sided α/112; una vittoria qui falsifica la previsione
+    allc = len(cells)
+    v["H1_all_cells_bonferroni_wins"] = [f"{c['dataset']}/{c['D']}/{c['N']}/{c['eps']}"
+                                         for c in cells if c["p_one_sided"] <= ALPHA / allc]
+    v["H1_gap_to_ppv_in_rejected"] = [round(c["ppv_store"] - c["abm_meas"], 3) for c in fam[:rej]]
     g = defaultdict(list)
     for c in cells:
         g[f"{c['dataset']}/{c['D']}"].append(abs(c["abm_meas"] - c["abm_pred"]))
     v["H2_mae_points"] = {k: round(100 * float(np.mean(x)), 2) for k, x in g.items()}
     v["H2_max_cell_points"] = round(100 * max(abs(c["abm_meas"] - c["abm_pred"]) for c in cells), 2)
+    v["H2_max_cell_eps02_points"] = round(100 * max(abs(c["abm_meas"] - c["abm_pred"])
+                                                    for c in cells if c["eps"] == 0.2), 2)
     series = defaultdict(list)
     for c in cells:
         series[(c["dataset"], c["D"], c["N"])].append(c)
-    ok = 0
+    ok = tot = 0
     for s in series.values():
-        a, b = eps_star(s, "abm_pred", "best_pred"), eps_star(s, "abm_meas", "best_meas")
+        if not eligible(s):
+            continue
+        tot += 1
+        a, b = eps_star(s, "d_pred"), eps_star(s, "d_meas")
         ia = EPS.index(a) if a is not None else len(EPS)
         ib = EPS.index(b) if b is not None else len(EPS)
         ok += abs(ia - ib) <= 1
-    v["H3_series_eps_star_within_one_step"] = f"{ok}/{len(series)}"
+    v["H3_eligible_series_within_one_step"] = f"{ok}/{tot}"
     g = defaultdict(list)
     for c in cells:
-        g[f"{c['dataset']}/{c['D']}"].append(abs(c["best_meas"] - c["best_pred"]))
-    v["H4_store_mae_points"] = {k: round(100 * float(np.mean(x)), 2) for k, x in g.items()}
+        g[f"{c['dataset']}/{c['D']}"].append(abs(c["best_meas"] - c["best_reest"]))
+    v["H4_store_mae_points_vs_reest"] = {k: round(100 * float(np.mean(x)), 2) for k, x in g.items()}
+    v["H0_eps0_series_abm_below"] = sum(c["d_meas"] < 0 for c in cells if c["eps"] == 0)
     return v
 
 
-def run(graphs, grid, seeds, do_measure, out_path=None, smoke_mc=False):
-    rows = []
-    t0 = time.time()
-    for name, triples in graphs.items():
+GRAPHS = {}
+
+
+def run(graphs, grid, seeds, do_measure, out_path=None, workers=None):
+    GRAPHS.update(graphs)
+    jobs = []
+    for name in graphs:
         for dim, ns in grid.items():
             for n in ns:
                 for s in range(seeds):
                     seed = SEED_BASE + 1009 * s + 7 * n + dim + (13 if name == "wn18rr" else 0)
-                    row = {"dataset": name, "D": dim, **run_cell(triples, dim, n, seed,
-                                                                 do_measure, smoke_mc)}
-                    rows.append(row)
-                    print(f"{name} D={dim} N={n} seed={s} K={row['K']} le={row['le']} "
-                          f"c(none)={row['c']['none']} [{time.time() - t0:.0f}s]", flush=True)
+                    jobs.append((name, dim, n, seed, do_measure))
+    t0 = time.time()
+    rows = []
+    with Pool(workers or os.cpu_count()) as pool:
+        for row in pool.imap_unordered(run_cell, jobs):
+            rows.append(row)
+            print(f"{row['dataset']} D={row['D']} N={row['N']} seed={row['seed']} K={row['K']}"
+                  f" [{time.time() - t0:.0f}s]", flush=True)
+    rows.sort(key=lambda r: (r["dataset"], r["D"], r["N"], r["seed"]))
     cells = summarize(rows, do_measure)
     print_table(cells, do_measure)
-    out = {"cells": cells, "rows": rows if do_measure else None}
+    out = {"cells": cells, "rows": rows, "elapsed_s": time.time() - t0}
     if do_measure:
         out["verdict"] = verdict(cells)
         print(json.dumps(out["verdict"], indent=1))
     if out_path:
-        out_path.write_text(json.dumps(out, indent=1))
+        out_path.write_text(json.dumps(out, indent=1, default=float))
         print("->", out_path)
     return rows, cells
 
 
-def smoke():
-    """Sintetico minuscolo: gira tutto, e verifica col Monte Carlo la formula p' e i limiti."""
+# ---- smoke --------------------------------------------------------------------
+
+def smoke_a4():
+    """A4: su tracce ABM reali (sintetiche), concordanza per candidato e correlazione fra
+    candidati, senza e con flip. Il flip è comune a tutti i candidati di una query."""
     g = synthetic_graph()
-    rows, cells = run({"synthetic": g}, {1024: [40, 120]}, 3, True, smoke_mc=True)
-    print("\nMonte Carlo, ABM: |misura - previsione| per cella (3 semi):")
+    dim, n = 1024, 60
+    facts, objs, keys, qs = sample_cell(g, n, 7)
+    mem = abm_build(facts, dim)
+    names = list(mem.items._names)
+    C = np.stack(mem.items._states).astype(np.int8)
+    rng = np.random.default_rng(1)
+    weights = exact.fact_weights(facts)
+    all_w = list(weights.values())
+    w0 = all_w[0]
+    others = list(all_w)
+    others.remove(w0)
+    p_model = exact.p_agree_weighted(w0, others)
+    print(f"\nA4 — D={dim}, N={n}, {len(qs)} domande; p del modello (peso 1) = {p_model:.4f}")
+    for eps in (0.0, 0.1, 0.2):
+        agree_true, d_true, d_n1, d_n2 = [], [], [], []
+        for _ in range(200):
+            flip = noise(dim, eps, rng).astype(bool)
+            tr = np.where(flip, -mem._trace, mem._trace)
+            for s, r in qs[:20]:
+                noisy = mem._read_key(s, r) * tr
+                o = objs[(s, r)][0]
+                agree_true.append(np.mean(noisy == C[names.index(o)]))
+                d = (noisy[None, :] != C).sum(1)
+                d_true.append(d[names.index(o)])
+                nul = [i for i in range(len(names)) if names[i] not in objs[(s, r)]][:2]
+                d_n1.append(d[nul[0]])
+                d_n2.append(d[nul[1]])
+        a = np.mean(agree_true)
+        # correlazioni ENTRO la domanda (al variare del solo rumore): si toglie la media per
+        # domanda, altrimenti si misura la struttura fra domande, non l'effetto del flip
+        def within(x):
+            x = np.array(x, float).reshape(200, -1)
+            return (x - x.mean(0)).ravel()
+        if eps > 0:
+            ct = np.corrcoef(within(d_true), within(d_n1))[0, 1]
+            cn = np.corrcoef(within(d_n1), within(d_n2))[0, 1]
+            extra = f" | entro domanda: corr(vero, nullo) {ct:+.3f}  corr(nullo, nullo) {cn:+.3f}"
+        else:
+            extra = " | senza flip le distanze sono fisse per domanda"
+        print(f"  ε={eps}: concordanza del vero misurata {a:.4f}, prevista p'={p_noisy(p_model, eps):.4f}"
+              f"{extra}  var(nullo fra domande)/(D/4) {np.var(d_n1) / (dim / 4):.3f}")
+
+
+def smoke():
+    smoke_a4()
+    g = synthetic_graph()
+    rows, cells = run({"synthetic": g}, {1024: [40, 120]}, 3, True, workers=6)
+    print("\nsmoke: ABM previsto vs misurato (R=20 rumori, 3 seed):")
     for c in cells:
-        print(f"  N={c['N']} eps={c['eps']:<7g} prev {c['abm_pred']:.3f} mis {c['abm_meas']:.3f}"
-              f" ±{c['abm_se']:.3f}")
-    print("\nMonte Carlo, store: previsione analitica vs simulazione (5 rumori × semi):")
-    for r in rows:
-        for eps in (1e-2, 0.1):
-            e = r["eps"][str(eps)]
-            print(f"  N={r['N']} eps={eps}: " + "  ".join(
-                f"{c}:{e['store_pred'][c]:.3f}/{e['store_mc'][c]:.3f}" for c in
-                ("none", "rep3", "rep7", "ham4", "ham6")))
-    # verifica diretta della formula p' = ε + p(1-2ε) su bit
-    rng = np.random.RandomState(0)
-    for p, eps in ((0.6, 0.1), (0.55, 0.2)):
-        a = rng.rand(10 ** 6) < p
-        f = rng.rand(10 ** 6) < eps
-        print(f"  p'={p_noisy(p, eps):.4f}  MC={np.mean(a ^ f):.4f}")
+        print(f"  N={c['N']} ε={c['eps']:<7g} prev {c['abm_pred']:.3f} mis {c['abm_meas']:.3f}"
+              f" | store prev {c['best_pred']:.3f} ristima {c['best_reest']:.3f}"
+              f" mis {c['best_meas']:.3f} ({','.join(c['codes'])})")
+    print(json.dumps(verdict(cells), indent=1))
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--predict", action="store_true")
+    ap.add_argument("--workers", type=int, default=None)
     a = ap.parse_args()
     if a.smoke:
         smoke()
         return
     graphs = {d: [t for t in load(d) if t[0] != t[2]] for d in DATASETS}
     if a.predict:
-        run(graphs, GRID, SEEDS, False)
+        run(graphs, GRID, SEEDS, False, PRED_OUT, a.workers)
     else:
-        run(graphs, GRID, SEEDS, True, OUT)
+        run(graphs, GRID, SEEDS, True, OUT, a.workers)
 
 
 if __name__ == "__main__":

@@ -1,11 +1,11 @@
 # Preregistrazione 20 — ABM contro store esatti con codice correttore, sotto errori di bit
 
-**Data: 2026-10-09.** Committata **prima** di misurare, insieme all'harness
+**Data: 2026-10-09; revisione del disegno 2026-10-12, prima dei dati.** Committata **prima** di misurare, insieme all'harness
 [`examples/bit_errors_prereg.py`](../../examples/bit_errors_prereg.py). Prima del
 commit l'harness è stato eseguito solo con `--smoke` (grafo sintetico generato nello
 script, mai FB15k-237 o WN18RR) e con `--predict` (legge i dati reali, costruisce le
 strutture degli store per sapere quante chiavi tengono e ne simula il rumore per la
-previsione dei codici di Hamming; **non** costruisce nessuna memoria ABM sui dati
+previsione dei codici; **non** costruisce nessuna memoria ABM sui dati
 reali). Stesse regole di [`fb15k237.md`](fb15k237.md).
 
 ## Perché
@@ -19,223 +19,232 @@ degradano con grazia; uno store esatto, invece, perde la chiave intera a un solo
 sbagliato, a meno di spendere bit in un codice correttore. Qui si misura chi vince, a
 pari bit totali, quando il codice lo sceglie l'avversario al meglio.
 
+## Revisione prima dei dati (2026-10-12)
+
+La prima versione (commit `99ccc03`) usava come avversario solo ripetizione e Hamming
+SECDED e prevedeva vittorie di ABM in 21 celle. Una revisione ostile, prima di
+qualunque misura, ha chiesto un avversario moderno; con quello **il modello non
+prevede più nessuna vittoria di ABM**. Le modifiche, punto per punto:
+
+- **A1 avversario moderno.** Codici polari con decodifica SC (min-sum, costruzione
+  di Bhattacharyya per BSC(ε)), N_blocco ∈ {256, 512, 1024, 2048}; BCH binari
+  primitivi (libreria `galois`, dipendenza opzionale `[replicate]`), n ∈ {63, 127,
+  255, 511, 1023}, ogni t possibile; concatenazione ripetizione-3 interna + polare
+  o BCH esterno per ε ≥ 0.03. Ripetizione e Hamming SECDED tolti: la ripetizione resta
+  come r/r+2 misti; l'Hamming è dominato dai BCH con t = 1.
+- **A2 tutti i D bit.** Ripetizione mista r/r+2; polari accorciati al tasso esatto
+  (bit finali noti a zero, u corrispondenti congelati), K = ⌈L/blocchi⌉ invece della
+  griglia 1/64 (più fine); BCH accorciati (resta inutilizzato meno di un blocco di
+  parità). "Meno chiavi, codice più forte": c ∈ {1, 0.8, 0.64, 0.5, 0.4, 0.3, 0.2,
+  0.12} × c_max.
+- **A3 layout a lettura singola.** MPHF hash-and-displace (CHD semplificato, 4 chiavi
+  per bucket, spostamenti a larghezza fissa) + array di valori, con la MPHF nella
+  memoria rumorosa e codificata, bit contati in D. La regola sceglie fra
+  {XOR, MPHF} × codice × c. Nelle previsioni vince quasi sempre XOR: con tabella
+  minima gli spostamenti costano più dell'overhead 0.23·le dello XOR.
+- **A4 flip comune ai candidati.** Smoke su tracce ABM vere (sintetiche, D = 1024,
+  N = 60): concordanza del vero misurata 0.5468 / 0.5377 / 0.5280 contro p′ previsto
+  0.5513 / 0.5410 / 0.5308 a ε = 0 / 0.1 / 0.2; correlazioni **entro la domanda** al
+  variare del solo rumore: vero–nullo +0.008 / +0.010, nullo–nullo −0.058 / −0.008 a
+  ε = 0.1 / 0.2. Il flip è comune, ma i codeword nulli sono indipendenti dal vettore
+  rumoroso, quindi l'approssimazione d'indipendenza del modello non peggiora con ε.
+  Il controllo tautologico (p′ su bit simulati) è stato tolto.
+- **A5 inferenza.** R = 20 rumori indipendenti per memoria e per ε; unità = seed
+  (5): per seed la differenza media ABM − avversario su rumori e domande; test t
+  one-sided con 4 gradi di libertà. Famiglia confermativa = celle con differenza
+  prevista > MDE (MDE = (t₄(1−α/m) + t₄(0.8))·sd/√5, sd = deviazione fra seed delle
+  differenze previste più la varianza binomiale entro seed, iterato su m); Holm
+  α = 0.05.
+- **A6 ristima.** Dopo la scelta, l'accuratezza dell'avversario è ristimata con un
+  terzo flusso RNG (50 rumori, simulazione completa: codifica, rumore, decodifica,
+  lettura vera); H4 usa la ristima. La previsione di scelta ha un piccolo winner's
+  curse (fino a 4 punti a D = 2048, N = 50, ε = 0.2: 0.837 contro 0.801).
+- **B1** tetto descrittivo PPV (approssimazione normale di Polyanskiy–Poor–Verdú, un
+  codice lungo D, overhead 1.0: solo i bit di valore) al posto di "Shannon".
+- **B2** "memoria" = solo lo stato che dipende dai fatti (traccia ABM; celle e MPHF
+  dello store). Descrittivo: ABM con rumore anche sul codebook (5 rumori), e il
+  fattore (1−ε)^(8·lunghezza del nome) per i nomi, identico per i due sistemi.
+- **B3** indice non valido → l'oggetto più frequente del campione (gratis); riportata
+  anche l'accuratezza selettiva dello store (solo letture con indice valido).
+- **B4** ε* valutato solo nelle serie in cui la differenza prevista al cambio di segno
+  supera l'MDE (o, per "mai", resta sotto −MDE a ogni ε).
+- **B5** H0 è un controllo, non una conferma.
+- **B6** raffiche: interlacciatore a blocchi (posizione nel blocco, poi blocco) sul
+  codice scelto.
+- **B7** `SeedSequence.spawn`: un sotto-flusso per ABM, misura dello store, scelta,
+  ristima, `none`, raffiche, codebook.
+- Errore trovato e corretto durante la revisione: nella decodifica SC i pareggi
+  (LLR = 0, frequenti su un BSC) andavano tutti a 0, il che rende ottimista la
+  simulazione con la parola nulla (tasso d'errore di blocco 0.07 contro 0.48 vero in
+  un caso). Ora un rumore minuscolo, fisso e simmetrico rompe i pareggi; banco e
+  simulazione completa concordano (0.43/0.44, 0.30/0.29, 0.90/0.92).
+
 ## Impianto (ostile ad ABM)
 
 Grafi: FB15k-237 e WN18RR, train split, stessi file e sha256 di
 `examples/replicate.py` (già in `data/external/`; self-loop esclusi). Per ogni
 (dataset, D, N, seed): N fatti distinti campionati uniformemente; domande = chiavi
 (s, r) distinte del campione, al più 300 per seed; giusta se la risposta è uno degli
-oggetti veri di (s, r) nel campione.
+oggetti veri di (s, r) nel campione. Griglia: D = 2048 con N ∈ {50, 100, 200, 400};
+D = 8192 con N ∈ {200, 400, 800, 1600}; ε ∈ {0, 1e-4, 1e-3, 1e-2, 3e-2, 0.1, 0.2};
+5 seed. 16 serie × 7 ε = **112 celle**.
 
-Griglia: D = 2048 con N ∈ {50, 100, 200, 400}; D = 8192 con N ∈ {200, 400, 800, 1600};
-ε ∈ {0, 1e-4, 1e-3, 1e-2, 3e-2, 0.1, 0.2}; 5 seed. 16 serie × 7 ε = **112 celle**.
+**Rumore:** ogni bit conservato si inverte indipendentemente con probabilità ε (rumore
+di conservazione). Per ABM: la traccia; il codebook si rigenera dai nomi. Per lo
+store: tutti i bit codificati (celle o spostamenti + valori, più la ridondanza).
 
-**Modello d'errore (principale):** ogni bit conservato si inverte indipendentemente con
-probabilità ε, una volta per memoria (rumore di conservazione, non di lettura); tutte
-le domande leggono la stessa memoria rumorosa.
-
-- **ABM:** una traccia di D bit (reference congelata), maschera di flip sulla traccia.
-  Il codebook (item memory) è **senza rumore**: si rigenera dai nomi (vedi limiti).
-- **Store (a), senza protezione:** funzione statica a chiavi implicite, XOR filter a 3
-  segmenti costruito per peeling: ⌈1.23·c⌉ celle (multiplo di 3) di
-  le = ⌈log₂ #oggetti⌉ bit per c chiavi; lettura = XOR di 3 celle. Stesso 1.23 del
-  test 19. Se il peeling fallisce con 20 semi di hash, c scende di 1. Se D non basta,
-  tiene un sottoinsieme a caso delle chiavi; una chiave non tenuta è contata sbagliata.
-  Il flip colpisce tutti i D bit (o meno) occupati.
-- **Store (b), con codice:** le stesse celle serializzate in bit passano per un codice
-  che spende parte di D: ripetizione r ∈ {3, 5, 7, 9, 11, 15, 21} (copie interlacciate
-  a distanza L, decodifica a maggioranza) oppure Hamming esteso SECDED (2^m, 2^m−m−1),
-  m ∈ {3, …, 8} (corregge 1 errore per blocco, con 2 rilevati lascia i dati come sono).
-  Il codice riduce c: c = il massimo che entra in D bit codificati.
-- **(c) Bloom:** non pertinente: risponde all'appartenenza, non a (s, r) → o.
-  Non incluso.
-
-**Regola di scelta dell'avversario, fissata ora.** Per ogni (dataset, D, N, seed, ε)
-si sceglie fra `none`, `rep*`, `ham*` il codice con l'accuratezza **prevista** più
-alta (pari: il primo nell'ordine `CODES`); il compromesso ridondanza/capacità è quindi
-ottimizzato a priori per ogni ε, carico e D. Previsione:
-- none e ripetizione, **esatta**: una lettura è giusta se, per ognuno degli le bit,
-  il numero di errori fra le 3 celle è pari: P = (1 − o₃(e))^le con
-  o₃(e) = (1 − (1−2e)³)/2, e = ε (none) o e = P(Bin(r, ε) > r/2) (ripetizione);
-  accuratezza = media sulle domande di P·[chiave tenuta].
-- Hamming: il limite analitico P(ogni blocco toccato ha ≤ 1 errore) è lasco (allo
-  smoke sottostima fino a 90 punti); per la scelta si usa un **Monte Carlo del solo
-  store** (20 rumori da un flusso di numeri casuali separato da quello della misura).
-  Il limite è riportato.
-Il vantaggio di ABM si misura contro il miglior avversario così scelto; si misura e
-riporta sempre anche `none`.
-
-**Descrittivo, non realizzato:** lo store con un codice ideale alla capacità del
-canale binario simmetrico, c = ⌊D·(1 − h(ε)) / (1.23·le)⌋. È il tetto di qualunque
-codice (BCH, LDPC, polar), non un avversario misurato.
-
-**Descrittivo, raffiche:** a ε ∈ {1e-2, 3e-2}, flip a raffiche di 16 bit consecutivi
-con la stessa frequenza media di bit invertiti, su ABM e sul codice scelto per l'iid.
-Nessuna ipotesi.
+**Store:** layout {XOR filter a 3 segmenti (⌈1.23·c⌉ celle di le = ⌈log₂ #oggetti⌉
+bit, come nel test 19), MPHF + valori} × codice {none, rep r/r+2, BCH, polare SC,
+rep3 + BCH/polare} × c. **Regola fissata:** per (cella, seed, ε) la combinazione
+con l'accuratezza prevista più alta; previsione esatta per none/rep, P(Bin(n, ε) ≤ t)
+per blocco BCH (limite inferiore: una decodifica fallita può lasciare giusti i bit
+letti), Monte Carlo del solo store per i polari (banco di 1024 blocchi, 64 store
+simulati, flusso separato). Il Bloom non è pertinente ((s, r) → o, non appartenenza).
 
 ## Modello esatto di ABM con rumore
 
-Nel modello esatto un candidato a segnale ha p = P(un bit della traccia concorda con
-il fatto) (`exact.p_agree_weighted`, gemelli e alias inclusi). Un flip indipendente
-con probabilità ε dà
+Un flip indipendente con probabilità ε dà p′ = p(1 − ε) + (1 − p)ε = ε + p(1 − 2ε)
+per ogni candidato a segnale; un codeword nullo resta Binomial(D, ½). Si sostituisce
+p con p′ in `cleanup_accuracy_mixed` (`abm_predict` nell'harness). Approssimazione
+dichiarata: il flip è comune ai candidati di una query; il modello tratta le distanze
+come indipendenti, come senza rumore (A4: correlazioni entro domanda ≤ 0.06).
 
-  p′ = p(1 − ε) + (1 − p)ε = ε + p(1 − 2ε),
+## Previsioni, calcolate ora (`--predict`, 57 min con 8 processi)
 
-mentre un codeword nullo resta Binomial(D, ½) (un bit uniforme XOR un flip
-indipendente resta uniforme). Quindi basta sostituire p con p′ in
-`cleanup_accuracy_mixed`; il resto del modello è quello della v1.1.0
-(`abm_predict` nell'harness). Il segnale si contrae di (1 − 2ε): ABM non ha soglia, la
-sua accuratezza scende con continuità; lo store senza codice perde ogni chiave con
-probabilità ≈ 3·le·ε.
-
-Verifica allo smoke (sintetico, D = 1024, N ∈ {40, 120}, 3 seed): p′ contro Monte
-Carlo sui bit 0.5800/0.5795 e 0.5300/0.5302; accuratezza ABM prevista contro misurata,
-errore medio 2.6 punti, massimo 7.2 (N = 40, ε = 0.2: 0.491 contro 0.563 ± 0.045,
-1.6 SE). Lo store `none` e `rep*` previsto contro simulato concorda entro il rumore
-di campionamento.
-
-## Previsioni, calcolate ora (`--predict`)
-
-ABM previsto / miglior avversario previsto, media sui 5 seed. In **grassetto** le
-celle in cui il modello prevede ABM sopra l'avversario. MDE = bias minimo rilevabile
-per cella (differenza vera che dà vantaggio > 2 SE con potenza 80%:
-2.84·SE della differenza, SE binomiale sulle Q domande delle 5 seed).
-
-| dataset | D | N | MDE | ε=0 | 1e-4 | 1e-3 | 1e-2 | 3e-2 | 0.1 | 0.2 |
-|---|---|---|---|---|---|---|---|---|---|---|
-| fb15k237 | 2048 | 50 | 0.127 | 0.986 / 1.000 | 0.986 / 1.000 | 0.986 / 1.000 | 0.983 / 1.000 | 0.975 / 0.995 | **0.910 / 0.858** | **0.661 / 0.435** |
-| fb15k237 | 2048 | 100 | 0.090 | 0.773 / 1.000 | 0.772 / 1.000 | 0.771 / 1.000 | 0.752 / 0.990 | 0.708 / 0.910 | **0.531 / 0.439** | **0.275 / 0.160** |
-| fb15k237 | 2048 | 200 | 0.064 | 0.337 / 1.000 | 0.337 / 1.000 | 0.335 / 0.994 | 0.320 / 0.833 | 0.286 / 0.576 | 0.183 / 0.187 | **0.083 / 0.066** |
-| fb15k237 | 2048 | 400 | 0.052 | 0.098 / 0.465 | 0.098 / 0.463 | 0.097 / 0.452 | 0.092 / 0.367 | 0.081 / 0.251 | 0.051 / 0.076 | 0.024 / 0.028 |
-| fb15k237 | 8192 | 200 | 0.064 | 0.974 / 1.000 | 0.974 / 1.000 | 0.973 / 1.000 | 0.968 / 0.993 | **0.952 / 0.939** | **0.844 / 0.679** | **0.524 / 0.287** |
-| fb15k237 | 8192 | 400 | 0.052 | 0.662 / 1.000 | 0.662 / 1.000 | 0.660 / 0.999 | 0.637 / 0.969 | 0.585 / 0.831 | **0.397 / 0.307** | **0.172 / 0.126** |
-| fb15k237 | 8192 | 800 | 0.052 | 0.233 / 0.868 | 0.233 / 0.865 | 0.232 / 0.842 | 0.218 / 0.676 | 0.191 / 0.459 | 0.112 / 0.140 | 0.044 / 0.059 |
-| fb15k237 | 8192 | 1600 | 0.052 | 0.057 / 0.411 | 0.057 / 0.410 | 0.057 / 0.399 | 0.053 / 0.327 | 0.046 / 0.228 | 0.027 / 0.060 | 0.011 / 0.027 |
-| wn18rr | 2048 | 50 | 0.127 | 0.990 / 1.000 | 0.990 / 1.000 | 0.990 / 1.000 | 0.987 / 1.000 | 0.980 / 0.995 | **0.922 / 0.858** | **0.688 / 0.435** |
-| wn18rr | 2048 | 100 | 0.090 | 0.785 / 1.000 | 0.785 / 1.000 | 0.783 / 1.000 | 0.765 / 0.987 | 0.722 / 0.900 | **0.549 / 0.439** | **0.293 / 0.160** |
-| wn18rr | 2048 | 200 | 0.064 | 0.350 / 1.000 | 0.350 / 1.000 | 0.348 / 0.992 | 0.332 / 0.828 | 0.298 / 0.572 | **0.193 / 0.192** | **0.089 / 0.067** |
-| wn18rr | 2048 | 400 | 0.052 | 0.100 / 0.459 | 0.100 / 0.457 | 0.099 / 0.447 | 0.094 / 0.362 | 0.083 / 0.249 | 0.052 / 0.072 | 0.024 / 0.026 |
-| wn18rr | 8192 | 200 | 0.064 | 0.975 / 1.000 | 0.975 / 1.000 | 0.974 / 1.000 | 0.969 / 0.993 | **0.954 / 0.939** | **0.851 / 0.676** | **0.537 / 0.285** |
-| wn18rr | 8192 | 400 | 0.052 | 0.661 / 1.000 | 0.661 / 1.000 | 0.659 / 1.000 | 0.636 / 0.968 | 0.584 / 0.818 | **0.397 / 0.301** | **0.172 / 0.123** |
-| wn18rr | 8192 | 800 | 0.052 | 0.224 / 0.849 | 0.224 / 0.847 | 0.223 / 0.824 | 0.210 / 0.660 | 0.183 / 0.454 | 0.107 / 0.141 | 0.042 / 0.059 |
-| wn18rr | 8192 | 1600 | 0.052 | 0.051 / 0.389 | 0.051 / 0.387 | 0.051 / 0.376 | 0.047 / 0.304 | 0.041 / 0.213 | 0.024 / 0.059 | 0.010 / 0.027 |
-
-Codice scelto dalla regola (fra parentesi lo store a codice ideale, non realizzato):
+ABM previsto / miglior avversario previsto (regola di scelta), media sui 5 seed.
 
 | dataset | D | N | ε=0 | 1e-4 | 1e-3 | 1e-2 | 3e-2 | 0.1 | 0.2 |
 |---|---|---|---|---|---|---|---|---|---|
-| fb15k237 | 2048 | 50 | none (1.000) | ham3 (1.000) | ham3,ham4 (1.000) | rep5 (1.000) | rep5 (1.000) | rep5 (1.000) | rep7 (1.000) |
-| fb15k237 | 2048 | 100 | none (1.000) | ham3 (1.000) | ham3,ham4 (1.000) | ham3,ham4 (1.000) | ham3 (1.000) | rep3 (1.000) | rep7,rep9 (0.663) |
-| fb15k237 | 2048 | 200 | none (1.000) | ham8 (1.000) | ham8 (1.000) | ham6,ham7 (0.958) | ham4,ham5 (0.838) | ham3,rep3 (0.552) | rep7,rep9 (0.286) |
-| fb15k237 | 2048 | 400 | none (0.473) | none (0.470) | ham8,none (0.465) | ham6,ham7,none (0.435) | ham4 (0.381) | ham3,rep3 (0.251) | rep15,rep9 (0.130) |
-| fb15k237 | 8192 | 200 | none (1.000) | ham3 (1.000) | ham3 (1.000) | ham3,rep3 (1.000) | rep3 (1.000) | rep5 (1.000) | rep11 (1.000) |
-| fb15k237 | 8192 | 400 | none (1.000) | ham4 (1.000) | ham4,ham5 (1.000) | ham4 (1.000) | ham3 (1.000) | ham3,rep3,rep5 (0.997) | rep11,rep9 (0.524) |
-| fb15k237 | 8192 | 800 | none (0.864) | none (0.863) | none (0.854) | ham5,ham6 (0.794) | ham4 (0.695) | rep3,rep5 (0.458) | rep11,rep9 (0.240) |
-| fb15k237 | 8192 | 1600 | none (0.407) | none (0.407) | ham8,none (0.403) | ham5,ham6 (0.374) | ham4 (0.328) | ham3,ham4,rep5,rep9 (0.216) | rep11,rep15,rep9 (0.113) |
-| wn18rr | 2048 | 50 | none (1.000) | ham3 (1.000) | ham3 (1.000) | rep5 (1.000) | rep5 (1.000) | rep5 (1.000) | rep7 (1.000) |
-| wn18rr | 2048 | 100 | none (1.000) | ham3 (1.000) | ham3 (1.000) | ham3 (1.000) | ham3 (1.000) | rep3 (1.000) | rep9 (0.663) |
-| wn18rr | 2048 | 200 | none (1.000) | ham8 (1.000) | ham8 (1.000) | ham6 (0.962) | ham4 (0.841) | ham3 (0.554) | rep7 (0.287) |
-| wn18rr | 2048 | 400 | none (0.466) | none (0.463) | ham8,none (0.458) | ham6,ham7 (0.428) | ham4,ham5 (0.375) | rep3,rep5 (0.247) | rep9 (0.128) |
-| wn18rr | 8192 | 200 | none (1.000) | ham3 (1.000) | ham3 (1.000) | rep3 (1.000) | rep3 (1.000) | rep5 (1.000) | rep11 (1.000) |
-| wn18rr | 8192 | 400 | none (1.000) | ham4 (1.000) | ham4 (1.000) | ham4 (1.000) | ham3 (1.000) | ham3,rep3,rep5 (0.986) | rep11,rep9 (0.516) |
-| wn18rr | 8192 | 800 | none (0.847) | none (0.846) | none (0.837) | ham6,none (0.779) | ham4 (0.682) | rep3,rep5 (0.449) | rep11,rep15,rep9 (0.235) |
-| wn18rr | 8192 | 1600 | none (0.387) | none (0.386) | none (0.382) | ham5,ham6 (0.356) | ham4 (0.311) | ham3,rep3,rep5 (0.205) | rep11,rep15,rep9 (0.107) |
+| fb15k237 | 2048 | 50 | 0.986 / 1.000 | 0.986 / 1.000 | 0.986 / 1.000 | 0.983 / 1.000 | 0.975 / 1.000 | 0.910 / 1.000 | 0.661 / 0.837 |
+| fb15k237 | 2048 | 100 | 0.773 / 1.000 | 0.772 / 1.000 | 0.771 / 1.000 | 0.752 / 1.000 | 0.708 / 1.000 | 0.531 / 0.783 | 0.275 / 0.383 |
+| fb15k237 | 2048 | 200 | 0.337 / 1.000 | 0.337 / 1.000 | 0.335 / 0.976 | 0.320 / 0.799 | 0.286 / 0.619 | 0.183 / 0.341 | 0.083 / 0.142 |
+| fb15k237 | 2048 | 400 | 0.098 / 0.465 | 0.098 / 0.463 | 0.097 / 0.452 | 0.092 / 0.369 | 0.081 / 0.281 | 0.051 / 0.157 | 0.024 / 0.067 |
+| fb15k237 | 8192 | 200 | 0.974 / 1.000 | 0.974 / 1.000 | 0.973 / 1.000 | 0.968 / 1.000 | 0.952 / 1.000 | 0.844 / 1.000 | 0.524 / 0.629 |
+| fb15k237 | 8192 | 400 | 0.662 / 1.000 | 0.662 / 1.000 | 0.660 / 1.000 | 0.637 / 1.000 | 0.585 / 1.000 | 0.397 / 0.633 | 0.172 / 0.289 |
+| fb15k237 | 8192 | 800 | 0.233 / 0.863 | 0.233 / 0.860 | 0.232 / 0.837 | 0.218 / 0.685 | 0.191 / 0.510 | 0.112 / 0.266 | 0.044 / 0.105 |
+| fb15k237 | 8192 | 1600 | 0.057 / 0.405 | 0.057 / 0.403 | 0.057 / 0.392 | 0.053 / 0.335 | 0.046 / 0.243 | 0.027 / 0.122 | 0.011 / 0.048 |
+| wn18rr | 2048 | 50 | 0.990 / 1.000 | 0.990 / 1.000 | 0.990 / 1.000 | 0.987 / 1.000 | 0.980 / 1.000 | 0.922 / 1.000 | 0.688 / 0.870 |
+| wn18rr | 2048 | 100 | 0.785 / 1.000 | 0.785 / 1.000 | 0.783 / 1.000 | 0.765 / 1.000 | 0.722 / 1.000 | 0.549 / 0.782 | 0.293 / 0.361 |
+| wn18rr | 2048 | 200 | 0.350 / 1.000 | 0.350 / 1.000 | 0.348 / 0.981 | 0.332 / 0.799 | 0.298 / 0.625 | 0.193 / 0.340 | 0.089 / 0.145 |
+| wn18rr | 2048 | 400 | 0.100 / 0.459 | 0.100 / 0.457 | 0.099 / 0.446 | 0.094 / 0.366 | 0.083 / 0.272 | 0.052 / 0.145 | 0.024 / 0.059 |
+| wn18rr | 8192 | 200 | 0.975 / 1.000 | 0.975 / 1.000 | 0.974 / 1.000 | 0.969 / 1.000 | 0.954 / 1.000 | 0.851 / 1.000 | 0.537 / 0.621 |
+| wn18rr | 8192 | 400 | 0.661 / 1.000 | 0.661 / 1.000 | 0.659 / 1.000 | 0.636 / 1.000 | 0.584 / 1.000 | 0.397 / 0.623 | 0.172 / 0.289 |
+| wn18rr | 8192 | 800 | 0.224 / 0.845 | 0.224 / 0.843 | 0.223 / 0.820 | 0.210 / 0.673 | 0.183 / 0.496 | 0.107 / 0.261 | 0.042 / 0.113 |
+| wn18rr | 8192 | 1600 | 0.051 / 0.385 | 0.051 / 0.384 | 0.051 / 0.373 | 0.047 / 0.314 | 0.041 / 0.227 | 0.024 / 0.121 | 0.010 / 0.050 |
 
-(Più codici in una cella: la regola ha scelto codici diversi in seed diversi.)
+Avversario ristimato (A6, terzo flusso) / tetto PPV (B1, non realizzato) / MDE:
 
-**ε\* previsto** (primo ε della griglia con ABM previsto > miglior avversario previsto):
+| dataset | D | N | ε=0 | 1e-4 | 1e-3 | 1e-2 | 3e-2 | 0.1 | 0.2 |
+|---|---|---|---|---|---|---|---|---|---|
+| fb15k237 | 2048 | 50 | 1.000 / 1.000 / 0.023 | 1.000 / 1.000 / 0.023 | 1.000 / 1.000 / 0.024 | 1.000 / 1.000 / 0.026 | 1.000 / 1.000 / 0.031 | 1.000 / 1.000 / 0.056 | 0.801 / 1.000 / 0.130 |
+| fb15k237 | 2048 | 100 | 1.000 / 1.000 / 0.058 | 1.000 / 1.000 / 0.058 | 1.000 / 1.000 / 0.058 | 1.000 / 1.000 / 0.060 | 1.000 / 1.000 / 0.063 | 0.788 / 1.000 / 0.091 | 0.386 / 0.705 / 0.091 |
+| fb15k237 | 2048 | 200 | 1.000 / 1.000 / 0.046 | 0.998 / 1.000 / 0.046 | 0.977 / 1.000 / 0.048 | 0.800 / 1.000 / 0.060 | 0.632 / 0.971 / 0.065 | 0.336 / 0.617 / 0.065 | 0.151 / 0.308 / 0.048 |
+| fb15k237 | 2048 | 400 | 0.469 / 0.580 / 0.051 | 0.468 / 0.576 / 0.051 | 0.457 / 0.564 / 0.051 | 0.375 / 0.512 / 0.052 | 0.290 / 0.440 / 0.045 | 0.159 / 0.280 / 0.041 | 0.070 / 0.140 / 0.024 |
+| fb15k237 | 8192 | 200 | 1.000 / 1.000 / 0.016 | 1.000 / 1.000 / 0.016 | 1.000 / 1.000 / 0.016 | 1.000 / 1.000 / 0.017 | 1.000 / 1.000 / 0.021 | 1.000 / 1.000 / 0.035 | 0.630 / 1.000 / 0.068 |
+| fb15k237 | 8192 | 400 | 1.000 / 1.000 / 0.038 | 1.000 / 1.000 / 0.038 | 1.000 / 1.000 / 0.038 | 1.000 / 1.000 / 0.038 | 0.999 / 1.000 / 0.039 | 0.625 / 1.000 / 0.057 | 0.300 / 0.595 / 0.047 |
+| fb15k237 | 8192 | 800 | 0.864 / 1.000 / 0.051 | 0.861 / 1.000 / 0.051 | 0.839 / 1.000 / 0.052 | 0.692 / 0.954 / 0.057 | 0.513 / 0.827 / 0.056 | 0.274 / 0.534 / 0.052 | 0.113 / 0.272 / 0.033 |
+| fb15k237 | 8192 | 1600 | 0.407 / 0.501 / 0.061 | 0.406 / 0.498 / 0.061 | 0.394 / 0.490 / 0.060 | 0.339 / 0.450 / 0.059 | 0.246 / 0.390 / 0.058 | 0.129 / 0.252 / 0.032 | 0.051 / 0.128 / 0.033 |
+| wn18rr | 2048 | 50 | 1.000 / 1.000 / 0.019 | 1.000 / 1.000 / 0.019 | 1.000 / 1.000 / 0.020 | 1.000 / 1.000 / 0.022 | 1.000 / 1.000 / 0.027 | 1.000 / 1.000 / 0.052 | 0.814 / 1.000 / 0.121 |
+| wn18rr | 2048 | 100 | 1.000 / 1.000 / 0.057 | 1.000 / 1.000 / 0.057 | 1.000 / 1.000 / 0.057 | 1.000 / 1.000 / 0.059 | 1.000 / 1.000 / 0.062 | 0.790 / 1.000 / 0.089 | 0.370 / 0.705 / 0.094 |
+| wn18rr | 2048 | 200 | 1.000 / 1.000 / 0.047 | 0.999 / 1.000 / 0.047 | 0.982 / 1.000 / 0.050 | 0.800 / 1.000 / 0.060 | 0.624 / 0.975 / 0.066 | 0.347 / 0.620 / 0.068 | 0.146 / 0.309 / 0.049 |
+| wn18rr | 2048 | 400 | 0.462 / 0.572 / 0.049 | 0.461 / 0.567 / 0.049 | 0.450 / 0.555 / 0.048 | 0.371 / 0.504 / 0.046 | 0.284 / 0.433 / 0.043 | 0.148 / 0.275 / 0.034 | 0.065 / 0.137 / 0.023 |
+| wn18rr | 8192 | 200 | 1.000 / 1.000 / 0.016 | 1.000 / 1.000 / 0.016 | 1.000 / 1.000 / 0.016 | 1.000 / 1.000 / 0.017 | 1.000 / 1.000 / 0.021 | 0.999 / 1.000 / 0.035 | 0.617 / 1.000 / 0.069 |
+| wn18rr | 8192 | 400 | 1.000 / 1.000 / 0.038 | 1.000 / 1.000 / 0.038 | 1.000 / 1.000 / 0.038 | 1.000 / 1.000 / 0.038 | 0.996 / 1.000 / 0.039 | 0.625 / 1.000 / 0.057 | 0.297 / 0.586 / 0.050 |
+| wn18rr | 8192 | 800 | 0.846 / 1.000 / 0.052 | 0.844 / 1.000 / 0.052 | 0.822 / 1.000 / 0.052 | 0.677 / 0.935 / 0.060 | 0.489 / 0.811 / 0.059 | 0.262 / 0.524 / 0.053 | 0.112 / 0.267 / 0.032 |
+| wn18rr | 8192 | 1600 | 0.389 / 0.476 / 0.045 | 0.388 / 0.473 / 0.045 | 0.376 / 0.466 / 0.045 | 0.317 / 0.427 / 0.047 | 0.230 / 0.371 / 0.041 | 0.120 / 0.239 / 0.031 | 0.053 / 0.122 / 0.023 |
 
-| serie | FB15k-237 | WN18RR |
-|---|---|---|
-| D = 2048, N = 50 | 0.1 | 0.1 |
-| D = 2048, N = 100 | 0.1 | 0.1 |
-| D = 2048, N = 200 | 0.2 | 0.1 (margine 0.1 punti: di fatto 0.1–0.2) |
-| D = 2048, N = 400 | mai | mai |
-| D = 8192, N = 200 | 0.03 (margine 1.3 punti, sotto l'MDE) | 0.03 (1.5 punti) |
-| D = 8192, N = 400 | 0.1 | 0.1 |
-| D = 8192, N = 800 | mai | mai |
-| D = 8192, N = 1600 | mai | mai |
+Layout e codice scelti dalla regola (più voci: scelte diverse fra seed):
 
-Lettura: il modello prevede che ABM **vinca** contro gli store con codici semplici a
-carichi bassi (dove ABM a ε = 0 è sopra ~0.6) e rumore alto (ε ≥ 0.1, a volte 0.03),
-e **perda** a carichi alti, dove lo store anche rumoroso tiene più chiavi di quante
-ABM ne recuperi. 21 celle su 112 previste a favore di ABM; in 12 (6 per dataset) il margine previsto
-supera l'MDE: D = 2048, N = 50, ε = 0.2; N = 100, ε = 0.1 (FB15k-237 al limite: 9.2
-contro 9.0 punti) e 0.2; D = 8192, N = 200, ε = 0.1 e 0.2; N = 400, ε = 0.1. Il modello prevede anche che **lo store a codice ideale
-batta ABM in ogni cella**: il vantaggio previsto è contro codici realizzabili
-semplici (ripetizione, Hamming), non contro la teoria dei codici.
+| dataset | D | N | ε=0 | 1e-4 | 1e-3 | 1e-2 | 3e-2 | 0.1 | 0.2 |
+|---|---|---|---|---|---|---|---|---|---|
+| fb15k237 | 2048 | 50 | xor/none | xor/bch | xor/bch | xor/bch | xor/bch | xor/polar | xor/polar |
+| fb15k237 | 2048 | 100 | xor/none | xor/bch | xor/bch | xor/bch | xor/polar | xor/polar | xor/polar |
+| fb15k237 | 2048 | 200 | xor/none | xor/polar | xor/none | xor/bch | xor/bch,xor/polar | xor/polar | xor/polar |
+| fb15k237 | 2048 | 400 | xor/none | xor/none | xor/none | xor/bch | xor/polar | xor/polar | mphf/polar,xor/polar |
+| fb15k237 | 8192 | 200 | xor/none | xor/bch | xor/bch | xor/bch | xor/bch | xor/polar | xor/polar |
+| fb15k237 | 8192 | 400 | xor/none | xor/bch | xor/bch | xor/bch | xor/polar | xor/polar | xor/polar |
+| fb15k237 | 8192 | 800 | xor/none | xor/none | xor/none | xor/bch | xor/polar | xor/polar | xor/polar |
+| fb15k237 | 8192 | 1600 | xor/none | xor/none | xor/none | xor/bch | xor/bch,xor/polar | xor/polar | xor/polar |
+| wn18rr | 2048 | 50 | xor/none | xor/bch | xor/bch | xor/bch | xor/bch | xor/polar | xor/polar |
+| wn18rr | 2048 | 100 | xor/none | xor/bch | xor/bch | xor/bch | xor/polar | xor/polar | xor/polar |
+| wn18rr | 2048 | 200 | xor/none | xor/polar | xor/bch,xor/none | xor/bch | xor/bch,xor/polar | xor/polar | mphf/polar,xor/polar |
+| wn18rr | 2048 | 400 | xor/none | xor/none | xor/none | xor/bch | xor/bch,xor/polar | xor/polar | xor/polar |
+| wn18rr | 8192 | 200 | xor/none | xor/bch | xor/bch | xor/bch | xor/bch | xor/polar | xor/polar |
+| wn18rr | 8192 | 400 | xor/none | xor/bch | xor/bch | xor/bch | xor/bch,xor/polar | xor/polar | xor/polar |
+| wn18rr | 8192 | 800 | xor/none | xor/none | xor/none | xor/bch | xor/polar | xor/polar | xor/polar |
+| wn18rr | 8192 | 1600 | xor/none | xor/none | xor/none | xor/bch | xor/polar | xor/polar | xor/polar |
+
+**Lettura.** Il modello prevede **ABM sotto il miglior avversario in tutte le 112
+celle**. Il margine più piccolo a ε ≥ 0.1 è di circa 7 punti (WN18RR, D = 2048,
+N = 100, ε = 0.2: 0.293 contro 0.361); a ε = 0.2 e carico basso i polari perdono
+molto (0.84 a D = 2048, N = 50) ma restano sopra ABM (0.66). Con ripetizione e
+Hamming la prima versione prevedeva 21 vittorie: erano vittorie contro codici deboli.
+
+**Famiglia confermativa: 0 celle.** **ε\* previsto: mai, in tutte le 16 serie**
+(valutabili per B4: 13 su 16; non valutabili FB15k-237 D = 2048 N = 50 e WN18RR
+D = 2048 N ∈ {50, 100}, dove la differenza prevista non resta sotto −MDE a ogni ε).
 
 ## Ipotesi e criteri, fissati ora
 
-Vantaggio = ABM misurato − miglior avversario misurato (scelto con la regola sopra).
-SE di ciascuno = il massimo fra SE binomiale sulle Q domande della cella e SD fra i 5
-seed / √5 (il rumore è unico per memoria: le domande non sono indipendenti);
-SE del vantaggio = √(SE_ABM² + SE_avv²).
+Unità = seed; d_s = media su 20 rumori e sulle domande di (ABM − avversario scelto).
+Test t one-sided, 4 gradi di libertà.
 
 | ipotesi | sostenuta | falsificata |
 |---|---|---|
-| **H1** — esiste un ε in cui ABM batte il miglior avversario (direzionale) | almeno una cella con vantaggio > 2 SE **e** ABM > avversario in tutti i 5 seed | nessuna cella così |
-| **H2** — il modello esatto prevede ABM sotto rumore | errore medio assoluto ≤ 3 punti in ogni gruppo (dataset × D, 28 celle) | > 5 punti in un gruppo |
-| **H3** — ε\* previsto vs osservato | ε\* osservato (primo ε con ABM misurato > avversario misurato; "mai" se nessuno) entro un passo di griglia da quello previsto in ≥ 12 serie su 16 | in < 8 serie su 16 |
-| **H4** — il modello dell'avversario prevede lo store scelto | errore medio assoluto ≤ 3 punti per gruppo | > 5 punti in un gruppo |
-| **H0** — controllo: a ε = 0 ABM perde ovunque (repliche dei test 18–19) | ABM < avversario in 16 serie su 16 | ABM > avversario + 2 SE in una serie |
+| **H1** — esiste un ε in cui ABM batte il miglior avversario (direzionale) | famiglia confermativa vuota, quindi H1 si valuta su **tutte** le 112 celle: almeno una con p ≤ 0.05/112 (Bonferroni one-sided) | nessuna cella così (esito previsto) |
+| **H2** — il modello esatto prevede ABM sotto rumore | errore medio assoluto ≤ 3 punti in ogni gruppo (dataset × D, 28 celle) **e** errore massimo di cella a ε = 0.2 ≤ 8 punti | > 5 punti in un gruppo, o > 8 punti in una cella a ε = 0.2 |
+| **H3** — ε\* previsto vs osservato (B4) | entro un passo di griglia nelle serie valutabili (≥ 10 su 13) | in < 7 su 13 |
+| **H4** — il modello dell'avversario | errore medio assoluto ≤ 3 punti per gruppo fra misura e ristima A6 | > 5 punti in un gruppo |
 
-Il resto è **sostenuto in parte**. Si riportano sempre: il massimo errore di cella di
-H2; quante celle di H1 superano anche 3.5 SE (≈ Bonferroni one-sided su 112 celle);
-il numero atteso di falsi positivi a 2 SE senza correzione (≈ 2.5 su 112, ragione del
-requisito "in tutti i seed").
+Il resto è **sostenuto in parte**. **H0, controllo e non conferma:** a ε = 0 ABM
+sotto l'avversario in 16 serie su 16 (repliche dei test 18–19). Si riportano sempre:
+il divario dal tetto PPV, lo store `none` (XOR a c massimo), l'accuratezza selettiva,
+le raffiche, il rumore sul codebook.
 
-**Previsioni (non criteri).** H1 sostenuta (12 celle con margine previsto sopra l'MDE), H0
-sostenuta, H2 sostenuta ma a rischio a ε = 0.2 (allo smoke l'errore massimo è stato
-7.2 punti lì), H3 sostenuta, H4 sostenuta. Se H1 è sostenuta, la conclusione
-ammessa è stretta: a pari bit, sotto rumore iid ε ≳ 0.03–0.1 e a carico basso, ABM
-batte store esatti protetti da ripetizione o Hamming; **non** batte uno store con un
-codice vicino alla capacità, che il modello prevede superiore ovunque.
+**Previsioni (non criteri).** H1 **falsificata** (nessuna vittoria di ABM), H2, H3, H4
+sostenute. Conseguenza attesa: il perimetro hardware non salva ABM; a pari bit,
+anche con memoria rumorosa fino a ε = 0.2, uno store esatto con un codice moderno
+(polare SC, BCH) recupera di più. Se l'esito sarà questo, l'argomento "degrada con
+grazia" vale solo contro store senza codice o con codici semplici.
 
 ## Bias minimo rilevabile
 
-Per cella, l'MDE nella tabella delle previsioni: 12.7 punti a N = 50 (Q ≈ 250),
-9.0 a N = 100, 6.4 a N = 200, 5.2 sopra (Q = 1500). Le vittorie previste a ε = 0.03
-(1.3–1.5 punti) e a D = 2048, N = 200 o 400 (≤ 2 punti) **non** sono rilevabili con
-questa potenza: un esito nullo lì non le smentisce.
+MDE per cella nella seconda tabella: da 1.6 punti (D = 8192, N = 200, ε piccolo) a
+13 punti (D = 2048, N = 50, ε = 0.2). È più alto a ε = 0.2 e carico basso, dove
+pochi seed e la varianza fra campioni pesano di più. Un vantaggio di ABM più piccolo
+dell'MDE non è escluso da un esito nullo.
 
-## Tempo stimato
+## Tempo stimato del run completo
 
-`--predict` ha richiesto 37 s. Il run completo aggiunge, per ognuna delle 160
-memorie, la traccia ABM e 9 cleanup vettoriali (7 ε + 2 raffiche): stima 3–8 minuti
-su una CPU.
+`--predict` ha richiesto 57 min con 8 processi (scelta del codice, ristima A6). Il
+run completo aggiunge per ogni memoria: 20 rumori ABM × 9 condizioni (7 ε + 2
+raffiche), 5 rumori sul codebook × 6 ε, 3 × 20 simulazioni complete dello store per
+ε. Stima: 1.5–2.5 ore con 8 processi.
 
 ## Cosa ho visto prima
 
-- Le previsioni qui sopra (`--predict`), che leggono i dati reali ma non misurano ABM.
-- Lo smoke test sintetico (D = 1024, N ∈ {40, 120}, 3 seed): ABM batte l'avversario a
-  ε = 0.2 (+0.36 ± 0.07 a N = 40; +0.06 ± 0.02 a N = 120), lo perde a ε ≤ 0.03.
-  Nessuna misura ABM sui dati reali.
-- Durante lo sviluppo la regola di scelta usava il limite analitico di Hamming; allo
-  smoke era lasco (fino a 90 punti) e penalizzava l'avversario: sostituito con il
-  Monte Carlo dello store **prima** di eseguire `--predict` e prima di ogni dato reale.
+- Le previsioni qui sopra (`--predict`), che leggono i dati reali ma non costruiscono
+  memorie ABM.
+- La prima versione (`99ccc03`) e le sue previsioni con ripetizione e Hamming.
+- Lo smoke sintetico (D = 1024, N ∈ {40, 120}, 3 seed, R = 20): ABM previsto contro
+  misurato, errore medio 2.0 punti, massimo 3.8, a ε = 0.2 1.2; avversario misurato
+  contro ristimato 0.4 punti; ABM sotto l'avversario ovunque tranne un pareggio
+  (N = 40, ε = 0.2: 0.503 contro 0.503). Nessuna misura ABM sui dati reali.
 
 ## Limiti dichiarati prima
 
-- **Codici semplici.** L'avversario usa ripetizione e Hamming SECDED, non BCH, LDPC o
-  polar. Un codice moderno si avvicina allo store ideale riportato, che il modello
-  prevede sopra ABM in ogni cella. Un'eventuale vittoria di ABM va letta come "contro
-  i codici implementati qui", e il divario con il tetto va riportato insieme.
-- **Codebook senza errori.** I codeword ABM si rigenerano dai nomi; lo store ha
-  bisogno degli stessi nomi (anch'essi senza errori). Errori nell'item memory non sono
-  modellati: in un dispositivo reale anche quella sarebbe in memoria.
-- **Rumore iid e unico per memoria.** Nessun errore di lettura, nessuna deriva nel
-  tempo, nessuna correlazione spaziale tranne il descrittivo a raffiche. Le raffiche
-  non entrano in nessuna ipotesi; l'Hamming senza interlacciamento le soffre per
-  costruzione, ABM no (i bit della traccia sono scambiabili).
-- **Store a funzione statica senza verifica.** Su una chiave persa o corrotta risponde
-  un valore arbitrario (≈ 1/#oggetti di essere giusto, ignorato nella previsione, non
-  nella misura). Uno store che rilevasse l'errore (CRC) potrebbe astenersi, ma qui
-  conta solo l'accuratezza.
-- **Campione uniforme di fatti**, non sottografi connessi: pochi gemelli e alias. Il
-  modello esatto li gestisce comunque.
-- **Pochi seed per il rumore.** Il rumore è un'estrazione per memoria; la SE usa il
-  massimo fra binomiale e varianza fra seed, ma con 5 seed quest'ultima è grezza.
-- **Nessuna combinazione di codici:** la regola sceglie il codice per (cella, seed, ε),
-  ma non combina codici (es. ripetizione + Hamming); questo può lasciare qualche punto
-  all'avversario, a favore di ABM.
+- **Decodifica SC, non SCL/CRC.** Un polare con list decoding, o un LDPC, farebbe
+  meglio: a favore di ABM. Il tetto PPV è riportato; il divario fra avversario e tetto
+  arriva a 20–40 punti a ε alto.
+- **Codebook e nomi senza errori** nell'analisi principale; il rumore sul codebook ABM
+  e il fattore dei nomi sono solo descrittivi.
+- **Rumore iid, di conservazione, unico per memoria** (con 20 estrazioni); niente
+  errori di lettura né deriva. Le raffiche sono solo descrittive.
+- **Previsione BCH come limite inferiore** (decodifica fallita = blocco perso); la
+  scelta fra BCH e polari può quindi sottostimare i BCH di poco.
+- **Winner's curse nella scelta** (previsione massimizzata su ~200 configurazioni):
+  per questo H4 usa la ristima indipendente.
+- **MPHF semplificata** (spostamenti a larghezza fissa, non compressi come CHD):
+  il layout a lettura singola potrebbe costare meno bit di così.
+- **Campione uniforme di fatti**, non sottografi connessi: pochi gemelli e alias.
+- **5 seed come unità**: test con 4 gradi di libertà, potenza modesta.
