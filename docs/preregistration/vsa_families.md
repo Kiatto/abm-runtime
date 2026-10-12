@@ -324,3 +324,37 @@ su questa macchina (12 core, un processo).
 - Atomi i.i.d., ρ = shift ciclico, encoding simmetrico; self-loop esclusi.
 - Due carichi e due target; D è scelto sui seed 0–4 e misurato su tutti e 10 (H9 usa
   solo 5–9).
+
+## Esito (2026-10-12)
+
+Eseguito una volta, dopo il push di `538d7d3` e le marche OpenTimestamps (`a96da4c`),
+con `python examples/vsa_families_prereg.py` (854 s); risultati in
+`results/vsa_families_prereg_results.json`. MAE in punti; tra parentesi il massimo di cella.
+
+| gruppo | MAP-B | MAP-I | FHRR | BSDC-OR | BSDC-S |
+|---|---|---|---|---|---|
+| uniform FB15k-237 | 0.97 (1.8) | 1.06 (3.0) | 0.83 (1.9) | 0.54 (1.5) | 1.88 (2.7) |
+| uniform WN18RR | 1.03 (1.3) | 0.97 (1.5) | 0.64 (1.1) | 1.01 (1.8) | 2.08 (3.6) |
+| dense FB15k-237 | 0.42 (0.6) | 1.71 (3.9) | 0.64 (1.2) | 1.09 (1.6) | 1.74 (3.3) |
+| dense WN18RR | 0.57 (1.2) | 0.56 (1.4) | 0.34 (0.5) | 0.77 (1.8) | 1.81 (3.1) |
+| FKS ingenuo, dense WN18RR | 5.19 | 5.92 | 5.38 | 8.51 | 3.90 |
+
+| ipotesi | risultato | esito |
+|---|---|---|
+| **H1–H5** uniform, MAE ≤ 3 | massimo 2.08 (BSDC-S, WN18RR) | **sostenute** |
+| **H6** dense, MAE ≤ 3 in 10 gruppi | massimo 1.81 (BSDC-S) | **sostenuta** |
+| **H7** ablazione, guadagno ≥ 2 in 5 gruppi WN18RR dense | 4.6, 5.4, 5.0, 7.7, 2.1 | **sostenuta** (BSDC-S al limite) |
+| **H8** ≤ 2 celle con \|t\| > 3.25 per famiglia | 0, 0, 0, 0, 2 | **sostenuta** (BSDC-S al limite) |
+| **H9** fuori campione ≥ 15/16 | 16, 16, 16, 15, 16 | **sostenuta** |
+
+### Cosa dice, e cosa no
+
+- La contabilità (gemelli come peso 2, alias, risposte multiple, codebook) serve: sui
+  sottografi densi di WN18RR toglie da 2 a 8 punti di errore alla FKS ingenua, in ogni
+  famiglia; sugli uniform le due previsioni coincidono (replica di FKS, nessun merito nuovo).
+- MAP-I e FHRR: la forma gaussiana è di FKS; la verifica su KG reali è il contributo.
+- **BSDC-S è distorto**: errore con segno +1.7–2.1 punti in tutti e quattro i gruppi, con
+  IC a cluster che escludono lo zero. Il modello discreto è pessimista, e fu scelto dopo
+  lo smoke sintetico (dichiarato nella revisione): le ipotesi reggono, il modello no del tutto.
+- Limiti: N ≤ 400, una sola profondità di binding, HRR non testato, bit per componente
+  convenzionali (l'ordine a pari bit è solo descrittivo).
