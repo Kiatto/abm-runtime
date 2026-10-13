@@ -329,9 +329,10 @@ def test_count_codebook():
     b = {r.family: r for r in sizing.recommend(t, 0.85, count_codebook=True)}
     for f in sizing.FAMILIES:
         assert a[f].dim == b[f].dim and a[f].codebook_bits == 0
-        assert b[f].codebook_bits == sizing.codebook_bits(f, b[f].dim, g.m, g.n) > 0
+        assert b[f].codebook_bits == sizing.explicit_codebook_bits(f, b[f].dim, g.m, g.n) > 0
         assert b[f].bits == a[f].bits + b[f].codebook_bits
-    assert sizing.codebook_bits("MAP-I", 128, 10, 200) == 1280
+    assert sizing.explicit_codebook_bits("MAP-I", 128, 10, 200) == 1280
+    assert not hasattr(sizing, "codebook_bits")   # rinominata: niente omonimia con Memory
     # N dei bit = fatti con peso: un duplicato conta
     assert sizing.bits_per_component("MAP-I", 255) == 8
     assert sizing.bits_per_component("MAP-I", 256) == 9

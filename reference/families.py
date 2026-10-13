@@ -79,6 +79,8 @@ Convenzioni
 - `codebook_bits()`: costo del codebook, escluso da `bits()`. Convenzione: gli atomi sono
   rigenerabili da (seed, nomi) e non si contano; si conta l'indice simbolo → riga,
   M·⌈log2 M⌉ bit (0 se M ≤ 1). I nomi stessi (stringhe) non sono contati.
+  Diverso da `sizing.explicit_codebook_bits(family, dim, m, n)`, che conta gli ATOMI interi
+  memorizzati esplicitamente (per chi non li rigenera).
 - Il secondo elemento della risposta è il punteggio della famiglia, non confrontabile fra
   famiglie: MAP-B `abm.confidence` (come `abm.Memory.query`); MAP-I prodotto scalare intero;
   FHRR Re⟨y, c̄⟩; HRR prodotto scalare; BSDC-OR blocchi colpiti; BSDC-S somma dei conteggi.

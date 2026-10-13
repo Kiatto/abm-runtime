@@ -67,11 +67,13 @@ stessa memoria). Memoria: prima di costruire, la memoria di picco è stimata
 
 Bit: `bits` = traccia, con N = fatti con peso (triple memorizzate, duplicati e gemelli
 contati: `bits_per_component`); con count_codebook=True si aggiungono gli atomi
-memorizzati esplicitamente (`codebook_bits`; default False perché le famiglie li
-rigenerano da seme e nomi).
+memorizzati esplicitamente (`explicit_codebook_bits`; default False perché le famiglie li
+rigenerano da seme e nomi). Da non confondere con `families.Memory.codebook_bits()`, che
+conta solo l'INDICE simbolo → riga (M·⌈log2 M⌉ bit), assumendo gli atomi rigenerati:
+sono due convenzioni diverse (atomi espliciti vs indice), con nomi diversi apposta.
 
 API: predict, min_dim, recommend (→ list[Recommendation]), FAMILIES, OBSERVED_ERROR,
-STRUCT_RANGES, bits_per_component, codebook_bits.
+STRUCT_RANGES, bits_per_component, explicit_codebook_bits.
 """
 from __future__ import annotations
 
@@ -214,7 +216,7 @@ class Recommendation:
     tol: float = None            # tolleranza usata (accuratezza assoluta)
     dim_predicted: int = None    # il dim del modello, prima della verifica
     adjusted: bool = False       # True se la verifica ha cambiato dim
-    codebook_bits: int = 0       # bit del codebook inclusi in bits (solo count_codebook=True)
+    codebook_bits: int = 0       # explicit_codebook_bits inclusi in bits (solo count_codebook=True)
     over_budget: bool = False    # True se la correzione ha portato bits oltre budget_bits
 
 
@@ -793,8 +795,8 @@ def bits_per_component(family, n):
     return math.ceil(math.log2(n + 1))
 
 
-def codebook_bits(family, dim, m, n):
-    """Bit per memorizzare ESPLICITAMENTE il codebook (M atomi), se non lo si rigenera dal
+def explicit_codebook_bits(family, dim, m, n):
+    """Bit per memorizzare ESPLICITAMENTE il codebook (M atomi interi), se non lo si rigenera dal
     seme e dai nomi (che è il default delle famiglie: per questo recommend non li conta se
     non con count_codebook=True). MAP-B, MAP-I: D bit per atomo (±1). FHRR, HRR: D × 32
     (stessa precisione della traccia). BSDC: B·ceil(log2 L) per atomo (un indice per blocco)."""
@@ -989,7 +991,7 @@ def _verify(g, family, d0, target, tol, top, sample, seeds, max_mem, skipped):
 def _set_dim(g, rec, d, count_codebook):
     f = rec.family
     rec.dim = d
-    rec.codebook_bits = codebook_bits(f, d, g.m, g.n) if count_codebook else 0
+    rec.codebook_bits = explicit_codebook_bits(f, d, g.m, g.n) if count_codebook else 0
     rec.bits = d * bits_per_component(f, g.n) + rec.codebook_bits
     rec.kbytes = rec.bits / 8 / 1024
 
@@ -1058,7 +1060,8 @@ def recommend(triples, target, families=FAMILIES, budget_bits=None, queries=None
     finita (vedi il docstring del modulo).
 
     count_codebook=False: bits conta solo la traccia (gli atomi si rigenerano da seme e
-    nomi); True aggiunge codebook_bits (atomi memorizzati esplicitamente).
+    nomi); True aggiunge explicit_codebook_bits (atomi memorizzati esplicitamente; NON è
+    families.Memory.codebook_bits(), che conta solo l'indice M·⌈log2 M⌉).
 
     verify=True: misura ogni raccomandazione su memorie vere (vedi il docstring del modulo:
     `seeds` semi di selezione + `seeds` di report, disgiunti; accetta se il limite
