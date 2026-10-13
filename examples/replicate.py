@@ -76,6 +76,12 @@ DATASETS = {
         "https://raw.githubusercontent.com/TimDettmers/ConvE/"
         "f3c0eb286025410fa5b4c04696c918264163d0ca/YAGO3-10.tar.gz",
         "9a3bdd5fd08c064bd4b9ffdbe972f37ba0b8799f4e9f868ff70f5d2f5331fb92"),
+    # UMLS (Kok e Domingos 2007; split di Dettmers et al. 2018), stesso repo e commit;
+    # grafo nuovo della prereg. 23, l'harness legge train.txt dall'archivio
+    "umls/umls.tar.gz": (
+        "https://raw.githubusercontent.com/TimDettmers/ConvE/"
+        "f3c0eb286025410fa5b4c04696c918264163d0ca/umls.tar.gz",
+        "26223aa91f0ec8db2324e0f489b9a4425e04d1d0df72ce5cfd62af4b91aee6fd"),
 }
 
 # preregistrazione -> (harness, file di risultati, tempo indicativo su 12 core)
