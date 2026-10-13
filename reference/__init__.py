@@ -29,6 +29,14 @@ from .abm import (Memory, ItemMemory, bind, bundle, permute, random_hv,
 from .inspector import stats, contract, report, aliasing
 from . import exact
 
+
+def __getattr__(name):
+    """Import pigro di `abm.families` (le sei famiglie VSA per il dimensionatore)."""
+    if name == "families":
+        import importlib
+        return importlib.import_module(".families", __name__)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
 __all__ = ["Memory", "ItemMemory", "bind", "bundle", "permute",
            "random_hv", "hamming", "phi", "margin_z", "confidence", "capacity",
            "predicted_accuracy", "z_gumbel", "stats", "contract",
