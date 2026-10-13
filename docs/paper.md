@@ -413,13 +413,7 @@ differences between arms it is about 1.43 times the reported 95% half-width.
 | 8 | `deepchain2.md` | the same with 1 000 distractors | **falsified** at one hop: the tie rule | 1.8 points at 13.8 SE |
 | 9 | `deepchain3.md` | the same with the exact tie rule, two dimensions | all **supported**; p^h rejected at 4.3–8.5 SE | shortfall 1.5–1.8 points seen at ≥ 4.3 SE |
 | 10 | `sizing.md` | choosing D in advance; the alias ceiling | all **supported**; Law IV misses on WN18RR | a perfect model passes H1 with P = 0.39; threshold ≈ 1.2–2 SE per subgraph |
-| 11 | `human_questions.md` | human-written questions, local LLM front-end | end-to-end **in part** (+7.2 points); memory level supported | a correct contract misses by > 5 points with P = 0.24 |
-| 12 | `escalation.md` | the contract as the criterion for passing questions to a larger model | all three **supported** | ≈ 1.8 points |
-| 13 | `escalation2.md` | the same, one memory for both paths | routing against random **supported**; the rest **in part** | ≈ 1.6 points |
-| 14 | `escalation3.md` | front-end confidence; the observed margin | margin and routing **supported**; the rest **in part** | ≈ 1.5–2.3 points |
-| 15 | `memory_preview.md` | the small front-end sees the memory's answer per relation | relation (H1) **falsified**; answer (H2) supported | ≈ 3.3 points (H1), 2.6 (H2) |
-| 16 | `shortlist.md` | an embedding shortlist of k = 3 relations | both **supported** | ≈ 6 points |
-| 17 | `webqsp.md` | the same front-ends on WebQuestionsSP | H1, H2 **supported**; H3 in part; H4 undecided | ≈ 3–8 points |
+| 11–17 | front-end | pipelines around the memory; not the estimate | rows in Appendix F | ≈ 1.5–8 points |
 | 18 | `equal_bits.md` | ABM against an ideal exact store and a Bloom filter with the same bits | all three **supported** (ABM loses, as predicted) | not computed; expected outcome |
 | 19 | `algebra.md` | chains and compiled compositions against dictionary + join / path table | all four **supported** (ABM loses, as predicted) | not computed; expected outcome |
 | 20 | `bit_errors.md` | ABM against an exact store with practical codes (polar SC, BCH, concatenated) at equal bits, under i.i.d. bit flips ε ≤ 0.2 | H1 (an ABM win somewhere) **falsified**, as predicted; H2–H4 (the models) **supported** | cell MDE 1.6–13 points (model-based) |
@@ -627,19 +621,13 @@ accounting, which remains tested only by test 21.
 
 ## 6. Front-end tests (tests 11–17), in brief
 
-These tests change the pipeline around the memory — a language model choosing the
-relation, a router, an embedding shortlist — while the memory (D = 16 384) and its
-contract stay fixed. Apart from the memory-level check of test 11, **none of them
-tests the capacity theory**. Details, numbers and caveats are in Appendix F.
-
-In brief: at the memory level of test 11 the model agreed (0.807 measured
-against 0.803, +0.4 points), while the end-to-end contract was 7.2 points low,
-beyond the 5 set (**in part**); as a router the contract beat random choice by
-2.7–4.8 points (tests 12–14); showing the front-end the memory's answers did not
-improve its choice of relation (test 15, H1 **falsified**, −0.3 [−2.6, +2.0]);
-an embedding shortlist added +19.9 and +22.7 points of answer accuracy (tests
-16–17), after which entity linking by name loses a quarter of the
-WebQuestionsSP questions for every front-end.
+These tests change the pipeline around a fixed memory (D = 16 384); apart from
+test 11's memory-level check (0.807 measured against 0.803, +0.4 points) **none
+tests the estimate**. End to end, test 11's contract was 7.2 points low (**in
+part**); as a router the contract beat random choice by 2.7–4.8 points (12–14);
+showing the front-end the memory's answers did not improve its relation choice
+(15, H1 **falsified**, −0.3 [−2.6, +2.0]); an embedding shortlist added +19.9
+and +22.7 points (16–17). Outcomes, power and caveats: Appendix F.
 
 ## 7. Falsifications, corrections and retractions kept on record
 
@@ -1011,6 +999,18 @@ corroborated at g ∈ {2, 3, 4, 8}) predate the exact model and were computed wi
 Law IV; they are consistent with it but have not been re-run.
 
 ## Appendix F. The front-end tests in detail
+
+**Outcomes and power (moved from §3.2 in v1.17).**
+
+| # | file | what is tested | primary outcome | what the test could detect |
+|---|---|---|---|---|
+| 11 | `human_questions.md` | human-written questions, local LLM front-end | end-to-end **in part** (+7.2 points); memory level supported | a correct contract misses by > 5 points with P = 0.24 |
+| 12 | `escalation.md` | the contract as the criterion for passing questions to a larger model | all three **supported** | ≈ 1.8 points |
+| 13 | `escalation2.md` | the same, one memory for both paths | routing against random **supported**; the rest **in part** | ≈ 1.6 points |
+| 14 | `escalation3.md` | front-end confidence; the observed margin | margin and routing **supported**; the rest **in part** | ≈ 1.5–2.3 points |
+| 15 | `memory_preview.md` | the small front-end sees the memory's answer per relation | relation (H1) **falsified**; answer (H2) supported | ≈ 3.3 points (H1), 2.6 (H2) |
+| 16 | `shortlist.md` | an embedding shortlist of k = 3 relations | both **supported** | ≈ 6 points |
+| 17 | `webqsp.md` | the same front-ends on WebQuestionsSP | H1, H2 **supported**; H3 in part; H4 undecided | ≈ 3–8 points |
 
 **Summary, as printed in the body of v1.15.**
 
