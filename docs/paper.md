@@ -57,7 +57,7 @@ we claim no reader beyond that perimeter.
    §2.5): twins as weight-2 vectors (noise S2 = Σw², not N), aliases as
    candidates with the true object's signal, several true objects, codebook
    M = entities + relations. The Gaussian readout for MAP, FHRR and HRR is that
-   of Frady, Kleyko and Sommer [@frady2018sequence; @kleyko2023perceptron]; the
+   of Frady, Kleyko and Sommer [@frady2018sequence; @kleyko2024perceptron]; the
    BSDC-OR formula is Bloom-filter occupancy [@bloom1970space]; the families were
    compared empirically by Schlegel et al. [@schlegel2022comparison]. **No
    capacity theory here is new.** The accounting was tested once, on dense
@@ -710,7 +710,7 @@ bundles, including bundles of bindings; Thomas, Dasgupta and Rosing
 Frady, Kleyko and Sommer [@frady2018sequence] derive finite-size retrieval
 accuracy — the probability that the winner-take-all readout returns the right
 item — from the crosstalk distribution in VSA-coded memories, and Kleyko et al.
-[@kleyko2023perceptron] extend this theory to predict accuracy across VSA
+[@kleyko2024perceptron] extend this theory to predict accuracy across VSA
 models; Plate [@plate1995hrr] and Gallant and Okaywe [@gallant2013objects] give
 the earlier capacity analyses, and Schlegel, Neubert and Protzel
 [@schlegel2022comparison] and Mirus, Stewart and Conradt [@mirus2020capacity]
