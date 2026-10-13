@@ -138,13 +138,16 @@ MEMORY CONTRACT (exact model, abm.exact.contract_for)
 ## Why trust the contract
 
 The exact model is part of the twenty-two preregistrations reported in the paper
-(v1.16), whose subject is now the a-priori accuracy estimate for six
+(v1.17), whose subject is now the a-priori accuracy estimate for six
 vector-symbolic families, with ABM as the case studied most; failures are kept
 in the record ([BENCHMARKS.md](BENCHMARKS.md)):
 
 - **Exact model**: 0.27 points of error at a dimension never used before
   (D = 16 384), 0.6–1.1 points on dense subgraphs of two real knowledge
-  graphs, zero fitted parameters; choosing D in advance kept the promise on 80
+  graphs, zero fitted parameters — but it **failed on dense YAGO3-10**
+  (test 22): mean absolute error 4.02 points, signed error −3.5 (optimistic),
+  worst cell 7.2, and the dimension chosen in advance missed its target in 4
+  of 12 cells; choosing D in advance kept the promise on 80
   unseen subgraphs (test 10), where the asymptotic Law IV fell 2.8–6.2 points
   short on WN18RR.
 - **Capacity law** (asymptotic, superseded by the exact model)

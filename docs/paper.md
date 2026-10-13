@@ -2,7 +2,7 @@
 
 *(with Algebraic Binary Memory, a dominated MAP-B design, as the case studied most)*
 
-**Preprint v1.16 — October 2026**
+**Preprint v1.17 — October 2026**
 *Normative specification of ABM: [FORMALISM.md](FORMALISM.md) (frozen, v2.1).
 Reference implementation: [`reference/abm.py`](../reference/abm.py); exact
 MAP-B theory, shipped as `abm.exact`: [`reference/exact.py`](../reference/exact.py);
@@ -13,7 +13,7 @@ JSON; the twenty-two preregistrations are in `docs/preregistration/`.*
 
 ## Abstract
 
-At one hop, a parameter-free estimate of cleanup accuracy, computed from the triples before the memory is built, held within about one point on average for five vector-symbolic families (MAP-I, FHRR, HRR and two sparse block codes) on subgraphs of two knowledge graphs it had never seen, CoDEx-M and YAGO3-10. It failed elsewhere: for MAP-B, the binary majority memory (ABM) this work started from, it was 3.5 points optimistic on dense YAGO3-10 (worst cell 7.2) and the dimension it chose missed its target in 4 of 12 cells; its two-hop chain predictions were falsified; and at equal bits ABM lost to exact stores in every cell, also under bit flips up to 20% against practical error-correcting codes. The readout model for MAP, FHRR and HRR is that of Frady, Kleyko and Sommer. Ours are the accounting of graph structure (symmetric twins as weight-2 vectors, aliases, several answers, codebook), atom multiplicities for HRR, exact ties for a summing block code and MAP-B's exact majority model. The accounting cut 2–8 points from the naive estimate on dense WN18RR; it is untested out of sample, since neither new graph was dense enough to be admitted. All 22 tests were preregistered; from test 20 on, before each run, the files were pushed and time-stamped. By primary hypothesis: theory of MAP-B (tests 1–10) 8 supported, 2 failed; front-end (11–17, not tests of the estimate) 3 supported, 3 in part, 1 failed; baselines at equal bits (18–20) ABM lost each time, as predicted (2 supported, 1 hypothesis of an ABM win falsified); generalization (21–22) 1 supported, 1 in part. Per hypothesis, 60 of 83 supported, 11 in part, 8 falsified, 4 undecided or untestable; for nine tests the primary was named after the outcomes. Errors of a point or two are not excluded.
+At one hop, a parameter-free estimate of cleanup accuracy, computed from the triples before the memory is built, held within about one point on average for five vector-symbolic families (MAP-I, FHRR, HRR and two sparse block codes) on subgraphs of two knowledge graphs it had never seen, CoDEx-M and YAGO3-10. It failed elsewhere: for MAP-B, the binary majority memory (ABM) this work started from, it was 3.5 points optimistic on dense YAGO3-10 (worst cell 7.2) and the dimension it chose missed its target in 4 of 12 cells; its two-hop chain predictions were falsified; and at equal bits ABM lost to exact stores in every cell, also under bit flips up to 20% against practical error-correcting codes. The readout model for MAP, FHRR and HRR is that of Frady, Kleyko and Sommer. Ours are the accounting of graph structure (symmetric twins as weight-2 vectors, aliases, several answers, codebook), atom multiplicities for HRR, exact ties for a summing block code and MAP-B's exact majority model. The accounting cut 2–8 points from the naive estimate on dense WN18RR; it is untested out of sample, since neither new graph was dense enough to be admitted. All 22 tests were preregistered; from test 20 on, before each run, the files were pushed and time-stamped. By primary hypothesis: theory of MAP-B (tests 1–10) 8 supported, 2 failed; front-end (11–17, not tests of the estimate) 3 supported, 3 in part, 1 failed; baselines at equal bits (18–20) ABM lost each time, as predicted (2 supported, 1 hypothesis of an ABM win falsified); generalization (21–22) 1 supported, 1 in part (by overall judgement). Per hypothesis, 60 of 83 supported (57 of 79 without replicas of FKS), 11 in part, 8 falsified, 4 undecided or untestable; for nine tests the primary was named after the outcomes. Errors of a point or two are not excluded.
 
 ## 1. Introduction
 
@@ -358,7 +358,7 @@ four groups separately, because they test different things.
 | front-end | 11–17 | pipelines around the memory; not the estimate | 3 supported (12, 16, 17), 3 in part (11, 13, 14), 1 failed (15) |
 | baselines | 18–20 | ABM against exact structures at equal bits | 18–19 supported (ABM loses); 20 failed (H1, an ABM win, falsified) — all three as predicted |
 | generalization | 21–22 | the estimate on five or six families and on new graphs | 21 supported (H1–H9); 22 in part |
-| all | 1–22 | | 14 supported, 4 in part, 4 failed |
+| all | 1–22 | | 14 supported, 4 in part, 3 failed, 1 failed as predicted (20) |
 
 Test 2's primary hypothesis (H1, D = 16 384) was supported, though a secondary one
 was only in part. Test 11's primary is end-to-end accuracy (in part). Test 15's
@@ -366,17 +366,26 @@ primary (H1, the relation chosen) was falsified, though its end-to-end H2 was
 supported; it is counted as failed. Test 17's primaries (H1, H2) were supported;
 H3 was in part and H4 undecided. Test 20 stated its first hypothesis in the
 direction we expected to fail ("ABM beats the best code somewhere"); it was
-falsified, as predicted, and its model hypotheses H2–H4 were supported. Test 22
-counts as in part: at one hop H1, H3, H4 and H7 held and H2 held in part (MAP-B on
-dense YAGO3-10), while H6 (chains) and H8 (out-of-sample dimension, MAP-B on
-YAGO3-10) were falsified. This count depends on the rule: for tests 2, 11, 13,
+falsified, as predicted, and its model hypotheses H2–H4 were supported. Test 20's H1
+was built to fail after the revision of the design, so the "all" row counts it
+apart, as failed as predicted, not as a failure of the estimate. Test 22
+counts as in part by an overall judgement, not by a single primary: H1 (the
+one-hop replica on uniform subgraphs), taken as primary, was supported, but at
+one hop H2 held only in part (MAP-B on dense YAGO3-10) and H6 (chains) and H8
+(out-of-sample dimension, MAP-B on YAGO3-10) were falsified; H3, H4 and H7
+held. This rule differs from the one used for test 15, which is counted by its
+primary alone (H1 falsified, failed) although H2 was supported. With test 15's
+rule and H1 as primary, test 22 would be supported (15/3/4); with H6 or H8 as
+primary it would be failed, and the count 14 supported, 3 in part, 5 failed. This count depends on the rule: for tests 2, 11, 13,
 14, 15, 17, 20, 21 and 22 the primary hypothesis was not named in the
 preregistration; we chose it when writing this tally, after the outcomes (for
 test 21 the choice does not matter, every hypothesis held).
 
 Counted per hypothesis, as read from the outcome tables of the twenty-two files,
 there are 83: **60 supported, 11 in part, 8 falsified, 4 undecided or
-untestable**. Through test 19 the count was 61: 44 supported, 9 in part, 5
+untestable**. Three of the 60 are declared replicas of FKS (test 21 H2–H3, MAP-I
+and FHRR on uniform subgraphs; test 22 H1; test 22's H2, also a replica, held
+only in part): excluding the replicas, 57 of 79 are supported. Through test 19 the count was 61: 44 supported, 9 in part, 5
 falsified, 3 neither or undecided. Test 20 adds 4 (H2–H4 supported, H1
 falsified; its H0 is a control and is not counted), test 21 adds 9 (all
 supported), test 22 adds 9 (H1, H3, H4, H7 supported; H2, H9 in part; H6, H8
@@ -560,8 +569,12 @@ predictions of YAGO3-10), uniform and dense, 20 seeds; D chosen on seeds 0–9,
 out-of-sample check on seeds 10–19 (H8). Two-hop chains, on functional paths,
 measured on the same memories where at least ten seeds had ten chains: only
 four configurations qualified, and no three-hop cell. YAGO3-10 entered by a
-revision of the design, before its predictions, with an **admission rule** for
-the test of the accounting: a graph is admitted if the predicted gap between
+revision of the design (`06aafc6`), before its predictions, with an **admission
+rule** for the test of the accounting. The rule came before YAGO3-10's
+predictions only: CoDEx-M's predictions (`53f99a5`) preceded it, so for CoDEx-M
+the rule was written knowing its predicted gaps. Since the rule can only exclude
+a graph from a test, not add one, this could only remove a test, not make one
+easier to pass. The rule: a graph is admitted if the predicted gap between
 the estimate and the naive comparator, in the dense one-hop cells, is ≥ 2
 points in at least three families. Neither graph was admitted (gaps 0.8–1.6
 points, HRR's 18–21 points coming from multiplicities, not twins): on both,
@@ -585,7 +598,9 @@ corrected BSDC-S had signed errors +0.83, +0.49, −0.07 and +0.18 (H3,
 |signed| ≤ 1); its postdiction on test 21's cells had moved the bias from
 +1.7…+2.1 to +0.1…+0.6 (`generalization_postdiction_bsdc_s.json`, a
 postdiction, not a confirmation). At most one cell per family and graph had
-|t| > 2.861 (H7). **MAP-B failed on dense YAGO3-10**: the model was optimistic
+|t| > 2.861 (H7). H7 has little power: it passed although MAP-B on dense
+YAGO3-10 erred by −3.5 points on average and −7.2 in its worst cell, because up
+to two cells per family and graph may exceed the threshold; the bias is caught by H2 and H8, not by H7. **MAP-B failed on dense YAGO3-10**: the model was optimistic
 by 3.5 points on average, by 3.8, 5.3, 5.8 and 7.2 in the four cells with
 N ≥ 400, and the dimension chosen in advance missed its target by more than 3
 points in 4 of 12 cells (H8 falsified; every other family and graph met it in
@@ -597,8 +612,9 @@ optimistic by up to 6 points on a loaded biclique.
 **Chains.** Of 18 chain groups, scored per hop (accuracy^(1/2)), 13 had a mean
 error ≤ 3 points, three 3.3–4.8, and two exceeded 5 (CoDEx-M dense, BSDC-S 5.56
 and MAP-B 5.33), each a single cell whose minimum detectable error, 3.6–4.0
-points, was above the support threshold. The criterion was "≤ 5 in every
-group": H6 is **falsified**. Against a comparator keeping each query's
+points, was above the support threshold. The preregistered criterion was: H6
+supported if the per-hop MAE is ≤ 3 in every group, falsified if it is > 5 in at
+least one: H6 is **falsified**. Against a comparator keeping each query's
 signature but no twins or aliases, the estimate gained at least its threshold
 in 14 of 18 groups and lost in 2 (H9 in part). Three-hop chains were not
 tested.
@@ -680,6 +696,17 @@ Stated once, with where each comes from.
 - **Harness defects found after runs.** Test 20 read t = 0/0 as p = 0 (two ties
   reported as wins; the criterion's text prevails). Test 21 used the same MAP-B
   atoms in every seed, which understates MAP-B's standard errors there.
+- **Seeds are not independent in the atoms of most MAP-B tests.** ABM's atoms
+  are drawn from the md5 of the symbol's name (`abm.random_hv`), so a seed
+  changes the atoms only if it changes the names. On real graphs the names are
+  the entities' and relations', unsalted: an entity sampled in two seeds has the
+  same atom in both (tests 1, 2 on dense FB15k-237, 4 on its real graphs, 6, 10,
+  19, 20, and MAP-B in 21). In tests 3 and 7–9 the facts are seed-tagged but the
+  relation atoms or the distractor codebook are the same in every trace. Atoms
+  are independent across seeds only in the synthetic, seed-tagged cells (tests
+  2 and 4 in part, 5, 18) and in test 22, which salts them per cell. Tests 11–17
+  use one fixed memory. Standard errors over seeds in the shared cases are
+  conditional on one draw of the shared atoms.
 - **Power.** Minimum detectable biases: 0.8–4.9 points for the summaries of
   tests 1–6 (bootstrap over seeds); 2.2–5.8 per cell in test 21, 0.9–1.0 per
   group at one hop and 1.5–4.0 per hop at two in test 22 (lower bounds, from a
@@ -692,9 +719,9 @@ Stated once, with where each comes from.
   estimate is of use only where a distributed representation is required anyway.
 - **Anteriority** is checkable only from test 20 on, and only for the stamped
   files (§1.1).
-- **No external replication**; tests 20–22 are not yet wired into
-  `replicate.py` as named tests (their data are). Every number was produced by
-  the author.
+- **No external replication**; tests 20–22 are wired into `replicate.py`
+  (test 21 replicated identically from a clean tree on the author's machine).
+  Every number was produced by the author.
 
 ## 9. Related work
 

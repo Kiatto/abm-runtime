@@ -7,7 +7,7 @@ and pass criteria were committed before any data was looked at
 predictions and the harness were also pushed and stamped with OpenTimestamps
 before the run. Four of the twenty-two failed by their primary hypothesis (one
 of them, test 20, as predicted) and four held only in part; all are kept below
-with their causes. The paper (v1.16) reports all twenty-two. Since v1.16 its
+with their causes. The paper (v1.17) reports all twenty-two. Since v1.16 its
 subject is the a-priori estimate of cleanup accuracy for six vector-symbolic
 families; ABM (MAP-B) is the case studied most, dominated at equal bits, and the
 one where the estimate did worst on a new graph (test 22).

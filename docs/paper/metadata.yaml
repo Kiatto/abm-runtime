@@ -3,7 +3,7 @@ title: "Sizing a Vector-Symbolic Memory before Building It: An A-Priori Accuracy
 subtitle: "with Algebraic Binary Memory (ABM), a dominated MAP-B design, as the case studied most"
 author:
   - kiatto
-date: "Preprint v1.16 — October 2026"
+date: "Preprint v1.17 — October 2026"
 bibliography: docs/paper/refs.bib
 link-citations: true
 # I titoli in docs/paper.md sono già numerati a mano (§ nel testo): niente
