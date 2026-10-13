@@ -24,7 +24,8 @@ macOS arm64 e Windows.
 Il test 11 (human_questions) interroga un modello linguistico locale: qui se ne
 riesegue solo la parte deterministica (previsione di abm.exact e risposta della
 memoria alla relazione vera, con --memory-only), confrontata con i campi
-corrispondenti del file pubblicato. Il test 19 (algebra) misura anche tempi:
+corrispondenti del file pubblicato. I test 20–22 (bit_errors, vsa_families, generalization) girano sul codice dei commit
+dei risultati come gli altri. Il test 19 (algebra) misura anche tempi:
 t_*_s e time_ratio non sono deterministici e sono esclusi dal confronto.
 ProofWriter richiede pyarrow.
 
@@ -113,6 +114,10 @@ PREREGS = {
     # test 18–19: sintetico (18) e FB15k-237/WN18RR (19), nessun LLM
     "equal_bits": ("equal_bits_prereg.py", "equal_bits_prereg_results.json", "~1 min"),
     "algebra": ("algebra_prereg.py", "algebra_prereg_results.json", "~9 min"),
+    # test 20–22: FB15k-237/WN18RR (20, 21), CoDEx-M/YAGO3-10 (22), nessun LLM
+    "bit_errors": ("bit_errors_prereg.py", "bit_errors_prereg_results.json", "~100 min"),
+    "vsa_families": ("vsa_families_prereg.py", "vsa_families_prereg_results.json", "~6 min"),
+    "generalization": ("generalization_prereg.py", "generalization_prereg_results.json", "~80 min"),
 }
 
 # campi non deterministici, esclusi dal confronto: nel test 19 i tempi misurati
@@ -133,7 +138,8 @@ NONDET = {"algebra": _no_timing}
 FB, WN, PW = "fb15k237_train.txt", "wn18rr_train.csv", "proofwriter_val.parquet"
 NEEDS = {
     "fb15k237": {FB}, "exact_contract": {FB}, "twins": {FB, WN}, "asymmetric": {FB, WN},
-    "sizing": {FB, WN}, "algebra": {FB, WN},
+    "sizing": {FB, WN}, "algebra": {FB, WN}, "bit_errors": {FB, WN}, "vsa_families": {FB, WN},
+    "generalization": {"codex/codex-m_train.txt", "yago3_10/YAGO3-10.tar.gz"},
     "human_questions": {FB, "fb15k_mid2name.txt", "SimpleQuestions_v2.tgz"},
     "proofwriter": {PW}, "proofwriter_seeds": {PW},
     **{k: {FB, "fb15k_mid2name.txt", "SimpleQuestions_v2.tgz"}
@@ -154,6 +160,7 @@ COMMITS = {
     "proofwriter_seeds": "ca77196",
     "escalation": "f447da8", "escalation2": "b46c28e", "escalation3": "5c9ba4b",
     "equal_bits": "728c88d", "algebra": "4fc9e8a",
+    "bit_errors": "8de037c", "vsa_families": "49ad0d5", "generalization": "4f306c6",
 }
 # harness copiati dal codice attuale sull'albero di quel commit: human_questions
 # per --memory-only (la pipeline è la stessa, il modello resta quello del commit);
