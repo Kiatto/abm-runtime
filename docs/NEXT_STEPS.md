@@ -15,7 +15,24 @@ preregistrazione va pushato su `origin` prima di lanciare l'harness, così
 l'anteriorità è verificabile da terzi. Il push lo fa solo kiatto: l'agente si
 ferma dopo il commit e chiede il push prima di eseguire.
 
-## Stato al 2026-10-09 (leggere questo per primo)
+## Stato al 2026-10-13 (leggere questo per primo)
+
+- Paper **v1.17** dopo il quarto audit ostile (`docs/audit_2026-10-13.md`, su v1.16).
+  Voti: teoria 3 (TMLR) / 5 (workshop VSA); statistica 6; riproducibilità 8.
+  Consolidato: **TMLR 3, workshop VSA/HDC 5, workshop risultati negativi/riproducibilità 7**.
+- Corretti: criterio H6, ordine ammissione/previsioni CoDEx-M, regola di
+  classificazione del 22 (14/3/5 con H6 o H8 primaria), test 20 "fallito come
+  previsto", potenza di H7, 57/79 senza repliche FKS, verifica OTS dei `.md` sulla
+  versione marcata, README con il fallimento MAP-B su YAGO3-10, test 20–22 in
+  `replicate.py`, YAGO3 verificata, chiave kleyko2024perceptron, atomi MAP-B
+  condivisi tra seed dichiarati (§8), test 11–17 in appendice F.
+- Resta, con nuovi esperimenti (ognuno da preregistrare): contabilità fuori
+  campione su un grafo denso ammesso; modello MAP-B sui densi (cicli pari GF(2));
+  catene con potenza adeguata; BSDC-S di nuovo fuori campione; MAP-B 1–21 con
+  atomi salati dove condivisi; replica indipendente.
+- Non eseguiti qui: `replicate.py bit_errors` (~100 min) e `generalization` (~80 min).
+
+## Stato al 2026-10-09
 
 - Procedura per ogni nuova preregistrazione: commit → push → `tools/stamp_prereg.sh`
   (OpenTimestamps) → commit dei `.ots` → solo allora il run.
