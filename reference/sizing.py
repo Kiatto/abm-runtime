@@ -22,27 +22,56 @@ x con (x, r, s) memorizzato è un alias di (s, r), più oggetti veri sono più b
 codebook = soggetti + relazioni + oggetti distinti. `target` è un'accuratezza assoluta
 (media sulle query), non una frazione del tetto degli alias.
 
-Verifica (fase 3, `recommend(..., verify=True)`): per ogni raccomandazione costruisce la
-memoria vera (`abm.families.make`) al dim previsto su `seeds` semi (0 … seeds − 1), interroga
-le query reali (quelle passate, o tutte le coppie (s, r) presenti; al più `verify_queries`,
-campionate senza reimmissione con `rng_seed`, lo stesso campione per tutti i dim e i semi)
-e conta corretta una risposta che è uno degli oggetti veri di (s, r).
-Criterio (due tempi). (1) Accettazione del dim del modello: il LIMITE SUPERIORE dell'IC
-95% misurato ≥ target, cioè si corregge solo se la misura rifiuta il target (il modello è
-ottimista oltre il rumore della misura). Con la sola media si correggerebbe il rumore: su
-un grafo uniforme a N = 200 (200 query) la media di 3 semi oscilla di ±2 punti e tre
-famiglie su sei venivano "corrette" senza che il modello sbagliasse. Con il limite
-inferiore ancora peggio: D crescerebbe sempre di un margine pari alla larghezza dell'IC.
-(2) Se rifiutato, il D corretto è il più piccolo (nella ricerca) con MEDIA misurata ≥
-target, la stessa definizione di target di min_dim: raddoppio di D (multipli del passo)
-fino al primo dim che passa o a d_max, poi bisezione fra l'ultimo fallito e il primo
-riuscito. verified = True se il dim finale soddisfa il suo criterio; un d0 accettato
-può avere measured < target (dentro l'IC): measured e measured_ci lo dicono.
-IC: con seeds ≥ 2, media dei semi ± t(seeds − 1, 0.975)·sd/√seeds (i semi sono i cluster:
-le query dello stesso seme condividono gli atomi); con seeds = 1, IC binomiale di Wilson
-sulle query (che però ignora la correlazione fra query della stessa memoria).
+Affidabilità (`_reliability`): solo strutturale. Ogni statistica di STRUCT_RANGES (quote di
+alias, gemelli, coppie {s, o} con più relazioni, (s, r) con più oggetti, frequenza massima
+e p99 di soggetti, oggetti e relazioni) fuori dall'intervallo delle medie di cella delle
+preregistrazioni 21–22 → "unvalidated"; MAP-B con coppie a più relazioni o su grafo denso
+→ almeno "caution". OBSERVED_ERROR è l'errore osservato nei benchmark (quali grafi, quante
+celle: vedi ObservedError.context), mostrato come contesto e mai usato per decidere
+"validated". "validated" non è una garanzia sull'errore.
 
-API: predict, min_dim, recommend (→ list[Recommendation]), FAMILIES, ERROR_BANDS.
+Verifica (fase 3, `recommend(..., verify=True)`). Due insiemi DISGIUNTI di semi derivati da
+`rng_seed`: S_sel (selezione di D) e S_rep (report), `seeds` ciascuno (default 8). Se le
+query (passate, o tutte le coppie (s, r) presenti) sono più di `verify_queries`, anche le
+query si dividono: k = min(verify_queries, Q // 2) per la selezione e altre k, disgiunte,
+per il report; altrimenti entrambe usano tutte le query. Una risposta è corretta se è uno
+degli oggetti veri di (s, r).
+Criterio: D è accettato se il LIMITE INFERIORE dell'IC 95% misurato su S_sel è ≥ target −
+tol (tol dichiarata, default 0.01 = 1 punto). Si parte dal D del modello d0; se rifiutato,
+raddoppio (multipli del passo) fino al primo D accettato o a verify_d_max (default
+min(8·d0, d_max)), poi bisezione fra l'ultimo rifiutato e il primo accettato. Al D finale
+measured, measured_ci e per_memory_q10 si misurano su S_rep (e sulle query di report):
+non sono la stessa misura usata per scegliere D, quindi non ne ereditano la selezione.
+Se la MEDIA del report è < target − tol: avviso e verified = False (non l'IC_inf: con il
+modello esatto, μ ≈ target, l'IC_inf del report cadrebbe sotto target − tol circa una
+volta su due, e "non verificato" non direbbe nulla).
+Potenza. Con vero valore medio μ = target − δ e δ ≥ tol, P(accetta) = P(x̄ − t·s/√n ≥
+target − tol) ≤ P(T_{n−1} ≥ t_{0.975}) = 0.025 per OGNI n e ogni sd (i semi i.i.d., le
+medie per seme circa normali): un ottimismo ≥ tol si rileva con potenza ≥ 0.975, e uno di
+2 punti con potenza maggiore. Il numero di semi non serve alla potenza ma al costo dei
+falsi rifiuti (D gonfiato quando il modello è esatto): con μ = target si accetta d0 solo se
+x̄ − μ ≥ t·s/√n − tol. Misura (grafo uniforme N = 200, ~190 query, MAP-B, 40 semi,
+sottoinsiemi casuali; sd per seme 2.1 punti): P(accetta d0) = 0.13 con 3 semi, 0.40 con
+8, 0.61 con 12. Con ottimismo 0.7 / 2.0 / 4.8 / 10.2 punti (grafi "club" con 20/30/45/60
+giocatori, il caso del revisore) P(accetta) con 8 semi = 0.037 / 0 / 0 / 0 (il vecchio
+criterio, IC_sup ≥ target con 3 semi: 0.95 / 0.84 / 0.69 / 0.09). Default 8 semi: il
+costo di un falso rifiuto è un D con ~1 punto di margine, non un errore.
+per_memory_q10: quantile 10% (empirico, interpolato) delle accuratezze delle singole
+memorie di S_rep: l'utente usa UNA memoria, e la media non dice quanto può andare male
+la sua; con 8 memorie è una stima grezza (fra la peggiore e la seconda peggiore).
+IC: con seeds ≥ 2, media dei semi ± t(seeds − 1, 0.975)·sd/√seeds (i semi sono i cluster);
+con seeds = 1, IC binomiale di Wilson sulle query (ignora la correlazione fra query della
+stessa memoria). Memoria: prima di costruire, la memoria di picco è stimata
+(`families.estimate_bytes` se c'è, altrimenti `_fallback_bytes`); un D oltre
+`max_mem_bytes` (default 1 GiB) non viene costruito e la verifica si ferma lì con un avviso.
+
+Bit: `bits` = traccia, con N = fatti con peso (triple memorizzate, duplicati e gemelli
+contati: `bits_per_component`); con count_codebook=True si aggiungono gli atomi
+memorizzati esplicitamente (`codebook_bits`; default False perché le famiglie li
+rigenerano da seme e nomi).
+
+API: predict, min_dim, recommend (→ list[Recommendation]), FAMILIES, OBSERVED_ERROR,
+STRUCT_RANGES, bits_per_component, codebook_bits.
 """
 from __future__ import annotations
 
@@ -63,17 +92,23 @@ PI_DRAWS = 2000              # estrazioni dell'occupazione realizzata (BSDC-OR)
 PI_SEED = 21_000_021         # seme FISSO delle estrazioni di BSDC-OR: quello della 21, così
                              # le previsioni coincidono con quelle congelate
 
-# ---- tabella di validazione -------------------------------------------------
-# Errore |misura − previsione| in punti percentuali, a 1 hop, per famiglia e regime,
-# sulle celle "calib" della 21 (FB15k-237, WN18RR; N 100, 400; target 0.50 e 0.85 del
-# tetto; 10 seed) e sulle celle a 1 hop della 22 (CoDEx-M, YAGO3-10; N 100, 400, 1600;
-# 20 seed), riunite. Fonte: results/vsa_families_prereg_results.json (rows, block=calib)
-# e results/generalization_prereg_results.json (rows, hops=1), |meas − pred| per cella;
-# esiti in coda a docs/preregistration/vsa_families.md e generalization.md.
-# BSDC-S e HRR: solo la 22 (la 21 usava per BSDC-S il modello con i pareggi
-# approssimati, distorto di +1.7–2.1 punti, ora sostituito; HRR non c'era).
+# ---- errore osservato nei benchmark ------------------------------------------
+# |misura − previsione| in punti percentuali, a 1 hop, per famiglia e regime, sulle celle
+# "calib" della 21 (FB15k-237, WN18RR; N 100, 400; target 0.50 e 0.85 del tetto; 10 seed)
+# e sulle celle a 1 hop della 22 (CoDEx-M, YAGO3-10; N 100, 400, 1600; 20 seed), riunite.
+# Fonte: results/vsa_families_prereg_results.json (rows, block=calib) e
+# results/generalization_prereg_results.json (rows, hops=1), |meas − pred| per cella.
+# BSDC-S e HRR: solo la 22 (la 21 usava per BSDC-S il modello con i pareggi approssimati,
+# distorto di +1.7–2.1 punti, ora sostituito; HRR non c'era).
+# È un dato STORICO su quei sottografi (sei grafi pubblici, campionati uniform o a BFS):
+# non è un intervallo di errore per un grafo qualsiasi, e non entra nella regola di
+# affidabilità (che guarda solo la struttura, vedi _reliability).
 # (mae, cella peggiore, celle, cella peggiore: provenienza)
-ERROR_BANDS = {
+BENCH_CONTEXT = {
+    "21": "prereg 21: FB15k-237 + WN18RR subgraphs, N 100/400, 10 seeds, calib cells",
+    "22": "prereg 22: CoDEx-M + YAGO3-10 subgraphs, N 100/400/1600, 20 seeds, 1-hop cells",
+}
+OBSERVED_ERROR = {
     ("MAP-B", "uniform"): (0.74, 1.79, 20, "21: FB15k-237 N=400 t=0.50"),
     ("MAP-B", "dense"): (1.51, 7.22, 20, "22: YAGO3-10 N=1600 t=0.85 (ottimista)"),
     ("MAP-I", "uniform"): (0.81, 2.98, 20, "21: FB15k-237 N=100 t=0.50"),
@@ -88,25 +123,75 @@ ERROR_BANDS = {
     ("BSDC-S", "dense"): (0.84, 2.55, 12, "22: CoDEx-M N=100 t=0.50"),
 }
 # Range testato. N: 100–1600 (N = 3200 fu tolto dalla griglia della 22 per il budget di
-# tempo, regola scritta nel documento: non è stato misurato). Quote (definite come negli
-# harness: alias_share = quota di query con ≥ 1 alias; twin_share = quota di vettori
-# distinti di peso 2), medie di cella sui seed:
+# tempo, regola scritta nel documento: non è stato misurato).
 N_MIN_TESTED, N_MAX_TESTED = 100, 1600
-ALIAS_MAX_UNIFORM = 0.0085   # 22, YAGO3-10/CoDEx-M uniform (21: 0.0035)
-TWIN_MAX_UNIFORM = 0.00126   # 21, uniform (22: 0.00013)
-ALIAS_MAX_TESTED = 0.094     # 21, WN18RR dense
-TWIN_MAX_TESTED = 0.144      # 21, WN18RR dense
+# Intervalli strutturali [min, max] delle MEDIE DI CELLA (cella = dataset × schema × N; 20
+# celle, 320 sottografi) ricostruite con gli harness congelati come fa la regressione
+# (examples/vsa_families_prereg.py: SeedSequence([SEED_BASE, di, si, N, k]).spawn(2), seed
+# 0–9; examples/generalization_prereg.py: .spawn(3), seed 0–19; stesse query, Q_MAX = 200)
+# e misurate con _Graph (alias_share, twin_share) e _structure. Script di ricostruzione:
+# tests/test_sizing.py::test_struct_ranges_reproduce (salta senza i dati). Le quote di
+# alias e gemelli coincidono con le costanti precedenti (0.094, 0.144). Una statistica
+# fuori da [min, max] → "unvalidated". Gli intervalli sono larghi perché le celle dense
+# (BFS) contengono hub e relazioni multiple: stare dentro NON vuol dire stare in un regime
+# dove il modello ha retto (YAGO3-10 dense, dove MAP-B ha fallito, è il massimo di
+# pair_multirel_share); per questo MAP-B ha una regola propria (vedi _reliability).
+STRUCT_RANGES = {
+    # nome: (min, max, cella del min, cella del max)
+    "alias_share": (0.0, 0.094, "22 CoDEx-M dense 100", "21 WN18RR dense 400"),
+    "twin_share": (0.0, 0.143966, "21 FB15k-237 uniform 100", "21 WN18RR dense 400"),
+    "pair_multirel_share": (0.0, 0.351375, "21 FB15k-237 uniform 100",
+                            "22 YAGO3-10 dense 400"),
+    "multiobj_share": (0.0, 0.150564, "22 YAGO3-10 uniform 100", "21 FB15k-237 dense 100"),
+    "s_max_share": (0.0014375, 0.284, "22 YAGO3-10 uniform 1600", "21 FB15k-237 dense 100"),
+    "s_p99_share": (0.000974063, 0.21324, "22 YAGO3-10 uniform 1600",
+                    "21 FB15k-237 dense 100"),
+    "o_max_share": (0.0095, 0.79925, "21 WN18RR uniform 400", "22 CoDEx-M dense 400"),
+    "o_p99_share": (0.00209531, 0.660379, "22 YAGO3-10 uniform 1600", "22 CoDEx-M dense 400"),
+    "r_max_share": (0.06175, 0.804, "21 FB15k-237 uniform 400", "22 CoDEx-M dense 400"),
+    "r_p99_share": (0.05351, 0.75119, "21 FB15k-237 uniform 400", "22 CoDEx-M dense 400"),
+}
+# Regime uniform/dense (sceglie solo quale errore osservato mostrare). Quote: massimo delle
+# medie di cella uniform (alias 0.0085 della 22 CoDEx-M 1600; gemelli 0.00126 della 21
+# WN18RR 400). Conteggi: massimo per SINGOLO sottografo uniform (alias 6 query, gemelli 2
+# vettori), stessa ricostruzione. "dense" solo se conteggio E quota superano entrambi.
+ALIAS_MAX_UNIFORM = 0.0085
+TWIN_MAX_UNIFORM = 0.00126
+UNIFORM_MAX = {"alias_share": ALIAS_MAX_UNIFORM, "twin_share": TWIN_MAX_UNIFORM,
+               "alias_count": 6, "twin_count": 2}
+ALIAS_MAX_TESTED = STRUCT_RANGES["alias_share"][1]
+TWIN_MAX_TESTED = STRUCT_RANGES["twin_share"][1]
 MAPB_DENSE_SIGNED = -3.5     # 22, MAP-B YAGO3-10 dense: errore con segno medio (punti)
 BSDC_S_SIGNED_MAX = 0.83     # 22, BSDC-S: |errore con segno| massimo per gruppo (punti)
 
+# ---- verifica -------------------------------------------------------------------
+VERIFY_SEEDS = 8             # semi di default, per la selezione e (altrettanti) per il report
+VERIFY_TOL = 0.01            # tolleranza dichiarata: accetta se IC_inf ≥ target − tol
+MAX_MEM_BYTES = 1 << 30      # memoria di picco stimata oltre la quale la verifica salta un D
+
 
 @dataclass(frozen=True)
-class ErrorBand:
+class ObservedError:
+    """Errore |misura − previsione| osservato nei benchmark 21–22 per famiglia e regime:
+    storico, su quei sottografi; non un limite all'errore sul grafo passato."""
     regime: str          # "uniform" | "dense"
-    mae: float           # punti percentuali, MAE tipico misurato
-    worst: float         # punti percentuali, cella peggiore misurata
-    cells: int
-    source: str
+    mae: float           # punti percentuali, errore medio osservato sulle celle
+    worst: float         # punti percentuali, cella peggiore osservata
+    cells: int           # celle del benchmark su cui è misurato
+    worst_cell: str      # provenienza della cella peggiore
+    context: str         # quali grafi, carichi e semi
+
+    def __repr__(self):
+        return (f"ObservedError(benchmark error, not a bound for this graph: regime={self.regime}, "
+                f"mae={self.mae} pt, worst={self.worst} pt [{self.worst_cell}], "
+                f"over {self.cells} cells; {self.context})")
+
+
+def _observed_error(family, regime):
+    mae, worst, cells, src = OBSERVED_ERROR[(family, regime)]
+    ctx = "; ".join(BENCH_CONTEXT[k] for k in ("21", "22")
+                    if family not in ("HRR", "BSDC-S") or k == "22")
+    return ObservedError(regime, mae, worst, cells, src, ctx)
 
 
 @dataclass
@@ -116,15 +201,20 @@ class Recommendation:
     bits: int
     kbytes: float
     predicted: float     # accuratezza media prevista sulle query
-    error_band: ErrorBand
+    observed_error: ObservedError
     reliability: str     # "validated" | "caution" | "unvalidated"
     warnings: list = field(default_factory=list)
     # verifica (recommend(..., verify=True)); senza verifica restano None/False
-    measured: float = None       # accuratezza media misurata (media dei seed) al dim finale
-    measured_ci: tuple = None    # IC 95% (a cluster per seed; binomiale se seeds = 1)
-    verified: bool = False       # True se la misura al dim finale raggiunge il target
+    measured: float = None       # REPORT: media sui semi freschi S_rep al dim finale
+    measured_ci: tuple = None    # REPORT: IC 95% (a cluster per seme; Wilson se seeds = 1)
+    per_memory_q10: float = None  # REPORT: quantile 10% dell'accuratezza della SINGOLA memoria
+    selection_measured: float = None  # SELEZIONE: media sui semi S_sel al dim finale
+    selection_ci: tuple = None   # SELEZIONE: IC 95%
+    verified: bool = False       # selezione: IC_inf ≥ target − tol; report: media ≥ target − tol
+    tol: float = None            # tolleranza usata (accuratezza assoluta)
     dim_predicted: int = None    # il dim del modello, prima della verifica
     adjusted: bool = False       # True se la verifica ha cambiato dim
+    codebook_bits: int = 0       # bit del codebook inclusi in bits (solo count_codebook=True)
     over_budget: bool = False    # True se la correzione ha portato bits oltre budget_bits
 
 
@@ -162,6 +252,9 @@ class _Graph:
         self.alias_share = float(np.mean([len(a) > 0 for _g, a in self.sigs]))
         self.twin_share = float(np.mean([w == 2 for w in self.weights.values()]))
         self.ceiling = exact.ceiling(triples, self.queries)
+        self.n_alias_q = int(sum(len(a) > 0 for _g, a in self.sigs))
+        self.n_twins = int(sum(w == 2 for w in self.weights.values()))
+        self.stats = _structure(triples, objects)
         self._cache = {}
         self._hrr = None
 
@@ -174,8 +267,43 @@ class _Graph:
 
     @property
     def regime(self):
-        return ("uniform" if self.alias_share <= ALIAS_MAX_UNIFORM
-                and self.twin_share <= TWIN_MAX_UNIFORM else "dense")
+        """"dense" se alias o gemelli superano INSIEME il massimo assoluto e la quota
+        massima viste nelle celle uniform delle 21-22 (vedi UNIFORM_MAX). Solo la quota
+        farebbe scattare "dense" per un solo gemello su un grafo piccolo (1/199 > 0.00126);
+        solo il conteggio ignorerebbe la scala."""
+        dense_alias = (self.n_alias_q > UNIFORM_MAX["alias_count"]
+                       and self.alias_share > UNIFORM_MAX["alias_share"])
+        dense_twin = (self.n_twins > UNIFORM_MAX["twin_count"]
+                      and self.twin_share > UNIFORM_MAX["twin_share"])
+        return "dense" if dense_alias or dense_twin else "uniform"
+
+
+def _structure(triples, objects):
+    """Statistiche strutturali del grafo (sulle triple distinte, non sulle query):
+    - pair_multirel_share: quota di fatti la cui coppia NON ordinata {s, o} compare con
+      ≥ 2 relazioni distinte (inverse con nome diverso incluse: (s, r1, o) + (o, r2, s));
+      in MAP-B questi fatti condividono s e o e si annullano nella maggioranza;
+    - multiobj_share: quota delle coppie (s, r) con più oggetti;
+    - {s,o,r}_max_share, {s,o,r}_p99_share: numero di fatti del soggetto (dell'oggetto,
+      della relazione) più frequente, e il percentile 99 dei conteggi, come quota di N
+      (i conteggi assoluti crescono con N; le quote si confrontano fra carichi)."""
+    uniq = sorted(set(triples))
+    n = len(uniq)
+    rels_of = defaultdict(set)
+    cnt = {"s": Counter(), "o": Counter(), "r": Counter()}
+    for s, r, o in uniq:
+        rels_of[frozenset((s, o))].add(r)
+        cnt["s"][s] += 1
+        cnt["o"][o] += 1
+        cnt["r"][r] += 1
+    out = {"pair_multirel_share":
+           sum(len(rels_of[frozenset((s, o))]) >= 2 for s, _r, o in uniq) / n,
+           "multiobj_share": float(np.mean([len(v) > 1 for v in objects.values()]))}
+    for k, c in cnt.items():
+        v = np.array(list(c.values()), float)
+        out[f"{k}_max_share"] = float(v.max() / n)
+        out[f"{k}_p99_share"] = float(np.percentile(v, 99) / n)
+    return out
 
 
 # ---- MAP-I, FHRR: gaussiana FKS con la contabilità (dalla 21) -----------------
@@ -653,8 +781,11 @@ def min_dim(triples, family, target, queries=None, d_max=D_MAX):
 
 
 def bits_per_component(family, n):
-    """MAP-B, BSDC-OR: 1. FHRR: 2 × float16. HRR: float32. MAP-I, BSDC-S: interi con N + 1
-    valori, ceil(log2(N + 1)) bit (convenzione degli harness)."""
+    """Bit per componente della TRACCIA. MAP-B, BSDC-OR: 1. FHRR: 2 × float16. HRR: float32.
+    MAP-I, BSDC-S: interi con N + 1 valori, ceil(log2(N + 1)) bit (convenzione degli
+    harness). N = fatti CON PESO, cioè le triple memorizzate contando i duplicati (un
+    gemello (s, r, o) + (o, r, s) conta 2: sono due addendi della somma), come
+    `families.Memory.bits()`; è len(triples) passato al dimensionatore."""
     if family in ("MAP-B", "BSDC-OR"):
         return 1
     if family in FLOAT_BITS:
@@ -662,14 +793,41 @@ def bits_per_component(family, n):
     return math.ceil(math.log2(n + 1))
 
 
+def codebook_bits(family, dim, m, n):
+    """Bit per memorizzare ESPLICITAMENTE il codebook (M atomi), se non lo si rigenera dal
+    seme e dai nomi (che è il default delle famiglie: per questo recommend non li conta se
+    non con count_codebook=True). MAP-B, MAP-I: D bit per atomo (±1). FHRR, HRR: D × 32
+    (stessa precisione della traccia). BSDC: B·ceil(log2 L) per atomo (un indice per blocco)."""
+    if family in ("MAP-B", "MAP-I"):
+        return m * dim
+    if family in FLOAT_BITS:
+        return m * dim * FLOAT_BITS[family]
+    length = bsdc_length(n)
+    return m * (dim // length) * max(1, math.ceil(math.log2(length)))
+
+
+def _range_value(g, name):
+    if name in ("alias_share", "twin_share"):
+        return getattr(g, name)
+    return g.stats[name]
+
+
 def _reliability(g, family):
-    """Regole di affidabilità (documentate nel modulo e nel report):
-    - N fuori da [100, 1600] o quote di alias/gemelli oltre il massimo visto nei test
-      21–22 → "unvalidated" (oltre 1600: 3200 era previsto ma tolto dalla griglia);
+    """Regole di affidabilità. Dipendono SOLO dalla struttura del grafo, mai dall'errore
+    osservato nei benchmark (OBSERVED_ERROR, che è solo mostrato):
+    - N fuori da [100, 1600] → "unvalidated" sopra (3200 era previsto ma tolto dalla
+      griglia), "caution" sotto;
+    - qualunque statistica di STRUCT_RANGES fuori dall'intervallo [min, max] delle medie di
+      cella delle preregistrazioni 21–22 → "unvalidated";
+    - self-loop → "unvalidated" (nessun sottografo testato ne aveva);
+    - MAP-B con pair_multirel_share > 0 → almeno "caution": fatti con la stessa coppia
+      {s, o} e relazioni diverse condividono s e o e nella maggioranza si annullano dove
+      ρ(r1) ≠ ρ(r2); il modello li tratta come indipendenti ed è ottimista;
     - MAP-B su grafo denso → "caution": fallito su YAGO3-10 dense (ottimista di 3.5 punti
       in media, fino a 7.2; D a priori sotto il target in 4 celle su 12);
-    - BSDC-S → avviso del bias residuo (≤ 0.83 punti con segno nella 22);
-    - self-loop → "unvalidated" (nessun sottografo testato ne aveva)."""
+    - BSDC-S → avviso del bias residuo (≤ 0.83 punti con segno nella 22).
+    "validated" vuol dire soltanto: dentro gli intervalli strutturali testati e senza
+    regole di cautela attive. Non è una garanzia sull'errore."""
     level, warns = 0, []
     names = ("validated", "caution", "unvalidated")
     if g.n > N_MAX_TESTED:
@@ -679,21 +837,30 @@ def _reliability(g, family):
     if g.n < N_MIN_TESTED:
         level = max(level, 1)
         warns.append(f"N = {g.n} < {N_MIN_TESTED}, the smallest load tested")
-    if g.alias_share > ALIAS_MAX_TESTED:
-        level = 2
-        warns.append(f"alias share {g.alias_share:.3f} > {ALIAS_MAX_TESTED}, the largest tested")
-    if g.twin_share > TWIN_MAX_TESTED:
-        level = 2
-        warns.append(f"twin share {g.twin_share:.3f} > {TWIN_MAX_TESTED}, the largest tested")
+    for name, (lo, hi, _clo, chi) in STRUCT_RANGES.items():
+        v = _range_value(g, name)
+        if v > hi + 1e-12 or v < lo - 1e-12:
+            level = 2
+            side = f"> {hi}, the largest" if v > hi else f"< {lo}, the smallest"
+            warns.append(f"{name.replace('_', ' ')} {v:.4f} {side} cell mean tested "
+                         f"(preregs 21-22): outside the validated structure")
     if g.self_loops:
         level = 2
         warns.append("self-loops: never present in the tested subgraphs")
+    if family == "MAP-B" and g.stats["pair_multirel_share"] > 0:
+        level = max(level, 1)
+        warns.append(
+            f"MAP-B: {g.stats['pair_multirel_share']:.1%} of the facts share their unordered "
+            "pair {s, o} with a fact of another relation (e.g. (s, r1, o) + (o, r2, s)); "
+            "such facts share s and o, so in the MAP-B majority they cancel wherever "
+            "ρ(r1) ≠ ρ(r2); the model treats them as independent and is optimistic "
+            "(YAGO3-10 dense; tens of points on synthetic graphs). Use verify=True")
     if family == "MAP-B" and g.regime == "dense":
         level = max(level, 1)
         warns.append(f"MAP-B on a dense graph: the model failed on YAGO3-10 dense (prereg 22), "
                      f"optimistic by {-MAPB_DENSE_SIGNED} points on average and up to "
-                     f"{ERROR_BANDS[('MAP-B', 'dense')][1]}; the a-priori D missed the target "
-                     "in 4 of 12 cells")
+                     f"{OBSERVED_ERROR[('MAP-B', 'dense')][1]}; the a-priori D missed the "
+                     "target in 4 of 12 cells")
     if family == "BSDC-S":
         warns.append(f"BSDC-S: residual bias of the exact-ties model, signed error up to "
                      f"+{BSDC_S_SIGNED_MAX} points per group (prereg 22)")
@@ -709,99 +876,197 @@ def _t975(df):
     return _T975[k] if df <= 30 else 1.96
 
 
+def _fallback_bytes(family, dim, n, m, q):
+    """Stima di picco (byte) se families.estimate_bytes non c'è: atomi, traccia e i
+    temporanei principali della costruzione (non a blocchi) e di un blocco di query."""
+    if family.startswith("BSDC"):
+        length = bsdc_length(n)
+        b = -(-dim // length)
+        return 16 * m * b + 8 * b * length + 24 * n * b + 16 * min(q, 4096) * m * b
+    if family == "HRR":                       # float32 + 2 rfft complex128 (M·(D/2+1)·16)
+        return 4 * m * dim + 2 * m * (dim // 2 + 1) * 16 + 8 * m * dim + 16 * dim
+    if family == "FHRR":                      # θ float64 + atomi e ρ complex64
+        return 24 * m * dim + 16 * dim
+    if family == "MAP-I":                     # atomi e ρ float64 + prodotti N × D
+        return 16 * m * dim + 24 * n * dim
+    return 5 * m * dim + 16 * n * dim         # MAP-B: int8 + float32, prodotti int64
+
+
+def _peak_bytes(g, family, dim, n_queries):
+    est = getattr(_families, "estimate_bytes", None)
+    if est is not None:
+        try:
+            return int(est(family, dim, n_facts=g.n, n_symbols=g.m, n_queries=n_queries))
+        except TypeError:
+            pass
+    return int(_fallback_bytes(family, dim, g.n, g.m, n_queries))
+
+
 def _measure(g, family, dim, sample, seeds):
-    """(media, IC 95%) dell'accuratezza misurata sulle query `sample`, su `seeds` memorie."""
-    accs, hits = [], 0
-    for seed in range(seeds):
-        mem = _families.make(family, dim, seed)
+    """Accuratezza su `sample` per ciascuna memoria (un seme ciascuna, `seeds` è la lista
+    dei semi): media, IC 95%, quantile 10% per memoria, accuratezze per seme."""
+    accs = []
+    for seed in seeds:
+        mem = _families.make(family, dim, int(seed))
         mem.store(g.triples)
         ans = mem.query_many(sample)
         ok = sum(o in g.objects.get(q, ()) for q, (o, _c) in zip(sample, ans))
-        hits += ok
         accs.append(ok / len(sample))
     mean = float(np.mean(accs))
-    if seeds == 1:                                  # Wilson sulle query
+    if len(seeds) == 1:                             # Wilson sulle query
         n, z = len(sample), 1.96
         c = (mean + z * z / (2 * n)) / (1 + z * z / n)
         h = z * math.sqrt(mean * (1 - mean) / n + z * z / (4 * n * n)) / (1 + z * z / n)
         ci = (max(0.0, c - h), min(1.0, c + h))
     else:
-        h = _t975(seeds - 1) * float(np.std(accs, ddof=1)) / math.sqrt(seeds)
+        h = _t975(len(seeds) - 1) * float(np.std(accs, ddof=1)) / math.sqrt(len(seeds))
         ci = (max(0.0, mean - h), min(1.0, mean + h))
-    return mean, ci
+    return {"mean": mean, "ci": ci, "q10": float(np.quantile(accs, 0.10)), "accs": accs}
 
 
-def _verify(g, family, d0, target, d_max, sample, seeds):
-    """(dim, media, IC, raggiunto, media a d0) dopo la verifica: raddoppio poi bisezione."""
+def _split(g, rng_seed, seeds, verify_queries):
+    """Semi e query di selezione e di report, disgiunti, derivati da rng_seed."""
+    seq_seeds, seq_q = np.random.SeedSequence([0x51_2E, rng_seed]).spawn(2)
+    vals = np.random.default_rng(seq_seeds).choice(1 << 31, 2 * seeds, replace=False)
+    sel_seeds = [int(x) for x in vals[:seeds]]
+    rep_seeds = [int(x) for x in vals[seeds:]]
+    qs = list(g.queries)
+    if len(qs) > verify_queries:
+        k = min(verify_queries, len(qs) // 2)
+        perm = np.random.default_rng(seq_q).permutation(len(qs))
+        sel_q = [qs[i] for i in sorted(perm[:k])]
+        rep_q = [qs[i] for i in sorted(perm[k:2 * k])]
+    else:
+        sel_q = rep_q = qs
+    return sel_seeds, rep_seeds, sel_q, rep_q
+
+
+def _verify(g, family, d0, target, tol, top, sample, seeds, max_mem, skipped):
+    """Selezione di D: (dim, misura al dim o None, accettato, misura a d0 o None).
+    Accetta D se IC_inf ≥ target − tol; raddoppio fino a `top`, poi bisezione al passo.
+    I D la cui memoria stimata supera max_mem non si costruiscono (aggiunti a skipped)."""
     step = _step(g, family)
-    top = max(d0, (d_max // step) * step)
     memo = {}
 
     def run(d):
         if d not in memo:
-            memo[d] = _measure(g, family, d, sample, seeds)
+            if _peak_bytes(g, family, d, len(sample)) > max_mem:
+                memo[d] = None
+                skipped.append(d)
+            else:
+                memo[d] = _measure(g, family, d, sample, seeds)
         return memo[d]
 
-    if run(d0)[1][1] >= target:                 # la misura non rifiuta il target
-        return d0, *run(d0), True, run(d0)[0]
+    def accept(r):
+        return r is not None and r["ci"][0] >= target - tol
+
+    r0 = run(d0)
+    if r0 is None:
+        return d0, None, False, None
+    if accept(r0):
+        return d0, r0, True, r0
     lo, hi = d0, None
     while lo < top:
         d = min(2 * lo, top)
-        if run(d)[0] >= target:
+        r = run(d)
+        if r is None:
+            break
+        if accept(r):
             hi = d
             break
         lo = d
     if hi is None:
-        return lo, *run(lo), False, run(d0)[0]
+        return lo, run(lo), False, r0
     while hi - lo > step:
         mid = (lo // step + hi // step) // 2 * step
-        if run(mid)[0] >= target:
+        if accept(run(mid)):
             hi = mid
         else:
             lo = mid
-    return hi, *run(hi), True, run(d0)[0]
+    return hi, run(hi), True, r0
 
 
-def _verify_rec(g, rec, target, d_max, sample, seeds, budget_bits):
+def _set_dim(g, rec, d, count_codebook):
+    f = rec.family
+    rec.dim = d
+    rec.codebook_bits = codebook_bits(f, d, g.m, g.n) if count_codebook else 0
+    rec.bits = d * bits_per_component(f, g.n) + rec.codebook_bits
+    rec.kbytes = rec.bits / 8 / 1024
+
+
+def _verify_rec(g, rec, target, tol, top, split, budget_bits, max_mem, count_codebook):
     f, d0 = rec.family, rec.dim
-    d, mean, ci, ok, m0 = _verify(g, f, d0, target, d_max, sample, seeds)
-    rec.measured, rec.measured_ci, rec.verified = mean, ci, ok
+    sel_seeds, rep_seeds, sel_q, rep_q = split
+    rec.tol = tol
+    skipped = []
+    d, rsel, ok, r0 = _verify(g, f, d0, target, tol, top, sel_q, sel_seeds, max_mem, skipped)
+    if skipped:
+        rec.warnings.append(
+            f"verification: D = {', '.join(map(str, sorted(set(skipped))))} not built: "
+            f"estimated peak memory over max_mem_bytes = {max_mem}")
+    if rsel is None:
+        rec.warnings.append("verification: nothing measured; not verified")
+        return
+    rec.selection_measured, rec.selection_ci = rsel["mean"], rsel["ci"]
     if d != d0:
         rec.adjusted = True
-        rec.dim = d
-        rec.bits = d * bits_per_component(f, g.n)
-        rec.kbytes = rec.bits / 8 / 1024
+        _set_dim(g, rec, d, count_codebook)
         rec.predicted = _predict_graph(g, f, d)
-        gap = 100 * (_predict_graph(g, f, d0) - m0)
+        p0 = _predict_graph(g, f, d0)
         rec.warnings.append(
-            f"verification: the model was optimistic by {gap:.1f} points at D = {d0} "
-            f"(predicted {_predict_graph(g, f, d0):.4f}, measured {m0:.4f}); "
-            f"D increased from {d0} to {d}")
+            f"verification: at D = {d0} the selection measure rejected the target "
+            f"(predicted {p0:.4f}, measured {r0['mean']:.4f}, model optimistic by "
+            f"{100 * (p0 - r0['mean']):.1f} points; 95% CI lower bound "
+            f"{r0['ci'][0]:.4f} < target − tol = {target - tol:.4f}); D increased from "
+            f"{d0} to {d}")
     if not ok:
         rec.warnings.append(
-            f"verification: measured {mean:.4f} < target {target} even at D = {d} "
-            f"(d_max); not verified")
+            f"verification: the CI lower bound stays below target − tol = {target - tol:.4f} "
+            f"up to D = {d} (verification d_max {top}); not verified")
+    rep = rsel if (rep_seeds == sel_seeds and rep_q == sel_q) else \
+        _measure(g, f, d, rep_q, rep_seeds)
+    rec.measured, rec.measured_ci, rec.per_memory_q10 = rep["mean"], rep["ci"], rep["q10"]
+    rec.verified = ok and rep["mean"] >= target - tol
+    if ok and not rec.verified:
+        rec.warnings.append(
+            f"verification: on fresh seeds/queries (report) the mean accuracy "
+            f"{rep['mean']:.4f} < target − tol = {target - tol:.4f} (95% CI "
+            f"{rep['ci'][0]:.4f}–{rep['ci'][1]:.4f}): the selected D does not replicate; "
+            "not verified")
     if budget_bits is not None and rec.bits > budget_bits:
         rec.over_budget = True
         rec.warnings.append(f"verification: the corrected D needs {rec.bits} bits, over the "
                             f"budget of {budget_bits}")
 
 
-def recommend(triples, target, families=FAMILIES, budget_bits=None, queries=None,
-              d_max=D_MAX, verify=False, verify_queries=2000, seeds=3, rng_seed=0):
-    """Per ogni famiglia il D minimo che raggiunge `target` (accuratezza assoluta media
-    sulle query), ordinate per bit crescenti; esclude le famiglie che non lo raggiungono
-    entro d_max o che superano budget_bits. Se il target supera il tetto degli alias
-    (nessuna dimensione lo raggiunge, in nessuna famiglia) solleva ValueError.
-
-    verify=True: misura ogni raccomandazione su memorie vere e, se la media misurata è
-    sotto il target, aumenta dim (vedi il docstring del modulo). Una famiglia corretta
-    oltre budget_bits resta nella lista con over_budget=True e un avviso; una che non
-    raggiunge il target nemmeno a d_max resta con verified=False e un avviso."""
+def _check_target(target):
     if isinstance(target, bool) or not isinstance(target, (int, float, np.integer,
                                                           np.floating)) \
             or not 0.0 < target <= 1.0:
         raise ValueError(f"target must be an accuracy in (0, 1], got {target!r}")
+
+
+def recommend(triples, target, families=FAMILIES, budget_bits=None, queries=None,
+              d_max=D_MAX, verify=False, verify_queries=2000, seeds=VERIFY_SEEDS,
+              rng_seed=0, tol=VERIFY_TOL, verify_d_max=None, max_mem_bytes=MAX_MEM_BYTES,
+              count_codebook=False):
+    """Per ogni famiglia il D minimo che raggiunge `target` (accuratezza assoluta media
+    sulle query) SECONDO IL MODELLO, ordinate per bit crescenti; esclude le famiglie che non
+    lo raggiungono entro d_max o che superano budget_bits. Se il target supera il tetto
+    degli alias (nessuna dimensione lo raggiunge, in nessuna famiglia) solleva ValueError.
+    Nessun risultato è una garanzia: la previsione è un modello, la verifica una misura
+    finita (vedi il docstring del modulo).
+
+    count_codebook=False: bits conta solo la traccia (gli atomi si rigenerano da seme e
+    nomi); True aggiunge codebook_bits (atomi memorizzati esplicitamente).
+
+    verify=True: misura ogni raccomandazione su memorie vere (vedi il docstring del modulo:
+    `seeds` semi di selezione + `seeds` di report, disgiunti; accetta se il limite
+    inferiore dell'IC 95% ≥ target − tol). verify_d_max: il D massimo della correzione,
+    default min(8·d0, d_max). max_mem_bytes: un D con memoria di picco stimata superiore
+    non viene costruito (avviso). Una famiglia corretta oltre budget_bits resta nella lista
+    con over_budget=True; una non verificata resta con verified=False e un avviso."""
+    _check_target(target)
     families = tuple(families)
     if not families:
         raise ValueError("no families")
@@ -812,6 +1077,15 @@ def recommend(triples, target, families=FAMILIES, budget_bits=None, queries=None
     if verify:
         verify_queries = _check_positive_int("verify_queries", verify_queries)
         seeds = _check_positive_int("seeds", seeds)
+        max_mem_bytes = _check_positive_int("max_mem_bytes", max_mem_bytes)
+        if isinstance(rng_seed, bool) or not isinstance(rng_seed, (int, np.integer)) \
+                or rng_seed < 0:
+            raise ValueError(f"rng_seed must be a non-negative integer, got {rng_seed!r}")
+        if isinstance(tol, bool) or not isinstance(tol, (int, float, np.integer, np.floating))\
+                or not 0.0 <= tol < 1.0:
+            raise ValueError(f"tol must be in [0, 1), got {tol!r}")
+        if verify_d_max is not None:
+            verify_d_max = _check_positive_int("verify_d_max", verify_d_max)
     g = _graph(triples, queries)
     if target > g.ceiling:
         raise ValueError(
@@ -819,30 +1093,27 @@ def recommend(triples, target, families=FAMILIES, budget_bits=None, queries=None
             "aliases (x with (x, r, s) stored, which encodes like (s, r, x)) get the same "
             "signal as the true object, so no family and no dimension can exceed the "
             "ceiling on average; lower the target or remove the aliased facts")
-    out, sample = [], None
+    out, split = [], None
     for f in families:
         d = min_dim(g, f, target, d_max=d_max)
         if d is None:
             continue
-        bits = d * bits_per_component(f, g.n)
-        if budget_bits is not None and bits > budget_bits:
-            continue
-        mae, worst, cells, src = ERROR_BANDS[(f, g.regime)]
         rel, warns = _reliability(g, f)
         rec = Recommendation(
-            family=f, dim=d, bits=bits, kbytes=bits / 8 / 1024,
-            predicted=_predict_graph(g, f, d),
-            error_band=ErrorBand(g.regime, mae, worst, cells, src),
+            family=f, dim=d, bits=0, kbytes=0.0, predicted=_predict_graph(g, f, d),
+            observed_error=_observed_error(f, g.regime),
             reliability=rel, warnings=warns, dim_predicted=d)
+        _set_dim(g, rec, d, count_codebook)
+        if budget_bits is not None and rec.bits > budget_bits:
+            continue
         if verify:
-            if sample is None:
-                qs = list(g.queries)
-                if len(qs) > verify_queries:
-                    pick = np.random.default_rng(rng_seed).choice(len(qs), verify_queries,
-                                                                  replace=False)
-                    qs = [qs[i] for i in sorted(pick)]
-                sample = qs
-            _verify_rec(g, rec, target, d_max, sample, seeds, budget_bits)
+            if split is None:
+                split = _split(g, int(rng_seed), seeds, verify_queries)
+            step = _step(g, f)
+            cap = min(8 * d, d_max) if verify_d_max is None else verify_d_max
+            top = max(d, (cap // step) * step)
+            _verify_rec(g, rec, target, tol, top, split, budget_bits, max_mem_bytes,
+                        count_codebook)
         out.append(rec)
     out.sort(key=lambda r: (r.bits, FAMILIES.index(r.family)))
     return out
