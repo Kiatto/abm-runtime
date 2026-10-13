@@ -4,6 +4,8 @@ modificarli. Per ogni famiglia: (a) stesse risposte dell'harness sullo stesso in
 si confronta solo che la risposta stia fra i pari merito); (b) validazione; (c)
 query_many == query ripetuta; (d) bits()."""
 import importlib
+import tracemalloc
+import warnings
 import math
 import sys
 from collections import defaultdict
@@ -55,7 +57,7 @@ def _mem(family, cell, seed):
 def _tied_ok(mem, cell, got, harness_ok):
     """Accordo per query: identico dove il massimo è unico; dove c'è pareggio, la nostra
     risposta è fra i pari merito (l'harness pesca col suo flusso)."""
-    s, r = mem._ids(cell.queries)
+    s, r, _ = mem._ids(cell.queries)
     sc = mem._scores(s, r)
     agree, ties = 0, 0
     for k, (q, (name, _)) in enumerate(zip(cell.queries, got)):
@@ -184,7 +186,8 @@ def test_bits(graph, family):
 def test_bsdc_rounds_dim_up():
     mem = families.make("BSDC-OR", 1000)
     mem.store([(f"e{i}", "r", f"e{i + 1}") for i in range(100)])
-    mem.bits()
+    with pytest.warns(UserWarning, match="dim effettivo 1024"):
+        mem.bits()
     assert mem.length == families.bsdc_length(100) == 128
     assert mem.dim == 1024 and mem.dim_requested == 1000 and mem.blocks == 8
 
@@ -195,3 +198,169 @@ def test_store_accumulates(graph):
     a.store(graph.triples[60:])
     b = _mem("MAP-I", graph, 1)
     assert a.query_many(graph.queries) == b.query_many(graph.queries)
+
+
+# -- review ostile 2026-10-13: memoria, simboli ignoti, pareggi, BSDC, atomi, bit ----------
+
+def _rand_graph(n, m, seed=1, n_rel=8):
+    rng = np.random.default_rng(seed)
+    ents = [f"e{i}" for i in range(m - n_rel)]
+    rels = [f"r{i}" for i in range(n_rel)]
+    tr = [(ents[a], rels[b], ents[c]) for a, b, c in zip(
+        rng.integers(len(ents), size=n), rng.integers(n_rel, size=n), rng.integers(len(ents), size=n))]
+    return tr, sorted({(s, r) for s, r, _ in tr})
+
+
+@pytest.mark.parametrize("family,dim,n,m", [
+    ("HRR", 6000, 700, 1300), ("FHRR", 5000, 900, 1100), ("MAP-I", 7000, 500, 900),
+    ("MAP-B", 12000, 600, 1500), ("BSDC-S", 30000, 1500, 700)])
+def test_estimate_bytes_within_1_5(family, dim, n, m):
+    """estimate_bytes contro il picco misurato (tracemalloc: atomi, traccia, temporanei)."""
+    tr, qs = _rand_graph(n, m, seed=4)
+    mem = families.make(family, dim)
+    mem.store(tr)
+    tracemalloc.start()
+    try:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            mem.query_many(qs)
+        _, peak = tracemalloc.get_traced_memory()
+    finally:
+        tracemalloc.stop()
+    est = families.estimate_bytes(family, dim, n, mem.codebook_size(), n_queries=len(qs))
+    assert peak / 1.5 <= est <= peak * 1.5, (est, peak)
+
+
+def test_estimate_bytes_validation():
+    with pytest.raises(ValueError):
+        families.estimate_bytes("BSC", 64, 1, 1)
+    with pytest.raises(ValueError):
+        families.estimate_bytes("HRR", 0, 1, 1)
+    # la causa del finding: a N=1600, D=35712, M=2374 HRR teneva ≈1.36 GB di spettri
+    assert families.estimate_bytes("HRR", 35712, 1600, 2374) < 0.5e9
+
+
+@pytest.mark.parametrize("family", ["MAP-I", "FHRR", "HRR", "BSDC-S"])
+def test_blockwise_atoms_equal_one_shot(monkeypatch, family):
+    """Generazione a blocchi == estrazione in un colpo dallo stesso flusso (harness)."""
+    monkeypatch.setattr(families, "_CHUNK_BYTES", 4096)
+    tr, _ = _rand_graph(60, 40)
+    mem = families.make(family, 64, seed=3)
+    mem.store(tr)
+    mem.bits()
+    m, rng = mem.codebook_size(), np.random.default_rng(3)
+    if family == "MAP-I":
+        ref = (2 * rng.integers(2, size=(m, 64)) - 1).astype(np.float64)
+    elif family == "FHRR":
+        ref = np.exp(1j * rng.uniform(0, 2 * np.pi, size=(m, 64))).astype(np.complex64)
+    elif family == "HRR":
+        ref = (rng.standard_normal((m, 64)) / math.sqrt(64)).astype(np.float32)
+    else:
+        ref = rng.integers(mem.length, size=(m, mem.blocks))
+    assert np.array_equal(mem.atoms, ref)
+
+
+@pytest.mark.parametrize("family", families.FAMILIES)
+def test_chunking_does_not_change_answers(monkeypatch, graph, family):
+    ref = _mem(family, graph, 1).query_many(graph.queries)
+    monkeypatch.setattr(families, "_CHUNK_BYTES", 1)          # una riga per blocco
+    got = _mem(family, graph, 1).query_many(graph.queries)
+    assert [n for n, _ in got] == [n for n, _ in ref]
+    assert np.allclose([x for _, x in got], [x for _, x in ref], rtol=1e-5, atol=0)
+
+
+@pytest.mark.parametrize("family", families.FAMILIES)
+def test_unknown_symbols(graph, family):
+    mem = _mem(family, graph, 0)
+    q = graph.queries[:3]
+    with pytest.raises(KeyError, match="mai memorizzato 'zzz'.*query #1"):
+        mem.query_many([q[0], ("zzz", q[1][1]), q[2]])
+    got = mem.query_many([q[0], ("zzz", q[1][1]), (q[2][0], "yyy"), q[2]], unknown="skip")
+    assert got[1] is None and got[2] is None
+    assert [got[0], got[3]] == mem.query_many([q[0], q[2]])
+    assert mem.query_many([("zzz", "r")], unknown="skip") == [None]
+    with pytest.raises(ValueError):
+        mem.query_many(q, unknown="ignore")
+
+
+def test_ties_options():
+    for fam in families.FAMILIES:
+        if fam != "MAP-B":
+            with pytest.raises(ValueError):
+                families.make(fam, 64, ties="first")
+            families.make(fam, 64, ties="random")
+    with pytest.raises(ValueError):
+        families.make("MAP-B", 64, ties="last")
+    # MAP-B con un solo fatto a D piccolo: molti pareggi
+    tr, qs = _rand_graph(40, 30, seed=2)
+    first = families.make("MAP-B", 16)
+    first.store(tr)
+    rnd = families.make("MAP-B", 16, ties="random")
+    rnd.store(tr)
+    s, r, _ = first._ids(qs)
+    sc = first._scores(s, r)
+    got_f, got_r = first.query_many(qs), rnd.query_many(qs)
+    assert [first.idx[n] for n, _ in got_f] == list(np.argmax(sc, axis=1))   # primo = argmax
+    for k, (n, c) in enumerate(got_r):
+        assert first.idx[n] in np.flatnonzero(sc[k] == sc[k].max())
+        assert c == got_f[k][1]                       # stessa distanza, stessa confidenza
+    assert got_r != got_f                             # i pareggi si risolvono diversamente
+    assert rnd.query_many(qs) == got_r                # ma in modo deterministico
+
+
+def test_bsdc_strict_and_no_warning_on_exact():
+    tr = [(f"e{i}", "r", f"e{i + 1}") for i in range(100)]
+    mem = families.make("BSDC-S", 1000, strict=True)
+    mem.store(tr)
+    with pytest.raises(ValueError, match="strict"):
+        mem.bits()
+    ok = families.make("BSDC-OR", 1024, strict=True)
+    ok.store(tr)
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        ok.bits()
+    assert ok.dim == 1024
+
+
+@pytest.mark.parametrize("family", ["MAP-I", "FHRR", "HRR", "BSDC-OR"])
+def test_per_symbol_atoms_stable(family):
+    tr, qs = _rand_graph(80, 50, seed=5)
+    def atoms_of(triples, mode):
+        mem = families.make(family, 4096 if family.startswith("BSDC") else 2048, seed=2, atoms=mode)
+        mem.store(triples)
+        mem.bits()
+        return mem, {x: mem.atoms[i] for x, i in mem.idx.items()}
+    extra = tr + [("aaa_new", "r0", "e1")]           # nuovo simbolo, primo in ordine lessicografico
+    if family.startswith("BSDC"):
+        extra = tr[:-1] + [("aaa_new", "r0", "e1")]  # stesso N: stesso L
+    a, A = atoms_of(tr, "per_symbol")
+    b, B = atoms_of(extra, "per_symbol")
+    assert all(np.array_equal(A[x], B[x]) for x in A if x in B)
+    _, S = atoms_of(tr, "sorted")
+    _, S2 = atoms_of(extra, "sorted")
+    assert not all(np.array_equal(S[x], S2[x]) for x in S if x in S2)
+    acc = np.mean([n in {o for s, r, o in tr if (s, r) == q} for q, (n, _) in zip(qs, a.query_many(qs))])
+    assert acc > 0.5                                  # stessa distribuzione: funziona
+    with pytest.raises(ValueError):
+        families.make(family, 64, atoms="lexi")
+
+
+def test_mapb_per_symbol_is_noop(graph):
+    a = _mem("MAP-B", graph, 0)
+    b = families.make("MAP-B", DIMS["MAP-B"], atoms="per_symbol")
+    b.store(graph.triples)
+    assert a.query_many(graph.queries) == b.query_many(graph.queries)
+
+
+def test_bits_counts_duplicates_and_codebook_bits(graph):
+    mem = _mem("MAP-I", graph, 0)
+    dup = families.make("MAP-I", DIMS["MAP-I"])
+    dup.store(graph.triples + graph.triples[:200])
+    n2 = len(graph.triples) + min(200, len(graph.triples))
+    assert dup.n_facts() == n2
+    assert dup.bits() == dup.dim * math.ceil(math.log2(n2 + 1))
+    m = graph.m
+    assert mem.codebook_bits() == m * math.ceil(math.log2(m))
+    one = families.make("HRR", 8)
+    one.store([("a", "a", "a")])
+    assert one.codebook_bits() == 0
