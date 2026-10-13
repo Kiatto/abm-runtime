@@ -92,9 +92,9 @@ was not run earlier. From test 20 on, the preregistration, the frozen
 predictions and the harness are pushed to a public repository and stamped with
 OpenTimestamps before the run (`tools/stamp_prereg.sh`; `.ots` files next to
 each file; commits `78a3234`, `a96da4c`, `5463e7f`). This makes the existence of
-those exact files before the run checkable by a third party once the stamps are
-upgraded to Bitcoin attestations (`ots upgrade`, `ots verify`); the `.ots` files
-in the repository still hold the pending calendar commitments. It does not show
+those exact files before the run checkable by a third party: the `.ots` files in
+the repository are upgraded to Bitcoin block attestations (e.g. block 971093 for
+test 20) and check with `ots verify`. It does not show
 that no unrecorded run preceded them. Second, which hypothesis of a test is
 "primary" was in nine tests (2, 11, 13, 14, 15, 17, 20, 21, 22) decided when
 the tally was written, after the outcomes (§3.1); we therefore give the count

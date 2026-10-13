@@ -202,8 +202,8 @@ hypothesis of tests 4 and 6 is still supported.
   file was written 3 min 21 s after its preregistration commit, which was not
   yet pushed. From test 20 on, the preregistration, frozen predictions and
   harness are pushed and stamped with OpenTimestamps before the run
-  (`tools/stamp_prereg.sh`, `.ots` files in the repository, still pending their
-  Bitcoin upgrade). This dates those files; it cannot exclude an unrecorded
+  (`tools/stamp_prereg.sh`; the `.ots` files in the repository carry Bitcoin
+  block attestations, `ots verify <file>.ots`). This dates those files; it cannot exclude an unrecorded
   earlier run.
 - **Language-model front-ends (tests 11–17).** Possible pretraining
   contamination with SimpleQuestions and WebQuestionsSP, untested; about 0.3%
