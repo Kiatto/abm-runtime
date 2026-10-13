@@ -3,6 +3,7 @@ specification).
 
     abm inspect triples.json [--dim 8192] [--grounding 0.93] [--law-iv]
     abm demo
+    abm size triples.json --target 0.9 [--verify] [--json]   (see abm.size_cli)
 
 `triples.json` is a JSON array of [subject, relation, object] triples —
 the natural output format of an LLM extractor. The contract printed is the
@@ -122,6 +123,9 @@ def main(argv=None):
 
     pd = sub.add_parser("demo", help="30-second tour")
     pd.set_defaults(fn=cmd_demo)
+
+    from .size_cli import add_parser as _add_size
+    _add_size(sub)
 
     args = p.parse_args(argv)
     return args.fn(args)
