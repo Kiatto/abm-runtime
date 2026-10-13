@@ -22,6 +22,26 @@ x con (x, r, s) memorizzato è un alias di (s, r), più oggetti veri sono più b
 codebook = soggetti + relazioni + oggetti distinti. `target` è un'accuratezza assoluta
 (media sulle query), non una frazione del tetto degli alias.
 
+Verifica (fase 3, `recommend(..., verify=True)`): per ogni raccomandazione costruisce la
+memoria vera (`abm.families.make`) al dim previsto su `seeds` semi (0 … seeds − 1), interroga
+le query reali (quelle passate, o tutte le coppie (s, r) presenti; al più `verify_queries`,
+campionate senza reimmissione con `rng_seed`, lo stesso campione per tutti i dim e i semi)
+e conta corretta una risposta che è uno degli oggetti veri di (s, r).
+Criterio (due tempi). (1) Accettazione del dim del modello: il LIMITE SUPERIORE dell'IC
+95% misurato ≥ target, cioè si corregge solo se la misura rifiuta il target (il modello è
+ottimista oltre il rumore della misura). Con la sola media si correggerebbe il rumore: su
+un grafo uniforme a N = 200 (200 query) la media di 3 semi oscilla di ±2 punti e tre
+famiglie su sei venivano "corrette" senza che il modello sbagliasse. Con il limite
+inferiore ancora peggio: D crescerebbe sempre di un margine pari alla larghezza dell'IC.
+(2) Se rifiutato, il D corretto è il più piccolo (nella ricerca) con MEDIA misurata ≥
+target, la stessa definizione di target di min_dim: raddoppio di D (multipli del passo)
+fino al primo dim che passa o a d_max, poi bisezione fra l'ultimo fallito e il primo
+riuscito. verified = True se il dim finale soddisfa il suo criterio; un d0 accettato
+può avere measured < target (dentro l'IC): measured e measured_ci lo dicono.
+IC: con seeds ≥ 2, media dei semi ± t(seeds − 1, 0.975)·sd/√seeds (i semi sono i cluster:
+le query dello stesso seme condividono gli atomi); con seeds = 1, IC binomiale di Wilson
+sulle query (che però ignora la correlazione fra query della stessa memoria).
+
 API: predict, min_dim, recommend (→ list[Recommendation]), FAMILIES, ERROR_BANDS.
 """
 from __future__ import annotations
@@ -33,6 +53,7 @@ from dataclasses import dataclass, field
 import numpy as np
 
 from . import exact
+from . import families as _families
 
 FAMILIES = ("MAP-B", "MAP-I", "FHRR", "HRR", "BSDC-OR", "BSDC-S")
 STEP = 64                    # granularità di D per MAP-B, MAP-I, FHRR, HRR (come gli harness)
@@ -98,6 +119,13 @@ class Recommendation:
     error_band: ErrorBand
     reliability: str     # "validated" | "caution" | "unvalidated"
     warnings: list = field(default_factory=list)
+    # verifica (recommend(..., verify=True)); senza verifica restano None/False
+    measured: float = None       # accuratezza media misurata (media dei seed) al dim finale
+    measured_ci: tuple = None    # IC 95% (a cluster per seed; binomiale se seeds = 1)
+    verified: bool = False       # True se la misura al dim finale raggiunge il target
+    dim_predicted: int = None    # il dim del modello, prima della verifica
+    adjusted: bool = False       # True se la verifica ha cambiato dim
+    over_budget: bool = False    # True se la correzione ha portato bits oltre budget_bits
 
 
 # ---- struttura delle triple --------------------------------------------------
@@ -408,18 +436,121 @@ def _gaussian_max_het(cands, null_var, dim):
     return min(acc, 1.0)
 
 
-def _hrr_acc(g, s, r, dim):
+def _hrr_moments(g):
+    """Momenti per query, indipendenti da D (calcolati una volta per grafo): medie e
+    varianze ×D dei candidati, maschera 'ok', varianze ×D dei nulli. None = senza oggetti."""
     if g._hrr is None:
         g._hrr = _hrr_struct(g)
     hc = g._hrr
     mc = hc["mom"]
-    if (s, r) not in mc:
-        good = sorted(g.objects.get((s, r), ()))
-        bad = sorted(g.into.get((s, r), set()) - set(good))
-        mc[(s, r)] = _hrr_query_moments(hc, s, r, good, bad) if good else None
-    if mc[(s, r)] is None:
+    out = []
+    for s, r in g.queries:
+        if (s, r) not in mc:
+            good = sorted(g.objects.get((s, r), ()))
+            bad = sorted(g.into.get((s, r), set()) - set(good))
+            if good:
+                sig, nv = _hrr_query_moments(hc, s, r, good, bad)
+                mc[(s, r)] = (np.array([c[0] for c in sig], float),
+                              np.array([c[1] for c in sig], float),
+                              np.array([c[2] for c in sig], bool), np.asarray(nv, float))
+            else:
+                mc[(s, r)] = None
+        out.append(mc[(s, r)])
+    return out
+
+
+_LT_DIFF = None
+
+
+def _log_cdf_uniform(z):
+    """Come _log_cdf_table (np.interp sulla stessa tabella), ma con l'indice calcolato
+    direttamente: la griglia è uniforme, niente ricerca binaria. Stessi valori a meno
+    dell'arrotondamento (~1e-16 relativo)."""
+    global _LT_DIFF
+    if _LT_DIFF is None:
+        _log_cdf_table(0.0)
+        _LT_DIFF = np.append(np.diff(_LT), 0.0)
+    n = len(_ZT) - 1
+    t = z - _ZT[0]
+    t *= n / (_ZT[-1] - _ZT[0])
+    np.clip(t, 0.0, float(n), out=t)
+    j = t.astype(np.intp)
+    t -= j
+    t *= _LT_DIFF[j]
+    t += _LT[j]
+    return t
+
+
+_HRR_CHUNK = 1 << 22         # elementi per blocco di query nella versione vettorizzata
+
+
+def _hrr_accs(g, dim):
+    """_gaussian_max_het per tutte le query, vettorizzata a blocchi di query. I momenti
+    sono precalcolati (_hrr_moments); per D restano solo scala (÷D), raggruppamento dei
+    nulli (arrotondato in log, quindi da rifare per D: non si fattorizza esattamente) e
+    l'integrale sulla griglia."""
+    moms = _hrr_moments(g)
+    per = np.zeros(len(moms))
+    live = [i for i, m in enumerate(moms) if m is not None]
+    rows = []
+    for i in live:
+        mus, v, ok, nv = moms[i]
+        sd_n = np.sqrt(nv / dim)
+        vals, counts = np.unique(np.exp(np.round(np.log(sd_n), 3)), return_counts=True)
+        sds = np.sqrt(np.maximum(v, 1e-12) / dim)
+        vmax = vals.max() if len(vals) else None
+        lo = min(-9 * (vmax if vmax is not None else 1), float(np.min(mus - 9 * sds)))
+        hi = max(float(np.max(mus + 9 * sds)), 9 * (vmax if vmax is not None else 0))
+        rows.append((i, mus, sds, ok, vals, counts, lo, hi))
+    nx = 4001
+    a = 0
+    while a < len(rows):
+        b, width = a, 0
+        gmax = cmax = 0
+        while b < len(rows):
+            gm, cm = max(gmax, len(rows[b][4])), max(cmax, len(rows[b][1]))
+            if b > a and (b - a + 1) * (gm + cm) * nx > _HRR_CHUNK:
+                break
+            gmax, cmax, b = gm, cm, b + 1
+        blk = rows[a:b]
+        q = len(blk)
+        x = np.stack([np.linspace(r[6], r[7], nx) for r in blk])          # (q, nx)
+        dx = x[:, 1] - x[:, 0]
+        vals = np.ones((q, max(gmax, 1)))
+        cnt = np.zeros((q, max(gmax, 1)))
+        mus = np.zeros((q, cmax))
+        sds = np.ones((q, cmax))
+        cm = np.zeros((q, cmax), bool)
+        okm = np.zeros((q, cmax), bool)
+        for k, r in enumerate(blk):
+            vals[k, :len(r[4])] = r[4]
+            cnt[k, :len(r[5])] = r[5]
+            mus[k, :len(r[1])] = r[1]
+            sds[k, :len(r[2])] = r[2]
+            cm[k, :len(r[1])] = True
+            okm[k, :len(r[3])] = r[3]
+        tot = np.einsum("qg,qgx->qx", cnt, _log_cdf_uniform(x[:, None, :] / vals[:, :, None]))
+        zc = (x[:, None, :] - mus[:, :, None]) / sds[:, :, None]
+        logc = np.where(cm[:, :, None], _log_cdf_uniform(zc), 0.0)
+        tot = tot + logc.sum(axis=1)
+        dens = np.exp(-0.5 * zc * zc) / (math.sqrt(2 * math.pi) * sds[:, :, None])
+        acc = np.where(okm, np.sum(dens * np.exp(tot[:, None, :] - logc), axis=2)
+                       * dx[:, None], 0.0).sum(axis=1)
+        per[[r[0] for r in blk]] = np.minimum(acc, 1.0)
+        a = b
+    return per
+
+
+def _hrr_acc(g, s, r, dim):
+    """Una query, percorso originale (non vettorizzato): riferimento per i test."""
+    if g._hrr is None:
+        g._hrr = _hrr_struct(g)
+    hc = g._hrr
+    good = sorted(g.objects.get((s, r), ()))
+    bad = sorted(g.into.get((s, r), set()) - set(good))
+    if not good:
         return 0.0
-    sig, nv = mc[(s, r)]
+    sig, nv = _hrr_query_moments(hc, s, r, good, bad)
     return _gaussian_max_het([(m, v, ok) for m, v, ok, _ in sig], nv, dim)
 
 
@@ -462,7 +593,7 @@ def _predict_graph(g, family, dim):
             vals = dict(zip(sgs, exact.predict_queries(g.triples, dim, [rep[s] for s in sgs])))
             per = [vals[sg] for sg in g.sigs]
     elif family == "HRR":
-        per = [_hrr_acc(g, s, r, dim) for s, r in g.queries]
+        per = _hrr_accs(g, dim)
     else:
         length = bsdc_length(g.n)
         if family.startswith("BSDC") and dim < length:
@@ -569,12 +700,104 @@ def _reliability(g, family):
     return names[level], warns
 
 
+_T975 = {1: 12.706, 2: 4.303, 3: 3.182, 4: 2.776, 5: 2.571, 6: 2.447, 7: 2.365, 8: 2.306,
+         9: 2.262, 10: 2.228, 15: 2.131, 20: 2.086, 30: 2.042}
+
+
+def _t975(df):
+    k = max(x for x in _T975 if x <= df)
+    return _T975[k] if df <= 30 else 1.96
+
+
+def _measure(g, family, dim, sample, seeds):
+    """(media, IC 95%) dell'accuratezza misurata sulle query `sample`, su `seeds` memorie."""
+    accs, hits = [], 0
+    for seed in range(seeds):
+        mem = _families.make(family, dim, seed)
+        mem.store(g.triples)
+        ans = mem.query_many(sample)
+        ok = sum(o in g.objects.get(q, ()) for q, (o, _c) in zip(sample, ans))
+        hits += ok
+        accs.append(ok / len(sample))
+    mean = float(np.mean(accs))
+    if seeds == 1:                                  # Wilson sulle query
+        n, z = len(sample), 1.96
+        c = (mean + z * z / (2 * n)) / (1 + z * z / n)
+        h = z * math.sqrt(mean * (1 - mean) / n + z * z / (4 * n * n)) / (1 + z * z / n)
+        ci = (max(0.0, c - h), min(1.0, c + h))
+    else:
+        h = _t975(seeds - 1) * float(np.std(accs, ddof=1)) / math.sqrt(seeds)
+        ci = (max(0.0, mean - h), min(1.0, mean + h))
+    return mean, ci
+
+
+def _verify(g, family, d0, target, d_max, sample, seeds):
+    """(dim, media, IC, raggiunto, media a d0) dopo la verifica: raddoppio poi bisezione."""
+    step = _step(g, family)
+    top = max(d0, (d_max // step) * step)
+    memo = {}
+
+    def run(d):
+        if d not in memo:
+            memo[d] = _measure(g, family, d, sample, seeds)
+        return memo[d]
+
+    if run(d0)[1][1] >= target:                 # la misura non rifiuta il target
+        return d0, *run(d0), True, run(d0)[0]
+    lo, hi = d0, None
+    while lo < top:
+        d = min(2 * lo, top)
+        if run(d)[0] >= target:
+            hi = d
+            break
+        lo = d
+    if hi is None:
+        return lo, *run(lo), False, run(d0)[0]
+    while hi - lo > step:
+        mid = (lo // step + hi // step) // 2 * step
+        if run(mid)[0] >= target:
+            hi = mid
+        else:
+            lo = mid
+    return hi, *run(hi), True, run(d0)[0]
+
+
+def _verify_rec(g, rec, target, d_max, sample, seeds, budget_bits):
+    f, d0 = rec.family, rec.dim
+    d, mean, ci, ok, m0 = _verify(g, f, d0, target, d_max, sample, seeds)
+    rec.measured, rec.measured_ci, rec.verified = mean, ci, ok
+    if d != d0:
+        rec.adjusted = True
+        rec.dim = d
+        rec.bits = d * bits_per_component(f, g.n)
+        rec.kbytes = rec.bits / 8 / 1024
+        rec.predicted = _predict_graph(g, f, d)
+        gap = 100 * (_predict_graph(g, f, d0) - m0)
+        rec.warnings.append(
+            f"verification: the model was optimistic by {gap:.1f} points at D = {d0} "
+            f"(predicted {_predict_graph(g, f, d0):.4f}, measured {m0:.4f}); "
+            f"D increased from {d0} to {d}")
+    if not ok:
+        rec.warnings.append(
+            f"verification: measured {mean:.4f} < target {target} even at D = {d} "
+            f"(d_max); not verified")
+    if budget_bits is not None and rec.bits > budget_bits:
+        rec.over_budget = True
+        rec.warnings.append(f"verification: the corrected D needs {rec.bits} bits, over the "
+                            f"budget of {budget_bits}")
+
+
 def recommend(triples, target, families=FAMILIES, budget_bits=None, queries=None,
-              d_max=D_MAX):
+              d_max=D_MAX, verify=False, verify_queries=2000, seeds=3, rng_seed=0):
     """Per ogni famiglia il D minimo che raggiunge `target` (accuratezza assoluta media
     sulle query), ordinate per bit crescenti; esclude le famiglie che non lo raggiungono
     entro d_max o che superano budget_bits. Se il target supera il tetto degli alias
-    (nessuna dimensione lo raggiunge, in nessuna famiglia) solleva ValueError."""
+    (nessuna dimensione lo raggiunge, in nessuna famiglia) solleva ValueError.
+
+    verify=True: misura ogni raccomandazione su memorie vere e, se la media misurata è
+    sotto il target, aumenta dim (vedi il docstring del modulo). Una famiglia corretta
+    oltre budget_bits resta nella lista con over_budget=True e un avviso; una che non
+    raggiunge il target nemmeno a d_max resta con verified=False e un avviso."""
     if isinstance(target, bool) or not isinstance(target, (int, float, np.integer,
                                                           np.floating)) \
             or not 0.0 < target <= 1.0:
@@ -586,6 +809,9 @@ def recommend(triples, target, families=FAMILIES, budget_bits=None, queries=None
         _check_family(f)
     if budget_bits is not None:
         budget_bits = _check_positive_int("budget_bits", budget_bits)
+    if verify:
+        verify_queries = _check_positive_int("verify_queries", verify_queries)
+        seeds = _check_positive_int("seeds", seeds)
     g = _graph(triples, queries)
     if target > g.ceiling:
         raise ValueError(
@@ -593,7 +819,7 @@ def recommend(triples, target, families=FAMILIES, budget_bits=None, queries=None
             "aliases (x with (x, r, s) stored, which encodes like (s, r, x)) get the same "
             "signal as the true object, so no family and no dimension can exceed the "
             "ceiling on average; lower the target or remove the aliased facts")
-    out = []
+    out, sample = [], None
     for f in families:
         d = min_dim(g, f, target, d_max=d_max)
         if d is None:
@@ -603,10 +829,20 @@ def recommend(triples, target, families=FAMILIES, budget_bits=None, queries=None
             continue
         mae, worst, cells, src = ERROR_BANDS[(f, g.regime)]
         rel, warns = _reliability(g, f)
-        out.append(Recommendation(
+        rec = Recommendation(
             family=f, dim=d, bits=bits, kbytes=bits / 8 / 1024,
             predicted=_predict_graph(g, f, d),
             error_band=ErrorBand(g.regime, mae, worst, cells, src),
-            reliability=rel, warnings=warns))
+            reliability=rel, warnings=warns, dim_predicted=d)
+        if verify:
+            if sample is None:
+                qs = list(g.queries)
+                if len(qs) > verify_queries:
+                    pick = np.random.default_rng(rng_seed).choice(len(qs), verify_queries,
+                                                                  replace=False)
+                    qs = [qs[i] for i in sorted(pick)]
+                sample = qs
+            _verify_rec(g, rec, target, d_max, sample, seeds, budget_bits)
+        out.append(rec)
     out.sort(key=lambda r: (r.bits, FAMILIES.index(r.family)))
     return out

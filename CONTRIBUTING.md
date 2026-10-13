@@ -4,8 +4,13 @@
 
 ```bash
 pip install -e ".[replicate]"
-python -m pytest            # reference/ and bsm/tests
+python -m pytest            # reference/ and bsm/tests, without the slow tests
+python -m pytest -m slow    # only the tests marked `slow` (minutes each)
 ```
+
+Tests marked `@pytest.mark.slow` (registered in `pyproject.toml`) are excluded by
+default through `addopts = "-m 'not slow'"`; a `-m` on the command line overrides it.
+Today: `test_recommend_runtime_n1600` in `reference/tests/test_sizing.py` (~25 s, HRR).
 
 Work on the `master` branch; open an issue before large changes.
 

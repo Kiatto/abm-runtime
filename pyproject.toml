@@ -48,3 +48,5 @@ packages = ["abm"]
 [tool.pytest.ini_options]
 testpaths = ["reference", "bsm/tests"]
 python_files = ["test_*.py"]
+markers = ["slow: test lenti (minuti); esclusi di default, `python -m pytest -m slow` per eseguirli"]
+addopts = "-m 'not slow'"
