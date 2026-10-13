@@ -135,6 +135,92 @@ MEMORY CONTRACT (exact model, abm.exact.contract_for)
   A mean over queries, not a per-query guarantee.
 ```
 
+### Sizing a VSA memory
+
+`abm size` asks the model of `abm.sizing` which of six VSA families (MAP-B, the
+reference; MAP-I, FHRR, HRR, BSDC-OR, BSDC-S) reaches a target mean accuracy at
+the fewest bits, for *your* triples, and optionally measures it on real memories:
+
+```
+abm size examples/size_demo.json --target 0.9 --verify
+```
+
+Input: `.json` (a list of `[s, r, o]`, as for `abm inspect`), or `.tsv` / `.csv`
+with three columns and no header (blank lines and `#` lines skipped). Names are
+only stripped, never lowercased: names equal up to case are reported, because
+MAP-B gives them the same atom. Options: `--families MAP-B,FHRR`, `--budget 64KB`
+or `512000bits` (binary units, trace bits only), `--queries FILE` (`[s, r]`
+pairs), `--seeds N` and `--tol 0.01` for `--verify`, `--max-mem 1GB` (dimensions
+whose estimated peak memory exceeds it are not built), `--json` (schema
+`abm.size/1`, versioned in the output), `--export torchhd [--out FILE]`.
+Exit codes: 0 at least one recommendation is `validated` (and, with `--verify`,
+verified), 3 none is, 2 usage error, 1 input error (including a target above the
+alias ceiling). Real output on the 126-triple demo graph (a symmetric relation
+and a pair `{s, o}` linked by two relations, which puts MAP-B under caution):
+
+```
+GRAPH  examples/size_demo.json (json)
+  facts N = 126 (weighted; 126 distinct), symbols M = 116, queries = 126, regime = uniform, alias ceiling = 1.0000
+  statistic                 value   validated range (preregs 21-22)
+  N                           126   [100, 1600]
+  alias (queries)          0.0000   [0, 0.094]
+  twins (vectors)          0.0080   [0, 0.144]
+  pair multi-relation      0.0159   [0, 0.3514]
+  multi-object             0.0000   [0, 0.1506]
+  hub subject max          0.0159   [0.001437, 0.284]
+  hub subject p99          0.0159   [0.0009741, 0.2132]
+  hub object max           0.1111   [0.0095, 0.7993]
+  hub object p99           0.1079   [0.002095, 0.6604]
+  relation max             0.4762   [0.06175, 0.804]
+  relation p99             0.4619   [0.05351, 0.7512]
+
+VERIFY COST (before running): 16 memories per family (8 selection + 8 report seeds); time is a crude estimate (one pilot memory × count; more if D is corrected), memory from families.estimate_bytes
+  BSDC-OR  D=1792    peak ≈ 1.7 MiB (≈ 12.8 MiB at 8·D)  time ~0.1 s or more
+  MAP-B    D=3136    peak ≈ 8.1 MiB (≈ 37.7 MiB at 8·D)  time ~3.2 s or more
+  MAP-I    D=2048    peak ≈ 7.9 MiB (≈ 38.6 MiB at 8·D)  time ~2.4 s or more
+  BSDC-S   D=2560    peak ≈ 2.4 MiB (≈ 16.3 MiB at 8·D)  time ~0.4 s or more
+  FHRR     D=1024    peak ≈ 5.4 MiB (≈ 43.6 MiB at 8·D)  time ~1.7 s or more
+  HRR      D=2944    peak ≈ 12.7 MiB (≈ 31.5 MiB at 8·D)  time ~3.9 s or more
+
+RECOMMENDATIONS  target = 0.9 (mean accuracy over queries), sorted by bits
+  family         D        KB  predicted          measured [95% CI]     q10  verified  reliability 
+  BSDC-OR     1792      0.22     0.9290    0.9435 [0.9220, 0.9649]  0.9159       yes  validated   
+  MAP-B       3200      0.39     0.9064    0.9117 [0.8906, 0.9328]  0.8873       yes  caution     
+  MAP-I       2112      1.80     0.9184    0.9296 [0.9152, 0.9439]  0.9103       yes  validated   
+  BSDC-S      2816      2.41     0.9400    0.9375 [0.9240, 0.9510]  0.9183       yes  validated   
+  FHRR        1024      4.00     0.9096    0.9187 [0.8990, 0.9383]  0.8865       yes  validated   
+  HRR         2944     11.50     0.9010    0.9157 [0.8944, 0.9369]  0.8921       yes  validated   
+
+WARNINGS AND BENCHMARK ERROR
+  BSDC-OR: observed benchmark error (uniform) mean 0.72 pt, worst 1.83 pt over 20 cells
+  MAP-B: observed benchmark error (uniform) mean 0.74 pt, worst 1.79 pt over 20 cells
+    - MAP-B: 1.6% of the facts share their unordered pair {s, o} with a fact of another relation (e.g. (s, r1, o) + (o, r2, s)); such facts share s and o, so in the MAP-B majority they cancel wherever ρ(r1) ≠ ρ(r2); the model treats them as independent and is optimistic (YAGO3-10 dense; tens of points on synthetic graphs). Use verify=True
+    - verification: at D = 3136 the selection measure rejected the target (predicted 0.9003, measured 0.8998, model optimistic by 0.0 points; 95% CI lower bound 0.8832 < target − tol = 0.8900); D increased from 3136 to 3200
+  MAP-I: observed benchmark error (uniform) mean 0.81 pt, worst 2.98 pt over 20 cells
+    - verification: at D = 2048 the selection measure rejected the target (predicted 0.9096, measured 0.9008, model optimistic by 0.9 points; 95% CI lower bound 0.8831 < target − tol = 0.8900); D increased from 2048 to 2112
+  BSDC-S: observed benchmark error (uniform) mean 0.65 pt, worst 2.9 pt over 12 cells
+    - BSDC-S: residual bias of the exact-ties model, signed error up to +0.83 points per group (prereg 22)
+    - verification: at D = 2560 the selection measure rejected the target (predicted 0.9084, measured 0.8889, model optimistic by 2.0 points; 95% CI lower bound 0.8522 < target − tol = 0.8900); D increased from 2560 to 2816
+  FHRR: observed benchmark error (uniform) mean 0.5 pt, worst 1.89 pt over 20 cells
+  HRR: observed benchmark error (uniform) mean 0.71 pt, worst 1.39 pt over 12 cells
+
+VERDICT  at least one recommendation is 'validated' and verified; exit 0
+
+NOTE  Predicted = model (abm.sizing), computed from the structure of these triples, no memory built. Measured = accuracy of real memories of our encoding on fresh seeds (only with --verify; a finite sample, CI over seeds). 'validated' only means the graph's structure lies inside the ranges tested in preregistrations 21-22; the observed-error bands are errors seen on those benchmark subgraphs, not guarantees for this graph. All accuracies are means over the (subject, relation) queries.
+```
+
+Limits. The predictions are a model, tested only on subgraphs of six public
+knowledge graphs (preregistrations 21–22, N 100–1600, 1 hop); "validated" means
+only that the graph's structural statistics fall inside the ranges seen there,
+and the observed-error bands are benchmark history, not bounds for your graph.
+`--verify` measures a finite number of memories of *our* encoding (CI over
+seeds; q10 is a crude per-memory quantile), so it is evidence, not a guarantee.
+The pre-verification time is a crude estimate (one pilot memory). With
+`--export torchhd` the mapping (MAP-B→BSC, MAP-I→MAP, FHRR→FHRR, HRR→HRR, BSDC:
+no equivalent, BSBC bundles differently) was checked against torchhd's source,
+not run; where torchhd's encoding or precision differs (FHRR float16, BSDC
+bundling, storage sizes) the numbers do not transfer.
+
 ## Why trust the contract
 
 The exact model is part of the twenty-two preregistrations reported in the paper
