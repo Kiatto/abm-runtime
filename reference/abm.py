@@ -29,7 +29,7 @@ from typing import Any, List, Optional, Sequence, Tuple
 import hashlib
 import numpy as np
 
-__version__ = "1.1.0"                       # frozen with FORMALISM v2.0
+__version__ = "1.2.0"                       # frozen with FORMALISM v2.0
 # 1.0.1: confidence() returns a plain Python float instead of
 # np.float64 (public-API surface fix; numerically identical).
 # 1.1.0: input validation (dim, codebook, n_facts: ValueError instead of

@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.2.0 (2026-10-13) — abm
+
+- `abm.families`: the six VSA families of preregistrations 21–22 (MAP-B, MAP-I, FHRR,
+  HRR, BSDC-OR, BSDC-S) behind one interface, with `estimate_bytes`; `Memory.codebook_bits()`
+  counts the symbol index (M·⌈log2 M⌉)
+- `abm.sizing`: `predict`, `min_dim`, `recommend` (structural reliability, observed
+  benchmark error, optional verification on fresh seeds); `explicit_codebook_bits`
+  (renamed from `codebook_bits`: it counts explicitly stored atoms, not the index)
+- `abm size`: CLI of the sizer (JSON/TSV/CSV input, `--verify`, `--json` schema
+  `abm.size/1`, exit codes 0/3/2/1, `--export torchhd` with a source-checked mapping)
+
 ## 1.1.0 (2026-10-09) — abm
 
 - Input validation across `Memory`, `exact` and the CLI (`--dim 0` no longer loops;
