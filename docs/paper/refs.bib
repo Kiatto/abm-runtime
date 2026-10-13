@@ -3,7 +3,13 @@
 % PROVENIENZA, dichiarata perché conta:
 %   [V] verificato online (venue, volume, pagine, DOI confermati), con data
 %
-% Stato al 2026-10-09: 30 voci, tutte verificate [V]. Le prime 20 il
+% Stato al 2026-10-13: 33 voci. Le 30 del 2026-10-09 verificate [V]; delle tre
+% aggiunte per la v1.16, safavi2020codex e dettmers2018conve sono verificate su
+% Crossref il 2026-10-13 [V]; mahdisoltani2015yago3 è [DA VERIFICARE]: autori,
+% titolo, sede e anno a memoria, nessun DOI né pagine (la ricerca online non ha
+% risposto in questa sessione).
+%
+% Al 2026-10-09: 30 voci, tutte verificate [V]. Le prime 20 il
 % 2026-09-18/28; le altre 10 (kleyko2023perceptron, schlegel2022comparison,
 % mirus2020capacity, frady2020resonator, yih2016webqsp, bloom1970space,
 % carter1978exact, chazelle2004bloomier, graf2020xor, cover2006elements) il
@@ -381,4 +387,39 @@
   publisher = {Wiley-Interscience},
   year      = {2006},
   isbn      = {978-0-471-24195-9}
+}
+
+% ---------- Grafi dei test 21-22 (v1.16) ----------
+
+% [V] 2026-10-13: Crossref, DOI 10.18653/v1/2020.emnlp-main.669, pp. 8328-8350
+@inproceedings{safavi2020codex,
+  author    = {Safavi, Tara and Koutra, Danai},
+  title     = {{CoDEx}: A Comprehensive Knowledge Graph Completion Benchmark},
+  booktitle = {Proceedings of the 2020 Conference on Empirical Methods in
+               Natural Language Processing (EMNLP)},
+  pages     = {8328--8350},
+  year      = {2020},
+  doi       = {10.18653/v1/2020.emnlp-main.669}
+}
+
+% [V] 2026-10-13: Crossref, DOI 10.1609/aaai.v32i1.11573, vol. 32, n. 1 (pagine
+% non riportate da Crossref, quindi omesse). Introduce WN18RR e lo split di YAGO3-10.
+@article{dettmers2018conve,
+  author  = {Dettmers, Tim and Minervini, Pasquale and Stenetorp, Pontus and
+             Riedel, Sebastian},
+  title   = {Convolutional {2D} Knowledge Graph Embeddings},
+  journal = {Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume  = {32},
+  number  = {1},
+  year    = {2018},
+  doi     = {10.1609/aaai.v32i1.11573}
+}
+
+% [DA VERIFICARE] autori, titolo, sede (CIDR 2015) e anno a memoria; nessun DOI.
+@inproceedings{mahdisoltani2015yago3,
+  author    = {Mahdisoltani, Farzaneh and Biega, Joanna and Suchanek, Fabian M.},
+  title     = {{YAGO3}: A Knowledge Base from Multilingual Wikipedias},
+  booktitle = {Proceedings of the 7th Biennial Conference on Innovative Data
+               Systems Research (CIDR)},
+  year      = {2015}
 }

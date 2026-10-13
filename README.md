@@ -7,7 +7,9 @@ its favour.
 
 It is not dense and its algebra buys nothing: at equal bits an exact store, a
 Bloom filter or a `dict` + join beat it in every cell measured (preregistered
-tests 18 and 19), and in Python it is at least 2 600× slower than a `dict`. The
+tests 18 and 19), a store with polar or BCH codes still beats it when stored
+bits flip at rates up to 20% (test 20), and in Python it is at least 2 600×
+slower than a `dict`. The
 computed accuracy is a mean over queries, not a per-query guarantee, and an exact
 store's accuracy is computable too, more simply. ABM is of use only where a
 distributed binary representation is required anyway. Read
@@ -135,8 +137,10 @@ MEMORY CONTRACT (exact model, abm.exact.contract_for)
 
 ## Why trust the contract
 
-The exact model was tested by nineteen preregistrations; failures are kept in
-the record ([BENCHMARKS.md](BENCHMARKS.md)):
+The exact model is part of the twenty-two preregistrations reported in the paper
+(v1.16), whose subject is now the a-priori accuracy estimate for six
+vector-symbolic families, with ABM as the case studied most; failures are kept
+in the record ([BENCHMARKS.md](BENCHMARKS.md)):
 
 - **Exact model**: 0.27 points of error at a dimension never used before
   (D = 16 384), 0.6–1.1 points on dense subgraphs of two real knowledge
@@ -197,9 +201,17 @@ Stated plainly; details and numbers in
 - **What remains** is accuracy computable before the memory is built, as a mean
   over queries. An exact store's is computable too, more simply: this matters
   only where a distributed binary representation is required anyway.
+- **Noisy storage does not help.** Under i.i.d. bit flips up to ε = 0.2 a
+  store with polar or BCH codes recalled more in 110 of 112 cells, the other two
+  being exact ties (test 20).
+- **The model fails on at least one dense graph.** On dense YAGO3-10 it was 3.5
+  points optimistic on average, 7.2 in the worst cell, and `min_dimension`-style
+  sizing missed its target in 4 of 12 cells (test 22); on dense FB15k-237,
+  WN18RR and CoDEx-M its mean error was 0.4–0.6 points. Two-hop chain
+  predictions on real graphs were falsified (test 22).
 - The model assumes independent codewords and facts; even cycles (four facts on
-  a rectangle) break it, by up to 6 points on a loaded biclique. Tiny codebooks
-  are out of scope.
+  a rectangle) break it, by up to 6 points on a loaded biclique, a candidate,
+  not verified, for the YAGO3-10 failure. Tiny codebooks are out of scope.
 - `confidence` is not calibrated; the Law IV contract in `abm.inspector` is
   optimistic on graphs with symmetric relations.
 

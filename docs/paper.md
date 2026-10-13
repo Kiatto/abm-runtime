@@ -1,78 +1,104 @@
-# Predicting the Accuracy of a Binary Holographic Memory before It Is Built: Nineteen Preregistered Tests of an Estimate for a Dominated Design
+# Sizing a Vector-Symbolic Memory before Building It: An A-Priori Accuracy Estimate and Twenty-Two Preregistered Tests
 
-*(Algebraic Binary Memory — ABM)*
+*(with Algebraic Binary Memory, a dominated MAP-B design, as the case studied most)*
 
-**Preprint v1.15 — October 2026**
-*Normative specification: [FORMALISM.md](FORMALISM.md) (frozen, v2.1).
+**Preprint v1.16 — October 2026**
+*Normative specification of ABM: [FORMALISM.md](FORMALISM.md) (frozen, v2.1).
 Reference implementation: [`reference/abm.py`](../reference/abm.py); exact
-theory, shipped as `abm.exact`: [`reference/exact.py`](../reference/exact.py).
+MAP-B theory, shipped as `abm.exact`: [`reference/exact.py`](../reference/exact.py);
+the estimates for the other families are in the harnesses of tests 21–22
+(`examples/vsa_families_prereg.py`, `examples/generalization_prereg.py`).
 Every number is produced by a script in `examples/` with results committed as
-JSON; the nineteen preregistrations are in `docs/preregistration/`.*
+JSON; the twenty-two preregistrations are in `docs/preregistration/`.*
 
 ## Abstract
 
-A parameter-free estimate of the accuracy of a binary holographic memory held on average in eight of ten preregistered tests of the theory. The memory itself is dominated: at equal bits an exact store, a Bloom filter and a dictionary with a join did as well or better in every cell we measured. Algebraic Binary Memory (ABM) is a MAP-B vector-symbolic memory: facts are XOR-bound triples in one majority-vote trace, read by unbinding and cleanup. The estimate is the readout probability of Frady, Kleyko and Sommer with the classical majority-agreement probability; we add accounting for ties, several answers, aliases, weighted facts and hop dependence. It assumes facts independent over GF(2), false on even cycles (up to 6 points optimistic), and null distances independent across hops (not measured). Of the ten tests of the theory, eight supported their primary hypothesis; two failed: test 7 marked a regime the model does not cover, test 8 replaced its tie rule; one (test 3) withdrew a law of our earlier versions. Mean errors were 0.27 points at a dimension not used before the preregistration and 0.6–1.1 on dense subgraphs of two real graphs; single cells err by up to 8.4 (test 2, before twins were counted). The smallest bias these data detect is 0.8–4.9 points per summary, so errors of a point or two are not excluded. Two baseline tests at equal bits (18–19) went against ABM as predicted (mean errors up to 0.99 and 2.01 points), an expected outcome. Seven front-end tests on human-written questions (11–17: three supported, three in part, one failed) do not test the theory. Per hypothesis, 44 of 61 were supported, 9 in part, 5 failed, 3 undecided; for six tests the primary was named after the outcomes. The estimate matters only where distributed binary codes are required anyway.
+At one hop, a parameter-free estimate of cleanup accuracy, computed from the triples before the memory is built, held within about one point on average for five vector-symbolic families (MAP-I, FHRR, HRR and two sparse block codes) on subgraphs of two knowledge graphs it had never seen, CoDEx-M and YAGO3-10. It failed elsewhere: for MAP-B, the binary majority memory (ABM) this work started from, it was 3.5 points optimistic on dense YAGO3-10 (worst cell 7.2) and the dimension it chose missed its target in 4 of 12 cells; its two-hop chain predictions were falsified; and at equal bits ABM lost to exact stores in every cell, also under bit flips up to 20% against practical error-correcting codes. The readout model for MAP, FHRR and HRR is that of Frady, Kleyko and Sommer. Ours are the accounting of graph structure (symmetric twins as weight-2 vectors, aliases, several answers, codebook), atom multiplicities for HRR, exact ties for a summing block code and MAP-B's exact majority model. The accounting cut 2–8 points from the naive estimate on dense WN18RR; it is untested out of sample, since neither new graph was dense enough to be admitted. All 22 tests were preregistered; from test 20 on, before each run, the files were pushed and time-stamped. By primary hypothesis: theory of MAP-B (tests 1–10) 8 supported, 2 failed; front-end (11–17, not tests of the estimate) 3 supported, 3 in part, 1 failed; baselines at equal bits (18–20) ABM lost each time, as predicted (2 supported, 1 hypothesis of an ABM win falsified); generalization (21–22) 1 supported, 1 in part. Per hypothesis, 60 of 83 supported, 11 in part, 8 falsified, 4 undecided or untestable; for nine tests the primary was named after the outcomes. Errors of a point or two are not excluded.
 
 ## 1. Introduction
 
-**What this paper is.** It is a case study in preregistered falsification. A
-model of a memory's accuracy was stated, then put at risk nineteen times, with
-predictions, criteria and harnesses committed before each run, and every outcome
-appended to the same file. The record shows the model changed by its own
-failures: test 7 failed because chains recover by chance in tiny codebooks, test
-8 because the model split ties evenly where the implementation does not. The
-first marked a regime the model does not cover, the second changed the model; test 3 withdrew a law of our earlier versions
-(hops on one trace are independent) by the amount the theory derived. Two
-further tests, at equal bits, went against the memory itself, as the model said
-they would.
+**What this paper is.** It proposes an estimator and reports how it fared. The
+estimator gives, before a vector-symbolic memory is built, the accuracy of its
+cleanup — the probability that unbinding a key and taking the nearest codeword
+returns a true answer — from the dimension and the triples it will hold, with no
+fitted parameter. It covers six families: MAP-B (binary, majority vote), MAP-I
+(integer sum), FHRR (phasors), HRR (real Gaussian vectors, circular
+convolution) and two sparse block codes, BSDC-OR and BSDC-S (§2). Its new part
+is the **accounting of graph structure**: symmetric twins fused into one vector
+of weight 2, aliases created by the symmetric encoding, several true answers,
+the codebook. It was put at risk twenty-two times, with predictions, criteria
+and harnesses committed before each run and every outcome appended to the same
+file.
 
-The memory is Algebraic Binary Memory (ABM), a MAP-B vector-symbolic
-architecture [@clarkson2023capacity]: facts bound by XOR into one majority-vote
-trace, read by unbinding and cleanup. The order of growth of its capacity is
-known. What a deployment needs is a number: the accuracy of *this* memory at
-*this* load. We give that number without fitted parameters, under stated
-idealisations, and test it.
+**What held and what did not.** At one hop the estimate held, within about one
+point on average, for five families on two graphs it had never seen (test 22,
+§5). It failed for MAP-B, the family this project started from, on dense
+YAGO3-10; its two-hop chain predictions were falsified; and the accounting has
+one test, on dense WN18RR (test 21).
 
-**The perimeter, stated once.** At equal bits an exact store, a Bloom filter, a
-dictionary with a join and a path table dominate ABM on every task we measured
-(tests 18–19, §4). An exact store's accuracy is also computable in advance
-(⌊D/b⌋/N facts recalled at b bits per fact), and more simply. Predicting ABM's
-accuracy is therefore of interest only to someone who must use a distributed
-binary representation anyway — vector-symbolic hardware such as neuromorphic or
-in-memory computing, or a network whose interface requires bundled vectors — and
+**The memory studied most.** Algebraic Binary Memory (ABM) is a MAP-B
+vector-symbolic architecture [@clarkson2023capacity]: facts bound by XOR into one
+majority-vote trace, read by unbinding and cleanup. Most of the record (tests
+1–20) concerns it. At equal bits an exact store, a Bloom filter, a dictionary
+with a join and a path table dominate it on every task we measured (tests
+18–19), and under independent bit flips up to ε = 0.2 an exact store protected
+by polar or BCH codes still recalls more in every cell where the two differ
+(test 20, §4). Within the families of test 21, a partitioned Bloom filter
+(BSDC-OR) given MAP-B's bits sat near its ceiling (descriptive, §5). An exact
+store's accuracy is also computable in advance, and more simply. Predicting a
+vector-symbolic memory's accuracy is of interest only to someone who must use a
+distributed representation anyway — vector-symbolic or neuromorphic hardware,
+in-memory computing, a network whose interface requires bundled vectors — and
 we claim no reader beyond that perimeter.
 
-**Contributions.**
+**Contributions, with what is not ours.**
 
-1. A **preregistration record** of nineteen tests (§3–§5), including the failed
-   ones and the corrections they caused (§6), with a power analysis that says
-   how large an error each test could have seen (§3.2).
-2. A **finite-D accuracy estimate without fitted parameters** for cleanup (§2.2–2.3).
-   Its core is the finite-size readout of Frady, Kleyko and Sommer
-   [@frady2018sequence; @kleyko2023perceptron] with the classical
-   majority-agreement probability [@kanerva1988sdm; @kleyko2022survey]; what is
-   new is bookkeeping, not mathematics: the reference tie rule, several true
-   answers, aliases, weighted facts and symmetric twins. It replaces an
-   asymptotic law whose single constant, k = 0.92, turns out to be the error of
-   its own approximations.
-3. The **dependence between hops** on one trace, a one-line consequence of the
-   level-1 Fourier weight of majority [@odonnell2014boolean] (§2.4), derived and
-   then measured.
-4. An account of **what the design is not** (§4): not a compressor, not better
-   than an exact store or a Bloom filter at equal bits, not better on two-hop
-   chains or compiled compositions.
+1. **The accounting of graph structure** inside known readout formulas (§2.3,
+   §2.5): twins as weight-2 vectors (noise S2 = Σw², not N), aliases as
+   candidates with the true object's signal, several true objects, codebook
+   M = entities + relations. The Gaussian readout for MAP, FHRR and HRR is that
+   of Frady, Kleyko and Sommer [@frady2018sequence; @kleyko2023perceptron]; the
+   BSDC-OR formula is Bloom-filter occupancy [@bloom1970space]; the families were
+   compared empirically by Schlegel et al. [@schlegel2022comparison]. **No
+   capacity theory here is new.** The accounting was tested once, on dense
+   WN18RR (test 21, H6–H7); test 22 admitted no graph to test it again.
+2. **Two family-specific models.** Atom multiplicities for HRR (§2.5), built on
+   Plate's variance analysis [@plate1995hrr]: without them HRR is predicted 8–20
+   points too optimistic (test 22, H4). Exact ties for BSDC-S, which replaced an
+   approximation after test 21 had shown its bias; the search began from that
+   bias (§2.5, §8).
+3. **MAP-B's exact model** (§2.2–2.4): the classical majority-agreement
+   probability [@kanerva1988sdm; @kleyko2022survey] with the reference tie
+   rule, weights, and the dependence between hops on one trace, a one-line
+   consequence of the level-1 Fourier weight of majority [@odonnell2014boolean].
+   The finite-M readout of FKS with the same p_agree agrees with it within 0.1
+   points (Appendix H): what is ours is the bookkeeping, not the mathematics.
+4. **A preregistration record** of twenty-two tests (§3–§6), with the failures
+   and the corrections they caused (§7), a power analysis (§3.2) and the limits
+   in one place (§8).
+5. An account of **what ABM is not** (§4): not a compressor, not better than an
+   exact store or a Bloom filter at equal bits, not better on two-hop chains or
+   compiled compositions, not rescued by noisy storage.
 
-**Methodology and its limits.** Since v1.4 every new claim is preregistered.
-Retired laws stay in the record with the data that killed them (§6). Two limits.
-First, anteriority is not verifiable by a third party: the preregistrations are
-local git commits, pushed in batches after the runs, and commit times are set by
-the author. For test 19 the result file was written 3 min 21 s after the
-preregistration commit, which had not been pushed when the run took place;
-nothing but the author's word shows the harness was not run earlier. From now on
-a preregistration is pushed before its run. Second, which hypothesis of a test
-is "primary" was in six tests decided when the tally was written, after the
-outcomes (§3.1); we therefore give the count per hypothesis beside the count per
-test.
+### 1.1 Method and anteriority
+
+Since v1.4 every new claim is preregistered; retired laws stay in the record
+with the data that killed them (§7). Two limits. First, **anteriority**. Up to
+test 19 the preregistrations were local git commits, pushed in batches after
+the runs, with commit times set by the author: for test 19 the result file was
+written 3 min 21 s after the preregistration commit, which had not been pushed
+when the run took place, and nothing but the author's word shows the harness
+was not run earlier. From test 20 on, the preregistration, the frozen
+predictions and the harness are pushed to a public repository and stamped with
+OpenTimestamps before the run (`tools/stamp_prereg.sh`; `.ots` files next to
+each file; commits `78a3234`, `a96da4c`, `5463e7f`). This makes the existence of
+those exact files before the run checkable by a third party once the stamps are
+upgraded to Bitcoin attestations (`ots upgrade`, `ots verify`); the `.ots` files
+in the repository still hold the pending calendar commitments. It does not show
+that no unrecorded run preceded them. Second, which hypothesis of a test is
+"primary" was in nine tests (2, 11, 13, 14, 15, 17, 20, 21, 22) decided when
+the tally was written, after the outcomes (§3.1); we therefore give the count
+per hypothesis beside the count per test.
 
 ## 2. The model and the estimate
 
@@ -110,9 +136,9 @@ says SD or range. Differences between accuracies are in percentage points.
 |---|---|---|
 | I | null distance Binomial(D, ½) | exact for a uniform random codeword independent of the probe (§2.2) |
 | IV | asymptotic capacity N\* = k·2D/(π·z_G(M)²) | scaling correct; the constant k is the error of its approximations (§2.2); superseded for prediction |
-| IV-exact | cleanup accuracy from exact majority agreement and binomial distances (§2.2–2.3) | **preregistered** (tests 2–6, 9, 10): every primary hypothesis supported, except dense FB15k-237 at D = 2048 before twins were counted (in part) (§3) |
+| IV-exact | cleanup accuracy from exact majority agreement and binomial distances (§2.2–2.3) | **preregistered** (tests 2–6, 9, 10): every primary hypothesis supported, except dense FB15k-237 at D = 2048 before twins were counted (in part) (§3); held as a control on FB15k-237 and WN18RR (test 21) and on CoDEx-M, **failed on dense YAGO3-10** (test 22, §5) |
 | V | hops compose as Acc(h) = p^h | **falsified as an exact law**: hops on one trace are negatively correlated, by a derived amount that grows with depth (§2.4) |
-| VI | failure grows with out-degree | **retired**: a load artifact (§6) |
+| VI | failure grows with out-degree | **retired**: a load artifact (§7) |
 | VI′ | topological neutrality: only load matters | corroborated on synthetic data; on real hubs the +3.3-point residual of test 2 was the missing twin term (−1.6 [−3.5, +0.3] with twins, exploratory) |
 | VII | redundancy: a fact of weight w counts w² (N_eff = Σw²) | approximate; the exact weighted form is preregistered and removes its saturation error (§2.3) |
 | VIII | every end-to-end failure is attributable to one level | design principle; not tested as a law |
@@ -157,21 +183,10 @@ independent Rademacher variables. On a loaded biclique the independent model is
 dependencies, with no detectable association with the per-cell error
 (Appendix H).
 
-**What the exact model reproduces.** Against the capacity data behind k, the
-exact N\* falls inside every 95% interval at D = 512–4096, including the small D
-where k drifted, on the original data and on a 10-seed rerun: **k = 0.92 is the
-error of the asymptotic treatment of M and of the approximate p_agree, not a
-property of the memory.** The finite-M readout of Frady, Kleyko and Sommer, given
-the same exact p_agree, agrees with our binomial computation within 0.1 points on
-every tested configuration (Appendix H); what this paper adds is the accounting
-of §2.3–2.4 and the preregistered validation. A Monte Carlo of the reference at
-D = 256, N = 20, M = 43 gives 0.714 for an exact prediction of 0.722, where Law IV
-gives 0.792. These checks use data we had already seen; the tests of §3 use data
-we had not (Fig. 1).
-
-![Capacity: measured 50%-accuracy load N\* (10 seeds, 95% CI) against the exact
-model (no parameter) and Law IV with k = 1 and with the fitted k = 0.92. The
-codebook grows with the load (M = 2N + 11).](figures/fig1_capacity.png){width=60%}
+**What the exact model reproduces.** On the capacity data behind k, on a
+10-seed rerun and against a Monte Carlo of the reference, the exact model needs
+no constant; the FKS readout with the same p_agree agrees with it within 0.1
+points (Appendix H, Fig. 5).
 
 ### 2.3 Several answers, aliases, weights and twins
 
@@ -199,16 +214,10 @@ each was tested before being used for a claim (§3).
   fact of weight 2, not two facts. In FB15k-237 this concerns 12.5% of the
   triples, in WN18RR 34.2%.
 
-**Encoding symmetry is a trade-off, not a flaw.** An asymmetric encoding,
-s ⊕ ρ(r) ⊕ ρ²(o), has neither aliases nor twins, at the cost of the inverse
-queries the symmetric one answers for free. The model predicts both without
-parameters, and predicts that neither wins: at low load the aliases of the
-symmetric encoding cost accuracy, at high load its twins — two facts fused into
-one of weight 2 — reduce the noise and gain it. Test 6 confirmed this on dense
-WN18RR, with the sign of the difference right in 6 cells of 6, from −7.0 to +7.8
-points (Fig. 2). On dense WN18RR (6 cells), then, the model said which encoding
-to choose at a given load before storing anything; we have not tested this
-choice elsewhere.
+**Encoding symmetry is a trade-off.** An asymmetric encoding, s ⊕ ρ(r) ⊕ ρ²(o),
+has neither aliases nor twins, at the cost of inverse queries; the model
+predicted which encoding wins at a given load on dense WN18RR, with the sign
+right in 6 of 6 cells (test 6, Appendix M).
 
 **Aliases set an expected ceiling.** Under the symmetric encoding, a query with
 a aliases at equal signal besides its g true answers is answered correctly with
@@ -216,18 +225,9 @@ probability g/(g + a) at infinite dimension *if the insertion order of the
 candidates is random*. The reference breaks ties by insertion order, so for a
 given memory the outcome is deterministic and a set of queries can land above
 or below that expectation. The expected ceiling of a set of facts is computable
-before storing them; on dense WN18RR subgraphs it is about 0.93–0.95, on
-FB15k-237 about 0.99. Test 10 checked it at D = 16 384: on WN18RR 38 of 40
-subgraphs stayed at or below their ceiling + 2 points, with mean
-|measured − predicted| 0.62 points; but 21 of 40 WN18RR subgraphs measured above
-their ceiling, two by more than 2 points (+2.3 and +4.3), and on FB15k-237 one
-subgraph exceeded it by +8.2 (N = 300; recomputed from
-`sizing_prereg_results.json`). It is a mean, not a bound. A contract that
-ignores it still promises, on average, accuracy no dimension delivers.
-
-![Symmetric minus asymmetric encoding, dense subgraphs (preregistered): measured
-(points) against the prediction (lines). Circles: WN18RR; triangles:
-FB15k-237.](figures/fig10_asymmetric.png){width=60%}
+before storing them (about 0.93–0.95 on dense WN18RR, 0.99 on FB15k-237). It is
+a mean, not a bound: single subgraphs exceeded it by up to +4.3 (WN18RR) and +8.2
+(FB15k-237) points in test 10 (Appendix M).
 
 ### 2.4 Hops on one trace are not independent
 
@@ -247,22 +247,15 @@ correlation
 
 This is a one-line lemma. μ is the level-1 Fourier coefficient of majority on
 each input, and the level-1 Fourier weight of majority tends to 2/π
-[@odonnell2014boolean], which gives the approximation. The approximation is
-poor at small odd N, where there are no ties: −0.127 against −0.164 at N = 5
-(22% low) and −0.212 against −0.333 at N = 3; at even N it is within about 1%
-(−0.0637 against −0.0645 at N = 10). The tests use the exact form. We have not
-found the lemma stated for the decoding of vector-symbolic bundles, and earlier
-versions of this paper assumed the opposite.
+[@odonnell2014boolean], which gives the approximation. The tests use the exact form (its accuracy at
+small N is in Appendix H).
 
 Conditioning on the number of bits where f₁ = f₂ gives the exact joint
 distribution of the two distances, and hence the exact probability that both hops
 succeed (`two_hop_joint_fast`; the null distances of the two hops are treated as
 independent, their correlation being a sum of random signs of order 1/√D). The
-prediction: P(both) < p², by an amount that matters only at small N. The old
-measurement could not see it — its error on the per-bit correlation was ±0.033,
-the effect at its N = 90 is −0.007. As an approximation p^h remains good at large
-N: in the depth experiment of Appendix D (N = 120), |Acc − p^h| = 0.007 over
-h ≤ 24.
+prediction: P(both) < p², by an amount that matters only at small N
+(Appendix H).
 
 **Deep chains.** For h hops the chain's fact bits are still independent fair
 signs (the entities are distinct), the other facts sum to a binomial, and the
@@ -270,36 +263,119 @@ trace is the sign of the total; `chain_accuracy_mc` samples this per-bit model
 directly, without memories or codewords, and matches the exact two-hop formula.
 It predicts that the shortfall below p^h *grows with depth* (tests 7–9, §3.3).
 
-![Per-bit correlation between the agreements of one trace with two queried facts:
-exact −μ²/(1−μ²) (steps at small N are the parity of the majority vote: N and
-N − 1 agree when N is even) against measurement (±3 SE), and the independence
-Law V assumes.](figures/fig9_dependence.png){width=60%}
+### 2.5 Other families: MAP-I, FHRR, HRR and two block codes
 
-## 3. Tests of the theory (tests 1–10)
+§2.1–2.4 concern MAP-B. Tests 21–22 apply the same procedure — size a memory
+from its triples before building it — to five more families. All use the same
+encoding f = s ∘ ρ(r) ∘ o (∘ the family's binding, ρ a cyclic shift, of blocks
+for BSDC), symmetric in s and o, unbinding by s ∘ ρ(r) and cleanup over the M
+symbols of the codebook. A query is right if it returns one of its g true
+objects. Let S2 = Σ_j w_j² over the distinct fact vectors (a twin pair counts
+once, with w = 2), and a the number of aliases of the query.
+
+| family | atoms | bundling | cleanup | bits per component (as stored) |
+|---|---|---|---|---|
+| MAP-B (ABM) | ±1 | majority | min Hamming | 1 |
+| MAP-I | ±1 | integer sum | argmax ⟨y, c⟩ | ⌈log₂(N+1)⌉ |
+| FHRR | phasors e^{iθ} | complex sum (float16) | argmax Re⟨y, c̄⟩ | 32 |
+| HRR | N(0, 1/D) reals, circular convolution | real sum (float32) | argmax ⟨y, c⟩ | 32 |
+| BSDC-OR | B blocks of L, one 1 per block | OR | blocks hit | 1 |
+| BSDC-S | as BSDC-OR | sum (counts) | sum of counts read | ⌈log₂(N+1)⌉ |
+
+**MAP-I and FHRR (FKS).** Scores are treated as independent Gaussians: a
+candidate with signal weight w (a true object or an alias) scores
+N(w·D, v·D·(S2 − w²)), a null N(0, v·D·S2), with v = 1 for MAP-I and ½ for
+FHRR; the accuracy is the probability that the maximum is a true object, by
+numerical integration. This is the readout of Frady, Kleyko and Sommer
+[@frady2018sequence]; only S2, g, a and M come from the graph.
+
+**HRR: atom multiplicities.** With atoms a ~ N(0, 1/D)^D, a fact
+f = s ⊛ ρ(r) ⊛ o and unbinding by involution, write the score in Fourier
+components, which are circular complex Gaussians with E|X|^{2k} = k!. The
+contribution of fact j to the variance of a candidate c's score is then
+
+  w_j² · Π_a k_a! / D,
+
+with k_a the multiplicity of atom a in the multiset {s, r, c} ∪ atoms(f_j). A
+fact sharing no atom with the query and the candidate contributes 1/D, as in
+MAP-I; one sharing s, r or c contributes 2/D; facts with the same key (the
+other true objects and the aliases) 4/D; a signal candidate adds 14·w²/D of
+its own. Plate [@plate1995hrr] gives the variance of convolution products; the
+per-fact multiplicities on a real graph are our addition. Without them, HRR
+on real subgraphs is predicted 8–20 points too optimistic (test 22, H4).
+Declared approximation: the common fluctuation of |K_ν|² across the
+candidates of one query is ignored.
+
+**BSDC-OR** (a partitioned Bloom filter). A signal candidate hits all B blocks;
+a null hits all of them with probability π = Π_b K_b/L, K_b the occupied bins of
+block b, whose exact distribution is P(K = k) = S(n, k)·L!/((L − k)!·L^n). Then
+
+  Acc = E_π[ g · E[ 1/(g + a + X) ] ],  X | π ~ Bin(M − g − a, π).
+
+**BSDC-S.** A null's score is Σ_b Σ_w w·Bin(n_w, 1/L), whose pmf is exact by
+convolution; a signal candidate of weight w scores w·B plus the same noise
+without its own vector. Integer scores tie often. Test 21 shared a tie in
+proportion to each candidate's hazard f/F, an approximation that made the model
+pessimistic by +1.7 to +2.1 points. The corrected model (`bsdc_s_exact`) keeps
+the same independence assumptions and resolves ties exactly: for each value x
+of the maximum, a dynamic programme over the numbers t_g of true objects and
+t_a of aliases at x, with every null ≤ x with probability F(x)^n and
+J ~ Bin(n, f(x)/F(x)) nulls at x, gives the share t_g/(t_g + t_a + J). It was
+derived, not fitted, but sought after the bias of test 21 was known (§8). A
+synthetic diagnosis (test 22, step 1) rejected the reviewer's hypothesis of
+correlated counts: a model conditioned on the realised trace agreed with the
+independent one within 0.3 points.
+
+**The naive comparator.** In every cell the same formula is also computed with
+N facts of weight 1, one true object and no aliases (for MAP-B,
+`exact.cleanup_accuracy(N, D, M)`): the FKS estimate without the accounting.
+Where the two agree the test replicates FKS and says nothing about the
+accounting.
+
+**Chains.** For h hops the families other than MAP-B are predicted by the product
+of the one-hop predictions of the queries on the path; MAP-B multiplies that
+product by the hop-dependence factor of §2.4, computed for uniform facts. This
+is the prediction test 22 falsified (§5).
+
+## 3. The record: tally, power, and the tests of MAP-B (tests 1–10)
 
 ### 3.1 Tally
 
 Each test was committed — prediction, success and falsification criteria,
 harness — before its run; the commit hashes are in the files. Outcomes are
 evaluated only with those criteria, and appended to the same file. We count
-three groups separately, because they test different things.
+four groups separately, because they test different things.
 
 | group | tests | what is at risk | primary hypothesis |
 |---|---|---|---|
-| theory | 1–10 | the accuracy estimate and its extensions | 8 supported, 2 failed (7, 8) |
-| front-end | 11–17 | pipelines around the memory; not the theory | 3 supported (12, 16, 17), 3 in part (11, 13, 14), 1 failed (15) |
-| baselines | 18–19 | ABM against exact structures at equal bits | 2 supported, an expected outcome |
-| all | 1–19 | | 13 supported, 3 in part, 3 failed |
+| theory | 1–10 | the MAP-B estimate and its extensions | 8 supported, 2 failed (7, 8) |
+| front-end | 11–17 | pipelines around the memory; not the estimate | 3 supported (12, 16, 17), 3 in part (11, 13, 14), 1 failed (15) |
+| baselines | 18–20 | ABM against exact structures at equal bits | 18–19 supported (ABM loses); 20 failed (H1, an ABM win, falsified) — all three as predicted |
+| generalization | 21–22 | the estimate on five or six families and on new graphs | 21 supported (H1–H9); 22 in part |
+| all | 1–22 | | 14 supported, 4 in part, 4 failed |
 
 Test 2's primary hypothesis (H1, D = 16 384) was supported, though a secondary one
 was only in part. Test 11's primary is end-to-end accuracy (in part). Test 15's
 primary (H1, the relation chosen) was falsified, though its end-to-end H2 was
 supported; it is counted as failed. Test 17's primaries (H1, H2) were supported;
-H3 was in part and H4 undecided. This count depends on the rule: for tests 2, 11,
-13, 14, 15 and 17 the primary hypothesis was not named in the preregistration;
-we chose it when writing this tally, after the outcomes. Counted per hypothesis,
-as read from the outcome tables of the nineteen files, there are 61: 44
-supported, 9 in part, 5 falsified, 3 neither or undecided.
+H3 was in part and H4 undecided. Test 20 stated its first hypothesis in the
+direction we expected to fail ("ABM beats the best code somewhere"); it was
+falsified, as predicted, and its model hypotheses H2–H4 were supported. Test 22
+counts as in part: at one hop H1, H3, H4 and H7 held and H2 held in part (MAP-B on
+dense YAGO3-10), while H6 (chains) and H8 (out-of-sample dimension, MAP-B on
+YAGO3-10) were falsified. This count depends on the rule: for tests 2, 11, 13,
+14, 15, 17, 20, 21 and 22 the primary hypothesis was not named in the
+preregistration; we chose it when writing this tally, after the outcomes (for
+test 21 the choice does not matter, every hypothesis held).
+
+Counted per hypothesis, as read from the outcome tables of the twenty-two files,
+there are 83: **60 supported, 11 in part, 8 falsified, 4 undecided or
+untestable**. Through test 19 the count was 61: 44 supported, 9 in part, 5
+falsified, 3 neither or undecided. Test 20 adds 4 (H2–H4 supported, H1
+falsified; its H0 is a control and is not counted), test 21 adds 9 (all
+supported), test 22 adds 9 (H1, H3, H4, H7 supported; H2, H9 in part; H6, H8
+falsified; H5 untestable, since no graph was admitted to it). Three-hop chains,
+listed in test 22 as untestable for lack of cells, are not counted.
 
 ### 3.2 Outcomes and power
 
@@ -315,7 +391,7 @@ differences between arms it is about 1.43 times the reported 95% half-width.
 | 1 | `fb15k237.md` | Law IV (k = 0.92) on FB15k-237 [@toutanova2015observed], uniform samples | **supported**: 1.05 points (signed −0.47); hubs neither (+5.5) | bias 0.8–1.0 points |
 | 2 | `exact_contract.md` | exact model: D = 16 384; several true objects; dense FB15k-237 | **supported** (H1); 5 hypotheses: 3 supported, 1 in part, 1 neither | bias 0.8–1.3 points; 1.2–1.6 dense |
 | 3 | `dependence.md` | the hop dependence of §2.4; P3 reconstructed | **supported**; Law V rejected at 6 SE | correlation within 1.5 SE of prediction, 31–91 SE from zero |
-| 4 | `twins.md` | symmetric twins; WN18RR; exact Law VII | all five **supported** | bias 0.8–1.2 points; H1 does not separate the models (§3.3) |
+| 4 | `twins.md` | symmetric twins; WN18RR; exact Law VII | all five **supported** | bias 0.8–1.2 points; H1 does not separate the models (Appendix M) |
 | 5 | `composition.md` | grounding × reasoning without calibration | all **supported** | bias 1.4–2.1 points |
 | 6 | `asymmetric.md` | symmetric against asymmetric encoding | all **supported**; sign right in 6/6 | bias 1.4–4.9 points |
 | 7 | `deepchain.md` | hop dependence at depth, tiny codebook | **falsified**: off-path recovery, not modelled | departure up to 18.9 SE |
@@ -331,246 +407,219 @@ differences between arms it is about 1.43 times the reported 95% half-width.
 | 17 | `webqsp.md` | the same front-ends on WebQuestionsSP | H1, H2 **supported**; H3 in part; H4 undecided | ≈ 3–8 points |
 | 18 | `equal_bits.md` | ABM against an ideal exact store and a Bloom filter with the same bits | all three **supported** (ABM loses, as predicted) | not computed; expected outcome |
 | 19 | `algebra.md` | chains and compiled compositions against dictionary + join / path table | all four **supported** (ABM loses, as predicted) | not computed; expected outcome |
+| 20 | `bit_errors.md` | ABM against an exact store with practical codes (polar SC, BCH, concatenated) at equal bits, under i.i.d. bit flips ε ≤ 0.2 | H1 (an ABM win somewhere) **falsified**, as predicted; H2–H4 (the models) **supported** | cell MDE 1.6–13 points (model-based) |
+| 21 | `vsa_families.md` | the estimate on five families; FB15k-237 and WN18RR, uniform and dense | all nine **supported** | cell MDE 2.2–5.8 points (lower bound) |
+| 22 | `generalization.md` | six families on CoDEx-M and YAGO3-10; two-hop chains | one hop: four supported, H2 in part (MAP-B); H6 (chains) and H8 (MAP-B's dimension) **falsified**; H9 in part | group MDE 0.9–1.0 points at one hop, 1.5–4.0 per hop at two (lower bounds) |
 
-In a single cell the detectable bias is 1.1–8 points, and 3–5 points in the
-noisy dense and composition cells. Most mean errors of the final predictor are
-**at or below the noise floor** — the mean |error| a perfect model would show,
-√(2/π) times each cell's standard error: at D = 16 384, 0.27 against a floor of
-0.70; on dense WN18RR with twins, 0.57 and 0.60 against 1.31; for composition,
-0.75–1.24 against 1.2–1.4; the same holds for both encodings in test 6. There
-the model cannot be told apart from the truth with these data. The floor is not
-a validation: the criteria |err| ≤ 2 and ≤ 3 sit only about 1.5–3 times above it
-in the noisy cells, so passing them rules out large errors, not errors of a
-point or two.
+In a single cell the detectable bias is 1.1–8 points. Most mean errors of the
+final MAP-B predictor are at or below the noise floor, so passing the criteria
+rules out large errors, not errors of a point or two; four of 25 summaries carry
+a signed bias whose interval excludes zero, all under 1.4 points (Appendix I).
 
-Of the 25 summaries that score the final predictor (Appendix I lists the six
-left out), **four
-carry a signed bias whose 95% interval excludes zero**: dense FB15k-237 at
-D = 2048 (−0.81), uniform WN18RR at D = 2048 (−0.67) and 8192 (+1.11), and
-wrong-relation errors (+1.34). All are below 1.4 points, and the two WN18RR
-biases have opposite signs, so they do not point to one missing term; the
-wrong-relation bias is unexplained. The summaries overlap (they share data and
-cells), so we do not attach a chance probability to the count of four. Each bias
-is near or below the smallest bias its test detects.
+### 3.3 The tests of MAP-B in brief (tests 1–10)
 
-### 3.3 The tests in order
+The full account of each test, with its figures, is in Appendix M; here are the
+outcomes and the numbers the rest of the paper uses.
 
-**Test 1**, the earliest, used Law IV with k = 0.92 on uniform samples of
-FB15k-237 and passed (Fig. 4); applied afterwards to the same data, the exact
-model gives 0.88 points.
+- **Test 1** (Law IV with k = 0.92, uniform FB15k-237 [@toutanova2015observed])
+  passed, 1.05 points; the exact model, applied afterwards, gives 0.88.
+- **Test 2** (the exact model on new configurations): **0.27 points** at
+  D = 16 384, a dimension not used before (signed −0.09); 0.58, 0.86 and 0.32
+  with g = 1, 2 and 4 true objects, where Law IV erred by 0.6, 13 and 21; on
+  dense FB15k-237, 1.06 at D = 8192 and 2.88 at D = 2048 (signed −2.61, up to
+  −8.4 in a cell, pessimistic): that hypothesis **in part**, the primary
+  (H1) supported.
+- **Test 3** (hop dependence): per-bit correlation −0.0634 / −0.0212 / −0.0072
+  measured against −0.0645 / −0.0213 / −0.0071 predicted at N = 10 / 30 / 90;
+  independence rejected at 6.0 SE; Law V falsified as an exact law.
+- **Test 4** (symmetric twins as weight 2): **0.57 and 0.60 points** on dense
+  WN18RR, against −2.1 and −3.8 on average (−8.9 in a cell) without twins; on
+  FB15k-237 the twin effect did not replicate.
+- **Test 5** (grounding errors, no calibration): 0.75, 1.89, 1.01 and 1.18 points
+  for four kinds of error; 10.2 for the calibrated predictor it replaced.
+- **Test 6** (symmetric against asymmetric encoding): sign right in 6 of 6
+  dense WN18RR cells, −7.0 to +7.8 points (§2.3).
+- **Tests 7–9** (deep chains): 7 failed (off-path recovery in a tiny codebook,
+  up to +18.9 SE), 8 failed at one hop (the even split of ties, 1.8 points at
+  13.8 SE), 9 held with the exact tie rule (p^h rejected at 4.3–8.5 SE; a
+  shortfall of 1.5–1.8 points at N = 12).
+- **Test 10** (choosing D in advance on 80 unseen dense subgraphs): the promise
+  held in every group (measured − target +0.01 to +1.68 points), on average and
+  not per subgraph; with Law IV, WN18RR fell 2.8 to 6.2 points short.
 
-![Test 1, FB15k-237 uniform samples: measurement against the preregistered Law IV
-prediction (dashed).](figures/fig7_fb15k237.png){width=60%}
+## 4. Baselines at equal bits (tests 18–20)
 
-**Test 2 — the exact model on new configurations.** At D = 16 384, a dimension
-not used before the preregistration, the mean absolute error over six loads was
-**0.27 points** (signed −0.09; criterion ≤ 2). With g = 1, 2 and 4 true objects
-per query it was 0.58, 0.86 and 0.32 points, where Law IV, which assumes one
-target, erred by 0.6, 13 and 21. On dense subgraphs of FB15k-237 (a
-breadth-first sample, so that entities recur) it was 1.06 points at D = 8192,
-and 2.88 at D = 2048 with a signed bias of −2.61, outside the ±2 we had set:
-**supported in part**. The exact model was *pessimistic* on dense real graphs,
-most at high load (−8.4 at N = 400). The cost of treating candidates at equal
-signal as independent is, by this test, below one point.
+**Tests 18–19: recall, membership, chains and compositions** (full account in
+Appendix O). Against an *idealised* exact store whose accuracy is computed, not
+run, ABM recalled less in **14 of 14 cells** (for example 0.660 against 0.853 at
+D = 8192, N = 400; in the lightest cell, 0.993 against 1.000, the gap is under
+one standard error), and a Bloom filter of the same bits made fewer membership
+errors in every cell; ABM used 3.8 to 46 times the Fano minimum. The exact model
+predicted ABM with mean errors of 0.99 (D = 2048) and 0.54 points (D = 8192),
+worst cell 1.97. On FB15k-237 and WN18RR, a realisable store with implicit keys
+(1.23·⌈log₂ E⌉ bits per fact) answered two-hop chains by a join and compiled
+compositions by a path table: ABM was ahead by more than 2 SE in **0 of 16
+cells** for either task (for example 0.101 against 0.848 at D = 2048, N = 200),
+and 2 600 to 229 725 times slower than a Python `dict`. The model predicted ABM
+with a mean error of 0.32–2.01 points per (graph, D, task), worst cell 7.4. All
+seven hypotheses were supported, which here means ABM lost; both outcomes were
+expected before the run, confirmations of the obvious with a number attached.
+**ABM is not dense**, and no claim of this paper rests on density, compactness
+or the algebra.
 
-**Test 3 — the hop dependence.** Per-bit correlation between two hops, predicted
-−0.0645 / −0.0213 / −0.0071 at N = 10 / 30 / 90, measured −0.0634 / −0.0212 /
-−0.0072, within 1.5 SE and 31–91 SE away from zero. On events, the correlation
-between the successes of two chained hops was φ = −0.030 at N = 10 (predicted
-−0.032) and −0.016 at N = 30 (predicted −0.011), within 3 SE; independence is
-rejected at 6.0 SE (Fig. 3). Law V is falsified as an exact law, by the amount
-derived. The same file preregistered the reconstruction of typed projection
-(P3, Appendix D): measured gains 1.84 / 2.21 / 2.63× against the exact
-1.86 / 2.26 / 2.75×.
+**Test 20: noisy storage.** The classical argument for distributed codes is that
+they degrade gracefully, while an exact store loses a whole key to one wrong
+bit. Test 20 measured that argument where it should matter, in memories that
+flip stored bits (analog or in-memory hardware), and let the adversary choose
+its code. On FB15k-237 and WN18RR (D = 2048 with N = 50–400, D = 8192 with
+N = 200–1 600; ε ∈ {0, 10⁻⁴, 10⁻³, 10⁻², 0.03, 0.1, 0.2}; 5 seeds, 20 noise
+draws per memory; 112 cells), every stored bit flipped independently with
+probability ε: ABM's trace, and every bit of the store, redundancy included.
+The store was an XOR filter or a minimal perfect hash with values, protected by
+the code a fixed rule predicted best — none, mixed repetition, BCH, polar codes
+with successive-cancellation decoding, or repetition inside BCH or polar — with
+fewer keys allowed in exchange for a stronger code. ABM's exact model under
+noise replaces p by ε + p(1 − 2ε) for every signal candidate.
 
-**Test 4 — symmetric twins.** Looking for the cause of test 2's dense bias,
-after test 2 and on its data: in the dense samples 6–14% of the triples had
-their symmetric twin in the sample — one vector of weight 2 (§2.3) — against 0%
-in uniform samples. Counting twins as weight 2 reduced the bias on those cells.
-Because that fit was made after seeing the data, it was tested on data we had
-not seen: FB15k-237 with new seeds, and a second graph, WN18RR. WN18RR was
-chosen knowing its twin share: before any measurement we had looked at its
-structure, where 34.2% of the triples have a symmetric twin; in dense samples a
-quarter do. On FB15k-237 the effect did not replicate. On seeds 10–19 at
-D = 2048 the model without twins had a signed bias of −1.29, against −0.81 with
-twins, where test 2 had −2.61 (at D = 8192, −0.65 against −0.23). Both versions
-meet H1, so H1 does not separate the two models. The evidence for the twin
-mechanism rests on WN18RR (H3). With twins the error was **0.57 and 0.60
-points** on WN18RR (signed −0.16 and −0.36); without them, the model was
-pessimistic by −2.1 and −3.8 on average and by up to −8.9 in a cell. On uniform
-samples, where twins are rare (0.1–0.3%), both versions agree (0.9 and 1.1
-points); this is a check that the term does no harm where it should not act,
-not evidence that it helps; their unexplained signed biases are in §3.2 (Fig. 5).
-The exact weighted form of Law VII, on six synthetic weight configurations, erred by at
-most 1.4 points; with two facts of weight 14 the N_eff approximation erred by 2.7
-and the exact form by 0.5.
+ABM was below the chosen store in **110 of 112 cells**; the other two were
+exact ties at 1.000 (WN18RR, D = 2048, N = 50, ε = 0 and 10⁻⁴), which the
+harness reported as wins of ABM because it turned t = 0/0 into p = 0 (§7). At
+ε ≥ 0.1 the smallest gap per series was 4.0–12.3 points (at ε = 0.2, D = 2048,
+N = 50 on FB15k-237: 0.676 against 0.847), and the normal-approximation
+ceiling of Polyanskiy, Poor and Verdú for the store was higher still. The model
+predicted ABM within 0.38–0.73 points per (graph, D) group, 1.48 in the worst
+cell, also at ε = 0.2; the store's model was within 0.13–0.39 points of an
+independent re-estimate. H1 (an ABM win somewhere) was falsified, as predicted,
+and H2–H4 supported. The first version of the design used only repetition and
+Hamming codes and predicted 21 ABM wins; a hostile review of the design, before
+any data, asked for a modern adversary, and with it the model predicted none.
+Those 21 wins were wins over weak codes. Choices that favour ABM: SC
+decoding, not list decoding or LDPC; a simplified hash layout; ABM's codebook
+kept noise-free in the main analysis (corrupting it is catastrophic,
+Appendix B). Untested: bursts (descriptive only), read errors, drift. "Degrades
+gracefully" holds against an unprotected store, not against a coded one.
 
-![Symmetric twins on dense WN18RR subgraphs: measurement against the exact model
-counting twins as one fact of weight 2 (solid) and not counting them
-(dotted).](figures/fig8_twins.png){width=60%}
+## 5. Generalization: five and six families, two new graphs (tests 21–22)
 
-**Test 5 — composition without calibration.** Grounding errors of four kinds, at
-rates up to 50%, on two-hop chains: the prediction — the share of intact chains
-times the exact two-hop probability at the load actually stored — erred by 0.75
-(missing facts), 1.89 (wrong relation), 1.01 (wrong entity) and 1.18 (spurious)
-points. For missing facts the calibrated predictor of earlier versions erred by
-10.2 points; a lighter trace helps more than (1 − ε)² accounts for, and the exact
-model captures it by computing at the load that remains (Fig. 6). Under three
-error structures with the same mean rate the error was 1.1–1.2 points, and the
-predicted order held at ε = 0.4: errors concentrated on whole chains (28.3%) cost
-less than independent ones (18.0%), and errors concentrated on one hop (10.0%)
-cost more.
+### 5.1 Test 21: five families on FB15k-237 and WN18RR
 
-![Composition under four kinds of extraction error (preregistered): measurement
-(points) against the prediction without calibration
-(lines).](figures/fig6_robustness.png){width=65%}
+**Design.** MAP-B, MAP-I, FHRR, BSDC-OR and BSDC-S (§2.5) on subgraphs of
+FB15k-237 and WN18RR with N ∈ {100, 400} facts, *uniform* (sampled at random)
+or *dense* (breadth-first from a random entity), 10 seeds, all distinct (s, r)
+queries up to 200 per seed. For each (graph, sample, N, family) the harness
+chose, from the prediction averaged over seeds 0–4, the smallest D reaching
+t × the alias ceiling, t ∈ {0.50, 0.85}, then built the memories and measured
+all ten seeds. A group is (family, sample, graph), four cells. The uniform
+cells replicate FKS — aliases and twins are under 0.5% there and the estimate
+with and without accounting differ by 0.1–0.2 points — so the test of the
+accounting is the dense groups (H6) and the ablation against the naive
+comparator on dense WN18RR, where twins are 12–14% of the vectors and the two
+estimates differ by 4.4–8.3 points (H7).
 
-**Test 6 — encoding symmetry.** Described in §2.3 (Fig. 2): sign of the
-symmetric-minus-asymmetric difference right in 6 of 6 dense WN18RR cells.
+**Outcome.** All nine hypotheses were supported. Mean absolute error in points
+(worst cell in brackets):
 
-**Tests 7–9 — deep chains.** Testing the depth prediction of §2.4 took three
-preregistrations. Test 7 failed: with a codebook of about twenty entries, a
-failed hop often lands on the right entity by chance and the chain recovers, a
-term (of order h/M) that the prediction ignored (up to +18.9 SE); a uniform 1/M
-recovery overestimates it, and tiny codebooks remain a regime where the model
-does not apply. Test 8, with 1 000 distractors to make recovery negligible,
-failed at a single hop: the distractors, inserted after the target, lose every
-tie to it under the reference's tie rule, which the model had approximated by an
-even split (a miss of 1.8 points at 13.8 SE). The model was changed to the exact
-rule (§2.2). Test 9, with that rule and new data at two dimensions, held: all ten
-cells within 3 standard errors of the model, and p^h rejected at 4.3–8.5 SE at
-four and six hops (Fig. 7). In absolute terms the shortfall is 1.5–1.8 points at
-N = 12. The per-bit correlation behind it falls as about 2/(πN); we did not
-measure the shortfall at other N. Tests 7 and 8 are kept with their data in
-`docs/preregistration/`.
+| group | MAP-B | MAP-I | FHRR | BSDC-OR | BSDC-S |
+|---|---|---|---|---|---|
+| uniform FB15k-237 | 0.97 (1.8) | 1.06 (3.0) | 0.83 (1.9) | 0.54 (1.5) | 1.88 (2.7) |
+| uniform WN18RR | 1.03 (1.3) | 0.97 (1.5) | 0.64 (1.1) | 1.01 (1.8) | 2.08 (3.6) |
+| dense FB15k-237 | 0.42 (0.6) | 1.71 (3.9) | 0.64 (1.2) | 1.09 (1.6) | 1.74 (3.3) |
+| dense WN18RR | 0.57 (1.2) | 0.56 (1.4) | 0.34 (0.5) | 0.77 (1.8) | 1.81 (3.1) |
+| naive FKS, dense WN18RR | 5.19 | 5.92 | 5.38 | 8.51 | 3.90 |
 
-![Deep chains (preregistered): chain accuracy minus p^h, measured (points)
-against the per-bit model with the exact tie rule (lines), N = 12, 1 000
-distractors.](figures/fig11_deepchain.png){width=60%}
+On dense WN18RR the accounting removed 4.6, 5.4, 5.0, 7.7 and 2.1 points of
+error (criterion ≥ 2 in all five: BSDC-S at the limit). Cells with |t| > 3.25:
+0, 0, 0, 0 and 2 of 16 per family (criterion ≤ 2). With D chosen on seeds 0–4,
+seeds 5–9 reached the target within 3 points in 16, 16, 16, 15 and 16 of 16
+cells. **BSDC-S was biased**: +1.7 to +2.1 points in all four groups, with
+cluster intervals excluding zero; the hypotheses held, the model did not
+entirely. Descriptively, at the bits MAP-B spent for its 0.85 cell, the order
+of the families was predicted in 73 of 73 pairs differing by ≥ 5 points, and
+BSDC-OR — a partitioned Bloom filter — measured 0.94–1.00.
 
-**Test 10 — the contract in use.** For 80 unseen dense subgraphs of FB15k-237 and
-WN18RR (N = 150 and 300), the model chose the smallest dimension it predicted to
-reach a target accuracy T ∈ {0.70, 0.80}; accuracy was then measured at that
-dimension. With the exact model the promise held in every group: measured minus
-target averaged +0.01 to +1.68 points, and at most 2 subgraphs of 20 fell more
-than 6 points short (observed 0 to 2 per group; expected under a perfect model,
-0.4 to 2.2). The criterion was miscalibrated (a perfect model passes it with
-P = 0.39) and the promise holds on average, not per subgraph (Appendix I). With
-the asymptotic Law IV — the contract the reference implementation had exposed — the
-promise held on FB15k-237, where aliases and twins are rare (measured minus
-target +0.25 to +2.43 points, against +0.01 to +1.68 for the exact model, so the
-exact model did not beat it there), and failed on WN18RR: on average 2.8 to 6.2
-points below target, and in up to 12 of 20 subgraphs more than 6 points below.
-The alias-ceiling results of this test are in §2.3. The exact model is now
-shipped as `abm.exact`, with `contract_for` and `min_dimension`; the latter
-refuses targets above the expected alias ceiling, which is conservative for a
-given memory, since a memory can exceed its expected ceiling by a few points
-(§2.3). A post hoc comparison with stronger asymptotic laws (Appendix I) finds
-that aliases explain most of Law IV's gap on WN18RR.
+**What it does not show.** MAP-I and FHRR follow FKS; replicating their readout
+on real graphs is a check, not a new theory. The MAP-B atoms were derived from
+the names alone, identical in all ten seeds (the design table says so; the
+consequence was seen only after the run): MAP-B's seeds are not independent,
+so its cluster standard errors, and its t in H8, are underestimated. Test 22
+salts the atoms with the seed.
 
-### 3.4 What the tests leave open
+### 5.2 Test 22: two new graphs, HRR, the corrected BSDC-S, chains
 
-The exact model treats candidates at equal signal, and the null distances of
-different hops, as independent; test 2 puts the cost of the first below one
-point, and an exploratory run at g = 5 below 0.3 points, not distinguishable
-from zero (§2.3); the second is unmeasured. The +3.3-point hub residual of test 2
-was the missing twin term (exploratory, Appendix I). Dense samples favour the neighbourhood of their
-starting entity. Tests 1–10, 18 and 19 query stored triples or synthetic chains;
-tests 11–17 use questions written by people, through a deliberately simple
-front-end.
-All tests are closed-world: the codebook holds only the stored items, and every
-query asks for a stored (s, r) pair. The abstention threshold of Appendix B rests
-on one synthetic check (3/300 false accepts); it has not been tested on absent
-queries over a full-vocabulary codebook.
+**Design.** Six families (test 21's, with BSDC-S corrected, plus HRR) on
+CoDEx-M [@safavi2020codex] and YAGO3-10 [@mahdisoltani2015yago3], the latter
+in the split of Dettmers et al. [@dettmers2018conve], train triples; N ∈ {100,
+400, 1 600} (N = 3 200 was dropped by a time rule written before the
+predictions of YAGO3-10), uniform and dense, 20 seeds; D chosen on seeds 0–9,
+out-of-sample check on seeds 10–19 (H8). Two-hop chains, on functional paths,
+measured on the same memories where at least ten seeds had ten chains: only
+four configurations qualified, and no three-hop cell. YAGO3-10 entered by a
+revision of the design, before its predictions, with an **admission rule** for
+the test of the accounting: a graph is admitted if the predicted gap between
+the estimate and the naive comparator, in the dense one-hop cells, is ≥ 2
+points in at least three families. Neither graph was admitted (gaps 0.8–1.6
+points, HRR's 18–21 points coming from multiplicities, not twins): on both,
+H1–H2 replicate FKS (for HRR, they test the multiplicities), and H5, the
+ablation of the accounting, was untestable.
 
-## 4. Baselines at equal bits (tests 18–19)
+**Outcome at one hop.** Mean absolute error in points per group (worst cell in
+brackets for MAP-B on dense YAGO3-10):
 
-**Test 18: recall and membership.** Facts (s_i, r_{i mod 13}, o_i) over 2N
-entities, three seeds per cell, D = 2048 with N = 50–600 and D = 8192 with
-N = 200–2 400. An *idealised* exact store spends 2·⌈log₂ 2N⌉ + ⌈log₂ 13⌉ bits per
-fact with no overhead and no stored keys, which no real table achieves, so the
-comparison favours the store; with D bits it keeps ⌊D/b⌋ facts and loses the
-rest. The store was not run: its accuracy is computed, min(1, ⌊D/b⌋/N), so only
-ABM's side is a measurement. ABM's accuracy was below that figure in **14 of 14
-cells**, including every overloaded one (for example 0.660 against 0.853 at
-D = 8192, N = 400; 0.015 against 0.114 at N = 2 400); in the lightest cell
-(D = 2048, N = 50, 0.993 against 1.000) the gap is under one standard error and
-is not a meaningful loss. There is no crossover, as the exact model had
-predicted, and it predicted ABM's accuracy with a mean error of 0.99 points at
-D = 2048 and 0.54 at D = 8192 (worst cell 1.97, at D = 2048, N = 100). For
-membership, a Bloom filter of D bits made fewer errors (false negatives plus
-false positives on 1 000 unstored facts) than `Memory.member` (z ≥ 3) in every
-cell: the Bloom filter had no false negatives, while `Memory.member`, with
-almost no false positives, missed 26–93% of the stored facts above the lightest
-loads. Against the Fano minimum ABM used 3.8 to 46 times the bits, rising with
-load (Appendix I). All three hypotheses were supported, which here means ABM lost. The outcome was expected
-before the run; the test is a confirmation of the obvious with a number
-attached, not a strong test of the theory. One synthetic protocol, no aliases or
-twins, and only single-hop recall and membership were compared. **ABM is not
-dense**, and no claim of this paper rests on density or compactness. An earlier
-version argued that ABM is not a compressor from the asymptotic Law IV, which is
-retired; the argument now rests on this test and on ProofWriter (Appendix E),
-where the trace takes 512 bytes where a minimal exact encoding takes 8–23.
+| group | MAP-B | MAP-I | FHRR | HRR | BSDC-OR | BSDC-S |
+|---|---|---|---|---|---|---|
+| CoDEx-M uniform | 0.34 | 0.61 | 0.24 | 0.57 | 0.80 | 0.49 |
+| CoDEx-M dense | 0.36 | 0.62 | 0.64 | 0.70 | 0.80 | 0.98 |
+| YAGO3-10 uniform | 0.78 | 0.73 | 0.45 | 0.85 | 0.56 | 0.81 |
+| YAGO3-10 dense | **4.02** (7.2) | 0.58 | 0.29 | 0.61 | 0.58 | 0.69 |
 
-**Test 19: chains and compiled compositions.** On FB15k-237 and WN18RR we sampled
-N facts as two-hop paths (x, r₁, y), (y, r₂, z) and asked the paths that are
-functional in the sample (up to 200 per cell and seed, 3 seeds; D = 2048 with
-N = 100–800, D = 8192 with N = 400–3 200; 16 cells per task). The store was
-realisable, not idealised: implicit keys, as in a static-function filter, at
-1.23·⌈log₂ E⌉ bits per fact, keeping a random subset when D is short. *Chain:*
-`Memory.chain` with cleanup per hop against two dictionary lookups (a join). ABM
-was below the store in every cell (for example 0.101 against 0.848 at D = 2048,
-N = 200 on FB15k-237; 0.057 against 0.718 at D = 8192, N = 800): a chain pays p²
-where the store pays (c/N)². *Compiled composition:* the queried paths bound into
-one trace with the bridge cancelled, one cleanup, against a path table
-(s, r₁, r₂) → z of the same bits. Composition came closest (0.91–0.99 at
-D = 8192), but the table stayed at 1.0 there, and at D = 2048, N ≥ 400 it held
-0.76–0.96 against ABM's 0.26–0.38. ABM was ahead by more than 2 SE in **0 of 16
-cells** for either task. The exact model, including the new translation of a
-compiled composition into a single-hop query, predicted ABM with a mean error of
-0.32–2.01 points per (graph, D, task); per cell the error reached 7.4 points
-(WN18RR, D = 2048, N = 100, chain), where "within 2 points" would mislead. For
-one two-hop question, ABM with a vectorised cleanup took 2 600 to 229 725 times
-as long as a Python `dict`; the store's time is near the timer's resolution, so
-the ratio gives only the order of magnitude. All four hypotheses were supported,
-which again means ABM lost, as we expected before the run. This also supersedes
-the compiler result of earlier versions (99% against 82%, Appendix D), which
-compared ABM only with itself. What remains unmeasured is richer queries
-(conjunctions, analogies, role filling) and a bitpacked runtime; on what was
-measured, the algebra is **not an advantage**.
+In 23 of 24 groups the error was 0.24–0.98 points. HRR's multiplicities held
+(H4): the naive Gaussian erred by 8.2, 20.7, 10.8 and 17.5 points, a gain of
+7.6, 20.0, 10.0 and 16.9 against thresholds 4.0, 10.0, 5.5 and 8.5. The
+corrected BSDC-S had signed errors +0.83, +0.49, −0.07 and +0.18 (H3,
+|signed| ≤ 1); its postdiction on test 21's cells had moved the bias from
++1.7…+2.1 to +0.1…+0.6 (`generalization_postdiction_bsdc_s.json`, a
+postdiction, not a confirmation). At most one cell per family and graph had
+|t| > 2.861 (H7). **MAP-B failed on dense YAGO3-10**: the model was optimistic
+by 3.5 points on average, by 3.8, 5.3, 5.8 and 7.2 in the four cells with
+N ≥ 400, and the dimension chosen in advance missed its target by more than 3
+points in 4 of 12 cells (H8 falsified; every other family and graph met it in
+11 or 12 of 12). MAP-I and FHRR on the same subgraphs did not fail, so the
+defect is specific to the binary model. Our candidate, not verified, is the
+GF(2) dependence of facts on even cycles (§2.2), which makes the model
+optimistic by up to 6 points on a loaded biclique.
 
-## 5. Front-end tests (tests 11–17), in brief
+**Chains.** Of 18 chain groups, scored per hop (accuracy^(1/2)), 13 had a mean
+error ≤ 3 points, three 3.3–4.8, and two exceeded 5 (CoDEx-M dense, BSDC-S 5.56
+and MAP-B 5.33), each a single cell whose minimum detectable error, 3.6–4.0
+points, was above the support threshold. The criterion was "≤ 5 in every
+group": H6 is **falsified**. Against a comparator keeping each query's
+signature but no twins or aliases, the estimate gained at least its threshold
+in 14 of 18 groups and lost in 2 (H9 in part). Three-hop chains were not
+tested.
+
+**What it shows.** At one hop, the estimate generalised to two graphs never
+used before for five families of six, including the two models that are ours
+(HRR's multiplicities, BSDC-S's ties). It did not generalise for MAP-B on the
+denser graph, it did not predict chains, and it said nothing new about the
+accounting, which remains tested only by test 21.
+
+## 6. Front-end tests (tests 11–17), in brief
 
 These tests change the pipeline around the memory — a language model choosing the
 relation, a router, an embedding shortlist — while the memory (D = 16 384) and its
 contract stay fixed. Apart from the memory-level check of test 11, **none of them
 tests the capacity theory**. Details, numbers and caveats are in Appendix F.
 
-- **Test 11** (743 SimpleQuestions v2 questions whose triple is in FB15k-237, a
-  2-billion-parameter local front-end): at the memory level the model agreed
-  (0.807 measured against 0.803 recomputed per question, +0.4 points); end to
-  end, 0.361 against a contract of 0.289 [0.219, 0.367], inside the interval but
-  7.2 points above, beyond the 5 we had set: **in part**.
-- **Tests 12–14** (the contract as a router to a larger model): ranking by the
-  contract beat random choice by 2.7–4.8 points; the observed margin of an
-  answer added 2.6 points [0.9, 4.1] to the small model's confidence. Most of the
-  error is the small front-end's.
-- **Test 15** (the front-end sees the memory's answer per candidate relation):
-  relation choice did not improve (H1 **falsified**, −0.3 [−2.6, +2.0]; we had
-  predicted +5 to +10); answers did (+2.8 [+1.0, +4.6]).
-- **Tests 16–17** (an embedding shortlist of 3 relations): answer accuracy +19.9
-  points on SimpleQuestions and +22.7 on WebQuestionsSP. Entity linking by name
-  then loses a quarter of the WebQuestionsSP questions for every front-end.
+In brief: at the memory level of test 11 the model agreed (0.807 measured
+against 0.803, +0.4 points), while the end-to-end contract was 7.2 points low,
+beyond the 5 set (**in part**); as a router the contract beat random choice by
+2.7–4.8 points (tests 12–14); showing the front-end the memory's answers did not
+improve its choice of relation (test 15, H1 **falsified**, −0.3 [−2.6, +2.0]);
+an embedding shortlist added +19.9 and +22.7 points of answer accuracy (tests
+16–17), after which entity linking by name loses a quarter of the
+WebQuestionsSP questions for every front-end.
 
-The baseline of each comparison is not the same: in test 15 it is the small
-model with all candidate relations and no preview (the answers recorded in test
-14), on 743 questions (0.402 relation, 0.354 answer); in test 16 it is the small
-model with all candidates *and* the preview, i.e. the preview arm of test 15
-from an earlier execution, restricted to the 643 test questions (0.409, 0.393);
-in test 17 it is the same preview prompt run within the test, on 515
-WebQuestionsSP questions (0.383, 0.381).
-
-## 6. Falsifications and corrections kept on record
+## 7. Falsifications, corrections and retractions kept on record
 
 | retired or corrected claim | what showed it |
 |---|---|
@@ -590,31 +639,58 @@ WebQuestionsSP questions (0.383, 0.381).
 | "a fixed size, membership by one distance" as properties of the design (v1.11 §7, untested) | preregistered test 18: at equal bits an idealised exact store (computed, not run) recalls more and a Bloom filter makes fewer membership errors in every cell |
 | "an algebra: binding, unbinding and composition" as the residual value (v1.12 abstract and §7, unmeasured) | preregistered test 19: on two-hop chains and compiled compositions a dictionary + join or a path table of the same bits is at least as accurate in every cell, and orders of magnitude faster |
 | "aliases set a ceiling no dimension can exceed" (v1.14 §3.3) | recomputed from test 10's data: the ceiling is an expectation under random insertion order; single subgraphs exceed it by up to +4.3 (WN18RR) and +8.2 (FB15k-237) points |
+| "noisy hardware may favour ABM: it degrades gracefully" (first design of test 20, `99ccc03`: 21 predicted ABM wins against repetition and Hamming codes) | hostile review of the design, before any data: against polar and BCH codes the model predicted no win; test 20 observed none (110 losses, 2 exact ties) |
+| test 20's harness: t = 0/0 converted to p = 0 | two exact ties at 1.000 reported as ABM wins; the criterion's text ("beats") prevails; the frozen output was not changed |
+| BSDC-S with ties shared by hazard (test 21) | pessimistic by +1.7 to +2.1 points in all four groups; replaced by exact ties (postdiction +0.1…+0.6, then test 22 H3 supported) |
+| MAP-B atoms derived from names alone (test 21) | identical in all seeds, so MAP-B's standard errors are underestimated; salted with the seed in test 22 |
+| the MAP-B estimate carries over to new graphs (implicit since test 10) | test 22: 3.5 points optimistic on dense YAGO3-10 (worst cell 7.2), D short of target in 4 of 12 cells |
+| two-hop chains as the product of one-hop estimates (MAP-B: times the dependence factor) | test 22, H6 falsified: two groups above 5 points per hop |
 
 **Self-loops** (s, r, s), modelled since 2026-09-30, and four result files whose
 scripts were lost are documented in Appendix J; neither changes an outcome.
+Appendix J also lists the implementation changes made after the tests, which
+alter what today's code computes for tests 4, 5, 6, 10 and 11 (the reference
+implementation is not frozen; the specification is).
 
-**Implementation changes after the tests.** The published results are those of
-the commit that recorded each test; `replicate.py` runs each harness on that
-commit, and `--code current` on today's code. Two later changes alter what
-today's code computes. (i) abm 1.1.0 (2026-10-09, commits `ec0c981` and
-`505c2e5`) validates inputs and no longer adds an unknown symbol to the codebook
-on a read. Under `--code current`, test 5 changes in 11 of 72 cells, by at most
-3.3 points (a missing chain head is no longer a cleanup candidate); its
-preregistered outcome is that of the recording commit and was not re-evaluated.
-(ii) Commit `2dca851` made the twins harness use the fact key and the self-loop
-alias, as `abm.exact.predict_queries` does; before it, the harnesses of tests 4,
-6 and 10 crashed under `--code current`. They now run: test 10 is identical;
-test 4 changes its twin prediction in 7 of 240 graph cells, by at most 17.4
-points (the WN18RR uniform cell at D = 8192, N = 200, seed 7: 97.6% → 80.2%, measured 80.0%); test 6 moves the
-symmetric prediction by at most 0.06 points; every hypothesis of tests 4 and 6
-stays supported (H5 of test 4 has no self-loops). Test 11 moves by 0.13 points.
-On 2026-10-09 every other test runnable under `--code current` (1–3, 7–9,
-12–14, 18, 19, the Clarkson comparison, the seed-10 capacity data and
-ProofWriter) was identical. The reference implementation is therefore not
-frozen: the specification (FORMALISM.md v2.1) is.
+## 8. Limits
 
-## 7. Related work
+Stated once, with where each comes from.
+
+- **MAP-B on dense graphs.** The estimate for the family this project built was
+  3.5 points optimistic on dense YAGO3-10, up to 7.2 in a cell, and its chosen
+  dimension fell short in 4 of 12 cells (test 22). The candidate cause, GF(2)
+  dependence on even cycles (§2.2), is not verified; on dense FB15k-237 and
+  WN18RR the same model was within 0.4–0.6 points (test 21).
+- **Chains.** Two-hop predictions on real graphs were falsified (test 22, H6),
+  with few chains per cell; three hops were never tested on a real graph. The
+  MAP-B dependence factor is computed for uniform facts.
+- **The accounting is tested once.** Its only test is dense WN18RR in test 21;
+  neither new graph of test 22 was admitted. On uniform samples, and on both new
+  graphs, the estimate is a replication of FKS.
+- **BSDC-S's correction was sought after its bias was seen** (test 21), on
+  synthetic data; it held out of sample (test 22, H3), but the path depended on
+  the outcome, and a residual of up to +1.4 points remains on synthetic data at
+  small B, unexplained.
+- **Harness defects found after runs.** Test 20 read t = 0/0 as p = 0 (two ties
+  reported as wins; the criterion's text prevails). Test 21 used the same MAP-B
+  atoms in every seed, which understates MAP-B's standard errors there.
+- **Power.** Minimum detectable biases: 0.8–4.9 points for the summaries of
+  tests 1–6 (bootstrap over seeds); 2.2–5.8 per cell in test 21, 0.9–1.0 per
+  group at one hop and 1.5–4.0 per hop at two in test 22 (lower bounds, from a
+  model of the standard error). Errors of a point or two are not excluded anywhere.
+- **Scale and setting.** N ≤ 1 600 (≤ 400 in test 21); one level of binding;
+  atoms i.i.d.; closed-world queries over stored (s, r) pairs; bits per
+  component are storage formats, not entropy, and the codebook is not counted.
+  Cells of one (graph, sample, N) share subgraphs, so groups are not independent.
+- **ABM is dominated** at equal bits on every task measured (tests 18–20); the
+  estimate is of use only where a distributed representation is required anyway.
+- **Anteriority** is checkable only from test 20 on, and only for the stamped
+  files (§1.1).
+- **No external replication**; tests 20–22 are not yet wired into
+  `replicate.py` as named tests (their data are). Every number was produced by
+  the author.
+
+## 9. Related work
 
 Vector-symbolic architectures and hyperdimensional computing
 [@kanerva1988sdm; @kanerva2009hd; @gayler2003jackendoff; @kleyko2022survey]
@@ -636,77 +712,96 @@ compare capacity across architectures empirically. Our §2 is a refinement of
 that line, not an alternative: the same readout probability, computed with the
 classical majority-agreement probability of a binary majority trace (discrete
 and Gaussian versions compared in §2.2), and extended to the reference tie rule,
-several answers, aliases, weights, symmetric twins and hop dependence, with
+several answers, aliases, weights, symmetric twins and hop dependence — and,
+for the other families, HRR's multiplicities and BSDC-S's exact ties — with
 preregistered tests on real graphs. Resonator networks [@frady2020resonator]
 factor a bound vector by iterating cleanup on all factors at once; §2.4 concerns
 the simpler hop-by-hop cleanup, whose errors are correlated through the shared
 trace. Clarkson et al. also prove that the reliability of nested bundling decays
 with depth (their Lemma 17); the hop dependence of §2.4 concerns a different
 composition — cleanup between hops on one flat bundle. Hopfield networks,
-holographic embeddings, retrieval augmentation and soft theorem proving are
-discussed in Appendix K.
+holographic embeddings, retrieval augmentation, soft theorem proving and exact
+and approximate membership (Bloom, Bloomier and XOR filters, the Fano minimum)
+are discussed in Appendix K.
 
-*Exact and approximate membership.* What ABM was compared with at equal bits is
-classical. Bloom filters [@bloom1970space] and their lower bound
-[@carter1978exact] set what membership costs; Bloomier filters
-[@chazelle2004bloomier] store a static function without storing the keys,
-which is the "implicit keys" store of test 19; its 1.23 bits per key per value
-bit is the factor of the peeling construction used by XOR filters
-[@graf2020xor]. The Fano minimum used in test 18 is the standard inequality
-[@cover2006elements]. Clarkson, Ubaru and Yang already connect the two lines:
-their section on sparse binary bundling and Bloom filter analysis
-[@clarkson2023capacity, §2.5 and §7 of the current arXiv version] treats a sparse
-binary bundle as a Bloom filter. Our tests 18–19 are an empirical, dense-MAP-B
-instance of that comparison, with the expected outcome.
+*Families and data of tests 21–22.* MAP-I, FHRR and HRR follow the taxonomy of
+the surveys [@kleyko2022survey; @schlegel2022comparison]; HRR is Plate's
+[@plate1995hrr], whose variance analysis of convolution products the
+multiplicities of §2.5 apply fact by fact. The block codes are sparse binary
+distributed codes in the line of Rachkovskij and Kussul
+[@rachkovskij2001thinning], without their thinning; BSDC-OR is a partitioned
+Bloom filter [@bloom1970space]. The graphs are FB15k-237
+[@toutanova2015observed], WN18RR [@dettmers2018conve], CoDEx-M
+[@safavi2020codex] and YAGO3-10 [@mahdisoltani2015yago3; @dettmers2018conve].
 
-## 8. Open problems
+## 10. Open problems
 
-1. **Cycles.** Facts on even cycles are dependent over GF(2) (§2.2); a model that
-   keeps the dependence in the cleanup as well as the vote is open.
-2. **Real hubs.** The hub residual of test 2 vanishes once twins are counted
-   (§3.4), but only in an exploratory recomputation; new hubs are untested.
-3. **Joint independence of candidates.** The cost of treating candidates at
+1. **A model of MAP-B on dense graphs** (next). Test 22 located the failure but
+   not its cause; the candidate is the GF(2) dependence of facts on even cycles
+   (§2.2, Appendix H), which a model would have to keep in the cleanup as well
+   as in the vote. It should be preregistered on YAGO3-10 dense before anything
+   else is claimed for MAP-B.
+2. **A dense graph admitted for the accounting.** The accounting has one test
+   (WN18RR, test 21). A second needs a graph that passes test 22's admission
+   rule (gap ≥ 2 points in at least three families), chosen before its
+   predictions are seen.
+3. **Chains on real graphs.** Enough chains per cell to have power at two hops,
+   a model for paths whose hops have several true objects, and any test at
+   three hops.
+4. **Real hubs.** The hub residual of test 2 vanishes once twins are counted
+   (Appendix I), but only in an exploratory recomputation; new hubs are untested.
+5. **Joint independence of candidates.** The cost of treating candidates at
    equal signal as independent is at most about 0.2 points at g = 5 (§2.3),
    though the expected direction is underprediction; that of treating the null
    distances of consecutive hops as independent is unmeasured.
-4. **Off-path recovery.** In tiny codebooks a uniform 1/M recovery
+6. **Off-path recovery.** In tiny codebooks a uniform 1/M recovery
    overestimates chance recovery (test 7); no clean model yet.
-5. **Two-level contracts.** On questions written by people the memory level is
+7. **Two-level contracts.** On questions written by people the memory level is
    predicted within half a point, but the end-to-end contract errs by 7 points,
    through the audit's sampling error and a correlation between front-end and
    memory success that the product formula ignores (test 11). As a router the
    contract's share of a decision is bounded by the memory's share of the error
    (tests 12–14); with a shortlist the largest loss is entity linking by name
    (tests 16–17), outside the memory.
-6. **The value of the algebra.** Richer queries (conjunctions, analogies, role
+8. **The value of the algebra.** Richer queries (conjunctions, analogies, role
    filling) and a bitpacked runtime are unmeasured; nothing measured so far
-   suggests they would reverse the results of tests 18–19.
+   suggests they would reverse the results of tests 18–20.
 
 Three further theoretical questions are listed in Appendix G.
 
-## 9. Conclusion
+## 11. Conclusion
 
-ABM is a dominated design. It is not a better retriever, not a compressor, and
-not better than an exact store or a Bloom filter with the same number of bits in
-any cell we measured, nor than a dictionary and a join on two-hop chains or
-compiled compositions. Its accuracy can be computed without fitted parameters,
-under stated idealisations, from its dimension, its load, its codebook and the
-structure of what it stores — including symmetric relations collapsing into
-single facts — on average and not per cell, with errors of a point or two not
-excluded by our data.
+An estimate of cleanup accuracy computed from the triples, before the memory
+exists, held at one hop within about a point on average for five
+vector-symbolic families on two graphs it had never seen. Its readout is that of
+Frady, Kleyko and Sommer; what is ours — the accounting of twins, aliases,
+several answers and the codebook, HRR's atom multiplicities, BSDC-S's exact
+ties, MAP-B's exact majority model — was tested by preregistration, the
+accounting only once. It failed where the project began: for MAP-B on a dense
+new graph, and for two-hop chains.
 
-Of the ten tests of the theory, eight supported their primary hypothesis. Two
-failed: test 7 showed that chains recover by chance in
-tiny codebooks, which the model does not cover; test 8 showed that splitting
-ties evenly is wrong when distractors follow the target, and the exact tie rule
+ABM, the MAP-B memory studied most, is a dominated design. It is not a better
+retriever, not a compressor, and not better than an exact store or a Bloom
+filter with the same number of bits in any cell we measured, nor than a
+dictionary and a join on two-hop chains or compiled compositions, nor than a
+coded exact store when the stored bits are noisy. Its accuracy can be computed
+without fitted parameters, under stated idealisations, from its dimension, its
+load, its codebook and the structure of what it stores — on average and not per
+cell, with errors of a point or two not excluded by our data, and not on dense
+YAGO3-10.
+
+Of the ten tests of the MAP-B theory, eight supported their primary
+hypothesis. Two failed: test 7 showed that chains recover by chance in tiny
+codebooks, which the model does not cover; test 8 showed that splitting ties
+evenly is wrong when distractors follow the target, and the exact tie rule
 replaced it. Test 3 was supported, and in being supported withdrew a law of our
 own earlier versions (independent hops) by the amount the theory predicted. The
-two baseline tests (18–19) went against ABM, as the model said they would. Of
-the seven front-end tests, which do not test the theory, one failed: test 15, a
-wrong prediction about the front-end. The predictions were fixed before the
-data; the outcomes are in §3–§5, the failures and the changes they caused in §6
-and in the preregistration files. Reproduction instructions are in Appendix L.
-
+three baseline tests (18–20) went against ABM, as the model said they would. Of
+the seven front-end tests, which do not test the estimate, one failed: test 15,
+a wrong prediction about the front-end. Of the two generalization tests, 21 was
+supported and 22 in part. The predictions were fixed before the data; the
+outcomes are in §3–§6, the failures and the changes they caused in §7 and in the
+preregistration files. Reproduction instructions are in Appendix L.
 ---
 
 ## Appendix A. The operators are necessary and independent
@@ -792,7 +887,7 @@ At constant load N = 120, target chain accuracy 95%, 10 seeds, geometric grid in
 Growth 1 → 64 hops: 2.0× (logarithmic fit R² = 0.992, linear 0.798). The
 prediction is modest — logarithmic growth follows from p^h and a Gaussian tail —
 and the measurement adds that the constant is small. Load, not depth, is the
-limiting resource (Fig. 8).
+limiting resource (Fig. 1).
 
 ![P1. Minimum D for chain accuracy ≥ 95% at N = 120 (mean ± SD, 10 seeds, 10%
 grid).](figures/fig2_depth.png){width=60%}
@@ -800,7 +895,7 @@ grid).](figures/fig2_depth.png){width=60%}
 **P2 — the compiler.** Composing facts exactly into a second trace before
 decoding turns two-cleanup queries into one-cleanup queries at the compiled
 trace's load. Measured: 99% vs 82% (40 chains), 89% vs 25% (80), 44% vs 3%
-(160); the interpreted path tracks p² (Fig. 9). This compares ABM with itself;
+(160); the interpreted path tracks p² (Fig. 2). This compares ABM with itself;
 against a path table of the same bits (test 19, §4) the compiled trace is never
 ahead, so P2 is superseded as evidence of value.
 
@@ -830,7 +925,7 @@ sampling. The same chainer with a Python set in place of the trace is
 deterministic; scored once on 150 problems per depth, it reaches **100% at every
 depth**: the parser and the chaining are sound, and the whole loss is the
 oracle's. The trace takes 512 bytes where a minimal exact encoding takes 8–23
-(Fig. 10). The oracle's z ≥ 3 threshold is the M = 1 case of Appendix B and
+(Fig. 3). The oracle's z ≥ 3 threshold is the M = 1 case of Appendix B and
 controls false accepts per test, not per proof.
 
 ![ProofWriter, parsable subset: accuracy by depth (10 seeds, 95% CI) against the
@@ -852,7 +947,7 @@ within 0.4 points of measurement on average, Law IV with k = 0.92 within 0.3, an
 Law IV with k = 1 off by 3.2, always optimistic. The line "up to 300 facts at
 ≥ 85% in 1 KB" that an earlier version printed fails its own measurement (84.6%);
 a minimal exact encoding of the same facts fits about 360 of them in that
-kilobyte, at 100% (Fig. 11). That count uses the test's own vocabulary, 2N
+kilobyte, at 100% (Fig. 4). That count uses the test's own vocabulary, 2N
 entities and 13 relations (2·log₂(2N) + log₂13 ≈ 22.7 bits per fact at N = 361);
 with the vocabulary of FB15k-237 (about 14 500 entities, 237 relations, 35.5 bits
 per fact) it is about 230.
@@ -884,11 +979,37 @@ Law IV; they are consistent with it but have not been re-run.
 
 ## Appendix F. The front-end tests in detail
 
+**Summary, as printed in the body of v1.15.**
+
+- **Test 11** (743 SimpleQuestions v2 questions whose triple is in FB15k-237, a
+  2-billion-parameter local front-end): at the memory level the model agreed
+  (0.807 measured against 0.803 recomputed per question, +0.4 points); end to
+  end, 0.361 against a contract of 0.289 [0.219, 0.367], inside the interval but
+  7.2 points above, beyond the 5 we had set: **in part**.
+- **Tests 12–14** (the contract as a router to a larger model): ranking by the
+  contract beat random choice by 2.7–4.8 points; the observed margin of an
+  answer added 2.6 points [0.9, 4.1] to the small model's confidence. Most of the
+  error is the small front-end's.
+- **Test 15** (the front-end sees the memory's answer per candidate relation):
+  relation choice did not improve (H1 **falsified**, −0.3 [−2.6, +2.0]; we had
+  predicted +5 to +10); answers did (+2.8 [+1.0, +4.6]).
+- **Tests 16–17** (an embedding shortlist of 3 relations): answer accuracy +19.9
+  points on SimpleQuestions and +22.7 on WebQuestionsSP. Entity linking by name
+  then loses a quarter of the WebQuestionsSP questions for every front-end.
+
+The baseline of each comparison is not the same: in test 15 it is the small
+model with all candidate relations and no preview (the answers recorded in test
+14), on 743 questions (0.402 relation, 0.354 answer); in test 16 it is the small
+model with all candidates *and* the preview, i.e. the preview arm of test 15
+from an earlier execution, restricted to the 643 test questions (0.409, 0.393);
+in test 17 it is the same preview prompt run within the test, on 515
+WebQuestionsSP questions (0.383, 0.381).
+
 **Caveats for tests 11–17.** *Multiplicity:* no correction was preregistered.
 Within its own test, Bonferroni leaves test 15's H2 (+2.8 [+1.0, +4.6], z ≈ 3.0,
 two hypotheses) and test 14's observed margin (+2.6 [+0.9, +4.1], z ≈ 3.2, five
-hypotheses) significant (lower bounds about +0.7 and +0.5); across all 61
-hypotheses neither would survive. *Contamination:* SimpleQuestions and
+hypotheses) significant (lower bounds about +0.7 and +0.5); across the 61
+hypotheses of tests 1–19 neither would survive. *Contamination:* SimpleQuestions and
 WebQuestionsSP are public since 2015–2016 and may be in the pretraining data of
 Gemma, Qwen and bge; we did not test for it, and it would favour the front-ends
 equally rather than the memory. *Determinism:* the language models ran at
@@ -998,6 +1119,22 @@ every front-end, so it loses a quarter of them before any choice is made.
 
 ## Appendix H. Details of the estimate
 
+**What the exact model reproduces.** Against the capacity data behind k, the
+exact N\* falls inside every 95% interval at D = 512–4096, including the small D
+where k drifted, on the original data and on a 10-seed rerun: **k = 0.92 is the
+error of the asymptotic treatment of M and of the approximate p_agree, not a
+property of the memory.** The finite-M readout of Frady, Kleyko and Sommer, given
+the same exact p_agree, agrees with our binomial computation within 0.1 points on
+every tested configuration (Appendix H); what this paper adds is the accounting
+of §2.3–2.4 and the preregistered validation. A Monte Carlo of the reference at
+D = 256, N = 20, M = 43 gives 0.714 for an exact prediction of 0.722, where Law IV
+gives 0.792. These checks use data we had already seen; the tests of §3 use data
+we had not (Fig. 5).
+
+![Capacity: measured 50%-accuracy load N\* (10 seeds, 95% CI) against the exact
+model (no parameter) and Law IV with k = 1 and with the fitted k = 0.92. The
+codebook grows with the load (M = 2N + 11).](figures/fig1_capacity.png){width=60%}
+
 **Law IV (asymptotic).** The member-trace correlation gives a signal z-score
 √(2D/(πN)); retrieval fails when the minimum of M − 1 null distances crosses
 it, which for large M sits at the second-order Gumbel threshold
@@ -1011,6 +1148,13 @@ Measured, k = 0.92 ± 0.03 (range over two sweeps, `examples/k_from_results.py`)
 prediction and held (a linear model N\* = cD is rejected: c drifts from 0.098
 to 0.068 over D ∈ [512, 4096]). But k is a fitted constant, and it drifts.
 
+**The hop lemma at small N.** The approximation is
+poor at small odd N, where there are no ties: −0.127 against −0.164 at N = 5
+(22% low) and −0.212 against −0.333 at N = 3; at even N it is within about 1%
+(−0.0637 against −0.0645 at N = 10). The tests use the exact form. We have not
+found the lemma stated for the decoding of vector-symbolic bundles, and earlier
+versions of this paper assumed the opposite. The prediction: P(both) < p², by an amount that matters only at small N. The old measurement could not see it — its error on the per-bit correlation was ±0.033, the effect at its N = 90 is −0.007. As an approximation p^h remains good at large N: in the depth experiment of Appendix D (N = 120), |Acc − p^h| = 0.007 over h ≤ 24.
+
 **Ties: the even split used in tests 1–8.** Tests 1–8 used an
 even split of ties, truncated to first order: a tie with one null
 codeword counts one half, and ties with two or more are dropped. The exact
@@ -1018,7 +1162,7 @@ average over random positions is (P(null ≥ d)^{n+1} − P(null > d)^{n+1}) /
 ((n+1)·P(null = d)), with n = n_b + n_a. For one cleanup at N = 12 with 1 000
 distractors, the truncation lies 0.13 points below it at D = 320 (test 8's
 dimension) and 0.23 at D = 256. The truncation is accurate where ties are rare
-or positions mixed; test 8 found where it is not (§3.3).
+or positions mixed; test 8 found where it is not (Appendix M).
 
 **Even cycles.** In a rectangle (a,r,b), (a,r,c), (d,r,b), (d,r,c) the four
 vectors multiply to the identity on every bit. By exhaustive counting, p_agree for each is
@@ -1068,7 +1212,42 @@ Against a Monte Carlo of the reference implementation at D = 256, N = 20, M = 43
 (800 queries), the exact model gives 0.722 for a measured 0.714, where Law IV
 gives 0.792; the test suite requires the exact model within 3 standard errors
 *and* Law IV outside them.
+
 ## Appendix I. Details of the tests
+
+**What tests 1–10 leave open.** The exact model treats candidates at equal signal, and the null distances of
+different hops, as independent; test 2 puts the cost of the first below one
+point, and an exploratory run at g = 5 below 0.3 points, not distinguishable
+from zero (§2.3); the second is unmeasured. The +3.3-point hub residual of test 2
+was the missing twin term (exploratory, below). Dense samples favour the neighbourhood of their
+starting entity. Tests 1–10, 18 and 19 query stored triples or synthetic chains;
+tests 11–17 use questions written by people, through a deliberately simple
+front-end.
+All tests are closed-world: the codebook holds only the stored items, and every
+query asks for a stored (s, r) pair. The abstention threshold of Appendix B rests
+on one synthetic check (3/300 false accepts); it has not been tested on absent
+queries over a full-vocabulary codebook.
+
+**Noise floor and signed biases (tests 1–10).** In a single cell the detectable bias is 1.1–8 points, and 3–5 points in the
+noisy dense and composition cells. Most mean errors of the final predictor are
+**at or below the noise floor** — the mean |error| a perfect model would show,
+√(2/π) times each cell's standard error: at D = 16 384, 0.27 against a floor of
+0.70; on dense WN18RR with twins, 0.57 and 0.60 against 1.31; for composition,
+0.75–1.24 against 1.2–1.4; the same holds for both encodings in test 6. There
+the model cannot be told apart from the truth with these data. The floor is not
+a validation: the criteria |err| ≤ 2 and ≤ 3 sit only about 1.5–3 times above it
+in the noisy cells, so passing them rules out large errors, not errors of a
+point or two.
+
+Of the 25 summaries that score the final predictor (Appendix I lists the six
+left out), **four
+carry a signed bias whose 95% interval excludes zero**: dense FB15k-237 at
+D = 2048 (−0.81), uniform WN18RR at D = 2048 (−0.67) and 8192 (+1.11), and
+wrong-relation errors (+1.34). All are below 1.4 points, and the two WN18RR
+biases have opposite signs, so they do not point to one missing term; the
+wrong-relation bias is unexplained. The summaries overlap (they share data and
+cells), so we do not attach a chance probability to the count of four. Each bias
+is near or below the smallest bias its test detects.
 
 **Hub residual of test 2.** The residual (+3.28
 points, hub minus rest, measured − predicted) was computed before twins were
@@ -1116,7 +1295,7 @@ predictor. Six are left out: test 1 (two rows, which tested Law IV, not the
 exact model), test 2 on dense FB15k-237 (two rows, superseded by test 4) and
 dense WN18RR without twins (two rows).
 
-## Appendix J. Lost scripts and self-loops
+## Appendix J. Lost scripts, self-loops and implementation changes
 
 **Lost scripts.** Four result files had no script that produced them:
 `independence_results.json` and `projection_results.json` (replaced by test 3),
@@ -1138,7 +1317,40 @@ test 11 the memory prediction moves from 80.19% to 80.32%. Re-evaluated with
 their preregistered criteria, every hypothesis of tests 4 and 6 is still
 supported; no cell of test 6 moves by more than 0.06 points.
 
+**Implementation changes after the tests.** The published results are those of
+the commit that recorded each test; `replicate.py` runs each harness on that
+commit, and `--code current` on today's code. Two later changes alter what
+today's code computes. (i) abm 1.1.0 (2026-10-09, commits `ec0c981` and
+`505c2e5`) validates inputs and no longer adds an unknown symbol to the codebook
+on a read. Under `--code current`, test 5 changes in 11 of 72 cells, by at most
+3.3 points (a missing chain head is no longer a cleanup candidate); its
+preregistered outcome is that of the recording commit and was not re-evaluated.
+(ii) Commit `2dca851` made the twins harness use the fact key and the self-loop
+alias, as `abm.exact.predict_queries` does; before it, the harnesses of tests 4,
+6 and 10 crashed under `--code current`. They now run: test 10 is identical;
+test 4 changes its twin prediction in 7 of 240 graph cells, by at most 17.4
+points (the WN18RR uniform cell at D = 8192, N = 200, seed 7: 97.6% → 80.2%, measured 80.0%); test 6 moves the
+symmetric prediction by at most 0.06 points; every hypothesis of tests 4 and 6
+stays supported (H5 of test 4 has no self-loops). Test 11 moves by 0.13 points.
+On 2026-10-09 every other test runnable under `--code current` (1–3, 7–9,
+12–14, 18, 19, the Clarkson comparison, the seed-10 capacity data and
+ProofWriter) was identical. The reference implementation is therefore not
+frozen: the specification (FORMALISM.md v2.1) is.
+
 ## Appendix K. Further related work
+
+*Exact and approximate membership.* What ABM was compared with at equal bits is
+classical. Bloom filters [@bloom1970space] and their lower bound
+[@carter1978exact] set what membership costs; Bloomier filters
+[@chazelle2004bloomier] store a static function without storing the keys,
+which is the "implicit keys" store of test 19; its 1.23 bits per key per value
+bit is the factor of the peeling construction used by XOR filters
+[@graf2020xor]. The Fano minimum used in test 18 is the standard inequality
+[@cover2006elements]. Clarkson, Ubaru and Yang already connect the two lines:
+their section on sparse binary bundling and Bloom filter analysis
+[@clarkson2023capacity, §2.5 and §7 of the current arXiv version] treats a sparse
+binary bundle as a Bloom filter. Our tests 18–19 are an empirical, dense-MAP-B
+instance of that comparison, with the expected outcome.
 
 Hopfield networks [@hopfield1982] share the interference-plus-extreme-value
 mechanism, with the 0.138·N regime of Amit, Gutfreund and Sompolinsky
@@ -1158,9 +1370,9 @@ oracle algebraic. The rewriting results of Appendix C are standard
 
 *Reproducibility: every number is produced by a script in `examples/` with
 results committed as JSON; results from 10-seed reruns sit beside the originals
-with an `_s10` suffix; the nineteen preregistrations, with their outcomes, are in
+with an `_s10` suffix; the twenty-two preregistrations, with their outcomes, are in
 `docs/preregistration/`. The reference implementation (`reference/abm.py`, about
-340 lines, numpy-only, deterministic; changed after the tests as §6 states) and
+340 lines, numpy-only, deterministic; changed after the tests as Appendix J states) and
 the exact theory (`reference/exact.py`, shipped as `abm.exact`, numpy-only) are
 covered by the test suite, which runs in continuous integration on Linux x86-64
 (Python 3.10–3.13, NumPy 1.24–2.5), macOS arm64 and Windows x86-64, with
@@ -1178,6 +1390,249 @@ byte-identical, and test 19 identical in every field except its wall-clock
 timings, which are not deterministic and are excluded from the comparison. Tests
 15–17 query a local language model and are not wired into `replicate.py`; their
 harnesses (`examples/memory_preview_prereg.py`, `shortlist_prereg.py`,
-`webqsp_prereg.py`) and model answers are committed.*
+`webqsp_prereg.py`) and model answers are committed. Tests 20–22
+(`examples/bit_errors_prereg.py`, `vsa_families_prereg.py`,
+`generalization_prereg.py`; about 98, 14 and 81 minutes) are not yet wired into
+`replicate.py` as named tests and have not been rerun; their data (FB15k-237,
+WN18RR, and CoDEx-M and YAGO3-10 at pinned commits with sha256) are, and their
+preregistrations, frozen predictions and harnesses carry OpenTimestamps
+stamps (§1.1). Test 20 needs the optional `galois` dependency for BCH codes.*
+
+## Appendix M. The tests of MAP-B in detail (tests 1–10)
+
+**Test 1**, the earliest, used Law IV with k = 0.92 on uniform samples of
+FB15k-237 and passed (Fig. 6); applied afterwards to the same data, the exact
+model gives 0.88 points.
+
+![Test 1, FB15k-237 uniform samples: measurement against the preregistered Law IV
+prediction (dashed).](figures/fig7_fb15k237.png){width=60%}
+
+**Test 2 — the exact model on new configurations.** At D = 16 384, a dimension
+not used before the preregistration, the mean absolute error over six loads was
+**0.27 points** (signed −0.09; criterion ≤ 2). With g = 1, 2 and 4 true objects
+per query it was 0.58, 0.86 and 0.32 points, where Law IV, which assumes one
+target, erred by 0.6, 13 and 21. On dense subgraphs of FB15k-237 (a
+breadth-first sample, so that entities recur) it was 1.06 points at D = 8192,
+and 2.88 at D = 2048 with a signed bias of −2.61, outside the ±2 we had set:
+**supported in part**. The exact model was *pessimistic* on dense real graphs,
+most at high load (−8.4 at N = 400). The cost of treating candidates at equal
+signal as independent is, by this test, below one point.
+
+**Test 3 — the hop dependence.** Per-bit correlation between two hops, predicted
+−0.0645 / −0.0213 / −0.0071 at N = 10 / 30 / 90, measured −0.0634 / −0.0212 /
+−0.0072, within 1.5 SE and 31–91 SE away from zero. On events, the correlation
+between the successes of two chained hops was φ = −0.030 at N = 10 (predicted
+−0.032) and −0.016 at N = 30 (predicted −0.011), within 3 SE; independence is
+rejected at 6.0 SE (Fig. 7). Law V is falsified as an exact law, by the amount
+derived. The same file preregistered the reconstruction of typed projection
+(P3, Appendix D): measured gains 1.84 / 2.21 / 2.63× against the exact
+1.86 / 2.26 / 2.75×.
+
+![Per-bit correlation between the agreements of one trace with two queried facts:
+exact −μ²/(1−μ²) (steps at small N are the parity of the majority vote: N and
+N − 1 agree when N is even) against measurement (±3 SE), and the independence
+Law V assumes.](figures/fig9_dependence.png){width=60%}
+
+**Test 4 — symmetric twins.** Looking for the cause of test 2's dense bias,
+after test 2 and on its data: in the dense samples 6–14% of the triples had
+their symmetric twin in the sample — one vector of weight 2 (§2.3) — against 0%
+in uniform samples. Counting twins as weight 2 reduced the bias on those cells.
+Because that fit was made after seeing the data, it was tested on data we had
+not seen: FB15k-237 with new seeds, and a second graph, WN18RR. WN18RR was
+chosen knowing its twin share: before any measurement we had looked at its
+structure, where 34.2% of the triples have a symmetric twin; in dense samples a
+quarter do. On FB15k-237 the effect did not replicate. On seeds 10–19 at
+D = 2048 the model without twins had a signed bias of −1.29, against −0.81 with
+twins, where test 2 had −2.61 (at D = 8192, −0.65 against −0.23). Both versions
+meet H1, so H1 does not separate the two models. The evidence for the twin
+mechanism rests on WN18RR (H3). With twins the error was **0.57 and 0.60
+points** on WN18RR (signed −0.16 and −0.36); without them, the model was
+pessimistic by −2.1 and −3.8 on average and by up to −8.9 in a cell. On uniform
+samples, where twins are rare (0.1–0.3%), both versions agree (0.9 and 1.1
+points); this is a check that the term does no harm where it should not act,
+not evidence that it helps; their unexplained signed biases are in Appendix I (Fig. 8).
+The exact weighted form of Law VII, on six synthetic weight configurations, erred by at
+most 1.4 points; with two facts of weight 14 the N_eff approximation erred by 2.7
+and the exact form by 0.5.
+
+![Symmetric twins on dense WN18RR subgraphs: measurement against the exact model
+counting twins as one fact of weight 2 (solid) and not counting them
+(dotted).](figures/fig8_twins.png){width=60%}
+
+**Test 5 — composition without calibration.** Grounding errors of four kinds, at
+rates up to 50%, on two-hop chains: the prediction — the share of intact chains
+times the exact two-hop probability at the load actually stored — erred by 0.75
+(missing facts), 1.89 (wrong relation), 1.01 (wrong entity) and 1.18 (spurious)
+points. For missing facts the calibrated predictor of earlier versions erred by
+10.2 points; a lighter trace helps more than (1 − ε)² accounts for, and the exact
+model captures it by computing at the load that remains (Fig. 9). Under three
+error structures with the same mean rate the error was 1.1–1.2 points, and the
+predicted order held at ε = 0.4: errors concentrated on whole chains (28.3%) cost
+less than independent ones (18.0%), and errors concentrated on one hop (10.0%)
+cost more.
+
+![Composition under four kinds of extraction error (preregistered): measurement
+(points) against the prediction without calibration
+(lines).](figures/fig6_robustness.png){width=65%}
+
+**Encoding symmetry is a trade-off, not a flaw.** An asymmetric encoding,
+s ⊕ ρ(r) ⊕ ρ²(o), has neither aliases nor twins, at the cost of the inverse
+queries the symmetric one answers for free. The model predicts both without
+parameters, and predicts that neither wins: at low load the aliases of the
+symmetric encoding cost accuracy, at high load its twins — two facts fused into
+one of weight 2 — reduce the noise and gain it. Test 6 confirmed this on dense
+WN18RR, with the sign of the difference right in 6 cells of 6, from −7.0 to +7.8
+points (Fig. 10). On dense WN18RR (6 cells), then, the model said which encoding
+to choose at a given load before storing anything; we have not tested this
+choice elsewhere.
+
+![Symmetric minus asymmetric encoding, dense subgraphs (preregistered): measured
+(points) against the prediction (lines). Circles: WN18RR; triangles:
+FB15k-237.](figures/fig10_asymmetric.png){width=60%}
+
+**Test 6 — encoding symmetry.** Described above (Fig. 10): sign of the
+symmetric-minus-asymmetric difference right in 6 of 6 dense WN18RR cells.
+
+**Tests 7–9 — deep chains.** Testing the depth prediction of §2.4 took three
+preregistrations. Test 7 failed: with a codebook of about twenty entries, a
+failed hop often lands on the right entity by chance and the chain recovers, a
+term (of order h/M) that the prediction ignored (up to +18.9 SE); a uniform 1/M
+recovery overestimates it, and tiny codebooks remain a regime where the model
+does not apply. Test 8, with 1 000 distractors to make recovery negligible,
+failed at a single hop: the distractors, inserted after the target, lose every
+tie to it under the reference's tie rule, which the model had approximated by an
+even split (a miss of 1.8 points at 13.8 SE). The model was changed to the exact
+rule (§2.2). Test 9, with that rule and new data at two dimensions, held: all ten
+cells within 3 standard errors of the model, and p^h rejected at 4.3–8.5 SE at
+four and six hops (Fig. 11). In absolute terms the shortfall is 1.5–1.8 points at
+N = 12. The per-bit correlation behind it falls as about 2/(πN); we did not
+measure the shortfall at other N. Tests 7 and 8 are kept with their data in
+`docs/preregistration/`.
+
+![Deep chains (preregistered): chain accuracy minus p^h, measured (points)
+against the per-bit model with the exact tie rule (lines), N = 12, 1 000
+distractors.](figures/fig11_deepchain.png){width=60%}
+
+**The alias ceiling in test 10.** The expected ceiling is computable before storing them; on dense WN18RR subgraphs it is about 0.93–0.95, on
+FB15k-237 about 0.99. Test 10 checked it at D = 16 384: on WN18RR 38 of 40
+subgraphs stayed at or below their ceiling + 2 points, with mean
+|measured − predicted| 0.62 points; but 21 of 40 WN18RR subgraphs measured above
+their ceiling, two by more than 2 points (+2.3 and +4.3), and on FB15k-237 one
+subgraph exceeded it by +8.2 (N = 300; recomputed from
+`sizing_prereg_results.json`). It is a mean, not a bound. A contract that
+ignores it still promises, on average, accuracy no dimension delivers.
+
+**Test 10 — the contract in use.** For 80 unseen dense subgraphs of FB15k-237 and
+WN18RR (N = 150 and 300), the model chose the smallest dimension it predicted to
+reach a target accuracy T ∈ {0.70, 0.80}; accuracy was then measured at that
+dimension. With the exact model the promise held in every group: measured minus
+target averaged +0.01 to +1.68 points, and at most 2 subgraphs of 20 fell more
+than 6 points short (observed 0 to 2 per group; expected under a perfect model,
+0.4 to 2.2). The criterion was miscalibrated (a perfect model passes it with
+P = 0.39) and the promise holds on average, not per subgraph (Appendix I). With
+the asymptotic Law IV — the contract the reference implementation had exposed — the
+promise held on FB15k-237, where aliases and twins are rare (measured minus
+target +0.25 to +2.43 points, against +0.01 to +1.68 for the exact model, so the
+exact model did not beat it there), and failed on WN18RR: on average 2.8 to 6.2
+points below target, and in up to 12 of 20 subgraphs more than 6 points below.
+The alias-ceiling results of this test are given above. The exact model is now
+shipped as `abm.exact`, with `contract_for` and `min_dimension`; the latter
+refuses targets above the expected alias ceiling, which is conservative for a
+given memory, since a memory can exceed its expected ceiling by a few points
+(§2.3). A post hoc comparison with stronger asymptotic laws (Appendix I) finds
+that aliases explain most of Law IV's gap on WN18RR.
+
+
+## Appendix N. Details of tests 20–22
+
+**Test 20, per group.** ABM's model error (mean absolute, points) per (graph, D):
+FB15k-237 0.38 (D = 2048) and 0.41 (8192), WN18RR 0.73 and 0.55; worst cell
+1.48. The store's model against its independent re-estimate: 0.39, 0.14, 0.29,
+0.13. ε\* (the noise level at which ABM would overtake the store) was predicted
+"never" in every series and observed "never" in all 13 series where it could be
+assessed. At ε = 0, ABM was below the store in 15 of 16 series, the sixteenth
+being the tie at 1.000. The rule chose an XOR-filter layout almost everywhere,
+with no code at ε = 0, BCH at small ε and polar codes at ε ≥ 0.1. The
+preregistered minimum detectable difference per cell ran from 1.6 points
+(D = 8192, N = 200, small ε) to 13 (D = 2048, N = 50, ε = 0.2).
+
+**Test 21, structure.** Dense FB15k-237: aliases 3.5% (N = 100) and 0.7% (400),
+twins 7.9% and 0.9%, expected ceiling 0.985 and 0.996; dense WN18RR: aliases 8.5%
+and 9.4%, twins 12.1% and 14.4%, ceiling 0.927 and 0.957; uniform samples:
+aliases ≤ 0.4%, twins ≤ 0.1%. Predicted gaps between the estimate and the naive
+comparator: uniform 0.1–0.2 points, dense FB15k-237 1.7–4.2, dense WN18RR
+4.4–8.3. BSDC-S's model was changed once after a synthetic smoke test (a
+Gaussian version was 10–13 points optimistic there); this was declared before
+the run.
+
+**Test 22, structure and out-of-sample counts.** Aliases ≤ 1.0% and twins
+≤ 3.4% in every (graph, sample, N); ceiling ≥ 0.992. With D chosen on seeds 0–9,
+seeds 10–19 reached the target within 3 points in 12 of 12 cells for every
+family and graph except HRR (11 of 12 on both graphs) and MAP-B on YAGO3-10
+(8 of 12). In MAP-B's YAGO3-10 dense cells the error grows with load: +1.6 and
+−0.5 points at N = 100, −3.8 and −5.3 at N = 400, −5.8 and −7.2 at N = 1 600
+(measured minus predicted). Chain cells existed only at two hops, in CoDEx-M
+uniform N = 1 600 (20 seeds), CoDEx-M dense N = 400 (10) and 1 600 (11) and
+YAGO3-10 dense N = 1 600 (14); cells whose per-hop detectable error exceeded 5
+points were excluded, as preregistered. Synthetic checks before the run: HRR
+at one hop within 0.1–0.9 points of a Monte Carlo on 16 subgraphs, and 0.820
+predicted against 0.807 ± 0.016 at N = 3 200; chains within about 2 SE with
+≥ 1 600 chains.
+
+## Appendix O. Tests 18–19 in detail
+
+**Test 18: recall and membership.** Facts (s_i, r_{i mod 13}, o_i) over 2N
+entities, three seeds per cell, D = 2048 with N = 50–600 and D = 8192 with
+N = 200–2 400. An *idealised* exact store spends 2·⌈log₂ 2N⌉ + ⌈log₂ 13⌉ bits per
+fact with no overhead and no stored keys, which no real table achieves, so the
+comparison favours the store; with D bits it keeps ⌊D/b⌋ facts and loses the
+rest. The store was not run: its accuracy is computed, min(1, ⌊D/b⌋/N), so only
+ABM's side is a measurement. ABM's accuracy was below that figure in **14 of 14
+cells**, including every overloaded one (for example 0.660 against 0.853 at
+D = 8192, N = 400; 0.015 against 0.114 at N = 2 400); in the lightest cell
+(D = 2048, N = 50, 0.993 against 1.000) the gap is under one standard error and
+is not a meaningful loss. There is no crossover, as the exact model had
+predicted, and it predicted ABM's accuracy with a mean error of 0.99 points at
+D = 2048 and 0.54 at D = 8192 (worst cell 1.97, at D = 2048, N = 100). For
+membership, a Bloom filter of D bits made fewer errors (false negatives plus
+false positives on 1 000 unstored facts) than `Memory.member` (z ≥ 3) in every
+cell: the Bloom filter had no false negatives, while `Memory.member`, with
+almost no false positives, missed 26–93% of the stored facts above the lightest
+loads. Against the Fano minimum ABM used 3.8 to 46 times the bits, rising with
+load (Appendix I). All three hypotheses were supported, which here means ABM lost. The outcome was expected
+before the run; the test is a confirmation of the obvious with a number
+attached, not a strong test of the theory. One synthetic protocol, no aliases or
+twins, and only single-hop recall and membership were compared. **ABM is not
+dense**, and no claim of this paper rests on density or compactness. An earlier
+version argued that ABM is not a compressor from the asymptotic Law IV, which is
+retired; the argument now rests on this test and on ProofWriter (Appendix E),
+where the trace takes 512 bytes where a minimal exact encoding takes 8–23.
+
+**Test 19: chains and compiled compositions.** On FB15k-237 and WN18RR we sampled
+N facts as two-hop paths (x, r₁, y), (y, r₂, z) and asked the paths that are
+functional in the sample (up to 200 per cell and seed, 3 seeds; D = 2048 with
+N = 100–800, D = 8192 with N = 400–3 200; 16 cells per task). The store was
+realisable, not idealised: implicit keys, as in a static-function filter, at
+1.23·⌈log₂ E⌉ bits per fact, keeping a random subset when D is short. *Chain:*
+`Memory.chain` with cleanup per hop against two dictionary lookups (a join). ABM
+was below the store in every cell (for example 0.101 against 0.848 at D = 2048,
+N = 200 on FB15k-237; 0.057 against 0.718 at D = 8192, N = 800): a chain pays p²
+where the store pays (c/N)². *Compiled composition:* the queried paths bound into
+one trace with the bridge cancelled, one cleanup, against a path table
+(s, r₁, r₂) → z of the same bits. Composition came closest (0.91–0.99 at
+D = 8192), but the table stayed at 1.0 there, and at D = 2048, N ≥ 400 it held
+0.76–0.96 against ABM's 0.26–0.38. ABM was ahead by more than 2 SE in **0 of 16
+cells** for either task. The exact model, including the new translation of a
+compiled composition into a single-hop query, predicted ABM with a mean error of
+0.32–2.01 points per (graph, D, task); per cell the error reached 7.4 points
+(WN18RR, D = 2048, N = 100, chain), where "within 2 points" would mislead. For
+one two-hop question, ABM with a vectorised cleanup took 2 600 to 229 725 times
+as long as a Python `dict`; the store's time is near the timer's resolution, so
+the ratio gives only the order of magnitude. All four hypotheses were supported,
+which again means ABM lost, as we expected before the run. This also supersedes
+the compiler result of earlier versions (99% against 82%, Appendix D), which
+compared ABM only with itself. What remains unmeasured is richer queries
+(conjunctions, analogies, role filling) and a bitpacked runtime; on what was
+measured, the algebra is **not an advantage**.
 
 ## References

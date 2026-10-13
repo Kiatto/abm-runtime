@@ -1,10 +1,16 @@
 # ABM benchmarks
 
 Every number on this page comes from a committed result file, which a committed
-script produced. Nineteen of the tests were **preregistered**: their predictions
+script produced. Twenty-two of the tests were **preregistered**: their predictions
 and pass criteria were committed before any data was looked at
-(`docs/preregistration/`). Three of the nineteen failed; they are kept below with
-their causes. The paper (v1.15) reports all nineteen.
+(`docs/preregistration/`); from test 20 on, the preregistration, the frozen
+predictions and the harness were also pushed and stamped with OpenTimestamps
+before the run. Four of the twenty-two failed by their primary hypothesis (one
+of them, test 20, as predicted) and four held only in part; all are kept below
+with their causes. The paper (v1.16) reports all twenty-two. Since v1.16 its
+subject is the a-priori estimate of cleanup accuracy for six vector-symbolic
+families; ABM (MAP-B) is the case studied most, dominated at equal bits, and the
+one where the estimate did worst on a new graph (test 22).
 
 What is measured is not task accuracy against other systems. It is how well the
 model **predicts, in advance, the accuracy of the memory**: predicted minus
@@ -17,7 +23,9 @@ byte for byte, and two (tests 4 and 10) up to the last digit of one float. On
 2026-10-09 test 18 reproduced byte for byte, and test 19 identically in every
 field except its timings, which are not deterministic and are not compared.
 Tests 15–17 query a local language model and are not wired into
-`replicate.py`; each has its own harness in `examples/`.
+`replicate.py`; each has its own harness in `examples/`. Tests 20–22 are not
+yet wired into `replicate.py` as named tests (their data are) and have not been
+rerun.
 
 ---
 
@@ -33,6 +41,10 @@ Tests 15–17 query a local language model and are not wired into
 | Questions written by people (SimpleQuestions ∩ FB15k-237), memory level | 0.807 measured against 0.802 predicted (+0.3 SE) | 11 |
 | At equal bits, against an idealised exact store and a Bloom filter | **ABM loses in every cell** (14/14 recall against the store's computed accuracy ⌊D/b⌋/N, every membership cell); model mean error 0.99 / 0.54 points, worst cell 1.97. An expected outcome | 18 |
 | The algebra at equal bits: two-hop chains and compiled compositions against a dictionary + join / path table | **no ABM advantage in any of 16 cells** per task; model mean error 0.32–2.01 points per group, worst cell 7.4 (WN18RR, D = 2048, N = 100, chain); ABM ≥ 2 600× slower in Python. An expected outcome | 19 |
+| Under i.i.d. bit flips up to ε = 0.2, against an exact store with polar SC / BCH / concatenated codes | **ABM below the store in 110 of 112 cells**, 2 exact ties at 1.000; model within 1.48 points per cell (mean 0.38–0.73 per group). The first design, against repetition and Hamming, predicted 21 ABM wins; removed by a hostile review before the data | 20 |
+| Five VSA families (MAP-B, MAP-I, FHRR, BSDC-OR, BSDC-S) on FB15k-237 and WN18RR, uniform and dense | MAE 0.34–2.08 points per group, worst cell 3.9; on dense WN18RR the accounting of twins/aliases removes 2.1–7.7 points of error from the naive FKS estimate; BSDC-S biased +1.7–2.1 | 21 |
+| Six families on two new graphs (CoDEx-M, YAGO3-10), one hop | 23 of 24 groups within 0.24–0.98 points; **MAP-B on dense YAGO3-10: 4.02** (signed −3.5, worst cell 7.2), its D short of target in 4/12 cells; HRR multiplicities beat the naive model by 7.6–20.0 points | 22 |
+| Two-hop chains on real graphs (product of one-hop estimates) | **falsified**: 13 of 18 groups ≤ 3 points per hop, 2 above 5 (single under-powered cells) | 22 |
 | Fitted parameters in the model | **0** | — |
 
 The model is exact under stated idealisations: independent random codewords, and
@@ -41,9 +53,9 @@ facts independent over GF(2). Where those fail, so does the model. See
 
 ---
 
-## The nineteen preregistered tests
+## The twenty-two preregistered tests
 
-The paper counts three groups separately, by primary hypothesis: tests of the theory (1–10), eight supported and two failed (7, 8); front-end tests (11–17), which do not test the theory, three supported, three in part, one failed (15); baselines at equal bits (18–19), two supported, an expected outcome. In all, thirteen supported, three in part, three failed; test 15 counts as failed, since its primary H1 (relation accuracy) was falsified. Test 2's primary H1 was supported, and a secondary one was in part. Test 11's primary, end-to-end, was in part. For tests 2, 11, 13, 14, 15 and 17 the primary hypothesis was chosen when the tally was written, after the outcomes. Per hypothesis the count is 61: 44 supported, 9 in part, 5 falsified, 3 neither or undecided. No multiplicity correction was preregistered (see the paper, Appendix F). The paper's §3.2 gives, for each test, the smallest bias it could detect: 0.8–4.9 points for the error summaries of tests 1–6, 1.1–8 points in a single cell.
+The paper counts four groups separately, by primary hypothesis: tests of the theory (1–10), eight supported and two failed (7, 8); front-end tests (11–17), which do not test the theory, three supported, three in part, one failed (15); baselines at equal bits (18–20), ABM lost each time as predicted — 18 and 19 supported, 20 failed (its H1, an ABM win, falsified); generalization (21–22), 21 supported, 22 in part. In all, fourteen supported, four in part, four failed; test 15 counts as failed, since its primary H1 (relation accuracy) was falsified. Test 2's primary H1 was supported, and a secondary one was in part. Test 11's primary, end-to-end, was in part. For tests 2, 11, 13, 14, 15, 17, 20, 21 and 22 the primary hypothesis was chosen when the tally was written, after the outcomes. Per hypothesis the count is 83: 60 supported, 11 in part, 8 falsified, 4 undecided or untestable (through test 19 it was 61: 44, 9, 5, 3). No multiplicity correction was preregistered (see the paper, Appendix F). The paper's §3.2 gives, for each test, the smallest bias it could detect: 0.8–4.9 points for the error summaries of tests 1–6, 1.1–8 points in a single cell.
 
 | # | file | what it tests | outcome | result file | `replicate.py` name |
 |---|---|---|---|---|---|
@@ -66,7 +78,9 @@ The paper counts three groups separately, by primary hypothesis: tests of the th
 | 17 | `webqsp.md` | the embedding front-end on natural questions (515 WebQuestionsSP questions) | embedding +21.7 and shortlist + small model +22.7 over the small model alone: **supported**; within 5 points of Qwen3-4B: in part (−5.8 [−8.9, −3.2]); embedding against shortlist undecided (−1.0 [−3.2, +1.2]); entity linking by name right in 75% | `webqsp_prereg_results.json` | — |
 | 18 | `equal_bits.md` | ABM against an ideal exact store and a Bloom filter with the same number of bits | the exact store wins in 14/14 cells, the Bloom filter in every cell, as the exact model predicted (mean 0.99 / 0.54 points, worst cell 1.97); the store's accuracy is computed, not run; at D = 2048, N = 50 the gap (0.993 vs 1.000) is under 1 SE. ABM uses 3.8–46× the Fano minimum, rising with load | `equal_bits_prereg_results.json` | `equal_bits` |
 | 19 | `algebra.md` | ABM's algebra (two-hop chain; compiled composition) against a realisable store with implicit keys (join; path table) at the same bits, and time per question | all four supported: ABM ahead in 0/16 cells for either task; exact model mean error 0.32–2.01 points per (graph, D, task), worst cell 7.4; ABM 2 600–229 725× slower than a `dict` (store time near timer resolution: order of magnitude only) | `algebra_prereg_results.json` | `algebra` |
-
+| 20 | `bit_errors.md` | ABM against an exact store with practical error-correcting codes (polar SC, BCH, concatenated; XOR filter or MPHF layout) at equal bits, under i.i.d. bit flips ε ≤ 0.2 | H1 (ABM wins somewhere) **falsified**, as predicted: ABM below in 110/112 cells, 2 exact ties (the harness counted them as wins: t = 0/0 read as p = 0, a bug; the criterion's text prevails); H2 model MAE 0.38–0.73, worst cell 1.48; H3 13/13; H4 store model 0.13–0.39 | `bit_errors_prereg_results.json` | — |
+| 21 | `vsa_families.md` | the a-priori estimate on MAP-B, MAP-I, FHRR, BSDC-OR, BSDC-S; FB15k-237 and WN18RR, uniform and dense | H1–H9 **supported**; accounting gain on dense WN18RR 4.6 / 5.4 / 5.0 / 7.7 / 2.1 points; D out of sample 16, 16, 16, 15, 16 of 16; BSDC-S biased +1.7–2.1; MAP-B atoms equal across seeds (SE underestimated) | `vsa_families_prereg_results.json` | — |
+| 22 | `generalization.md` | six families (adds HRR, corrected BSDC-S) on CoDEx-M and YAGO3-10; two-hop chains | H1, H3, H4, H7 supported; H2 **in part** (MAP-B on dense YAGO3-10, 4.02); H6 chains **falsified**; H8 **falsified** (MAP-B on YAGO3-10, 8/12); H9 in part (14/18); H5 untestable (no graph admitted to test the accounting) | `generalization_prereg_results.json`, `generalization_postdiction_bsdc_s.json` | — |
 Result files are in `results/`, harnesses in `examples/<file stem>_prereg.py`.
 Summary errors with confidence intervals: `results/prereg_summary_results.json`,
 from `examples/prereg_summary.py`.
@@ -102,7 +116,7 @@ held its prediction; the front end was underestimated by the audit (0.36 against
 | what | result | script | result file | `replicate.py` name |
 |---|---|---|---|---|
 | Capacity N\* at 50% accuracy, D = 512–4096, 10 seeds | exact model inside every interval | `capacity_seed10.py` | `capacity_seed10_rerun.json` | `seed10` |
-| Comparison with the bound of Clarkson et al. | see paper §7 | `clarkson_comparison.py` | `clarkson_comparison_results.json` | `clarkson` |
+| Comparison with the bound of Clarkson et al. | see paper, Appendix E | `clarkson_comparison.py` | `clarkson_comparison_results.json` | `clarkson` |
 | ProofWriter, parsable subset, 150 problems per depth | 92–100% at depths 0, 1, 2, 3 and 5 | `proofwriter_eval.py 150` | `proofwriter_results.json` | `proofwriter` |
 | ProofWriter, 10 seeds, 100 problems per depth (88 at depth 2), Fig. 3 | 99.8%, 99.1%, 92.4% at depths 0, 2, 5 | `proofwriter_seeds.py` | `seed10_results.json` (field `proofwriter`) | `proofwriter_seeds` |
 | Self-loops, effect of the 2026-09-30 model fix (exploratory) | see below | `selfloop_impact.py` | `selfloop_impact_results.json` | — |
@@ -147,6 +161,25 @@ hypothesis of tests 4 and 6 is still supported.
   runtime are unmeasured. What remains is accuracy computable before the memory
   is built. So is an exact store's, more simply; this is of use only where a
   distributed binary representation is required anyway.
+- **The estimate failed for MAP-B on a dense new graph.** On dense YAGO3-10
+  (test 22) it was 3.5 points optimistic on average, 7.2 in the worst cell, and
+  the dimension it chose fell short in 4 of 12 cells; MAP-I and FHRR on the same
+  subgraphs did not fail. Candidate cause (GF(2) dependence on even cycles) not
+  verified.
+- **Chains are not predicted.** Two-hop predictions on real graphs were
+  falsified (test 22, H6); three hops were never tested on a real graph.
+- **The accounting has one test.** Twins and aliases matter only on dense
+  graphs; its single test is dense WN18RR (test 21). Neither CoDEx-M nor
+  YAGO3-10 was dense enough to be admitted to test it again.
+- **Bugs found after runs.** Test 20's harness turned t = 0/0 into p = 0 (two
+  exact ties reported as ABM wins; the criterion's text prevails, the frozen
+  output is unchanged). Test 21 used identical MAP-B atoms in every seed, so
+  MAP-B's standard errors there are underestimated. BSDC-S's tie correction was
+  sought after test 21 had shown its bias.
+- **Noisy storage does not rescue ABM.** Under i.i.d. bit flips up to ε = 0.2 a
+  store with polar or BCH codes recalled more in every cell that was not an
+  exact tie (test 20); "degrades gracefully" holds only against an unprotected
+  store or weak codes.
 - **Entity linking is the measured front-end bottleneck.** Linking by name lost
   a quarter of the WebQuestionsSP questions (test 17), for every front-end.
 - **Even cycles break the independence assumption.** Four facts on a rectangle
@@ -164,10 +197,14 @@ hypothesis of tests 4 and 6 is still supported.
 - **Small samples.** Cells use at most 200 queries. The minimum detectable bias is
   about 3–4 points in the noisy cells (audit 2026-09-30), and pass criteria of
   ±2–3 points are only 1.5–3 times that floor.
-- **Anteriority is not third-party verifiable.** Preregistrations are local
-  commits, pushed after the runs. Test 19's result file was written 3 min 21 s
-  after its preregistration commit, which was not yet pushed. From now on a
-  preregistration is pushed before its run.
+- **Anteriority is third-party checkable only from test 20 on.** Up to test 19
+  preregistrations were local commits, pushed after the runs; test 19's result
+  file was written 3 min 21 s after its preregistration commit, which was not
+  yet pushed. From test 20 on, the preregistration, frozen predictions and
+  harness are pushed and stamped with OpenTimestamps before the run
+  (`tools/stamp_prereg.sh`, `.ots` files in the repository, still pending their
+  Bitcoin upgrade). This dates those files; it cannot exclude an unrecorded
+  earlier run.
 - **Language-model front-ends (tests 11–17).** Possible pretraining
   contamination with SimpleQuestions and WebQuestionsSP, untested; about 0.3%
   (small model) and 0.9% (larger) of choices changed across reruns at

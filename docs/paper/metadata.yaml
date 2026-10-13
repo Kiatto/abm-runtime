@@ -1,9 +1,9 @@
 ---
-title: "Predicting the Accuracy of a Binary Holographic Memory before It Is Built: Nineteen Preregistered Tests of an Estimate for a Dominated Design"
-subtitle: "Algebraic Binary Memory (ABM)"
+title: "Sizing a Vector-Symbolic Memory before Building It: An A-Priori Accuracy Estimate and Twenty-Two Preregistered Tests"
+subtitle: "with Algebraic Binary Memory (ABM), a dominated MAP-B design, as the case studied most"
 author:
   - kiatto
-date: "Preprint v1.15 — October 2026"
+date: "Preprint v1.16 — October 2026"
 bibliography: docs/paper/refs.bib
 link-citations: true
 # I titoli in docs/paper.md sono già numerati a mano (§ nel testo): niente
