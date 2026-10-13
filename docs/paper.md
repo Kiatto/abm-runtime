@@ -94,7 +94,13 @@ OpenTimestamps before the run (`tools/stamp_prereg.sh`; `.ots` files next to
 each file; commits `78a3234`, `a96da4c`, `5463e7f`). This makes the existence of
 those exact files before the run checkable by a third party: the `.ots` files in
 the repository are upgraded to Bitcoin block attestations (e.g. block 971093 for
-test 20) and check with `ots verify`. It does not show
+test 20) and check with `ots verify`. The `.md` files had their outcome appended
+after the run, so one verifies the version of the stamping commit, not the
+current one: e.g. `git show 2e20676:docs/preregistration/generalization.md > /tmp/f
+&& ots verify -f /tmp/f docs/preregistration/generalization.md.ots` (without a
+local Bitcoin node, `ots --no-bitcoin verify ...` checks the file against the
+stamp and names the block whose merkle root to compare). The harnesses and
+prediction files are unchanged since stamping and verify directly. It does not show
 that no unrecorded run preceded them. Second, which hypothesis of a test is
 "primary" was in nine tests (2, 11, 13, 14, 15, 17, 20, 21, 22) decided when
 the tally was written, after the outcomes (§3.1); we therefore give the count

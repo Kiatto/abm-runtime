@@ -8,6 +8,10 @@
 # 3. crea una marca OpenTimestamps (<file>.ots) per ogni file: l'hash SHA-256 viene
 #    ancorato a Bitcoin dai calendari pubblici, gratis; esce solo l'hash, non il testo.
 # Verifica, più tardi:  ots upgrade <file>.ots && ots verify <file>.ots
+# Il .md riceve l'esito in coda dopo il run: si verifica la versione marcata, non quella attuale:
+#   git show <commit marcato>:<file> > /tmp/f && ots verify -f /tmp/f <file>.ots
+# (senza un nodo Bitcoin locale: ots --no-bitcoin verify ..., poi si confronta il merkle root
+# del blocco indicato). Harness e previsioni non cambiano e si verificano direttamente.
 set -euo pipefail
 [ $# -ge 1 ] || { echo "uso: $0 file [file...]" >&2; exit 2; }
 git fetch -q origin

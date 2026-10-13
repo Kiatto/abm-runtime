@@ -22,7 +22,10 @@ comparison with a baseline is tested by a preregistration.
    `tools/stamp_prereg.sh docs/preregistration/<name>.md examples/<harness>.py`:
    it refuses unpushed or uncommitted files and writes an OpenTimestamps proof
    (`<file>.ots`, anchored in Bitcoin, free; only the hash leaves the machine).
-   Commit the `.ots` files. Anyone can check later with `ots verify <file>.ots`.
+   Commit the `.ots` files. Anyone can check later with `ots verify <file>.ots`;
+   since the outcome is appended to the preregistration after the run, its
+   `.ots` verifies the version stamped, not the current one:
+   `git show <stamped commit>:<file> > /tmp/f && ots verify -f /tmp/f <file>.ots`.
    Preregistrations 1–19 predate this rule: their order is attested only by
    local commit dates (see the paper, "Anteriority").
 3. Run, save the raw results as JSON in `results/`, report against the

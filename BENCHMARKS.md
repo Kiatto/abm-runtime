@@ -203,7 +203,13 @@ hypothesis of tests 4 and 6 is still supported.
   yet pushed. From test 20 on, the preregistration, frozen predictions and
   harness are pushed and stamped with OpenTimestamps before the run
   (`tools/stamp_prereg.sh`; the `.ots` files in the repository carry Bitcoin
-  block attestations, `ots verify <file>.ots`). This dates those files; it cannot exclude an unrecorded
+  block attestations). The preregistration `.md` files had their outcome
+  appended after the run, so verify the version of the stamping commit:
+  `git show 2e20676:docs/preregistration/generalization.md > /tmp/f && ots verify -f /tmp/f docs/preregistration/generalization.md.ots`
+  (stamped versions: `ce2ce62` for test 20, `538d7d3` for 21,
+  `2e20676` for 22; `ots --no-bitcoin verify` without a local node). Harnesses
+  and prediction files are unchanged and verify directly with
+  `ots verify <file>.ots`. This dates those files; it cannot exclude an unrecorded
   earlier run.
 - **Language-model front-ends (tests 11–17).** Possible pretraining
   contamination with SimpleQuestions and WebQuestionsSP, untested; about 0.3%
