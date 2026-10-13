@@ -664,3 +664,39 @@ N = 3200 (non nel run) era 108 min di misure per grafo.
   sottografi); gruppi non indipendenti; MDE di modello = limite inferiore.
 - Bit per componente convenzionali; codebook non contato.
 - D ≤ 2¹⁸: celle oltre il limite assenti (dichiarate in tabella).
+
+## Esito (2026-10-13)
+
+Eseguito una volta, dopo il push e le marche OpenTimestamps (`5463e7f`), con
+`python examples/generalization_prereg.py` (81 min); risultati in
+`results/generalization_prereg_results.json`. MAE in punti (a 2 hop sulla scala per hop).
+
+| ipotesi | risultato | esito |
+|---|---|---|
+| **H1** replica FKS, uniform, 12 gruppi | MAE massimo 0.85 | **sostenuta** |
+| **H2** replica FKS, dense, 12 gruppi | 11 gruppi ≤ 1.0; **MAP-B su YAGO3-10 dense 4.02** (errore con segno −3.5, cella peggiore 7.2) | **in parte** (> 3, non > 5) |
+| **H3** BSDC-S corretto, \|errore con segno\| ≤ 1 | +0.83, +0.49, −0.07, +0.18 | **sostenuta** |
+| **H4** HRR, MAE ≤ 3 e guadagno ≥ X | MAE 0.57–0.85; guadagni 7.6, 20.0, 10.0, 16.9 contro X 4.0, 10.0, 5.5, 8.5 | **sostenuta** |
+| **H5** ablazione della contabilità | nessun grafo ammesso | non testabile |
+| **H6** catene a 2 hop, MAE ≤ 3 in 18 gruppi | 13 gruppi ≤ 3; **> 5 in due gruppi** (CoDEx-M dense, BSDC-S 5.56 e MAP-B 5.33), entrambi di una sola cella con MDE 3.6–4 | **falsificata** |
+| **H7** ≤ 2 celle con \|t\| > 2.861 per famiglia e grafo | massimo 1 | **sostenuta** |
+| **H8** D fuori campione, ≥ 11/12 celle | 11 famiglie-grafo con 11–12; **MAP-B su YAGO3-10: 8/12** (4 sotto) | **falsificata** |
+| **H9** ablazione sulle catene, ≥ 15/18 gruppi con guadagno ≥ X | 14/18; 2 gruppi con guadagno negativo (falsificazione da 5) | **in parte** |
+| 3 hop | nessuna cella | non testabile |
+
+### Cosa dice
+
+- **A 1 hop la stima generalizza a due grafi mai visti per cinque famiglie su sei**:
+  MAP-I, FHRR, HRR, BSDC-OR e BSDC-S restano entro ~1 punto in media, anche sui densi.
+  HRR (nuovo, con le molteplicità di Plate) toglie 8–20 punti al modello ingenuo.
+- **La correzione dei pareggi di BSDC-S regge fuori campione** (|errore con segno| ≤ 0.83),
+  come prevedeva la postdizione sui dati della 21.
+- **MAP-B — la reference di ABM — fallisce su YAGO3-10 dense**: il modello è ottimista
+  di 3.5 punti in media e fino a 7.2, e il D scelto a priori manca il target in 4 celle
+  su 12. Le famiglie gaussiane sugli stessi sottografi no: il difetto è specifico del
+  modello binario. Candidato da verificare (non verificato): la dipendenza GF(2) dei
+  cicli pari, già nota come ottimista fino a 6 punti (paper, §cicli), qui non trascurabile.
+- **Le catene a 2 hop sono previste male dove i dati sono pochi**: i due gruppi falsificanti
+  hanno una cella sola sotto potenza; ma il criterio è quello e l'ipotesi cade.
+- La contabilità di gemelli e alias **non** è stata testata fuori campione: né CoDEx-M né
+  YAGO3-10 sono stati ammessi dalla regola. Il suo unico test resta la preregistrazione 21.
