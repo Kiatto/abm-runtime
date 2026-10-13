@@ -82,6 +82,12 @@ DATASETS = {
         "https://raw.githubusercontent.com/TimDettmers/ConvE/"
         "f3c0eb286025410fa5b4c04696c918264163d0ca/umls.tar.gz",
         "26223aa91f0ec8db2324e0f489b9a4425e04d1d0df72ce5cfd62af4b91aee6fd"),
+    # Kinship (Kok e Domingos 2007; split di Dettmers et al. 2018), stesso repo e commit;
+    # secondo grafo mai visto della prereg. 23 (revisione del disegno)
+    "kinship/kinship.tar.gz": (
+        "https://raw.githubusercontent.com/TimDettmers/ConvE/"
+        "f3c0eb286025410fa5b4c04696c918264163d0ca/kinship.tar.gz",
+        "a3cb9ca67213eb38133aebc12901195e283d844ebd59f1a6cbf2d4fa12ced4e6"),
 }
 
 # preregistrazione -> (harness, file di risultati, tempo indicativo su 12 core)

@@ -1,24 +1,68 @@
 # Preregistrazione 23 — il dimensionatore mantiene la promessa su grafi mai visti?
 
-**Data: 2026-10-13.** Committata **prima** di misurare, insieme all'harness
-[`examples/sizing_tool_prereg.py`](../../examples/sizing_tool_prereg.py) e alle previsioni
-congelate `results/sizing_tool_prereg_predictions.json`. Prima del commit l'harness è
-stato eseguito solo con:
+**Data: 2026-10-13.** Prima versione committata in `22970dc` **prima** di misurare; questa
+versione la **sostituisce** dopo una revisione ostile del disegno, ancora **prima** di
+costruire qualsiasi memoria sui grafi reali. File: harness
+[`examples/sizing_tool_prereg.py`](../../examples/sizing_tool_prereg.py), previsioni
+congelate `results/sizing_tool_prereg_predictions.json` (rigenerate dopo la revisione).
+Prima del commit l'harness è stato eseguito solo con `--smoke` (grafi sintetici generati
+nello script), `--predict` (legge i sei grafi, campiona sottografi e query, chiama
+`recommend(..., verify=False)` e `predict`: **nessuna memoria costruita** sui dati reali),
+`--timing` (memorie solo su grafi sintetici) e `--power` (simulazione dalle previsioni).
+Push e marche OpenTimestamps li fa il coordinatore dopo il commit.
 
-- `--smoke`: impianto intero (sottografi, `recommend(verify=True)`, memorie fresche, D
-  minimo, statistiche, controlli) su un grafo **sintetico** generato nello script e sui
-  tre controlli sintetici;
-- `--predict`: legge i cinque grafi, campiona i sottografi e le query, chiama
-  `recommend(..., verify=False)` (solo il modello: **nessuna memoria costruita** sui dati
-  reali) e salva D, previsione e affidabilità per ogni raccomandazione;
-- `--timing`: tempo di costruzione+query di memorie su grafi **sintetici** con gli N e i
-  D previsti; `--power`: potenza dalle previsioni.
+## Revisione del disegno prima dei dati (dopo `22970dc`)
 
-Nessuna memoria è stata costruita sui sottografi di valutazione. Lo strumento collaudato è
-quello del commit `ae2c99e` (`abm.sizing`, `abm.families`); l'harness usa solo l'API
-pubblica (`recommend`, `predict`, `STEP`, `FAMILIES`; `families.make`, `estimate_bytes`,
-`bsdc_length`) più `sizing._Graph` per statistiche **solo descrittive** (regime, quote),
-mai usate per decidere. Push e marche OpenTimestamps li fa il coordinatore dopo il commit.
+Le sezioni «Ipotesi», «Potenza», «Previsioni», «Controlli», «Tempo» di `22970dc` sono
+sostituite da quelle sotto. Punto per punto:
+
+1. **Cluster.** L'unità di inferenza è il **sottografo**: tutte le quote hanno un IC
+   **bootstrap per cluster** (B = 10 000, seme 23 023, limiti unilaterali al 95 % =
+   quantili 5 % e 95 %); secondario, l'esito di cluster ("tutte le unità del sottografo
+   riescono") con Clopper-Pearson sul numero di cluster. Minimo **30 cluster** per H1, H2,
+   H1u, H2u, H8u, H4, H5, H6, H7. Per arrivarci, oltre ai sottografi base si aggiungono
+   (in ordine di k, dalle sole previsioni) sottografi con almeno una raccomandazione
+   `validated` prevista: 68 cluster validated sui grafi di calibrazione, 61 sui mai visti.
+2. **Grafi mai visti, ipotesi separate.** UMLS e **Kinship** (stesso repo ConvE al commit
+   `f3c0eb2`, `kinship.tar.gz`, sha256
+   `a3cb9ca67213eb38133aebc12901195e283d844ebd59f1a6cbf2d4fa12ced4e6`, 8544 fatti di
+   train; voce in `examples/replicate.py`) hanno ipotesi proprie (H1u, H2u, H8u).
+   **H1 e H2 sui quattro grafi della calibrazione si chiamano «replica in-distribuzione»**:
+   i sottografi sono nuovi, i grafi no.
+3. **Il vero primario è su tutte le chiavi (s, r) del sottografo**; le 200 query della
+   verifica sono il secondario (H1_q, H2_q). Anche la previsione per l'errore del modello
+   (H3, H6) è su tutte le chiavi.
+4. **H3b sostituita** da H5 (copertura), H6 (discriminazione: risk ratio) e H7 (valore
+   contro una baseline empirica senza modello); H3 resta.
+5. **H4**: il D minimo usa lo **stesso criterio della verifica** (IC_inf 95 % ≥ target −
+   tol, t di Student con 19 gdl) su **altre 20 memorie** con semi indipendenti dal vero.
+6. **Regola di arresto**: la stima di `--timing` sceglie il passo e non tronca; checkpoint
+   JSONL per sottografo nell'ordine di priorità fisso (`select`), nessun riepilogo
+   intermedio; ripresa dopo un crash saltando i sottografi fatti; un checkpoint con un
+   altro passo blocca la ripresa (cambio di passo = deviazione dichiarata); **tetto rigido
+   12 h**: si analizza il prefisso scritto (che è fatto di sottografi interi, in ordine).
+7. **Esclusioni HRR**: la stessa funzione (`families.estimate_bytes` con n_queries = |Q|,
+   come nella verifica di `recommend`) decide se una memoria si costruisce nella verifica e
+   nel vero; gli esclusi sono elencati per chiave nel risultato; H1 e H2 hanno un'analisi
+   **worst-case** con gli esclusi contati come fallimenti.
+8. **Controlli**: 6 sintetici **avversari** da un generatore con parametri estratti ora;
+   un **controllo negativo** (uniforme: deve essere `validated` e avere ragione); un
+   controllo **«modello rotto»** nello smoke (previsione +5 punti via monkeypatch di
+   `sizing._predict_graph`): H2 e H3 devono fallire. Lo smoke gira con la configurazione
+   del passo scelto.
+
+Bug corretti: la memo di `Truth` ora include i semi; `--timing` usa il limite di HRR del
+passo (e la stessa funzione di esclusione del run), misura la costruzione separata dalle
+query (la traccia si costruisce pigramente alla prima query) e prende il **massimo di 3
+ripetizioni**; la griglia si applica con `configure(step)`, la stessa via per run, smoke,
+timing e power; i semi di verifica, vero, D minimo e baseline sono derivati da
+(sottografo, target). Il conteggio di `22970dc` era **327 validated previste, 9 HRR
+escluse dal limite di memoria → 318 misurabili**; qui i conteggi riportano sempre i due
+numeri.
+
+**Deviazione dichiarata dal mandato iniziale:** il budget per scegliere il passo passa da
+3 h a **10 h** (tetto rigido 12 h). Con i punti 1–3 (≥ 30 cluster, grafi mai visti con K
+alto, vero su tutte le chiavi) nessun passo stimato sta sotto le 3 h (minimo 4.0 h, passo 6).
 
 ## Perché
 
@@ -37,227 +81,232 @@ l'hanno toccato:
 
 ## Dati
 
-| grafo | file | sha256 | fonte |
+| grafo | file | sha256 | ruolo |
 |---|---|---|---|
-| FB15k-237 | `fb15k237_train.txt` | `6e4c2782…cdfae` | come la 21 |
-| WN18RR | `wn18rr_train.csv` | `28f7a0b3…e6a0` | come la 21 |
-| CoDEx-M | `codex/codex-m_train.txt` | `d99c3437…6556` | come la 22 |
-| YAGO3-10 | `yago3_10/YAGO3-10.tar.gz` (train.txt) | `9a3bdd5f…fb92` | come la 22 |
-| **UMLS** (nuovo) | `umls/umls.tar.gz` (train.txt) | `26223aa91f0ec8db2324e0f489b9a4425e04d1d0df72ce5cfd62af4b91aee6fd` | repo pubblico `TimDettmers/ConvE` al commit `f3c0eb286025410fa5b4c04696c918264163d0ca`; voce aggiunta in `examples/replicate.py` |
+| FB15k-237 | `fb15k237_train.txt` | `6e4c2782…cdfae` | calibrazione (21) |
+| WN18RR | `wn18rr_train.csv` | `28f7a0b3…e6a0` | calibrazione (21) |
+| CoDEx-M | `codex/codex-m_train.txt` | `d99c3437…6556` | calibrazione (22) |
+| YAGO3-10 | `yago3_10/YAGO3-10.tar.gz` | `9a3bdd5f…fb92` | calibrazione (22) |
+| **UMLS** | `umls/umls.tar.gz` (train.txt, 5216 fatti) | `26223aa91f0ec8db2324e0f489b9a4425e04d1d0df72ce5cfd62af4b91aee6fd` | mai visto |
+| **Kinship** | `kinship/kinship.tar.gz` (train.txt, 8544 fatti) | `a3cb9ca67213eb38133aebc12901195e283d844ebd59f1a6cbf2d4fa12ced4e6` | mai visto |
 
-UMLS (135 entità, 46 relazioni, 5216 fatti di train) è piccolo e denso: molte coppie
-{s, o} con più relazioni. È scelto apposta: è fuori dal regime di calibrazione e mette alla
-prova le regole di affidabilità (c). Kinship e Nations (stesso repo) sono stati scartati
-perché più piccoli (Nations: 1592 fatti, niente N = 1600).
+UMLS e Kinship vengono dal repo pubblico `TimDettmers/ConvE` al commit
+`f3c0eb286025410fa5b4c04696c918264163d0ca`; entrambi sono piccoli (135 e 104 entità) e
+densi. Nations scartato (1592 fatti, niente N = 1600).
 
-**Sottografi nuovi.** `SeedSequence([23_000_023, indice grafo, indice schema, N, k])` con
-**k = 50 000, 50 001, …** (mai usati: le 21-22 usano altri SEED_BASE e k = 0–19).
-Campionamento uniform (a caso) e dense (BFS), copiato senza modifiche da
-`examples/vsa_families_prereg.py`; Q = 200 query (s, r) a caso per sottografo (o tutte se
-sono meno). Limite: per FB15k-237, WN18RR, CoDEx-M e YAGO3-10 i grafi sono gli stessi
-della calibrazione, solo i sottografi sono nuovi (un sottografo dense può sovrapporsi in
-parte a uno usato); **solo UMLS è un grafo mai visto**.
+**Sottografi.** `SeedSequence([23_000_023, indice grafo, indice schema, N, k])`,
+k = 50 000 + j (mai usati). Pool con previsioni: j < 8 sui grafi di calibrazione, j < 40
+sui mai visti (j < 8 a N = 1600). Campionamento uniform/dense copiato da
+`examples/vsa_families_prereg.py`; Q = 200 chiavi a caso per la verifica.
+**Semi per (sottografo, target)** (`SeedSequence([..., k, 1000 + indice target]).spawn(4)`):
+`rng_seed` della verifica (che estrae i suoi semi in [0, 2^31)); vero 20 semi in
+[2^31, 2^32); D minimo 20 semi in [2^32, 2^32 + 2^31); baseline 8 + 8 semi da 2^33:
+disgiunti per costruzione.
 
 ## Impianto
 
-- Griglia: 5 grafi × {uniform, dense} × N ∈ {100, 400, 1600} × K sottografi × target
-  ∈ {0.70, 0.85, 0.95} (accuratezza assoluta, la semantica di `recommend`) × le sei
-  famiglie. N = 1600 si salta se il grafo ha meno di 2N fatti (non accade).
-- **Regola del tetto (scritta):** un (sottografo, target) è scartato se
-  target > tetto degli alias − 0.02 (`exact.ceiling` sulle stesse query). Vicino al tetto
-  D esplode e "raggiungere il target" non dice nulla sul dimensionatore.
-- Per ogni (sottografo, target): `recommend(triples, target, queries=Q, verify=True,
-  seeds=8, tol=0.01, rng_seed=…, max_mem_bytes=…)` (HRR in una chiamata a parte con il
-  suo limite di memoria, vedi «Tempo»; l'ordinamento non è usato).
-- **Il "vero"**: accuratezza media su **20 memorie fresche** `families.make(f, D, seme)`
-  con semi ≥ 2^31, disgiunti per costruzione dai semi della verifica (che `recommend`
-  estrae in [0, 2^31)), sulle **stesse query Q**; misurato al D finale (`dim`) e al D del
-  modello (`dim_predicted`; coincidono se la verifica non ha corretto). Una risposta è
-  corretta se è uno degli oggetti veri di (s, r).
-- **D minimo misurato** (H4): il più piccolo D sulla griglia della famiglia (passo 64;
-  BSDC: L = `bsdc_length(N)`) con media delle **stesse 20 memorie fresche** ≥ target.
-  Ricerca: dal D finale, raddoppio se non basta (fino a 8×), poi dimezzamenti fino al primo
-  D che non basta, poi bisezione al passo. Assume monotonia; il rumore della media (20
-  memorie) entra nella stima (limite dichiarato).
-- Errore del modello: `predict(triples, f, dim_predicted, Q)` − vero al `dim_predicted`.
+- Griglia: 6 grafi × {uniform, dense} × N ∈ {100, 400, 1600} × target
+  {0.70, 0.85, 0.95} (accuratezza assoluta) × 6 famiglie.
+- **Regola del tetto:** (sottografo, target) scartato se target > min(tetto sulle 200
+  query, tetto su tutte le chiavi) − 0.02.
+- **Selezione e priorità** (`select`, solo dalle previsioni): per cella i primi k_in
+  (k_un sui mai visti) sottografi sono **base** (campione non selezionato: H3, H5, H6);
+  poi, in ordine di j, si aggiungono sottografi **extra** con almeno una `validated`
+  prevista (dopo l'esclusione HRR) finché la cella ha k_val (k_val_un) sottografi con
+  validated; gli extra entrano solo in H1, H2, H1u, H2u, H8u, H4, H7. Ordine di
+  esecuzione: per giro (posizione nella lista della cella), poi grafo, schema, N.
+- Per ogni (sottografo, target): `recommend(..., queries=Q, verify=True, seeds=8, tol=0.01,
+  rng_seed, max_mem_bytes)`, HRR in una chiamata a parte con il suo limite. Le memorie
+  costruite da `recommend` si contano per famiglia (sostituendo `families.make` durante la
+  chiamata) per H7.
+- **Vero**: 20 memorie fresche `families.make(f, D, seme)`; accuratezza su tutte le chiavi
+  (primaria) e sulle Q (secondaria); al D finale e al D del modello.
+- **D minimo** (H4, perimetro del passo): il più piccolo D della griglia (64; BSDC: L)
+  accettato con IC_inf 95 % (20 memorie, t₁₉ = 2.093) ≥ target − 0.01 su tutte le chiavi;
+  ricerca: raddoppi da D finale (fino a 8×), dimezzamenti, bisezione.
+- **Baseline empirica** (H7, perimetro del passo): stessa regola di accettazione di
+  `recommend` (IC_inf su 8 semi ≥ target − tol, sulle Q) ma **senza modello**: da D = 256
+  (BSDC: multiplo di L ≥ 256), raddoppi fino a D_MAX o al limite di memoria, bisezione al
+  passo, report su altri 8 semi (media ≥ target − tol). Si contano memorie, secondi, bit,
+  e il vero (20 memorie) al suo D.
 
 ## Ipotesi e criteri (fissati ora)
 
-Unità = una raccomandazione (sottografo × target × famiglia) sui grafi reali. I controlli
-sintetici non entrano. Intervalli di Clopper-Pearson **unilaterali al 95 %**
-(CP_inf, CP_sup). Con meno unità del minimo indicato un'ipotesi è **non testabile**.
-Fra "sostenuta" e "falsificata" l'esito è **non conclusivo** (riportato così).
+Bootstrap per cluster: stima puntuale p̂ sulle unità; boot_inf/boot_sup = quantili 5 %/95 %.
+"Sostenuta" e "falsificata" come sotto; altrimenti **non conclusiva**; con meno cluster del
+minimo **non testabile**. Unità = raccomandazione (sottografo × target × famiglia).
 
-**H1 — promessa (a).** Unità: raccomandazioni `validated` **e** `verified` con il vero
-misurato. Successo: vero al D finale ≥ target − tol (tol = 0.01).
-*Sostenuta* se p̂ ≥ 0.95 **e** CP_inf ≥ 0.90; *falsificata* se CP_sup < 0.95. Minimo 30.
-Motivazione: la verifica accetta solo se l'IC_inf della selezione ≥ target − tol, che
-per costruzione rifiuta un ottimismo ≥ tol con probabilità ≥ 0.975; ci si aspetta
-p ≈ 0.97–0.99 (il vero ha a sua volta un errore di ≈ 0.5 punti). 0.95 è la promessa che
-si vuole poter scrivere; il pavimento 0.90 evita di sostenerla per caso con n piccolo.
-Descrittiva: la stessa quota su tutte le verificate (qualunque affidabilità).
+| | promessa | unità (cluster) | successo | sostenuta | falsificata |
+|---|---|---|---|---|---|
+| **H1** replica in-distribuzione | (a) | validated ∧ verified, 4 grafi di calibrazione | vero (tutte le chiavi) al D finale ≥ target − 0.01 | p̂ ≥ 0.95 e boot_inf ≥ 0.90 | boot_sup < 0.95 |
+| **H2** replica in-distribuzione | (b) | validated, 4 grafi di calibrazione | vero al D del modello ≥ target − 0.02 | p̂ ≥ 0.90 e boot_inf ≥ 0.85 | boot_sup < 0.90 |
+| **H1u** mai visti | (a) | come H1 su UMLS + Kinship | come H1 | come H1 | come H1 |
+| **H2u** mai visti | (b) | come H2 su UMLS + Kinship | come H2 | come H2 | come H2 |
+| **H8u** mai visti | verifica fuori regime | verified (qualunque affidabilità) su UMLS + Kinship | come H1 | come H1 | come H1 |
+| **H3** sensibilità | (c) | sottografi base, positivi: \|prev − vero\| > 3 punti (tutte le chiavi, D del modello) | affidabilità ≠ validated | p̂ ≥ 0.80 e boot_inf ≥ 0.60 (min. 10 positivi in ≥ 5 cluster) | boot_sup < 0.80 |
+| **H5** copertura | utilità | (sottografo base, target) non scartati | almeno una validated ∧ verified | p̂ ≥ 0.50 e boot_inf ≥ 0.40 | boot_sup < 0.50 |
+| **H6** discriminazione | (c) | sottografi base, tutte le misurate | RR = P(err > 3 \| non validated) / P(err > 3 \| validated), +0.5 a numeratori e +1 ai denominatori | RR ≥ 3 e boot_inf ≥ 1.5 | boot_sup < 3 |
+| **H4** costo della verifica | (d) | verified nel perimetro del D minimo | gonfiamento D finale / D minimo − 1 | mediana ≤ 0.15 e boot_sup ≤ 0.20 | boot_inf > 0.15 |
+| **H7** valore contro la baseline | utilità | verified dallo strumento **e** dalla baseline, perimetro H7 | rapporti memorie (strumento/baseline) e bit | mediana memorie ≤ 0.5 con boot_sup ≤ 0.6 **e** mediana bit ≤ 1.10 con boot_sup ≤ 1.10 | boot_inf memorie > 0.5 **o** boot_inf bit > 1.10 |
 
-**H2 — promessa (b).** Unità: raccomandazioni `validated` (D del modello, senza
-verifica). Successo: vero al `dim_predicted` ≥ target − 0.02. *Sostenuta* se p̂ ≥ 0.90
-**e** CP_inf ≥ 0.85; *falsificata* se CP_sup < 0.90. Minimo 30. Motivazione: il modello è
-centrato (circa metà delle celle sotto il target), con MAE osservato ≤ 0.84 punti per le
-famiglie validate (OBSERVED_ERROR) e coda fino a ~3–4 punti: una banda di 2 punti
-dovrebbe coprire ≥ 90 %.
+Motivazioni delle soglie: H1 come in `22970dc` (la verifica rifiuta un ottimismo ≥ tol con
+probabilità ≥ 0.975 per costruzione; atteso p ≈ 0.97–0.99). H2: modello centrato, MAE
+osservato ≤ 0.84 punti per le famiglie validate. H5: «lo strumento certifica almeno metà
+delle richieste realistiche». **Dalle sole previsioni la copertura massima possibile è
+0.337 (454 coppie base)**: H5 è prevista **falsificata** prima dei dati, ed è registrata
+così (dice quanto è stretto il dominio in cui lo strumento si dichiara validato). H6: gli
+avvisi devono separare, non solo accendersi (H3 da sola è soddisfatta da "tutto
+unvalidated"). H7: lo strumento deve costruire al più metà delle memorie della ricerca
+cieca a parità di criterio, senza costare più del 10 % di bit. H4 come prima.
+Secondari (riportati, non decisionali): H1_q e H2_q sulle 200 query; H1/H2 worst-case con
+gli esclusi HRR come fallimenti; esito di cluster con Clopper-Pearson; specificità; errori
+solo ottimisti; tasso di `adjusted`, verificate ed errore medio per grafo, famiglia, regime;
+successo della baseline sul vero.
 
-**H3 — promessa (c), sensibilità.** Unità: tutte le raccomandazioni con il vero al
-`dim_predicted`. Positivo: |previsione − vero| > 3 punti. Segnalato: affidabilità ≠
-`validated`. *Sostenuta* se sensibilità ≥ 0.80 **e** CP_inf ≥ 0.60; *falsificata* se
-CP_sup < 0.80. Minimo 10 positivi (sotto: non testabile; se le raccomandazioni validated
-non sbagliano mai di 3 punti, non c'è nulla da segnalare). Descrittiva: la stessa sui soli
-errori ottimisti (previsione > vero).
-**H3b — specificità** (che gli avvisi non siano sempre accesi). Negativi: |errore| ≤ 3
-punti. *Sostenuta* se quota `validated` fra i negativi ≥ 0.50 **e** CP_inf ≥ 0.40;
-*falsificata* se CP_sup < 0.50. Minimo 30. **Avvertenza dichiarata:** dalle previsioni
-(sotto) il 64 % delle raccomandazioni è già `unvalidated` per struttura, quindi H3b rischia
-di fallire anche con un modello accurato: è esattamente il costo che va misurato.
+## Potenza (dalle previsioni, passo scelto 2)
 
-**H4 — promessa (d).** Unità: raccomandazioni `verified` (qualunque affidabilità) con D
-minimo misurato (target 0.85, N ≤ 400: vedi «Tempo»). Gonfiamento = D finale / D minimo − 1.
-*Sostenuta* se la mediana ≤ 0.15 **e** il limite superiore dell'IC 95 % della mediana
-(distribution-free, statistiche d'ordine) ≤ 0.20; *falsificata* se il limite inferiore
-> 0.15. Minimo 30. Motivazione: la verifica non riduce mai D (eredita il pessimismo del
-modello, es. BSDC-S) e chiede IC_inf ≥ target − tol con 8 semi (≈ +0.7 punti di
-margine); vicino a 0.85 un punto di accuratezza costa ≈ 5–10 % di D, un blocco BSDC
-5–10 %. Descrittivo: lo stesso rapporto per il D del modello.
-
-## Potenza (dalle previsioni, griglia scelta: K = 2, 926 raccomandazioni)
-
-Unità supposte indipendenti (vedi limiti). n per H1 ignoto prima dei dati: ≤ 318 (le
-`validated` previste); si riporta n = 318 e n = 159 (metà verificate).
-
-P(sostenuta) / P(falsificata), H1:
+Simulazione (`power_cluster`, 400 ripetizioni, bootstrap 1000): cluster con le dimensioni
+previste (raccomandazioni validated per sottografo), p_c ~ Beta di media p e correlazione
+intra-cluster ρ. n per H1 è un limite superiore (le verified sono un sottoinsieme).
+P(sostenuta) / P(falsificata):
 
 | p vero | 0.99 | 0.98 | 0.97 | 0.95 | 0.92 | 0.90 | 0.85 |
 |---|---|---|---|---|---|---|---|
-| n = 318 | 1.00 / 0 | 1.00 / 0 | 0.97 / 0 | 0.47 / 0.03 | 0.02 / 0.65 | 0 / 0.94 | 0 / 1.00 |
-| n = 159 | 1.00 / 0 | 0.99 / 0 | 0.89 / 0 | 0.46 / 0.03 | 0.06 / 0.40 | 0.01 / 0.73 | 0 / 0.99 |
+| H1, 68 cluster (1109 racc.), ρ = 0 | 1 / 0 | 1 / 0 | 1 / 0 | 0.49 / 0.04 | 0 / 1 | 0 / 1 | 0 / 1 |
+| H1, ρ = 0.2 | 1 / 0 | 1.00 / 0 | 0.95 / 0 | 0.57 / 0.02 | 0.01 / 0.59 | 0 / 0.97 | 0 / 1 |
+| H2, ρ = 0 | 1 / 0 | 1 / 0 | 1 / 0 | 1 / 0 | 1.00 / 0 | 0.48 / 0.04 | 0 / 1 |
+| H2, ρ = 0.2 | 1 / 0 | 1 / 0 | 1 / 0 | 1 / 0 | 0.89 / 0.003 | 0.50 / 0.03 | 0.005 / 0.81 |
+| H1u, 61 cluster (825 racc.), ρ = 0 | 1 / 0 | 1 / 0 | 1.00 / 0 | 0.58 / 0.03 | 0 / 0.96 | 0 / 1 | 0 / 1 |
+| H1u, ρ = 0.2 | 1 / 0 | 1.00 / 0 | 0.95 / 0 | 0.52 / 0.06 | 0.05 / 0.56 | 0.003 / 0.88 | 0 / 1 |
+| H2u, ρ = 0 | 1 / 0 | 1 / 0 | 1 / 0 | 1 / 0 | 0.99 / 0 | 0.53 / 0.04 | 0 / 1.00 |
+| H2u, ρ = 0.2 | 1 / 0 | 1 / 0 | 1 / 0 | 1.00 / 0 | 0.85 / 0 | 0.55 / 0.04 | 0.02 / 0.71 |
 
-H2 (n = 318): p = 0.95 → 1.00 / 0; 0.92 → 0.89 / 0.001; 0.90 → 0.49 / 0.04;
-0.85 → 0.004 / 0.84. (n = 159: 0.99 / 0, 0.80 / 0.004, 0.47 / 0.05, 0.03 / 0.61.)
+H3: potenza binomiale di `22970dc` (sensibilità 0.9 → P(sost.) 0.87 con 20 positivi, 0.99
+con 40), da ridurre per l'effetto cluster; numero di positivi ignoto. H6, H4, H7: nessuna
+potenza in forma chiusa (distribuzioni ignote), dichiarato.
 
-H3 (n positivi ignoto): sensibilità vera 0.95 → P(sost.) 0.91 (n = 10), 0.98 (20), 1.00
-(40); 0.90 → 0.74 / 0.87 / 0.99; 0.70 → P(falsificata) 0.15 / 0.23 / 0.42; 0.50 →
-P(falsificata) 0.62 / 0.87 / 0.99. Con meno di 20 positivi H3 ha poca potenza contro
-sensibilità ≈ 0.7: dichiarato.
+## Previsioni dello strumento (congelate, `--predict`) e celle
 
-H3b (n negativi 463–926): specificità 0.6 → P(sost.) 1.00; 0.4 → P(falsificata) ≥ 0.996.
+`results/sizing_tool_prereg_predictions.json`: 544 sottografi (pool), 8102 righe, per ogni
+(sottografo, target, famiglia) D, bit, previsione su Q e su tutte le chiavi, affidabilità,
+statistiche strutturali; scarti per il tetto; parametri dei controlli avversari; la
+selezione del passo scelto (`selection`) e la potenza (`power_grid`). Nessuna famiglia
+irraggiungibile entro d_max.
 
-H4: con n ≥ 30 l'IC della mediana è fra la 10ª e la 21ª statistica d'ordine; potenza non
-calcolata in forma chiusa (la distribuzione del gonfiamento è ignota); candidati previsti
-234 (target 0.85, N ≤ 400), di cui le verificate sono un sottoinsieme.
+**Run set (passo 2): 266 sottografi (192 base + 74 extra), 3854 raccomandazioni
+misurabili (1934 validated, 162 caution, 1758 unvalidated) + 82 HRR escluse dal limite di
+256 MiB (34 delle quali validated: 1968 validated previste, 34 escluse → 1934).**
+Sottografi per cella (base / extra / con almeno una validated prevista):
 
-## Previsioni dello strumento (congelate, `--predict`)
+| grafo | schema | N | base | extra | con validated |
+|---|---|---|---|---|---|
+| fb15k237 | uniform | 100 / 400 / 1600 | 4 / 4 / 4 | 4 / 1 / 0 | 5 / 2 / 0 |
+| fb15k237 | dense | 100 / 400 / 1600 | 4 / 4 / 4 | 1 / 1 / 2 | 1 / 1 / 4 |
+| wn18rr | uniform | 100 / 400 / 1600 | 4 / 4 / 4 | 2 / 1 / 0 | 6 / 3 / 0 |
+| wn18rr | dense | 100 / 400 / 1600 | 4 / 4 / 4 | 0 / 2 / 1 | 0 / 2 / 2 |
+| codex-m | uniform | 100 / 400 / 1600 | 4 / 4 / 4 | 2 / 2 / 2 | 6 / 6 / 6 |
+| codex-m | dense | 100 / 400 / 1600 | 4 / 4 / 4 | 0 / 0 / 1 | 2 / 1 / 2 |
+| yago3-10 | uniform | 100 / 400 / 1600 | 4 / 4 / 4 | 2 / 2 / 0 | 6 / 6 / 0 |
+| yago3-10 | dense | 100 / 400 / 1600 | 4 / 4 / 4 | 0 / 2 / 0 | 3 / 2 / 2 |
+| umls | uniform | 100 / 400 / 1600 | 8 / 8 / 8 | 23 / 0 / 0 | 30 / 0 / 0 |
+| umls | dense | 100 / 400 / 1600 | 8 / 8 / 8 | 1 / 0 / 0 | 1 / 0 / 0 |
+| kinship | uniform | 100 / 400 / 1600 | 8 / 8 / 8 | 22 / 0 / 0 | 30 / 0 / 0 |
+| kinship | dense | 100 / 400 / 1600 | 8 / 8 / 8 | 0 / 0 / 0 | 0 / 0 / 0 |
 
-`results/sizing_tool_prereg_predictions.json`: per ogni (sottografo, target, famiglia) D,
-bit, previsione, affidabilità, numero di avvisi, statistiche strutturali; scarti per il
-tetto; potenza (`power_grid` per la griglia scelta). Griglia scelta (K = 2, HRR ≤ 128 MiB):
+**Cluster per ipotesi (previsti):** H1/H2 ≤ 68; H1u/H2u ≤ 61 (60 di questi sono UMLS e
+Kinship **uniform N = 100**: sui mai visti la promessa (a)/(b) è testabile solo lì);
+H8u ≤ 144 sottografi dei mai visti; H3, H5, H6 sui 192 base (454 coppie per H5);
+H4 nel perimetro target 0.85, N ≤ 400; H7 nel perimetro target 0.85, N = 100.
 
-| grafo | schema | N | target scartati (×sottografi) | racc. | validated | caution | unvalidated |
+**Cosa ho visto prima (dichiarato):** le validated stanno su uniform N ≤ 400 dei grafi di
+calibrazione e su uniform N = 100 dei mai visti; il denso, UMLS/Kinship oltre N = 100 e
+quasi tutto N = 1600 sono `unvalidated`. La copertura prevista (≤ 0.337) è già sotto la
+soglia di H5.
+
+## Controlli sintetici (non entrano nelle ipotesi)
+
+- **Positivi** (casi del revisore, come in `reference/tests/test_sizing.py`): club,
+  inverse, three. Superati se MAP-B non è mai validated, le verificate «raggiungono» (vedi
+  sotto) e, sul club, l'errore di MAP-B è > 3 punti.
+- **Avversari** (6; `adversarial_params`, seme `[23_000_023, 777]`, estratti ora): hub
+  Zipf (esponente 1.1–2.0), oggetti multipli per (s, r) (10–40 %), simmetriche (5–30 %),
+  multi-relazione (30–60 %), 3–12 relazioni, 150–400 fatti; target standard più uno
+  vicino al tetto (tetto − 0.03). Parametri estratti:
+
+| | fatti | entità | relazioni | Zipf | multi-oggetto | simmetriche | multi-relazione |
 |---|---|---|---|---|---|---|---|
-| fb15k237 | uniform | 100 | — | 36 | 18 | 0 | 18 |
-| fb15k237 | uniform | 400 | — | 36 | 18 | 0 | 18 |
-| fb15k237 | uniform | 1600 | — | 30 | 0 | 0 | 30 |
-| fb15k237 | dense | 100 | — | 36 | 0 | 0 | 36 |
-| fb15k237 | dense | 400 | — | 36 | 0 | 0 | 36 |
-| fb15k237 | dense | 1600 | — | 31 | 0 | 0 | 31 |
-| wn18rr | uniform | 100 | — | 36 | 36 | 0 | 0 |
-| wn18rr | uniform | 400 | — | 36 | 18 | 0 | 18 |
-| wn18rr | uniform | 1600 | — | 30 | 0 | 0 | 30 |
-| wn18rr | dense | 100 | — | 36 | 0 | 0 | 36 |
-| wn18rr | dense | 400 | 0.95×2 | 24 | 0 | 0 | 24 |
-| wn18rr | dense | 1600 | 0.95×1 | 25 | 0 | 0 | 25 |
-| codex-m | uniform | 100 | — | 36 | 36 | 0 | 0 |
-| codex-m | uniform | 400 | — | 36 | 36 | 0 | 0 |
-| codex-m | uniform | 1600 | — | 30 | 27 | 3 | 0 |
-| codex-m | dense | 100 | — | 36 | 0 | 0 | 36 |
-| codex-m | dense | 400 | — | 36 | 0 | 0 | 36 |
-| codex-m | dense | 1600 | — | 30 | 0 | 0 | 30 |
-| yago3-10 | uniform | 100 | — | 36 | 36 | 0 | 0 |
-| yago3-10 | uniform | 400 | — | 36 | 36 | 0 | 0 |
-| yago3-10 | uniform | 1600 | — | 30 | 0 | 0 | 30 |
-| yago3-10 | dense | 100 | 0.95×1 | 30 | 25 | 5 | 0 |
-| yago3-10 | dense | 400 | 0.95×1 | 30 | 0 | 0 | 30 |
-| yago3-10 | dense | 1600 | — | 30 | 12 | 3 | 15 |
-| umls | uniform | 100 | 0.95×2 | 24 | 20 | 4 | 0 |
-| umls | uniform | 400 | 0.95×2 | 24 | 0 | 0 | 24 |
-| umls | uniform | 1600 | 0.85×1, 0.95×2 | 18 | 0 | 0 | 18 |
-| umls | dense | 100 | 0.85×1, 0.95×1 | 24 | 0 | 0 | 24 |
-| umls | dense | 400 | 0.95×2 | 24 | 0 | 0 | 24 |
-| umls | dense | 1600 | 0.95×2 | 24 | 0 | 0 | 24 |
+| adv0 | 291 | 152 | 7 | 1.481 | 0.302 | 0.193 | 0.306 |
+| adv1 | 186 | 242 | 4 | 1.618 | 0.269 | 0.122 | 0.369 |
+| adv2 | 233 | 331 | 7 | 1.642 | 0.163 | 0.202 | 0.566 |
+| adv3 | 286 | 319 | 3 | 1.484 | 0.315 | 0.092 | 0.588 |
+| adv4 | 192 | 392 | 8 | 1.767 | 0.232 | 0.181 | 0.433 |
+| adv5 | 187 | 145 | 4 | 1.334 | 0.375 | 0.249 | 0.500 |
 
-Totale: 926 raccomandazioni (318 validated, 15 caution, 593 unvalidated), 60 sottografi,
-18 (sottografo, target) scartati per il tetto; nessuna famiglia irraggiungibile entro
-d_max. Sulla griglia completa (K = 4, prima della riduzione): 1944 raccomandazioni (719 /
-43 / 1182). Le 46 raccomandazioni HRR escluse dal limite di memoria sono tutte a N = 1600
-(9 validated).
+  Superati se nessuna raccomandazione validated ha |errore| > 3 punti e le verificate
+  «raggiungono».
+- «Raggiungono» (positivi e avversari): fra le verificate, quota ≥ 0.8 con vero (tutte le
+  chiavi) ≥ target − 0.01 **e** nessuna sotto target − 0.03. **Criterio corretto dopo il
+  primo smoke** (solo sintetico): la versione «ogni verificata ≥ target − 0.01» falliva su
+  inverse, adv2, adv5 per scarti di 1–2 punti (MAP-B 0.936 a t = 0.95; 0.832 a t = 0.85;
+  0.680 a t = 0.70; con 6 memorie per il vero), cioè era più severa di H1 stessa.
+- **Negativo**: 200 fatti uniformi (5000 entità, 20 relazioni): superato se tutte le
+  raccomandazioni sono validated, |errore| ≤ 3 punti e vero al D del modello ≥ target − 0.02.
+- **Modello rotto** (solo smoke): `sizing._predict_graph` + 0.05; le quote di H2 e la
+  sensibilità di H3 devono stare sotto le soglie (asserito).
 
-**Cosa ho visto prima (dichiarato):** le `validated` sono concentrate su uniform N ≤ 400 e
-su CoDEx-M/YAGO3-10 (i grafi della 22); quasi tutto il denso e tutto UMLS oltre N = 100 è
-`unvalidated`. Quindi H1-H2 parlano soprattutto del regime di calibrazione, e il test
-fuori regime è H3/H3b (più le misure descrittive su `unvalidated`+verificate).
+Un controllo fallito nel run non cambia le ipotesi, ma va riportato come difetto dello
+strumento o dell'harness. 
 
-## Controlli positivi sintetici (non entrano nelle ipotesi)
+**Smoke (passo 2, 3 sottografi sintetici uniform N = 100, 6 memorie per il vero, 1232 s):**
+tutti i 10 controlli superati. Club: MAP-B ottimista fino a 31 punti; inverse 7.2; three
+8.4; avversari |errore| massimo 2.1–3.9 punti, **tutte le raccomandazioni avversarie
+risultano unvalidated** (il criterio "nessuna validated con errore > 3" è quindi vacuo su
+questi sei: dichiarato); negativo: 18/18 validated, errore massimo 1.9 punti. Modello rotto
+(+5 punti): quota H2 0.18 su 72 (falsificata), sensibilità H3 0.00 su 68 positivi. **Visto
+prima dei dati, dichiarato:** sullo smoke sintetico H7 risulta falsificata (rapporto
+mediano delle memorie 0.73, boot 0.51–0.73; bit 1.00), H4 sostenuta (mediana 0), H1 e H2
+sostenute su 3 cluster; le soglie non sono state cambiate.
 
-Gli stessi tre casi dei test (`reference/tests/test_sizing.py`), generati nello script:
-**club** (100 giocatori, due relazioni verso lo stesso club, 2 club), **inverse** (100
-fatti uniformi + 50 coppie (p, a, q) + (q, b, p)), **three** (80 fatti uniformi + 40
-giocatori con tre relazioni verso 3 club); tutte le query; stessi target e stesso impianto.
-Il controllo è **superato** se: (i) MAP-B non è mai `validated`; (ii) sul club l'errore
-del modello di MAP-B è > 3 punti (ottimista); (iii) ogni raccomandazione verificata ha
-vero ≥ target − tol. Nello smoke (6 memorie fresche, non 20) i tre controlli passano:
-club MAP-B ottimista di 25–34 punti, la verifica porta D da 4224 a 8576 (t = 0.85) e il
-vero diventa 0.872. Un controllo fallito nel run non cambia le ipotesi ma va riportato come
-difetto dello strumento o dell'harness.
+## Tempo e regola di arresto
 
-## Tempo e riduzione della griglia (regola scritta, applicata ora)
+`--timing` (memorie sintetiche con lo stesso N e M ≈ mediana reale; costruzione e query
+per chiave misurate a parte; massimo di 3 ripetizioni; interpolazione in D; 6 processi;
+modello delle memorie per raccomandazione nel docstring di `timing`). Budget per la scelta
+del passo **10 h**; si sceglie il **primo** passo sotto il budget:
 
-Stima di `--timing` (memorie solo sintetiche, stesso N, M ≈ mediana dei sottografi reali,
-interpolazione in D; memorie attese per raccomandazione: 16 di verifica + 16 di
-correzione e 20 al D finale se non `validated` + 20 al D del modello + D minimo:
-(2 + log2(D / 2·passo)) valutazioni da 20 memorie; 6 processi). Budget 3 h. Passi in
-ordine, ci si ferma al primo sotto il budget:
+| passo | k_in | k_val | k_un | k_val_un | D minimo | baseline H7 | HRR max_mem | sottografi | stima |
+|---|---|---|---|---|---|---|---|---|---|
+| 0 | 4 | 6 | 8 | 30 | tutti i target, N ≤ 1600 | 0.85, N ≤ 400 | 1 GiB | 266 | 75.1 h |
+| 1 | 4 | 6 | 8 | 30 | 0.85, N ≤ 400 | 0.85, N ≤ 400 | 1 GiB | 266 | 15.3 h |
+| **2** | **4** | **6** | **8** | **30** | **0.85, N ≤ 400** | **0.85, N ≤ 100** | **256 MiB** | **266** | **8.6 h** |
+| 3 | 3 | 4 | 6 | 30 | 0.85, N ≤ 400 | 0.85, N ≤ 100 | 256 MiB | 222 | 7.5 h |
+| 4 | 3 | 4 | 6 | 30 | 0.85, N ≤ 400 | 0.85, N ≤ 100 | 128 MiB | 222 | 5.9 h |
+| 5 | 2 | 4 | 4 | 30 | 0.85, N ≤ 400 | 0.85, N ≤ 100 | 128 MiB | 186 | 4.4 h |
+| 6 | 2 | 3 | 4 | 30 | 0.85, N = 100 | 0.85, N = 100 | 64 MiB | 178 | 4.0 h |
 
-| passo | K | D minimo su | HRR max_mem_bytes | stima |
-|---|---|---|---|---|
-| 0 | 4 | tutti i target, tutti gli N | 1 GiB | 30.8 h |
-| 1 | 4 | target 0.85 | 1 GiB | 16.6 h |
-| 2 | 4 | target 0.85, N ≤ 400 | 1 GiB | 9.7 h |
-| 3 | 3 | target 0.85, N ≤ 400 | 1 GiB | 7.7 h |
-| 4 | 2 | target 0.85, N ≤ 400 | 1 GiB | 5.2 h |
-| 5 | 2 | target 0.85, N ≤ 400 | 256 MiB | 3.5 h |
-| **6** | **2** | **target 0.85, N ≤ 400** | **128 MiB** | **2.98 h** |
-| 7 | 2 | target 0.85, N ≤ 400 | 64 MiB | 2.9 h |
-
-**Scelto il passo 6** (`GRID_STEP = 6`). Il costo è dominato da HRR a N = 1600 (fino a
-48 s per memoria a D ≈ 97 000). Con il limite di 128 MiB, una raccomandazione HRR il cui
-D (del modello o di una correzione) supera il limite non viene costruita: nella verifica
-`recommend` la segna non verificata con un avviso; nel vero è "non misurata" ed è esclusa
-da tutte le ipotesi (contata e riportata). Le stime di tempo sono rumorose (due
-esecuzioni di `--timing`: 21.5 h e 30.8 h al passo 0); se il run supera le 3 h si fa così.
-Comando: `python examples/sizing_tool_prereg.py` (scrive
-`results/sizing_tool_prereg_results.json`).
+**Scelto il passo 2 (`GRID_STEP = 2`).** Una prima esecuzione di `--timing`, con la
+costruzione pigra contata nelle query (bug), dava stime 2–3 volte più alte: è stata
+scartata. **Regola di arresto:** il run esegue i sottografi nell'ordine di `select` e
+scrive una riga JSONL per sottografo (`results/sizing_tool_prereg_results.jsonl`) in quell'ordine;
+dopo un crash si riprende saltando i sottografi già scritti; il riepilogo si calcola solo
+alla fine. Se si superano **12 h** il run si ferma e l'analisi usa il prefisso scritto
+(sottografi interi, in ordine di priorità: ogni prefisso copre tutte le celle a giri).
+Qualunque cambio di passo dopo l'avvio è una deviazione da dichiarare.
+Comando: `python examples/sizing_tool_prereg.py`.
 
 ## Limiti dichiarati prima
 
-1. **Unità non indipendenti.** Le sei famiglie e i tre target dello stesso sottografo
-   condividono triple e query; le potenze e gli IC assumono indipendenza e sono ottimisti.
-   Descrittivo (non decisionale): le stesse quote per sottografo.
-2. **Il vero è una misura**: 20 memorie, errore ≈ 0.5 punti sulla media; le soglie
-   (target − tol, 3 punti) sono confrontate con una stima, non con il valore atteso.
-   Errori del modello vicini a 3 punti sono classificati con rumore (H3).
-3. Il vero è sulle stesse 200 query della verifica: misura la generalizzazione ai **semi**
-   (memorie nuove), non a query nuove dello stesso grafo.
-4. Solo UMLS è un grafo nuovo; gli altri quattro sono i grafi di calibrazione con
-   sottografi nuovi. Le `validated` stanno quasi tutte nel regime di calibrazione.
-5. H4 solo a target 0.85 e N ≤ 400 (riduzione per il tempo); il D minimo assume
-   monotonia ed è stimato con le stesse memorie del vero.
-6. HRR a N = 1600 è in parte non misurato (limite di memoria scelto per il tempo).
-7. La verifica di `recommend` non riduce mai D: H4 misura anche il pessimismo del modello,
-   non solo il costo della verifica.
-8. `reliability` è una regola strutturale: H3/H3b non dicono se gli avvisi spiegano
-   *perché* il modello sbaglia, solo se lo anticipano.
+1. Bootstrap per cluster con 60–70 cluster: gli IC sono approssimati; i cluster extra
+   sono scelti in base alle previsioni (validated), quindi H1/H2 parlano dei sottografi
+   che lo strumento dichiara validati, non di un campione casuale.
+2. Il vero è una misura (20 memorie, errore ≈ 0.5 punti sulla media); errori del modello
+   vicini a 3 punti sono classificati con rumore (H3, H6).
+3. Sui grafi mai visti la promessa (a)/(b) è testabile solo su uniform N = 100; il resto
+   dei mai visti entra solo in H8u, H3, H5, H6.
+4. H4 solo a target 0.85 e N ≤ 400, H7 solo a target 0.85 e N = 100; il D minimo assume
+   monotonia.
+5. HRR oltre 256 MiB non misurato (82 raccomandazioni, quasi tutte a N = 1600).
+6. La verifica di `recommend` non riduce mai D: H4 contiene anche il pessimismo del
+   modello.
+7. `reliability` è una regola strutturale: H3/H6 dicono se anticipa gli errori, non perché.
+8. La stima dei tempi è rumorosa; se il run supera 12 h vale la regola di arresto.
