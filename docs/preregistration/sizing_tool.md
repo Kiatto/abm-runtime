@@ -310,3 +310,38 @@ Comando: `python examples/sizing_tool_prereg.py`.
    modello.
 7. `reliability` è una regola strutturale: H3/H6 dicono se anticipa gli errori, non perché.
 8. La stima dei tempi è rumorosa; se il run supera 12 h vale la regola di arresto.
+
+## Esito (2026-10-14): non testabile per tempo
+
+Eseguito dopo il push e le marche OpenTimestamps (`45240c1`), con
+`python examples/sizing_tool_prereg.py` (passo 2, stimato 8.6 h). Dopo **12 h 10 min**
+il checkpoint conteneva **5 sottografi su 266** (tutti FB15k-237: uniform 100/400/1600,
+dense 100/400). Il tetto rigido di 12 h era superato, ma il codice lo controlla solo alla
+scrittura di un sottografo e quello in corso (FB15k-237 dense 1600) non finiva: il run è
+stato fermato a mano e il riepilogo calcolato con `summarize` dell'harness sul prefisso,
+come prescrive la regola d'arresto. Risultati in `results/sizing_tool_prereg_results.json`
+(prefisso) e `results/sizing_tool_prereg_results.jsonl` (checkpoint).
+
+| ipotesi | cluster | esito |
+|---|---|---|
+| H1, H2 (replica in-distribuzione) | ≤ 5 (minimo 30) | **non testabile** |
+| H1u, H2u, H8u (grafi mai visti) | 0 | **non testabile** |
+| H3, H5, H6 | 5 | **non testabile** |
+| H4 | 4 | **non testabile** |
+| H7 | 2 | **non testabile** |
+| controlli sintetici | — | non raggiunti (in coda all'ordine) |
+
+**Descrittivo, non un test** (90 raccomandazioni, 5 sottografi FB15k-237): errore medio del
+modello 0.41 punti; la verifica corregge D nel 39 % dei casi (MAP-B 73 %, FHRR 67 %);
+verificate 90 %.
+
+### Perché, e cosa cambia
+
+- **La stima dei tempi era sbagliata di circa 50 volte.** `--timing` misurava memorie su
+  grafi sintetici; la verifica con 8 semi di selezione, 8 di report, 20 memorie fresche per il
+  vero su tutte le chiavi e la ricerca del D minimo su altre 20, ripetuta per 6 famiglie × 3
+  target, su sottografi reali densi, costa molto di più. È un errore del disegno, non dei dati.
+- **Il tetto rigido non era rigido**: andava controllato anche durante un sottografo.
+- Nessuna ipotesi è valutata; nessuna soglia è stata toccata. Un nuovo collaudo richiede una
+  nuova preregistrazione, con i tempi misurati su sottografi reali (solo tempo, senza guardare
+  l'accuratezza) e un tetto controllato per cella.

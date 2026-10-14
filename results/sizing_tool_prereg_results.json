@@ -1,0 +1,166 @@
+{
+ "summary": {
+  "H1": {
+   "clusters": 0,
+   "n": 0,
+   "verdict": "non testabile"
+  },
+  "H2": {
+   "clusters": 0,
+   "n": 0,
+   "verdict": "non testabile"
+  },
+  "H1u": {
+   "clusters": 0,
+   "n": 0,
+   "verdict": "non testabile"
+  },
+  "H2u": {
+   "clusters": 0,
+   "n": 0,
+   "verdict": "non testabile"
+  },
+  "H8u": {
+   "clusters": 0,
+   "n": 0,
+   "verdict": "non testabile"
+  },
+  "H1_q": {
+   "clusters": 0,
+   "n": 0,
+   "verdict": "non testabile"
+  },
+  "H2_q": {
+   "clusters": 0,
+   "n": 0,
+   "verdict": "non testabile"
+  },
+  "H1_worst_case": {
+   "clusters": 0,
+   "n": 0,
+   "verdict": "non testabile"
+  },
+  "H2_worst_case": {
+   "clusters": 0,
+   "n": 0,
+   "verdict": "non testabile"
+  },
+  "excluded": [
+   "fb15k237|uniform|1600|50000|0.7|HRR",
+   "fb15k237|uniform|1600|50000|0.85|HRR",
+   "fb15k237|uniform|1600|50000|0.95|HRR",
+   "fb15k237|uniform|1600|50000|0.95|MAP-B"
+  ],
+  "H3": {
+   "n": 0,
+   "clusters": 0,
+   "verdict": "non testabile"
+  },
+  "H3_optimistic_only": {
+   "k": 0,
+   "n": 0
+  },
+  "specificity_descr": 0.0,
+  "H6": {
+   "clusters": 5,
+   "verdict": "non testabile"
+  },
+  "H5": {
+   "clusters": 5,
+   "n": 15,
+   "verdict": "non testabile"
+  },
+  "H4": {
+   "clusters": 4,
+   "verdict": "non testabile"
+  },
+  "H4_model_D": 0.0,
+  "H7": {
+   "clusters": 2,
+   "verdict": "non testabile"
+  },
+  "H7_descr": {
+   "baseline_verified": 1.0,
+   "baseline_truth_reach": 1.0
+  },
+  "descriptive": {
+   "dataset": {
+    "fb15k237": {
+     "n": 90,
+     "adjusted": 0.3888888888888889,
+     "verified": 0.9,
+     "mae_model_pt": 0.40930908571337454
+    }
+   },
+   "family": {
+    "BSDC-OR": {
+     "n": 15,
+     "adjusted": 0.13333333333333333,
+     "verified": 1.0,
+     "mae_model_pt": 0.49354960448075413
+    },
+    "MAP-B": {
+     "n": 15,
+     "adjusted": 0.7333333333333333,
+     "verified": 0.8,
+     "mae_model_pt": 0.3174128318459551
+    },
+    "MAP-I": {
+     "n": 15,
+     "adjusted": 0.4,
+     "verified": 0.8,
+     "mae_model_pt": 0.3042816088613032
+    },
+    "BSDC-S": {
+     "n": 15,
+     "adjusted": 0.2,
+     "verified": 1.0,
+     "mae_model_pt": 0.30952091239290364
+    },
+    "FHRR": {
+     "n": 15,
+     "adjusted": 0.6666666666666666,
+     "verified": 1.0,
+     "mae_model_pt": 0.4180152563700161
+    },
+    "HRR": {
+     "n": 15,
+     "adjusted": 0.2,
+     "verified": 0.8,
+     "mae_model_pt": 0.6563575828276824
+    }
+   },
+   "regime": {
+    "uniform": {
+     "n": 90,
+     "adjusted": 0.3888888888888889,
+     "verified": 0.9,
+     "mae_model_pt": 0.40930908571337454
+    }
+   }
+  },
+  "controls": {}
+ },
+ "grid_step": 2,
+ "config": {
+  "k_in": 4,
+  "k_val": 6,
+  "k_un": 8,
+  "k_val_un": 30,
+  "dmin": [
+   [
+    0.85
+   ],
+   400
+  ],
+  "h7": [
+   [
+    0.85
+   ],
+   100
+  ],
+  "hrr": 268435456
+ },
+ "prefix_subgraphs": 5,
+ "stopped": "tetto rigido superato (12 h 10 min); fermato a mano dopo il tetto, prefisso di 5 sottografi"
+}
