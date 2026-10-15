@@ -250763,134 +250763,102 @@
  "estimate": [
   {
    "step": 0,
-   "subgraphs": 223,
-   "cells": 5400,
-   "cpu_h": Infinity,
-   "makespan_h": Infinity,
-   "with_margin_h": Infinity,
-   "largest_cell_h": Infinity,
+   "subgraphs": 269,
+   "cells": 5970,
+   "cpu_h": 162.6349558185029,
+   "makespan_h": 16.82441160710344,
+   "with_margin_h": 25.236617410655157,
+   "largest_cell_h": 2.588555658788564,
    "phases": [
     [
      "F1",
-     1820,
-     0.44
+     2007,
+     5.77
     ],
     [
      "F2",
-     1213,
-     0.76
+     1915,
+     15.74
     ],
     [
      "F3",
      1938,
-     1.38
+     16.36
     ],
     [
      "F4",
-     429,
-     Infinity
+     110,
+     16.82
     ]
    ],
    "peak_bytes_per_process": 1073741824
   },
   {
    "step": 1,
-   "subgraphs": 190,
-   "cells": 4248,
-   "cpu_h": Infinity,
-   "makespan_h": Infinity,
-   "with_margin_h": Infinity,
-   "largest_cell_h": Infinity,
+   "subgraphs": 269,
+   "cells": 5970,
+   "cpu_h": 111.79664084051625,
+   "makespan_h": 11.63564299334264,
+   "with_margin_h": 17.45346449001396,
+   "largest_cell_h": 1.8478314256486659,
    "phases": [
     [
      "F1",
-     1820,
-     0.44
+     2007,
+     3.96
     ],
     [
      "F2",
-     907,
-     0.69
+     1915,
+     10.67
     ],
     [
      "F3",
-     1248,
-     1.0
+     1938,
+     11.29
     ],
     [
      "F4",
-     273,
-     Infinity
+     110,
+     11.64
     ]
    ],
    "peak_bytes_per_process": 1073741824
   },
   {
    "step": 2,
-   "subgraphs": 168,
-   "cells": 3654,
-   "cpu_h": Infinity,
-   "makespan_h": Infinity,
-   "with_margin_h": Infinity,
-   "largest_cell_h": Infinity,
+   "subgraphs": 269,
+   "cells": 5970,
+   "cpu_h": 99.46535480381807,
+   "makespan_h": 10.364200294131734,
+   "with_margin_h": 15.546300441197603,
+   "largest_cell_h": 0.5872238092951396,
    "phases": [
     [
      "F1",
-     1676,
-     0.44
+     1994,
+     2.94
     ],
     [
      "F2",
-     741,
-     0.66
+     1921,
+     9.4
     ],
     [
      "F3",
-     972,
-     0.88
+     1938,
+     10.02
     ],
     [
      "F4",
-     265,
-     Infinity
+     117,
+     10.36
     ]
    ],
    "peak_bytes_per_process": 1073741824
   },
   {
    "step": 3,
-   "subgraphs": 152,
-   "cells": 3048,
-   "cpu_h": Infinity,
-   "makespan_h": Infinity,
-   "with_margin_h": Infinity,
-   "largest_cell_h": Infinity,
-   "phases": [
-    [
-     "F1",
-     1550,
-     0.39
-    ],
-    [
-     "F2",
-     582,
-     0.54
-    ],
-    [
-     "F3",
-     648,
-     0.73
-    ],
-    [
-     "F4",
-     268,
-     Infinity
-    ]
-   ],
-   "peak_bytes_per_process": 1073741824
-  },
-  {
-   "step": 4,
    "subgraphs": 140,
    "cells": 2874,
    "cpu_h": 7.323888974836569,
@@ -250920,166 +250888,236 @@
     ]
    ],
    "peak_bytes_per_process": 176964480
-  },
-  {
-   "step": 5,
-   "subgraphs": 140,
-   "cells": 2742,
-   "cpu_h": 5.679852840041377,
-   "makespan_h": 0.5917772325621214,
-   "with_margin_h": 0.8876658488431822,
-   "largest_cell_h": 0.04626421344661847,
-   "phases": [
-    [
-     "F1",
-     1550,
-     0.39
-    ],
-    [
-     "F2",
-     582,
-     0.54
-    ],
-    [
-     "F3",
-     516,
-     0.57
-    ],
-    [
-     "F4",
-     94,
-     0.59
-    ]
-   ],
-   "peak_bytes_per_process": 176964480
-  },
-  {
-   "step": 6,
-   "subgraphs": 123,
-   "cells": 2316,
-   "cpu_h": 5.025007031521941,
-   "makespan_h": 0.5277488256717593,
-   "with_margin_h": 0.7916232385076389,
-   "largest_cell_h": 0.04626421344661847,
-   "phases": [
-    [
-     "F1",
-     1282,
-     0.33
-    ],
-    [
-     "F2",
-     582,
-     0.48
-    ],
-    [
-     "F3",
-     372,
-     0.51
-    ],
-    [
-     "F4",
-     80,
-     0.53
-    ]
-   ],
-   "peak_bytes_per_process": 176964480
   }
  ],
- "grid_step": 4,
+ "grid_step": 1,
  "selection": {
   "base": [
    "fb15k237|uniform|100|60000",
    "fb15k237|uniform|400|60000",
+   "fb15k237|uniform|1600|60000",
    "fb15k237|dense|100|60000",
    "fb15k237|dense|400|60000",
+   "fb15k237|dense|1600|60000",
    "wn18rr|uniform|100|60000",
    "wn18rr|uniform|400|60000",
+   "wn18rr|uniform|1600|60000",
    "wn18rr|dense|100|60000",
    "wn18rr|dense|400|60000",
+   "wn18rr|dense|1600|60000",
    "codex-m|uniform|100|60000",
    "codex-m|uniform|400|60000",
+   "codex-m|uniform|1600|60000",
    "codex-m|dense|100|60000",
    "codex-m|dense|400|60000",
+   "codex-m|dense|1600|60000",
    "yago3-10|uniform|100|60000",
    "yago3-10|uniform|400|60000",
+   "yago3-10|uniform|1600|60000",
    "yago3-10|dense|100|60000",
    "yago3-10|dense|400|60000",
+   "yago3-10|dense|1600|60000",
    "umls|uniform|100|60000",
    "umls|uniform|400|60000",
+   "umls|uniform|1600|60000",
    "umls|dense|100|60000",
    "umls|dense|400|60000",
+   "umls|dense|1600|60000",
    "kinship|uniform|100|60000",
    "kinship|uniform|400|60000",
+   "kinship|uniform|1600|60000",
    "kinship|dense|100|60000",
    "kinship|dense|400|60000",
+   "kinship|dense|1600|60000",
    "fb15k237|uniform|100|60001",
    "fb15k237|uniform|400|60001",
+   "fb15k237|uniform|1600|60001",
    "fb15k237|dense|100|60001",
    "fb15k237|dense|400|60001",
+   "fb15k237|dense|1600|60001",
    "wn18rr|uniform|100|60001",
    "wn18rr|uniform|400|60001",
+   "wn18rr|uniform|1600|60001",
    "wn18rr|dense|100|60001",
    "wn18rr|dense|400|60001",
+   "wn18rr|dense|1600|60001",
    "codex-m|uniform|100|60001",
    "codex-m|uniform|400|60001",
+   "codex-m|uniform|1600|60001",
    "codex-m|dense|100|60001",
    "codex-m|dense|400|60001",
+   "codex-m|dense|1600|60001",
    "yago3-10|uniform|100|60001",
    "yago3-10|uniform|400|60001",
+   "yago3-10|uniform|1600|60001",
    "yago3-10|dense|100|60001",
    "yago3-10|dense|400|60001",
+   "yago3-10|dense|1600|60001",
    "umls|uniform|100|60001",
    "umls|uniform|400|60001",
+   "umls|uniform|1600|60001",
    "umls|dense|100|60001",
    "umls|dense|400|60001",
+   "umls|dense|1600|60001",
    "kinship|uniform|100|60001",
    "kinship|uniform|400|60001",
+   "kinship|uniform|1600|60001",
    "kinship|dense|100|60001",
    "kinship|dense|400|60001",
+   "kinship|dense|1600|60001",
+   "fb15k237|uniform|100|60002",
+   "fb15k237|uniform|400|60002",
+   "fb15k237|uniform|1600|60002",
+   "fb15k237|dense|100|60002",
+   "fb15k237|dense|400|60002",
+   "fb15k237|dense|1600|60002",
+   "wn18rr|uniform|100|60002",
+   "wn18rr|uniform|400|60002",
+   "wn18rr|uniform|1600|60002",
+   "wn18rr|dense|100|60002",
+   "wn18rr|dense|400|60002",
+   "wn18rr|dense|1600|60002",
+   "codex-m|uniform|100|60002",
+   "codex-m|uniform|400|60002",
+   "codex-m|uniform|1600|60002",
+   "codex-m|dense|100|60002",
+   "codex-m|dense|400|60002",
+   "codex-m|dense|1600|60002",
+   "yago3-10|uniform|100|60002",
+   "yago3-10|uniform|400|60002",
+   "yago3-10|uniform|1600|60002",
+   "yago3-10|dense|100|60002",
+   "yago3-10|dense|400|60002",
+   "yago3-10|dense|1600|60002",
    "umls|uniform|100|60002",
    "umls|uniform|400|60002",
+   "umls|uniform|1600|60002",
    "umls|dense|100|60002",
    "umls|dense|400|60002",
+   "umls|dense|1600|60002",
    "kinship|uniform|100|60002",
    "kinship|uniform|400|60002",
+   "kinship|uniform|1600|60002",
    "kinship|dense|100|60002",
    "kinship|dense|400|60002",
+   "kinship|dense|1600|60002",
+   "fb15k237|uniform|100|60003",
+   "fb15k237|uniform|400|60003",
+   "fb15k237|uniform|1600|60003",
+   "fb15k237|dense|100|60003",
+   "fb15k237|dense|400|60003",
+   "fb15k237|dense|1600|60003",
+   "wn18rr|uniform|100|60003",
+   "wn18rr|uniform|400|60003",
+   "wn18rr|uniform|1600|60003",
+   "wn18rr|dense|100|60003",
+   "wn18rr|dense|400|60003",
+   "wn18rr|dense|1600|60003",
+   "codex-m|uniform|100|60003",
+   "codex-m|uniform|400|60003",
+   "codex-m|uniform|1600|60003",
+   "codex-m|dense|100|60003",
+   "codex-m|dense|400|60003",
+   "codex-m|dense|1600|60003",
+   "yago3-10|uniform|100|60003",
+   "yago3-10|uniform|400|60003",
+   "yago3-10|uniform|1600|60003",
+   "yago3-10|dense|100|60003",
+   "yago3-10|dense|400|60003",
+   "yago3-10|dense|1600|60003",
    "umls|uniform|100|60003",
    "umls|uniform|400|60003",
+   "umls|uniform|1600|60003",
    "umls|dense|100|60003",
    "umls|dense|400|60003",
+   "umls|dense|1600|60003",
    "kinship|uniform|100|60003",
    "kinship|uniform|400|60003",
+   "kinship|uniform|1600|60003",
    "kinship|dense|100|60003",
-   "kinship|dense|400|60003"
+   "kinship|dense|400|60003",
+   "kinship|dense|1600|60003",
+   "umls|uniform|100|60004",
+   "umls|uniform|400|60004",
+   "umls|uniform|1600|60004",
+   "umls|dense|100|60004",
+   "umls|dense|400|60004",
+   "umls|dense|1600|60004",
+   "kinship|uniform|100|60004",
+   "kinship|uniform|400|60004",
+   "kinship|uniform|1600|60004",
+   "kinship|dense|100|60004",
+   "kinship|dense|400|60004",
+   "kinship|dense|1600|60004",
+   "umls|uniform|100|60005",
+   "umls|uniform|400|60005",
+   "umls|uniform|1600|60005",
+   "umls|dense|100|60005",
+   "umls|dense|400|60005",
+   "umls|dense|1600|60005",
+   "kinship|uniform|100|60005",
+   "kinship|uniform|400|60005",
+   "kinship|uniform|1600|60005",
+   "kinship|dense|100|60005",
+   "kinship|dense|400|60005",
+   "kinship|dense|1600|60005",
+   "umls|uniform|100|60006",
+   "umls|uniform|400|60006",
+   "umls|uniform|1600|60006",
+   "umls|dense|100|60006",
+   "umls|dense|400|60006",
+   "umls|dense|1600|60006",
+   "kinship|uniform|100|60006",
+   "kinship|uniform|400|60006",
+   "kinship|uniform|1600|60006",
+   "kinship|dense|100|60006",
+   "kinship|dense|400|60006",
+   "kinship|dense|1600|60006",
+   "umls|uniform|100|60007",
+   "umls|uniform|400|60007",
+   "umls|uniform|1600|60007",
+   "umls|dense|100|60007",
+   "umls|dense|400|60007",
+   "umls|dense|1600|60007",
+   "kinship|uniform|100|60007",
+   "kinship|uniform|400|60007",
+   "kinship|uniform|1600|60007",
+   "kinship|dense|100|60007",
+   "kinship|dense|400|60007",
+   "kinship|dense|1600|60007"
   ],
   "val": [
    "fb15k237|uniform|100|60000",
    "fb15k237|uniform|400|60001",
    "fb15k237|dense|100|60003",
    "fb15k237|dense|400|60000",
+   "fb15k237|dense|1600|60000",
    "wn18rr|uniform|100|60000",
    "wn18rr|uniform|400|60000",
    "wn18rr|dense|100|60005",
    "codex-m|uniform|100|60000",
    "codex-m|uniform|400|60000",
+   "codex-m|uniform|1600|60000",
    "codex-m|dense|100|60000",
    "codex-m|dense|400|60001",
+   "codex-m|dense|1600|60006",
    "yago3-10|uniform|100|60000",
    "yago3-10|uniform|400|60000",
    "yago3-10|dense|100|60005",
    "yago3-10|dense|400|60003",
+   "yago3-10|dense|1600|60002",
    "umls|uniform|100|60000",
    "umls|dense|100|60037",
    "kinship|uniform|100|60000",
    "fb15k237|uniform|100|60001",
    "fb15k237|uniform|400|60004",
    "fb15k237|dense|100|60007",
+   "fb15k237|dense|1600|60002",
    "wn18rr|uniform|100|60001",
    "wn18rr|uniform|400|60001",
    "codex-m|uniform|100|60001",
    "codex-m|uniform|400|60001",
+   "codex-m|uniform|1600|60001",
    "codex-m|dense|100|60004",
    "codex-m|dense|400|60002",
    "yago3-10|uniform|100|60001",
@@ -251089,33 +251127,47 @@
    "kinship|uniform|100|60001",
    "fb15k237|uniform|100|60002",
    "fb15k237|uniform|400|60007",
+   "fb15k237|dense|1600|60004",
    "wn18rr|uniform|100|60002",
    "wn18rr|uniform|400|60003",
    "codex-m|uniform|100|60002",
    "codex-m|uniform|400|60002",
+   "codex-m|uniform|1600|60002",
    "codex-m|dense|400|60006",
    "yago3-10|uniform|100|60002",
    "yago3-10|uniform|400|60002",
    "umls|uniform|100|60002",
    "kinship|uniform|100|60003",
    "fb15k237|uniform|100|60004",
+   "fb15k237|dense|1600|60006",
    "wn18rr|uniform|100|60003",
    "wn18rr|uniform|400|60004",
    "codex-m|uniform|100|60003",
    "codex-m|uniform|400|60003",
+   "codex-m|uniform|1600|60003",
    "yago3-10|uniform|100|60003",
    "yago3-10|uniform|400|60003",
    "umls|uniform|100|60003",
    "kinship|uniform|100|60004",
    "fb15k237|uniform|100|60005",
+   "fb15k237|dense|1600|60007",
    "wn18rr|uniform|100|60004",
    "wn18rr|uniform|400|60005",
    "codex-m|uniform|100|60004",
    "codex-m|uniform|400|60004",
+   "codex-m|uniform|1600|60004",
    "yago3-10|uniform|100|60004",
    "yago3-10|uniform|400|60004",
    "umls|uniform|100|60004",
    "kinship|uniform|100|60005",
+   "fb15k237|uniform|100|60006",
+   "wn18rr|uniform|100|60005",
+   "wn18rr|uniform|400|60007",
+   "codex-m|uniform|100|60005",
+   "codex-m|uniform|400|60005",
+   "codex-m|uniform|1600|60005",
+   "yago3-10|uniform|100|60005",
+   "yago3-10|uniform|400|60005",
    "umls|uniform|100|60005",
    "kinship|uniform|100|60006",
    "umls|uniform|100|60006",
@@ -251155,18 +251207,28 @@
    "umls|uniform|100|60030",
    "kinship|uniform|100|60024",
    "umls|uniform|100|60031",
-   "kinship|uniform|100|60025"
+   "kinship|uniform|100|60025",
+   "umls|uniform|100|60032",
+   "kinship|uniform|100|60026",
+   "umls|uniform|100|60034",
+   "kinship|uniform|100|60027",
+   "umls|uniform|100|60035",
+   "kinship|uniform|100|60028",
+   "umls|uniform|100|60037",
+   "kinship|uniform|100|60029",
+   "umls|uniform|100|60039",
+   "kinship|uniform|100|60030"
   ],
   "b1600": []
  },
  "power": {
   "selection": {
-   "base": 64,
-   "val": 101,
+   "base": 192,
+   "val": 131,
    "b1600": 0
   },
-  "validated_clusters_in": 50,
-  "validated_recs_in": 864,
+  "validated_clusters_in": 70,
+  "validated_recs_in": 1177,
   "H1_in": {
    "p=0.99,rho=0.0": [
     1.0,
@@ -251189,32 +251251,32 @@
     0.0
    ],
    "p=0.97,rho=0.2": [
-    0.9325,
+    0.9625,
     0.0
    ],
    "p=0.95,rho=0.0": [
-    0.4825,
-    0.0575
+    0.51,
+    0.045
    ],
    "p=0.95,rho=0.2": [
-    0.51,
-    0.0525
+    0.5125,
+    0.02
    ],
    "p=0.92,rho=0.0": [
     0.0,
-    0.965
+    0.995
    ],
    "p=0.92,rho=0.2": [
-    0.0625,
-    0.5075
+    0.0275,
+    0.6275
    ],
    "p=0.9,rho=0.0": [
     0.0,
     1.0
    ],
    "p=0.9,rho=0.2": [
-    0.0,
-    0.875
+    0.0025,
+    0.95
    ],
    "p=0.85,rho=0.0": [
     0.0,
@@ -251255,36 +251317,36 @@
     0.0
    ],
    "p=0.95,rho=0.2": [
-    0.9925,
+    1.0,
     0.0
    ],
    "p=0.92,rho=0.0": [
-    0.9825,
+    0.9925,
     0.0
    ],
    "p=0.92,rho=0.2": [
-    0.8325,
-    0.0025
+    0.8675,
+    0.0
    ],
    "p=0.9,rho=0.0": [
-    0.4725,
-    0.05
+    0.48,
+    0.04
    ],
    "p=0.9,rho=0.2": [
-    0.5475,
-    0.0225
+    0.515,
+    0.0325
    ],
    "p=0.85,rho=0.0": [
     0.0,
-    0.9925
+    0.9975
    ],
    "p=0.85,rho=0.2": [
-    0.0225,
-    0.675
+    0.0025,
+    0.7825
    ]
   },
-  "validated_clusters_unseen": 51,
-  "validated_recs_unseen": 686,
+  "validated_clusters_unseen": 61,
+  "validated_recs_unseen": 830,
   "H1_unseen": {
    "p=0.99,rho=0.0": [
     1.0,
@@ -251299,7 +251361,7 @@
     0.0
    ],
    "p=0.98,rho=0.2": [
-    0.9825,
+    0.9975,
     0.0
    ],
    "p=0.97,rho=0.0": [
@@ -251307,32 +251369,32 @@
     0.0
    ],
    "p=0.97,rho=0.2": [
-    0.9225,
+    0.945,
     0.0
    ],
    "p=0.95,rho=0.0": [
-    0.56,
-    0.0375
+    0.565,
+    0.0275
    ],
    "p=0.95,rho=0.2": [
-    0.57,
-    0.0325
+    0.5025,
+    0.06
    ],
    "p=0.92,rho=0.0": [
     0.0,
-    0.94
+    0.95
    ],
    "p=0.92,rho=0.2": [
-    0.0725,
-    0.47
+    0.045,
+    0.555
    ],
    "p=0.9,rho=0.0": [
     0.0,
-    0.9975
+    1.0
    ],
    "p=0.9,rho=0.2": [
     0.0025,
-    0.8225
+    0.8825
    ],
    "p=0.85,rho=0.0": [
     0.0,
@@ -251340,7 +251402,7 @@
    ],
    "p=0.85,rho=0.2": [
     0.0,
-    0.9975
+    1.0
    ]
   },
   "H2_unseen": {
@@ -251377,28 +251439,28 @@
     0.0
    ],
    "p=0.92,rho=0.0": [
-    0.9625,
+    0.9925,
     0.0
    ],
    "p=0.92,rho=0.2": [
-    0.8325,
-    0.0025
+    0.8575,
+    0.0
    ],
    "p=0.9,rho=0.0": [
-    0.5425,
-    0.055
+    0.56,
+    0.0375
    ],
    "p=0.9,rho=0.2": [
-    0.5125,
-    0.0475
+    0.565,
+    0.0375
    ],
    "p=0.85,rho=0.0": [
     0.0,
-    0.9825
+    0.995
    ],
    "p=0.85,rho=0.2": [
-    0.0325,
-    0.665
+    0.0225,
+    0.705
    ]
   },
   "validated_1600_untested": 249,
@@ -251449,14 +251511,14 @@
    "yago3-10|dense|1600|60002|0.85|HRR",
    "yago3-10|dense|1600|60002|0.95|HRR"
   ],
-  "base_clusters": 64,
-  "H5_pairs": 166,
-  "H5_predicted_max_coverage": 0.43373493975903615,
-  "H4_subgraphs": 57,
-  "H4_cells": 342,
-  "H4_subgraphs_with_validated": 41,
-  "H7_subgraphs": 51,
-  "H7_cells": 306,
-  "H7_subgraphs_with_validated": 43
+  "base_clusters": 192,
+  "H5_pairs": 465,
+  "H5_predicted_max_coverage": 0.33548387096774196,
+  "H4_subgraphs": 199,
+  "H4_cells": 1194,
+  "H4_subgraphs_with_validated": 118,
+  "H7_subgraphs": 124,
+  "H7_cells": 744,
+  "H7_subgraphs_with_validated": 91
  }
 }

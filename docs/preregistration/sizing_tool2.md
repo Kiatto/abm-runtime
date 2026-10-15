@@ -13,6 +13,62 @@ Prima del commit l'harness è stato eseguito solo con `--smoke` (grafi sintetici
 `--predict` (`recommend(verify=False)`: nessuna memoria), `--timing-real` (memorie su
 sottografi reali **dedicati**, solo tempi), `--estimate` e `--power` (dalle previsioni).
 
+## Seconda revisione prima dei dati (dopo `9aed475`): ritorno al disegno della 23
+
+Decisione presa **prima di qualsiasi dato** e dichiarata come revisione del disegno: il
+budget liberato dal fix dei thread si usa per tornare il più vicino possibile alla 23.
+Questa sezione **prevale** su tutte le precedenti (anche sul punto 1 della prima revisione).
+
+**Regola scritta prima di guardare le stime.** Passi in ordine di preferenza: (a) disegno
+della 23 pieno (vero su 20 memorie; N = 1600 in tutti i ruoli: base k_in = 4 / k_un = 8,
+val k_val = 6 / k_val_un = 30; HRR 256 MiB anche a N = 1600; D minimo 0.85, N ≤ 400, tutti;
+baseline 0.85, N = 100, tutti); (b) come (a) con vero su 10; (c) come (b) con HRR a 64 MiB a
+N = 1600; (d) il passo 4 precedente. Si sceglie il **primo** la cui stima × 1.5 sta sotto
+**20 h** con 10 processi; watchdog, tetto per cella e tetto rigido 30 h invariati. (I passi
+0–3 e 5–6 delle versioni precedenti sono tolti dalla griglia: non erano mai stati scelti.)
+
+**Tempi a N = 1600, 1 thread** (`--timing-1600`, k = 90 000, solo tempi, 225 misure, massimo
+di 3 ripetizioni, 2171 s; aggiunti a `results/sizing_tool2_prereg_timing_t1.json`).
+Secondi per una memoria (costruzione + query su tutte le chiavi), mediana / max:
+BSDC-OR 2.1 / 10.5; BSDC-S 3.1 / 14.6; FHRR 14.3 / 90.9; HRR 59.9 / 371; MAP-B 16.1 / 38.3;
+MAP-I 23.7 / 86.1 (con BLAS libero erano 9.8–664 / 35–5287).
+
+**Stime (makespan simulato, 10 processi):**
+
+| passo | celle | CPU | makespan | × 1.5 | cella max |
+|---|---|---|---|---|---|
+| (a) 23 pieno | 5970 | 163 h | 16.8 h | 25.2 h | 2.6 h |
+| **(b) vero su 10** | **5970** | **112 h** | **11.6 h** | **17.5 h** | **1.8 h** |
+| (c) HRR 64 MiB a 1600 | 5970 | 99 h | 10.4 h | 15.5 h | 0.6 h |
+| (d) passo 4 | 2874 | 7.3 h | 0.76 h | 1.13 h | 0.05 h |
+
+**Scelto (b)** (`GRID_STEP = 1`). Fasi (cumulato): F1 2007 celle 4.0 h; F2 1915 celle 10.7 h;
+F3 1938 celle (D minimo e baseline) 11.3 h; F4 110 celle 11.6 h; controlli per primi.
+
+**Conseguenze.** L'assert di `select()` vale solo per (d). Le popolazioni tornano quelle
+della 23: H3, H5, H6 su **tutti** i sottografi base (N = 100, 400, 1600), H1/H2/H1u/H2u con
+le validated a N = 1600. I limiti 1 e 6 e il punto 1 della prima revisione sono superati:
+N = 1600 è collaudato. Unica differenza di disegno dalla 23 rimasta: **vero su 10 memorie**
+(nota sul rumore della prima revisione) e le modifiche d'esecuzione (fasi, celle, watchdog,
+1 thread, sottografi nuovi). Le 249 validated previste a N = 1600 sono nel pool; quelle nei
+sottografi scelti entrano.
+
+**Cluster previsti (passo (b)):** 269 sottografi (192 base, 131 val). H1/H2: **70** cluster,
+≤ 1177 validated; H1u/H2u: **61**, ≤ 830; H3/H5/H6: 192 base, H5 su 465 coppie, copertura
+massima prevista **0.335** (H5 prevista falsificata); H4: 199 sottografi nel perimetro
+(118 con validated); H7: 124 (91 con validated).
+
+**Potenza (P sost. / P fals.):** H1, 70 cluster: p = 0.97 → 1.00 (ρ = 0), 0.96 (ρ = 0.2);
+p = 0.95 → 0.51 / 0.05; p = 0.92 → 0 / 0.995 (ρ = 0), 0.03 / 0.63 (ρ = 0.2). H2: p = 0.92 →
+0.99 / 0 e 0.87 / 0; p = 0.90 → ~0.5. H1u (61): p = 0.97 → 1.00 / 0.95; p = 0.92 → falsificata
+0.95 / 0.56. H2u: p = 0.92 → 0.99 / 0.86. Come nella 23.
+
+**Memoria:** la memoria stimata più grande arriva al limite di 1 GiB (MAX_MEM della 23, non
+HRR) a N = 1600: fino a ~1.3 GB per processo, ~13 GB con 10 processi su 30 GB. Un OOM è
+gestito dal watchdog (cella `timeout`, run che prosegue) e conta nel worst case.
+
+**Smoke** rifatto al passo (b) (180 s): 10/10 controlli superati; ripresa idempotente; tetto 1 s → 24 timeout su 54; tetto rigido scaduto → tutte `not_started`; ValueError → `error`, SIGKILL → `timeout` dal watchdog, 6 celle vere `ok`; modello rotto: H2 0.19 su 72, H3 0.00 su 68.
+
 ## Revisione del disegno prima dei dati (dopo `edc1eb1`)
 
 Revisione ostile applicata **prima** di qualsiasi accuratezza sui grafi reali. Questa sezione

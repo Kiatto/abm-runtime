@@ -88,23 +88,22 @@ P_ADJ = {"MAP-B": 0.79, "MAP-I": 0.40, "FHRR": 0.67, "HRR": 0.25, "BSDC-OR": 0.1
 # dmin: (target, N max, 1 sottografo ogni `every`, in ordine di k) per H4;
 # h7: (target, N max, every) per la baseline di H7; hrr: max_mem di HRR (byte);
 # hrr_1600: False = HRR non si costruisce a N = 1600 (escluse, elencate).
+# Seconda revisione (prima dei dati): passi in ORDINE DI PREFERENZA, regola scritta prima di
+# guardare le stime: si sceglie il PRIMO la cui stima × 1.5 sta sotto 20 h con 10 processi.
+# full1600: N = 1600 in tutti i ruoli come nella 23 (base k_in/k_un, val k_val/k_val_un);
+# truth: memorie del vero; hrr1600_cap: max_mem di HRR a N = 1600 (None = come hrr).
+_D23 = dict(k_in=4, k_val=6, k_un=8, k_val_un=30, k_1600=0, full1600=True,
+            dmin=((0.85,), 400, 1), h7=((0.85,), 100, 1), hrr=256 << 20, hrr_1600=True,
+            hrr1600_cap=None, truth=20)
 REDUCTION = [
-    dict(k_in=4, k_val=6, k_un=8, k_val_un=30, k_1600=2, dmin=((0.85,), 400, 1),
-         h7=((0.85,), 100, 1), hrr=256 << 20, hrr_1600=True),
-    dict(k_in=3, k_val=6, k_un=6, k_val_un=30, k_1600=1, dmin=((0.85,), 400, 2),
-         h7=((0.85,), 100, 1), hrr=128 << 20, hrr_1600=False),
-    dict(k_in=3, k_val=6, k_un=4, k_val_un=25, k_1600=1, dmin=((0.85,), 400, 3),
-         h7=((0.85,), 100, 1), hrr=128 << 20, hrr_1600=False),
-    dict(k_in=2, k_val=5, k_un=4, k_val_un=25, k_1600=1, dmin=((0.85,), 400, 3),
-         h7=((0.85,), 100, 2), hrr=64 << 20, hrr_1600=False),
-    dict(k_in=2, k_val=5, k_un=4, k_val_un=25, k_1600=0, dmin=((0.85,), 400, 3),
-         h7=((0.85,), 100, 2), hrr=64 << 20, hrr_1600=False),
-    dict(k_in=2, k_val=5, k_un=4, k_val_un=25, k_1600=0, dmin=((0.85,), 100, 3),
-         h7=((0.85,), 100, 2), hrr=64 << 20, hrr_1600=False),
-    dict(k_in=2, k_val=4, k_un=4, k_val_un=20, k_1600=0, dmin=((0.85,), 100, 3),
-         h7=((0.85,), 100, 3), hrr=64 << 20, hrr_1600=False),
+    dict(_D23),                                         # (a) disegno della 23 pieno
+    dict(_D23, truth=10),                               # (b) come (a), vero su 10
+    dict(_D23, truth=10, hrr1600_cap=64 << 20),         # (c) come (b), HRR 64 MiB a N = 1600
+    dict(k_in=2, k_val=5, k_un=4, k_val_un=25, k_1600=0, full1600=False,   # (d) = passo 4
+         dmin=((0.85,), 400, 3), h7=((0.85,), 100, 2), hrr=64 << 20, hrr_1600=False,
+         hrr1600_cap=None, truth=10),
 ]
-GRID_STEP = 4                       # 1 thread BLAS: 0.76 h × 1.5 = 1.13 h ≤ 20 h; passi 0-3 non stimabili (N = 1600 fuori)
+GRID_STEP = 1                       # seconda revisione: (b), 11.64 h × 1.5 = 17.45 h ≤ 20 h; (a) 25.2 h oltre
 CONTROLS_FIRST = True               # controlli: ~1 h di CPU nello smoke (~6 min con 10 processi)
 # -----------------------------------------------------------------------------
 
@@ -126,10 +125,17 @@ def hrr_off(family, n):
     return family == "HRR" and n > 400 and not CFG["hrr_1600"]
 
 
+def mem_cap(family, n):
+    if family == "HRR" and n > 400 and CFG.get("hrr1600_cap"):
+        return CFG["hrr1600_cap"]
+    return P.mem_cap(family)
+
+
 def excluded(family, d, n, m, q):
     """L'esclusione della 23 (stessa stima di memoria della verifica) più HRR a N = 1600 se
     il passo la spegne."""
-    return hrr_off(family, n) or P.excluded(family, d, n, m, q)
+    return hrr_off(family, n) or families.estimate_bytes(
+        family, d, n_facts=n, n_symbols=m, n_queries=q) > mem_cap(family, n)
 
 
 # ---- sottografi (campionamento della 23, semi nuovi) -----------------------------------
@@ -159,7 +165,7 @@ def target_seeds(sg, ti):
         [SEED_BASE, sg["di"], sg["si"], sg["N"], sg["k"], 1000 + ti]).spawn(4)
     b = P.seeds_of(bas, 2 * VERIFY_SEEDS, 1 << 33)
     return {"rng_seed": int(ver.generate_state(1)[0]),
-            "truth": P.seeds_of(tru, TRUTH_SEEDS, 1 << 31),
+            "truth": P.seeds_of(tru, CFG.get("truth", TRUTH_SEEDS), 1 << 31),
             "dmin": P.seeds_of(dmn, P.DMIN_SEEDS, 1 << 32), "base_sel": b[:VERIFY_SEEDS],
             "base_rep": b[VERIFY_SEEDS:]}
 
@@ -197,7 +203,7 @@ def select(pred):
         subs.sort()
         unseen = ds in P.UNSEEN
         order = (P.DATASETS.index(ds), P.SCHEMES.index(sc), n)
-        if n > 400:     # revisione: NESSUNA conclusione a N = 1600 (né base né val)
+        if n > 400 and not CFG["full1600"]:   # passo (d): nessuna conclusione a N = 1600
             for pos, (_k, key, _rs) in enumerate(subs[:CFG["k_1600"]]):
                 out["b1600"].append(((pos,) + order, key))
             continue
@@ -212,7 +218,8 @@ def select(pred):
                 out["val"].append(((nval,) + order, key))
                 nval += 1
     res = {k: [key for _o, key in sorted(v)] for k, v in out.items()}
-    assert all(by[k][0]["N"] <= 400 for k in res["base"] + res["val"])
+    if not CFG["full1600"]:
+        assert all(by[k][0]["N"] <= 400 for k in res["base"] + res["val"])
     return res
 
 
@@ -338,7 +345,7 @@ def rec_row(sg, target, family):
             recs = sizing.recommend(sg["triples"], target, families=[family],
                                     queries=sg["queries"], verify=True, seeds=VERIFY_SEEDS,
                                     tol=P.TOL, rng_seed=sd["rng_seed"],
-                                    max_mem_bytes=P.mem_cap(family))
+                                    max_mem_bytes=mem_cap(family, len(sg["triples"])))
         cost = (cm.c[family], time.time() - t0)
     if not recs:
         return None, truth, sd
@@ -628,7 +635,7 @@ def verify_counts_23():
     return {f: (len(mem[f]), VERIFY_MEMS[f], P_ADJ[f]) for f in P.FAMILIES}
 
 
-def timing_real(graphs, workers, max_n=None):
+def timing_real(graphs, workers, max_n=None, min_n=None):
     """Un sottografo reale per grafo × schema × N (k = K_TIMING, mai di valutazione): per ogni
     famiglia, ai D previsti (verify=False) dei tre target e a 2× il massimo (correzioni,
     D minimo), costruzione e query (su Q e su tutte le chiavi), massimo di 3 ripetizioni,
@@ -638,7 +645,7 @@ def timing_real(graphs, workers, max_n=None):
     TIMING_MODE = True
     jobs = []
     for sg in all_subgraphs(graphs, offset=K_TIMING, kmax=1):
-        if max_n and sg["N"] > max_n:
+        if (max_n and sg["N"] > max_n) or (min_n and sg["N"] < min_n):
             continue
         st = P.struct(sg)
         ds = defaultdict(set)
@@ -706,7 +713,7 @@ def cell_cost(c, r, cf):
     stp = P.step_of(f, n)
     if c["kind"] == "rec":
         return VERIFY_MEMS[f] * cf(*a, 1.25 * d, r["Q"], r["M"], "q") + \
-            TRUTH_SEEDS * (cf(*a, d, r["n_keys"], r["M"]) +
+            CFG["truth"] * (cf(*a, d, r["n_keys"], r["M"]) +
                            P_ADJ[f] * cf(*a, 1.5 * d, r["n_keys"], r["M"]))
     if c["kind"] == "dmin":
         ev = 2 + max(0, math.ceil(math.log2(max(d / (2 * stp), 1))))
@@ -714,7 +721,7 @@ def cell_cost(c, r, cf):
     ev = 2 + max(0, math.ceil(math.log2(max(d / P.BASE_D0, 1)))) + \
         max(0, math.ceil(math.log2(max(d / (2 * stp), 1))))
     return ev * VERIFY_SEEDS * cf(*a, 0.75 * d, r["Q"], r["M"], "q") + \
-        TRUTH_SEEDS * cf(*a, d, r["n_keys"], r["M"])
+        CFG["truth"] * cf(*a, d, r["n_keys"], r["M"])
 
 
 def schedule(phases, costs, workers):
@@ -980,6 +987,8 @@ def main():
     ap.add_argument("--predict", action="store_true")
     ap.add_argument("--timing-real", action="store_true")
     ap.add_argument("--estimate", action="store_true")
+    ap.add_argument("--timing-1600", action="store_true",
+                    help="seconda revisione: solo tempi a N = 1600 (1 thread), aggiunti al file t1")
     ap.add_argument("--power", action="store_true")
     ap.add_argument("--workers", type=int, default=WORKERS)
     a = ap.parse_args()
@@ -1015,6 +1024,13 @@ def main():
                 "sha256": {n: P.DATA[n][2] for n in P.DATASETS}, "K_PRED": P.K_PRED,
                 "seed_base": SEED_BASE, "k_offset": K_OFFSET, "rows": pred}, indent=1))
             print(f"{len(sgs)} sottografi, {len(pred)} righe")
+        elif a.timing_1600:
+            tim = timing_real(graphs, a.workers, None, 1600)
+            d = json.loads(TIMING_OUT.read_text())
+            d["timing"] = [t for t in d["timing"] if t["N"] < 1600] + tim
+            d["n1600"] = {"repeats": TIMING_REPEATS, "blas_threads": BLAS_THREADS,
+                          "workers": a.workers}
+            TIMING_OUT.write_text(json.dumps(d, indent=1, default=P._jdef))
         elif a.timing_real:
             tim = timing_real(graphs, a.workers, TIMING_MAX_N)
             TIMING_OUT.write_text(json.dumps({"k_timing": K_TIMING, "repeats": TIMING_REPEATS,
