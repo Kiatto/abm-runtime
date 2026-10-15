@@ -23,11 +23,19 @@ Uso, dalla root:
     python examples/sizing_tool2_prereg.py --power        # potenza per cluster (previsioni)
     python examples/sizing_tool2_prereg.py                # il run preregistrato (NON eseguito qui)
 """
-import argparse
+import os
+
+# Thread BLAS fissati PRIMA di importare numpy (revisione): 1 thread per processo, 10
+# processi. Il primo --timing-real (file _timing.json) era senza questo vincolo (OpenBLAS
+# multi-thread in 10 processi): la stima usa la ripetizione a 1 thread (_timing_t1.json).
+BLAS_THREADS = "1"
+for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS"):
+    os.environ[_v] = BLAS_THREADS
+
+import argparse   # noqa: E402
 import json
 import math
 import multiprocessing as mp
-import os
 import signal
 import sys
 import tempfile
@@ -47,7 +55,11 @@ OUT = ROOT / "results" / "sizing_tool2_prereg_results.json"
 CKPT = ROOT / "results" / "sizing_tool2_prereg_results.jsonl"
 META = ROOT / "results" / "sizing_tool2_prereg_meta.json"
 PRED_OUT = ROOT / "results" / "sizing_tool2_prereg_predictions.json"
-TIMING_OUT = ROOT / "results" / "sizing_tool2_prereg_timing.json"
+TIMING_OUT0 = ROOT / "results" / "sizing_tool2_prereg_timing.json"   # primo, BLAS libero
+TIMING_OUT = ROOT / "results" / "sizing_tool2_prereg_timing_t1.json"  # 1 thread: la stima
+TIMING_MAX_N = 400                  # la ripetizione a 1 thread misura solo N ≤ 400 (N = 1600 fuori)
+WATCHDOG_SLACK_S = 600              # il padre abbandona una cella dopo tetto + 10 min
+P23_CKPT_SHA = "ba2869f7746e8ef0adb62ed347e2dbaec0d7fdfda44a1262b1bde2a84d292882"
 
 # ---- preregistrato: non cambiare dopo aver visto i risultati ----------------
 SEED_BASE = 24_000_024              # nuovo: nessun sottografo della 23 (5 già misurati) rientra
@@ -92,7 +104,7 @@ REDUCTION = [
     dict(k_in=2, k_val=4, k_un=4, k_val_un=20, k_1600=0, dmin=((0.85,), 100, 3),
          h7=((0.85,), 100, 3), hrr=64 << 20, hrr_1600=False),
 ]
-GRID_STEP = 4                       # scelto da --estimate: 9.92 h × 1.5 = 14.9 h ≤ 20 h (passi 0-3 oltre)
+GRID_STEP = 4                       # 1 thread BLAS: 0.76 h × 1.5 = 1.13 h ≤ 20 h; passi 0-3 non stimabili (N = 1600 fuori)
 CONTROLS_FIRST = True               # controlli: ~1 h di CPU nello smoke (~6 min con 10 processi)
 # -----------------------------------------------------------------------------
 
@@ -185,7 +197,7 @@ def select(pred):
         subs.sort()
         unseen = ds in P.UNSEEN
         order = (P.DATASETS.index(ds), P.SCHEMES.index(sc), n)
-        if n == 1600:
+        if n > 400:     # revisione: NESSUNA conclusione a N = 1600 (né base né val)
             for pos, (_k, key, _rs) in enumerate(subs[:CFG["k_1600"]]):
                 out["b1600"].append(((pos,) + order, key))
             continue
@@ -199,7 +211,9 @@ def select(pred):
             if v and nval < kv:
                 out["val"].append(((nval,) + order, key))
                 nval += 1
-    return {k: [key for _o, key in sorted(v)] for k, v in out.items()}
+    res = {k: [key for _o, key in sorted(v)] for k, v in out.items()}
+    assert all(by[k][0]["N"] <= 400 for k in res["base"] + res["val"])
+    return res
 
 
 def cells_of(pred, sel):
@@ -274,8 +288,8 @@ def cid(c):
 
 # ---- misure di una cella ------------------------------------------------------------
 
-class CellTimeout(Exception):
-    pass
+class CellTimeout(BaseException):
+    """BaseException: nessun `except Exception` del codice chiamato può inghiottirla."""
 
 
 def _alarm(_sig, _frm):
@@ -360,6 +374,11 @@ def run_cell(task):
     signal.alarm(lim)
     t0 = time.time()
     try:
+        if c["key"].startswith("smoketest:"):         # solo smoke: guasti provocati
+            if c["kind"] == "raise":
+                raise ValueError("guasto provocato (smoke)")
+            if c["kind"] == "kill":
+                os.kill(os.getpid(), signal.SIGKILL)
         if c["kind"] == "rec":
             row, _t, _s = rec_row(sg, c["target"], c["family"])
             out.update(status="ok" if row else "absent", row=row)
@@ -387,10 +406,13 @@ def run_cell(task):
                         P.mean_or_none(truth(c["family"], bd, sd["truth"]))})
     except CellTimeout:
         out.update(status="timeout")
-    except MemoryError as e:
-        out.update(status="error", error=repr(e))
+    except Exception as e:                       # noqa: BLE001  (registrato, il run prosegue)
+        out.update(status="error", error=f"{type(e).__name__}: {e}")
     finally:
-        signal.alarm(0)
+        try:
+            signal.alarm(0)
+        except CellTimeout:                      # allarme scattato tardi: già fuori dalla cella
+            signal.alarm(0)
         signal.signal(signal.SIGALRM, old)
     out["seconds"] = time.time() - t0
     out["cap_s"] = lim
@@ -407,6 +429,56 @@ def _read_ckpt(path):
                 d = json.loads(line)
                 done[d["cell"]] = d
     return done
+
+
+def _write(fh, done, rec, name):
+    rec["phase"] = name
+    fh.write(json.dumps(rec, default=P._jdef) + "\n")
+    fh.flush()
+    os.fsync(fh.fileno())
+    done[rec["cell"]] = rec
+
+
+def _run_phase(name, todo, ctx, workers, deadline, fh, done):
+    """Finestra di al più `workers` celle in volo (apply_async). Watchdog nel padre: una
+    cella in volo da più di min(tetto della cella, scadenza rigida) + WATCHDOG_SLACK_S (un
+    worker ucciso da OOM/SIGKILL non risponde mai) è scritta come `timeout` (watchdog);
+    il pool si termina e si ricrea; le altre celle in volo, sane, tornano in testa alla
+    coda (non scritte: si rifanno). Il run non si blocca."""
+    queue = list(todo)
+    pool = ctx.Pool(workers, maxtasksperchild=50)
+    inflight = {}
+    try:
+        while queue or inflight:
+            while queue and len(inflight) < workers:
+                task = queue.pop(0)
+                inflight[cid(task[0])] = (pool.apply_async(run_cell, (task,)), time.time(), task)
+            time.sleep(0.05)
+            for k, (ar, _t0, task) in list(inflight.items()):
+                if ar.ready():
+                    try:
+                        rec = ar.get()
+                    except Exception as e:           # noqa: BLE001
+                        rec = {"cell": k, **task[0], "status": "error",
+                               "error": f"{type(e).__name__}: {e}", "seconds": 0.0}
+                    _write(fh, done, rec, name)
+                    del inflight[k]
+            now = time.time()
+            stuck = [k for k, (_ar, t0, task) in inflight.items()
+                     if now > min(t0 + task[3], deadline) + WATCHDOG_SLACK_S]
+            if stuck:
+                pool.terminate()
+                pool.join()
+                for k in stuck:
+                    _ar, t0, task = inflight.pop(k)
+                    _write(fh, done, {"cell": k, **task[0], "status": "timeout",
+                                      "watchdog": True, "seconds": now - t0}, name)
+                queue = [task for _ar, _t0, task in inflight.values()] + queue
+                inflight = {}
+                pool = ctx.Pool(workers, maxtasksperchild=50)
+    finally:
+        pool.terminate()
+        pool.join()
 
 
 def execute(phases, subs, cost, ckpt, meta, workers, step, cap_h=HARD_CAP_H):
@@ -435,23 +507,7 @@ def execute(phases, subs, cost, ckpt, meta, workers, step, cap_h=HARD_CAP_H):
             if not todo:
                 continue
             print(f"fase {name}: {len(todo)} celle", flush=True)
-            if workers <= 1:
-                it = map(run_cell, todo)
-                pool = None
-            else:
-                pool = ctx.Pool(workers, maxtasksperchild=50)
-                it = pool.imap_unordered(run_cell, todo, chunksize=1)
-            try:
-                for rec in it:
-                    rec["phase"] = name
-                    fh.write(json.dumps(rec, default=P._jdef) + "\n")
-                    fh.flush()
-                    os.fsync(fh.fileno())
-                    done[rec["cell"]] = rec
-            finally:
-                if pool is not None:
-                    pool.terminate()
-                    pool.join()
+            _run_phase(name, todo, ctx, workers, deadline, fh, done)
     return done
 
 
@@ -462,7 +518,7 @@ def merge_rows(done):
         if d["kind"] == "rec":
             if d["status"] == "ok":
                 rows[(d["key"], d["target"], d["family"])] = dict(d["row"])
-            elif d["status"] in ("timeout", "not_started", "error"):
+            elif d["status"] in ("timeout", "not_started", "error", "absent"):
                 unmeasured.append(d)
     for d in done.values():
         r = rows.get((d["key"], d["target"], d["family"]))
@@ -553,7 +609,26 @@ def _timing_job(job):
             "allk_s": max(m[2] for m in meas), "reps": meas}
 
 
-def timing_real(graphs, workers):
+def verify_counts_23():
+    """Rende verificabili VERIFY_MEMS e P_ADJ: legge dal checkpoint della 23 (sha256
+    P23_CKPT_SHA) SOLO i campi family, tool_memories, adjusted (nessuna accuratezza) e
+    controlla che le costanti siano le medie arrotondate."""
+    path = ROOT / "results" / "sizing_tool_prereg_results.jsonl"
+    assert P.sha256(path) == P23_CKPT_SHA, "checkpoint della 23 cambiato"
+    mem, adj = defaultdict(list), defaultdict(list)
+    for line in path.read_text().splitlines():
+        for r in json.loads(line)["rows"]:
+            r = {k: r[k] for k in ("family", "tool_memories", "adjusted")}
+            if r["tool_memories"]:
+                mem[r["family"]].append(r["tool_memories"])
+                adj[r["family"]].append(r["adjusted"])
+    for f in P.FAMILIES:
+        assert round(float(np.mean(mem[f])), 1) == VERIFY_MEMS[f], f
+        assert round(float(np.mean(adj[f])), 2) == P_ADJ[f], f
+    return {f: (len(mem[f]), VERIFY_MEMS[f], P_ADJ[f]) for f in P.FAMILIES}
+
+
+def timing_real(graphs, workers, max_n=None):
     """Un sottografo reale per grafo × schema × N (k = K_TIMING, mai di valutazione): per ogni
     famiglia, ai D previsti (verify=False) dei tre target e a 2× il massimo (correzioni,
     D minimo), costruzione e query (su Q e su tutte le chiavi), massimo di 3 ripetizioni,
@@ -563,6 +638,8 @@ def timing_real(graphs, workers):
     TIMING_MODE = True
     jobs = []
     for sg in all_subgraphs(graphs, offset=K_TIMING, kmax=1):
+        if max_n and sg["N"] > max_n:
+            continue
         st = P.struct(sg)
         ds = defaultdict(set)
         for t in P.targets_of(sg, st["ceiling"]):
@@ -716,6 +793,11 @@ def power(pred):
         for r in by[k]:
             if not r["discarded"]:
                 pairs[(k, r["target"])] |= bool(_validated(r))
+    r16 = [r for r in pred if r["N"] > 400 and _valid_cell(r)]
+    tab["validated_1600_untested"] = sum(r["reliability"] == "validated" for r in r16)
+    tab["hrr_validated_1600_excluded"] = sorted(
+        f"{r['key']}|{r['target']}|HRR" for r in r16
+        if r["family"] == "HRR" and r["reliability"] == "validated")
     tab["base_clusters"] = len(sel["base"])
     tab["H5_pairs"] = len(pairs)
     tab["H5_predicted_max_coverage"] = P._prop(list(pairs.values()))
@@ -784,6 +866,25 @@ def smoke(workers=4):
                                "hard_cap_h": HARD_CAP_H}))
     d4 = execute([phases[1]], subs, {}, ck4, mt4, workers, CFG["step"])
     assert {d["status"] for d in d4.values()} == {"not_started"}
+    # guasti provocati: ValueError nel worker e worker ucciso (SIGKILL), fra celle vere
+    ck6, mt6 = tmp / "ck6.jsonl", tmp / "meta6.json"
+    subs["smoketest:x"] = {"key": "smoketest:x"}
+    faults = [{"key": "smoketest:x", "target": 0.85, "family": "MAP-B", "kind": "raise"},
+              {"key": "smoketest:x", "target": 0.85, "family": "MAP-I", "kind": "kill"}]
+    old = (globals()["CELL_CAP_MIN_S"], globals()["WATCHDOG_SLACK_S"])
+    globals()["CELL_CAP_MIN_S"], globals()["WATCHDOG_SLACK_S"] = 20, 5
+    try:
+        d6 = execute([("T", faults + phases[1][1][:6])], subs, {}, ck6, mt6, workers,
+                     CFG["step"])
+    finally:
+        globals()["CELL_CAP_MIN_S"], globals()["WATCHDOG_SLACK_S"] = old
+    st6 = {k: d["status"] for k, d in d6.items()}
+    print("guasti provocati:", st6)
+    assert st6["smoketest:x|0.85|MAP-B|raise"] == "error" and \
+        "ValueError" in d6["smoketest:x|0.85|MAP-B|raise"]["error"]
+    assert st6["smoketest:x|0.85|MAP-I|kill"] == "timeout" and \
+        d6["smoketest:x|0.85|MAP-I|kill"].get("watchdog")
+    assert len(d6) == 8 and sum(v == "ok" for v in st6.values()) == 6
     rows, um = merge_rows(done)
     for r in rows:
         if r["dim"] != r["dim_predicted"]:
@@ -884,6 +985,7 @@ def main():
     a = ap.parse_args()
     t0 = time.time()
     if a.smoke:
+        print("conteggi della 23:", verify_counts_23())
         print(json.dumps(smoke(min(a.workers, 4)), default=P._jdef))
     elif a.estimate or a.power:
         d = json.loads(PRED_OUT.read_text())
@@ -914,8 +1016,10 @@ def main():
                 "seed_base": SEED_BASE, "k_offset": K_OFFSET, "rows": pred}, indent=1))
             print(f"{len(sgs)} sottografi, {len(pred)} righe")
         elif a.timing_real:
-            tim = timing_real(graphs, a.workers)
+            tim = timing_real(graphs, a.workers, TIMING_MAX_N)
             TIMING_OUT.write_text(json.dumps({"k_timing": K_TIMING, "repeats": TIMING_REPEATS,
+                                              "blas_threads": BLAS_THREADS,
+                                              "max_n": TIMING_MAX_N,
                                               "workers": a.workers, "timing": tim},
                                              indent=1, default=P._jdef))
         else:

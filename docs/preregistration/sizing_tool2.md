@@ -13,6 +13,67 @@ Prima del commit l'harness è stato eseguito solo con `--smoke` (grafi sintetici
 `--predict` (`recommend(verify=False)`: nessuna memoria), `--timing-real` (memorie su
 sottografi reali **dedicati**, solo tempi), `--estimate` e `--power` (dalle previsioni).
 
+## Revisione del disegno prima dei dati (dopo `edc1eb1`)
+
+Revisione ostile applicata **prima** di qualsiasi accuratezza sui grafi reali. Questa sezione
+prevale sulle sezioni sotto dove le contraddice.
+
+1. **Popolazione di TUTTE le conclusioni = sottografi con N ∈ {100, 400}** (H1, H2, H1u,
+   H2u comprese): `select()` esclude N = 1600 da ogni ruolo (asserito). Le **249
+   raccomandazioni validated previste a N = 1600** nel pool (di cui **45 HRR**, elencate in
+   `power.hrr_validated_1600_excluded` del file delle previsioni) **non sono collaudate**.
+   Nessuna conclusione di questa preregistrazione generalizza a N = 1600, il regime in cui
+   la verifica corregge di più (nella 23 la quota di D corretti cresceva con N).
+2. `run_cell`: `CellTimeout` deriva da `BaseException`; ogni altra eccezione è registrata
+   come `error` con il messaggio; un allarme tardivo nel `finally` è intercettato.
+3. Una cella validated pianificata con status `absent` (recommend non la restituisce) conta
+   come **fallimento** nel worst case ed è elencata fra le non misurate.
+4. **Watchdog nel padre**: al più 10 celle in volo (`apply_async`); una cella in volo oltre
+   min(inizio + tetto della cella, scadenza rigida) + 10 min è scritta `timeout`
+   (`watchdog: true`), il pool si termina e si ricrea, le altre celle in volo (non scritte)
+   tornano in testa alla coda e si rifanno. Un worker ucciso (OOM/SIGKILL) non blocca il run.
+5. **Thread BLAS = 1** (`OMP_NUM_THREADS`, `OPENBLAS_NUM_THREADS`, `MKL_NUM_THREADS`) fissati
+   prima di importare numpy. Il primo `--timing-real` **non** li fissava (OpenBLAS
+   multi-thread in 10 processi su 12 core: sovrascrittura). Ripetuto a 1 thread su N ≤ 400
+   (`results/sizing_tool2_prereg_timing_t1.json`, 348 s): le memorie costano **~13 volte
+   meno**; la stima del passo 4 scende da 9.9 h a **0.76 h (1.13 h con × 1.5)**. Il primo
+   file resta come registro e non entra nella stima. Questo è probabilmente anche parte
+   dell'errore di ~50× della 23 (stesso harness, stessi 6 processi senza vincolo di thread).
+   La griglia non cambia: i passi 0–3 includono N = 1600, che la revisione esclude e che a
+   1 thread non è stato misurato, quindi sono «non stimabili»; il passo 4 è il primo
+   stimabile sotto il budget. **Dichiarato:** il budget permetterebbe ora molto di più
+   (vero su 20 memorie, più cluster); non lo si usa per non cambiare il disegno dopo la
+   revisione.
+6. **Smoke rifatto** (passo 4, 1 thread, 4 processi, 176 s): 10/10 controlli superati;
+   ripresa idempotente; tetto di 1 s per cella → 24 timeout su 54; tetto rigido scaduto →
+   tutte `not_started`; **ValueError provocato → `error` registrato**, **worker ucciso con
+   SIGKILL → `timeout` dal watchdog**, le 6 celle vere della stessa fase finite `ok`;
+   modello rotto: quota H2 0.19 su 72, sensibilità H3 0.00 su 68 (falliscono, come devono).
+
+Consigliate, applicate:
+- **Conteggi della 23 verificabili**: `verify_counts_23()` (eseguita dallo smoke) controlla
+  lo sha256 del checkpoint della 23
+  (`ba2869f7746e8ef0adb62ed347e2dbaec0d7fdfda44a1262b1bde2a84d292882`) e legge SOLO i campi
+  `family`, `tool_memories`, `adjusted`; asserisce che VERIFY_MEMS e P_ADJ ne sono le medie
+  arrotondate (12–15 raccomandazioni per famiglia, solo FB15k-237).
+- **Il passo 4, aggiunto a posteriori, allarga il perimetro di H4** (da N = 100 del passo 5
+  a N ≤ 400): è stato aggiunto vedendo solo tempi.
+- **H4/H7 «non testabili»**: con 57 e 51 sottografi nei perimetri e una quota di verificate
+  vicina a quella descrittiva della 23 (0.90 per raccomandazione, ~6 celle per sottografo),
+  la probabilità di avere meno di 30 cluster è trascurabile (< 0.01) se le celle si
+  misurano; il rischio è un D minimo non trovato entro 8× (cluster senza d_min) o una
+  baseline non verificata (H7 richiede verificate entrambe): non stimabile senza dati,
+  dichiarato. **Un esito «non testabile» di H4/H7 non si ripara con un nuovo run** su
+  questi dati: resta l'esito.
+- **H5**: la copertura massima possibile dalle previsioni è 0.434 < 0.50, quindi p̂ < 0.50
+  è certo: H5 si registra **falsificata** se boot_sup < 0.50 (regola della 23) e comunque
+  **mai sostenuta**; non «non testabile» (64 cluster ≥ 30).
+- **Rumore del vero a 10 memorie** (≈ 0.7 punti sulla media invece di 0.5): per H1/H2 spinge
+  verso il fallimento (contro lo strumento); per H3/H6 nella direzione opposta: più errori
+  apparenti vicino a 3 punti, classificati a caso rispetto all'affidabilità, il che
+  **diluisce** la sensibilità e il risk ratio (contro lo strumento anch'esso per H6, ma
+  gonfia il numero di positivi di H3).
+
 ## Cosa resta uguale alla 23
 
 Ipotesi, unità, criteri e soglie: **H1/H2** replica in-distribuzione (4 grafi della
@@ -83,7 +144,7 @@ il tetto si controllava solo a fine sottografo. Cambia:
    processi; **tetto rigido 30 h** (orologio da muro dal primo avvio; il tempo di un crash
    conta).
 
-## Tempi reali misurati (massimo di 3, 10 processi in parallelo)
+## Tempi reali misurati (massimo di 3, 10 processi in parallelo) — PRIMA misura, BLAS multi-thread, superata dal punto 5 della revisione
 
 Secondi per UNA memoria (costruzione + query su tutte le chiavi), sui 36 sottografi dei tempi:
 
@@ -106,7 +167,7 @@ barriera fra le fasi. **Dichiarato:** dal checkpoint della 23 ho letto solo cont
 memorie, quota di D corretti e secondi (non accuratezze); la quota corretta (39 %) era già
 nell'esito pubblicato.
 
-## Griglia scelta
+## Griglia scelta (stima con la PRIMA misura; vedi il punto 5 della revisione: a 1 thread il passo 4 stima 0.76 h, 1.13 h con il margine)
 
 | passo | k_in | k_val | k_un | k_val_un | k_1600 | D minimo | baseline | HRR | celle | CPU | makespan | × 1.5 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -189,8 +250,8 @@ ferma da solo (SIGALRM per cella e `not_started` per le restanti).
 
 ## Limiti dichiarati prima
 
-1. Le ipotesi H3, H5, H6 parlano di N ≤ 400; N = 1600 non è collaudato (la 23 lo
-   includeva). Lo strumento a N = 1600 è quasi tutto `unvalidated` nelle previsioni.
+1. **Tutte** le ipotesi (H1, H2, H1u, H2u, H3–H8u) parlano di N ∈ {100, 400}; N = 1600 non è
+   collaudato (la 23 lo includeva): 249 validated previste lì restano fuori.
 2. HRR escluso a N = 1600 e oltre 64 MiB: le escluse validated contano come fallimenti nel
    worst case della 23 (H1_worst_case) e sono elencate.
 3. Vero su 10 memorie: errore di misura maggiore (H3/H6 classificano con più rumore errori
@@ -198,13 +259,12 @@ ferma da solo (SIGALRM per cella e `not_started` per le restanti).
 4. Perimetri di H4 (1 sottografo su 3, N ≤ 400) e H7 (1 su 2, N = 100) più stretti.
 5. La stima usa conteggi medi di memorie della 23 (solo FB15k-237); è il punto più debole
    del modello del costo, coperto dal margine × 1.5 e dal tetto per cella.
-6. Il tetto per cella può abbandonare preferibilmente celle corrette dalla verifica: per
-   questo il worst case è decisionale per H1/H2/H1u/H2u.
+6. Il tetto per cella e il watchdog possono abbandonare preferibilmente celle corrette dalla
+   verifica: per questo il worst case (timeout, error, absent, not_started come fallimenti)
+   è decisionale per H1/H2/H1u/H2u; e nessuna conclusione vale a N = 1600, dove la
+   verifica corregge di più.
 7. Il passo 4 è stato aggiunto alla griglia dopo la prima stima dei tempi (solo tempi).
 
-## Hash (sha256, al commit)
+## Hash
 
-- `examples/sizing_tool2_prereg.py`: vedi `git log` (il file contiene questo valore solo
-  indirettamente; hash calcolato al commit e riportato nel messaggio).
-- `results/sizing_tool2_prereg_predictions.json`, `results/sizing_tool2_prereg_timing.json`:
-  idem.
+sha256 nel messaggio del commit di revisione (harness, documento, previsioni, tempi).

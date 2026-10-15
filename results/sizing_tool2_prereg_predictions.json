@@ -250765,30 +250765,30 @@
    "step": 0,
    "subgraphs": 223,
    "cells": 5400,
-   "cpu_h": 513.9859586529868,
-   "makespan_h": 52.81774641506016,
-   "with_margin_h": 79.22661962259023,
-   "largest_cell_h": 6.0972599780647565,
+   "cpu_h": Infinity,
+   "makespan_h": Infinity,
+   "with_margin_h": Infinity,
+   "largest_cell_h": Infinity,
    "phases": [
     [
      "F1",
      1820,
-     5.21
+     0.44
     ],
     [
      "F2",
      1213,
-     10.09
+     0.76
     ],
     [
      "F3",
      1938,
-     17.7
+     1.38
     ],
     [
      "F4",
      429,
-     52.82
+     Infinity
     ]
    ],
    "peak_bytes_per_process": 1073741824
@@ -250797,30 +250797,30 @@
    "step": 1,
    "subgraphs": 190,
    "cells": 4248,
-   "cpu_h": 277.63512360926103,
-   "makespan_h": 29.76216588961417,
-   "with_margin_h": 44.64324883442126,
-   "largest_cell_h": 5.446380644611574,
+   "cpu_h": Infinity,
+   "makespan_h": Infinity,
+   "with_margin_h": Infinity,
+   "largest_cell_h": Infinity,
    "phases": [
     [
      "F1",
      1820,
-     5.21
+     0.44
     ],
     [
      "F2",
      907,
-     9.0
+     0.69
     ],
     [
      "F3",
      1248,
-     12.94
+     1.0
     ],
     [
      "F4",
      273,
-     29.76
+     Infinity
     ]
    ],
    "peak_bytes_per_process": 1073741824
@@ -250829,30 +250829,30 @@
    "step": 2,
    "subgraphs": 168,
    "cells": 3654,
-   "cpu_h": 260.1312797205193,
-   "makespan_h": 28.01383793993471,
-   "with_margin_h": 42.02075690990206,
-   "largest_cell_h": 5.446380644611574,
+   "cpu_h": Infinity,
+   "makespan_h": Infinity,
+   "with_margin_h": Infinity,
+   "largest_cell_h": Infinity,
    "phases": [
     [
      "F1",
      1676,
-     5.17
+     0.44
     ],
     [
      "F2",
      741,
-     8.49
+     0.66
     ],
     [
      "F3",
      972,
-     11.22
+     0.88
     ],
     [
      "F4",
      265,
-     28.01
+     Infinity
     ]
    ],
    "peak_bytes_per_process": 1073741824
@@ -250861,30 +250861,30 @@
    "step": 3,
    "subgraphs": 152,
    "cells": 3048,
-   "cpu_h": 242.88322424301705,
-   "makespan_h": 26.412628287491014,
-   "with_margin_h": 39.61894243123652,
-   "largest_cell_h": 5.446380644611574,
+   "cpu_h": Infinity,
+   "makespan_h": Infinity,
+   "with_margin_h": Infinity,
+   "largest_cell_h": Infinity,
    "phases": [
     [
      "F1",
      1550,
-     4.61
+     0.39
     ],
     [
      "F2",
      582,
-     7.09
+     0.54
     ],
     [
      "F3",
      648,
-     9.57
+     0.73
     ],
     [
      "F4",
      268,
-     26.41
+     Infinity
     ]
    ],
    "peak_bytes_per_process": 1073741824
@@ -250893,30 +250893,30 @@
    "step": 4,
    "subgraphs": 140,
    "cells": 2874,
-   "cpu_h": 95.40234922143848,
-   "makespan_h": 9.918892831227621,
-   "with_margin_h": 14.878339246841431,
-   "largest_cell_h": 1.186448939217982,
+   "cpu_h": 7.323888974836569,
+   "makespan_h": 0.7561762911141984,
+   "with_margin_h": 1.1342644366712977,
+   "largest_cell_h": 0.04626421344661847,
    "phases": [
     [
      "F1",
      1550,
-     4.61
+     0.39
     ],
     [
      "F2",
      582,
-     7.09
+     0.54
     ],
     [
      "F3",
      648,
-     9.57
+     0.73
     ],
     [
      "F4",
      94,
-     9.92
+     0.76
     ]
    ],
    "peak_bytes_per_process": 176964480
@@ -250925,30 +250925,30 @@
    "step": 5,
    "subgraphs": 140,
    "cells": 2742,
-   "cpu_h": 76.41772037667467,
-   "makespan_h": 7.900550847269507,
-   "with_margin_h": 11.85082627090426,
-   "largest_cell_h": 1.1737490979627556,
+   "cpu_h": 5.679852840041377,
+   "makespan_h": 0.5917772325621214,
+   "with_margin_h": 0.8876658488431822,
+   "largest_cell_h": 0.04626421344661847,
    "phases": [
     [
      "F1",
      1550,
-     4.61
+     0.39
     ],
     [
      "F2",
      582,
-     7.09
+     0.54
     ],
     [
      "F3",
      516,
-     7.55
+     0.57
     ],
     [
      "F4",
      94,
-     7.9
+     0.59
     ]
    ],
    "peak_bytes_per_process": 176964480
@@ -250957,30 +250957,30 @@
    "step": 6,
    "subgraphs": 123,
    "cells": 2316,
-   "cpu_h": 68.62523807380528,
-   "makespan_h": 7.141720648703992,
-   "with_margin_h": 10.712580973055989,
-   "largest_cell_h": 1.1737490979627556,
+   "cpu_h": 5.025007031521941,
+   "makespan_h": 0.5277488256717593,
+   "with_margin_h": 0.7916232385076389,
+   "largest_cell_h": 0.04626421344661847,
    "phases": [
     [
      "F1",
      1282,
-     3.99
+     0.33
     ],
     [
      "F2",
      582,
-     6.46
+     0.48
     ],
     [
      "F3",
      372,
-     6.82
+     0.51
     ],
     [
      "F4",
      80,
-     7.14
+     0.53
     ]
    ],
    "peak_bytes_per_process": 176964480
@@ -251401,6 +251401,54 @@
     0.665
    ]
   },
+  "validated_1600_untested": 249,
+  "hrr_validated_1600_excluded": [
+   "codex-m|dense|1600|60006|0.7|HRR",
+   "codex-m|dense|1600|60006|0.85|HRR",
+   "codex-m|dense|1600|60006|0.95|HRR",
+   "codex-m|uniform|1600|60000|0.7|HRR",
+   "codex-m|uniform|1600|60000|0.85|HRR",
+   "codex-m|uniform|1600|60000|0.95|HRR",
+   "codex-m|uniform|1600|60001|0.7|HRR",
+   "codex-m|uniform|1600|60001|0.85|HRR",
+   "codex-m|uniform|1600|60001|0.95|HRR",
+   "codex-m|uniform|1600|60002|0.7|HRR",
+   "codex-m|uniform|1600|60002|0.85|HRR",
+   "codex-m|uniform|1600|60002|0.95|HRR",
+   "codex-m|uniform|1600|60003|0.7|HRR",
+   "codex-m|uniform|1600|60003|0.85|HRR",
+   "codex-m|uniform|1600|60003|0.95|HRR",
+   "codex-m|uniform|1600|60004|0.7|HRR",
+   "codex-m|uniform|1600|60004|0.85|HRR",
+   "codex-m|uniform|1600|60004|0.95|HRR",
+   "codex-m|uniform|1600|60005|0.7|HRR",
+   "codex-m|uniform|1600|60005|0.85|HRR",
+   "codex-m|uniform|1600|60005|0.95|HRR",
+   "codex-m|uniform|1600|60006|0.7|HRR",
+   "codex-m|uniform|1600|60006|0.85|HRR",
+   "codex-m|uniform|1600|60006|0.95|HRR",
+   "codex-m|uniform|1600|60007|0.7|HRR",
+   "codex-m|uniform|1600|60007|0.85|HRR",
+   "codex-m|uniform|1600|60007|0.95|HRR",
+   "fb15k237|dense|1600|60000|0.7|HRR",
+   "fb15k237|dense|1600|60000|0.85|HRR",
+   "fb15k237|dense|1600|60000|0.95|HRR",
+   "fb15k237|dense|1600|60002|0.7|HRR",
+   "fb15k237|dense|1600|60002|0.85|HRR",
+   "fb15k237|dense|1600|60002|0.95|HRR",
+   "fb15k237|dense|1600|60004|0.7|HRR",
+   "fb15k237|dense|1600|60004|0.85|HRR",
+   "fb15k237|dense|1600|60004|0.95|HRR",
+   "fb15k237|dense|1600|60006|0.7|HRR",
+   "fb15k237|dense|1600|60006|0.85|HRR",
+   "fb15k237|dense|1600|60006|0.95|HRR",
+   "fb15k237|dense|1600|60007|0.7|HRR",
+   "fb15k237|dense|1600|60007|0.85|HRR",
+   "fb15k237|dense|1600|60007|0.95|HRR",
+   "yago3-10|dense|1600|60002|0.7|HRR",
+   "yago3-10|dense|1600|60002|0.85|HRR",
+   "yago3-10|dense|1600|60002|0.95|HRR"
+  ],
   "base_clusters": 64,
   "H5_pairs": 166,
   "H5_predicted_max_coverage": 0.43373493975903615,
